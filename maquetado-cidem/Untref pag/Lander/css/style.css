@@ -1,0 +1,250 @@
+@font-face {
+    font-family: 'Distefano-Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/tipo_-_distefanosans_regular-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Sans';
+    font-style: italic;
+    font-weight: 400;
+    src: url('../fonts/tipo_-_distefanosans-italic-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Sans';
+    font-style: normal;
+    font-weight: 200;
+    src: url('../fonts/tipo_-_distefanosans_light-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Sans';
+    font-style: italic;
+    font-weight: 200;
+    src: url('../fonts/tipo_-_distefanosanslightitalic-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Sans';
+    font-style: normal;
+    font-weight: 900;
+    src: url('../fonts/tipo_-_distefanosans-black-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Sans';
+    font-style: italic;
+    font-weight: 900;
+    src: url('../fonts/tipo_-_distefanosans-blackitalic-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/tipo_-_distefanosans-bold-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Sans';
+    font-style: italic;
+    font-weight: 700;
+    src: url('../fonts/tipo_-_distefanosans-bolditalic-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Slab';
+    font-weight: 900;
+    src: url('../fonts/tipo_-_distefanoslab-black-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Slab';
+    font-style: italic;
+    font-weight: 900;
+    src: url('../fonts/tipo_-_distefanoslab-blackitalic-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Slab';
+    font-weight: 700;
+    src: url('../fonts/tipo_-_distefanoslab-bold-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Slab';
+    font-style: italic;
+    font-weight: 700;
+    src: url('../fonts/tipo_-_distefanoslab-bolditalic-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Slab';
+    font-style: italic;
+    font-weight: 400;
+    src: url('../fonts/tipo_-_distefanoslab-italic-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Slab';
+    font-weight: 200;
+    src: url('../fonts/tipo_-_distefanoslab-light-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Slab';
+    font-style: italic;
+    font-weight: 200;
+    src: url('../fonts/tipo_-_distefanoslab-lightitalic-webfont.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Distefano-Slab';
+    font-weight: 400;
+    src: url('../fonts/tipo_-_distefanoslab-regular-webfont.woff') format('woff');
+}
+
+
+body {
+	font: normal 100%/1.5 'Distefano-Sans', sans-serif;
+	background: #fff;
+	color:#000;
+}
+
+header{
+	margin-top: 1em;
+	border-bottom:1px solid rgba(0, 0, 0, 0.2);
+	width: 100%;
+	padding-bottom: 1em;
+}
+
+/*HACER QUE DESAPAREZCA LINEA CON MEDIAQ, HACER EL BUSCADOR MÁS GRANDE CON MEDIAQ*/
+header .untref img{
+    height: auto; 
+    width: auto; 
+    max-width: 150px; 
+    max-height: 150px;
+}
+
+.Lander{
+	padding-top: 8em;
+	padding-bottom: 8em;
+}
+
+.searcherbox{
+	background-color: #f4f4f4; 
+	margin-right: 15px;
+}
+
+.searcherbtn{
+	background-color: #000;
+	color:#fff;
+	text-transform: uppercase;
+    font-weight: 700;
+}
+
+.primeralinea h1{
+	text-align: center;
+	font-weight: 700;
+	text-transform: uppercase;
+	font-size: 2.25em;
+}
+
+.segundalinea p{
+	text-align:center;
+	font-size: 1.5em;
+	color: #4a4a4a;
+    font-family:'DistefanoSlab-Regular','DistefanoSlab';
+}
+
+i{
+	margin-right: 10px;
+}
+
+.searcher{
+	margin-top: 50px;
+}
+
+.linksearch {
+    margin-top: 10px;
+}
+
+.linksearch a{
+    font-style: italic;
+    text-decoration:underline;
+    font-size: 1.1313em;
+    fill: #17aae4;
+}
+
+.lupa{
+	margin:0;
+}
+
+footer {
+	border-top:1px solid rgba(0, 0, 0, 0.2);
+}
+
+.navfooter ul{
+	margin-top: 1em;
+	padding:0;
+	padding-bottom: 2em;
+}
+	
+.navfooter ul li{
+	display: inline-block;
+	list-style: none;	
+	margin-right:100px;
+}
+
+.navfooter ul li a{
+	font-size: 1.05em;
+	font-family:'DistefanoSans-Regular', 'DistefanoSans';
+	color:#000;
+	text-decoration: none;
+}
+
+footer .cidem img{
+	width: 100%;
+    max-width: 200px; 
+    max-height: 200px;
+}
+
+.copyright p{
+	margin:0 auto;
+	font-size: 0.875em;
+	font-family:'DistefanoSans-Regular', 'DistefanoSans'; 
+	text-transform: uppercase;
+	text-align: right;
+	white-space: pre-line;
+}
+
+.direccion p{
+	margin:0 auto;
+	font-family:'DistefanoSans-Light', 'DistefanoSans';
+	font-size: 0.875em;
+    white-space: pre-line;
+}
+
+.rowfooter{
+	padding-bottom: 1em;
+}
+
+@media (max-width: 576px){
+	ul li a{
+		display:block;
+		margin-bottom:1em;
+	}
+    .primeralinea h1{
+    	font-size: 1.750em;
+    }
+
+    .segundalinea p{
+    	font-size: 0.875em;
+    }
+
+    .place::placeholder{
+    	font-size:0.8em;
+    }
+}
