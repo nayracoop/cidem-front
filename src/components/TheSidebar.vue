@@ -1,7 +1,7 @@
 <template>
 	<div class="col-4">
 				<aside>
-				    <filters-selected :filters="['hola', 'holi', 'hu']"></filters-selected>
+				    <filters-selected></filters-selected>
 					<div class="filters">
 					    <dl>
 					    	<dt>Unidad</dt>
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+  	import FiltersSelected from '@/components/FiltersSelected'
+
 
 	export default {
 	  name: 'TheSidebar',
@@ -41,6 +43,9 @@
 	    return {
 	    	
 	    }
+	  },
+	  components: {
+	  	FiltersSelected
 	  }
 	}
 </script>

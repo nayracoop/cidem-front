@@ -2,22 +2,13 @@
   <div id="app" class="container">
     <the-header></the-header>
     <div class="test">
-      <button @click="getservice">click</button>
-      <div 
-        v-for="currency in services"
-        class="currency"
-      >
-      {{ currency.description }}
-      <span class="lighten">
-        <span v-html="currency.symbol"></span>{{ currency.rate_float }}
-      </span>
-      </div>
+      <button @click="getipos">testea</button>
       <the-sidebar>
       </the-sidebar>
 
+      
     </div>
-    <div class="prototipo" v-for="service in services"> 
-    </div>
+    
     <the-footer></the-footer>
 
   </div>
@@ -28,32 +19,32 @@ import axios from 'axios'
 import TheHeader from '@/components/TheHeader'
 import TheFooter from '@/components/TheFooter'
 import TheSidebar from '@/components/TheSidebar'
-import FiltersSelected from '@/components/FiltersSelected'
-
-
+import { eventBus } from '@/main.js'
 
 export default {
   name: 'App',
   data() {
     return {
       services: null,
-      errors: []
+      errors: [],
+      servicios: null
     }
   },
   components: {
     TheHeader,
     TheFooter,
-    TheSidebar,
-    FiltersSelected
-  },
+    TheSidebar
+      },
   methods: {
-    getservice: function() {
-    axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
-    .then(response => (this.services = response.data.bpi) )
-    .catch(e => {
-      this.errors.push(e)
-    })
-  }
+    getipos: function() {
+      axios.get('http://127.0.0.1:8000/api/services')
+      .then(response => (this.servicios = response.data.data)  )
+      .catch(e => {
+        this.errors.push(e)
+      }) 
+      eventBus.$emit('serviciosConsultados', this.servicios)
+    }
+ 
   }
   
 }
