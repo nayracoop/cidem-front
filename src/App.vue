@@ -2,7 +2,11 @@
   <div id="app" class="container">
     <the-header></the-header>
     <div class="test">
+      <h1>{{title}}</h1>
       <button @click="getipos">testea</button>
+      <button @click="test1">chau</button>
+      <button @click="test2">hola</button>
+
       <the-sidebar>
       </the-sidebar>
 
@@ -27,22 +31,35 @@ export default {
     return {
       services: null,
       errors: [],
-      servicios: null
+      servicios: null,
+      filterTree: null,
+      title: 'chau'
     }
   },
   components: {
     TheHeader,
     TheFooter,
     TheSidebar
-      },
+  },
+  created() {
+    eventBus.$on('titleChanged', (title) => {
+        this.title = title
+      })
+  },
   methods: {
     getipos: function() {
-      axios.get('http://127.0.0.1:8000/api/services')
-      .then(response => (this.servicios = response.data.data)  )
+      axios.get('http://127.0.0.1:8000/api/filter-tree')
+      .then(response => (this.filterTree = response.data.data)  )
       .catch(e => {
         this.errors.push(e)
       }) 
-      eventBus.$emit('serviciosConsultados', this.servicios)
+      eventBus.$emit('filtrosOfrecidos', this.filterTree)
+    },
+    test1: function() {
+      eventBus.changeTitle('chau')
+    },
+    test2: function() {
+      eventBus.changeTitle('holi')
     }
  
   }

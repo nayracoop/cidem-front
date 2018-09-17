@@ -6,7 +6,23 @@ import App from './App'
 
 Vue.config.productionTip = false
 
-export const eventBus = new Vue();
+export const eventBus = new Vue({
+	data: {
+		filtrosOferta : [] ,
+		filtrosElegidos: [],
+		serviciosFiltrados: []
+	},
+	methods: {
+   		changeTitle(title) {
+   			this.$emit('titleChanged', title)
+   		},
+   		changeFilters(filters) {
+   			this.$emit('filtersChanged', filters);
+   			this.filtrosElegidos = filters;
+   			console.log(this.filtrosElegidos);
+   		}
+	}
+});
 
 /* eslint-disable no-new */
 new Vue({

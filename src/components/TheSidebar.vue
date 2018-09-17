@@ -2,32 +2,13 @@
 	<div class="col-4">
 				<aside>
 				    <filters-selected></filters-selected>
-					<div class="filters">
-					    <dl>
-					    	<dt>Unidad</dt>
-					        <dd>Centro de Innovación y Desarrollo de Empresas y Organizaciones (CIDEM)</dd>
-					        <dd>Centro de Investigaciones en Estadística Aplicada (CINEA)</dd>
-					        <dd>Ingeniería Ambiental</dd>
-					        <dd>Ingeniería en Sonido</dd>
-					  
-					    	<dt>Subunidad</dt>
-					        <dd>Centro de Innovación y Desarrollo de Empresas y Organizaciones (CIDEM)</dd>
-					        <dd>Centro de Investigaciones en Estadística Aplicada (CINEA)</dd>
-					        <dd>Ingeniería Ambiental</dd>
-					        <dd>Ingeniería en Sonido</dd>
-					      	
-					      	<dt>Tipo de Servicio</dt>
-					        <dd>Centro de Innovación y Desarrollo de Empresas y Organizaciones (CIDEM)</dd>
-					        <dd>Centro de Investigaciones en Estadística Aplicada (CINEA)</dd>
-					        <dd>Ingeniería Ambiental</dd>
-					        <dd>Ingeniería en Sonido</dd>
-					      	
-					      	<dt>Sector del servicio</dt>
-					        <dd>Centro de Innovación y Desarrollo de Empresas y Organizaciones (CIDEM)</dd>
-					        <dd>Centro de Investigaciones en Estadística Aplicada (CINEA)</dd>
-					        <dd>Ingeniería Ambiental</dd>
-					        <dd>Ingeniería en Sonido</dd>
-						</dl>
+					<div class="filters" >
+					    <dl v-for="filterType in filterTree">
+					    	<dt>{{filterType.type}}</dt>
+					        <dd 
+					        	v-for="filter in filterType.filters"
+					        	@click="filterclick(filter.id,filter.name)"><span>{{filter.id}} </span>{{filter.name}}</dd>
+					    </dl>
 					</div>
 				</aside>    						  
 			</div>
@@ -35,17 +16,41 @@
 
 <script>
   	import FiltersSelected from '@/components/FiltersSelected'
+	import { eventBus } from '@/main.js'
 
 
 	export default {
 	  name: 'TheSidebar',
 	  data () {
 	    return {
-	    	
+	    	filterTree: null,
+	    	selected:[]
+
 	    }
 	  },
 	  components: {
 	  	FiltersSelected
+	  },
+	  created() {
+	  	eventBus.$on('filtrosOfrecidos', (data) => {
+	  		this.filterTree = data;
+	  	}),
+	  	eventBus.$on('filtersChanged', (data) => {
+	  		this.selected = data;
+	  	})
+	  },
+	  methods: {
+	  	filterclick: function(id,name) {
+	  	 	var filter = {id:id, name:name};
+	  	 	var result = this.selected.some(function (el){
+	  	 		return el.id === id;
+	  	 	});
+	  	 	
+	  	 	if (!result) {
+	  	 		this.selected.push(filter);
+      			eventBus.changeFilters(this.selected);
+	  	 	}
+    	},
 	  }
 	}
 </script>

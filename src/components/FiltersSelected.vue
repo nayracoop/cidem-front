@@ -1,7 +1,7 @@
 <template>
 	<div class="selectedfilters">
-		<dl v-for="servicio in servicios">
-	        <dd>{{servicio.id}} / {{servicio.name}} <i class="fas fa-times cruz"></i></dd>
+		<dl v-for="filter in selected">
+	        <dd>{{filter.id}} / {{filter.name}} <i @click="remove(filter.id)" class="fas fa-times cruz"></i></dd>
      	</dl>
 	</div>	
 </template>
@@ -13,13 +13,30 @@
 	  name: 'FiltersSelected',
 	  data () {
 	  	return {
-	  		servicios: null
+	  		selected: null
 	  	}
 	  },
 	  created() {
-	  	eventBus.$on('serviciosConsultados', (data) => {
-	  		this.servicios = data;
+	  	eventBus.$on('filtersChanged', (data) => {
+	  		this.selected = data;
 	  	})
+	  },
+	  methods: {
+	  	remove(id){
+	  		var end = 0;
+	  		var listToDelete = [id];
+			for (var i = 0; i < this.selected.length; i++) {
+			    var obj = this.selected[i];
+
+			    if (listToDelete.indexOf(obj.id) === -1) {
+			        this.selected[end++] = obj;
+			    }
+			}
+
+			this.selected.splice(end);
+			eventBus.changeFilters(this.selected);
+
+	  	}
 	  }
 	}
 </script>
