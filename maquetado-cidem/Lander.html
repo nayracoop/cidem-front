@@ -16,52 +16,51 @@
    	<title>Buscador</title>
 	</head>
 	    <body>
-		    <div class="container">
-			    <header>
+			<div class="container">
+			    <header id="header">	
 					<div class="row align-items-center header">
-						<div class="col-sm-6 col-md-3 col-lg-3 untref">	
+						<div class="col-6 col-md-3 untref">	
 			  				<img src="img/logountref.svg" alt="logo-untref">  
 						</div>
-						<div class="d-none d-md-inline col-md-6 col-lg-6 offset-3">
+						<div class="col-6 offset-md-3">
 							<div class="input-group">
 								<input type="text" class="form-control rounded-0 searcherbox" placeholder="Buscar servicios, instituciones..." aria-label="Recipient's username" aria-describedby="button-addon2">
 								<div class="input-group-append">
-							    <button class="btn btn-outline-secondary rounded-0 searcherbtn" type="button">Buscar</button>
+							    <button class="btn rounded-0 searcherbtn" type="button">
+							       <i class="d block d-md-none fa fa-search lupa"></i><span class= "d-none d-md-block"> Buscar</span>
+								</button>
 							  </div>
 							</div>		        			
 						</div>
 					</div>					
-				</header>		
+				</header>				
 				<section class=Lander>			
-					<div class="row title"> <!-- primer oracion -->	
+					<div class="row titlelander"> <!-- primer oracion -->	
 					    <div class="col-12">			    	
-					    	<h1>Buscador de servicios <span class="d-none d-sm-inline untref">untref</span></h1>					
+					    	<h1>Buscador de servicios <span class="d-none d-sm-inline">untref</span></h1>					
 						</div>						
 					</div>
 					
-					<div class="row subtitle"> <!-- segunda oracion -->
+					<div class="row sublander"> <!-- segunda oracion -->
 					    <div class="col-12">			    	
 					    	<p>Ingresar rubro, localidad, tipo de servicio</p>					
 						</div>
-					</div>
-					
+					</div>					
 					<div class="row searcher"> <!-- buscador principal -->
-						<div class="col-md-10 offset-md-1">
+						<div class="col-10 offset-1">
 							<div class="input-group input-group-lg">
 							  <input type="text" class="form-control rounded-0 searcherbox" placeholder="Buscar servicios, instituciones..." aria-label="Recipient's username" aria-describedby="button-addon2">
 							  <div class="input-group-append">
 							    <button class="btn rounded-0 searcherbtn" type="button">
-							    	<i class="d block d-sm-block d-md-none fa fa-search lupa"></i><span class= "d-none d-sm-none d-md-block"> Buscar</span>
+							       <i class="d block d-md-none fa fa-search lupa"></i><span class= "d-none d-md-block"> Buscar</span>
 								</button>
 							  </div>
 							</div>		        		
 		        		</div>
-		        	</div>
-		        	<div class="row">
-		        		<div class="col-12 offset-md-1 linksearch">
+		        		<div class="col-12 offset-1 linksearch">
 		        			<a href="http://google.com">Búsqueda avanzada</a>					
 					    </div>
-					</div>    
+    				</div>
 				</section>
 				<footer>
 					<div class="navfooter">
@@ -72,17 +71,21 @@
 						</ul>						
 					</div>						
 					<div class="row justify-content-between rowfooter">
-						<div class="col-6 col-sm-6 col-md-3 cidem">	
+						<div class="col-6 col-md-3 cidem">	
 			  				<img src="img/cidem-logo.png" alt="logo-cidem"> 			  					   
 						</div>	
-						<div class="d-none d-md-inline col-md-6 cidemcontact">
-							<p>Centro de Innovación y Desarrollo de Empresas y Organizaciones - CIDEM |
-							Av. San Martín 2921, 2º piso Caseros, Buenos Aires | 4759-9686/9810 | cidem@untref.edu.ar</p>
+						<div class="d-none d-md-block col-md-6 cidemcontact">
+							<p>
+								<span>Centro de Innovación y Desarrollo de Empresas y Organizaciones - CIDEM |</span>
+							  <span>Av. San Martín 2921, 2º piso Caseros, Buenos Aires | 4759-9686/9810 | cidem@untref.edu.ar</span>
+							</p>
 						</div>
-						<div class="col-6 col-sm-6 col-md-2 copyrightfooter">
-							<p>Copyright 2018 
-							Universidad Nacional 
-							de Tres de Febrero</p>
+						<div class="col-6 col-md-2 copyrightfooter">
+							<p>
+								<span>Copyright 2018</span>
+								<span>Universidad Nacional</span>
+								<span>de Tres de Febrero</span>
+							</p>
 						</div>
 					</div>						
 				</footer>					
