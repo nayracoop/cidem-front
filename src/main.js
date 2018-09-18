@@ -10,16 +10,16 @@ export const eventBus = new Vue({
 	data: {
 		filtrosOferta : [] ,
 		filtrosElegidos: [],
-		serviciosFiltrados: []
+		serviciosFiltrados:[]
 	},
 	methods: {
-   		changeTitle(title) {
-   			this.$emit('titleChanged', title)
-   		},
    		changeFilters(filters) {
    			this.$emit('filtersChanged', filters);
    			this.filtrosElegidos = filters;
-   			console.log(this.filtrosElegidos);
+   		},
+   		changeServices(services) {
+   			this.$emit('servicesChanged', services);
+   			this.serviciosFiltrados = services;
    		}
 	}
 });

@@ -1,5 +1,5 @@
 <template>
-	<div class="selectedfilters">
+	<div class="d-block d-md-block selectedfilters">
 		<dl v-for="filter in selected">
 	        <dd>{{filter.id}} / {{filter.name}} <i @click="remove(filter.id)" class="fas fa-times cruz"></i></dd>
      	</dl>

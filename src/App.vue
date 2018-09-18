@@ -2,15 +2,8 @@
   <div id="app" class="container">
     <the-header></the-header>
     <div class="test">
-      <h1>{{title}}</h1>
-      <button @click="getipos">testea</button>
-      <button @click="test1">chau</button>
-      <button @click="test2">hola</button>
-
-      <the-sidebar>
-      </the-sidebar>
-
-      
+      <button @click="load">cargar</button>
+      <listado></listado>
     </div>
     
     <the-footer></the-footer>
@@ -23,43 +16,73 @@ import axios from 'axios'
 import TheHeader from '@/components/TheHeader'
 import TheFooter from '@/components/TheFooter'
 import TheSidebar from '@/components/TheSidebar'
+import Listado from '@/components/Listado'
 import { eventBus } from '@/main.js'
 
 export default {
   name: 'App',
   data() {
     return {
+      childDataLoaded: false,
       services: null,
       errors: [],
-      servicios: null,
       filterTree: null,
-      title: 'chau'
     }
   },
   components: {
     TheHeader,
     TheFooter,
-    TheSidebar
-  },
-  created() {
-    eventBus.$on('titleChanged', (title) => {
-        this.title = title
-      })
+    TheSidebar,
+    Listado
+  }, 
+  mounted: function mounted(){
+    this.getData();
   },
   methods: {
+    getData: function(){
+      var _this = this; 
+      axios.get('http://127.0.0.1:8000/api/services')
+      .then(response => {_
+        this.services = response.data;
+        eventBus.changeServices(_this.services);
+      })
+      .catch(e => {
+        _this.errors.push(e)
+      }) 
+      
+
+       axios.get('http://127.0.0.1:8000/api/filter-tree')
+      .then(response => {
+        _this.filterTree = response.data.data;
+        eventBus.$emit('filtrosOfrecidos', _this.filterTree);
+      })
+      .catch(e => {
+        _this.errors.push(e)
+      });
+    },
     getipos: function() {
+      const that = this;
       axios.get('http://127.0.0.1:8000/api/filter-tree')
-      .then(response => (this.filterTree = response.data.data)  )
+      .then(response => (that.filterTree = response.data.data)  )
       .catch(e => {
         this.errors.push(e)
       }) 
-      eventBus.$emit('filtrosOfrecidos', this.filterTree)
+      eventBus.$emit('filtrosOfrecidos', that.filterTree)
     },
-    test1: function() {
-      eventBus.changeTitle('chau')
+    getservicios: function() {
+      axios.get('http://127.0.0.1:8000/api/services')
+      .then(response => {
+        this.services = response.data;
+        eventBus.changeServices(this.services);
+      })
+      .catch(e => {
+        this.errors.push(e)
+      }) 
     },
-    test2: function() {
-      eventBus.changeTitle('holi')
+    load: function() {
+      this.getipos();
+      this.getservicios();
+      console.log("dataloaded!!")
     }
  
   }

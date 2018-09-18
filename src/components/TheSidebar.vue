@@ -1,8 +1,11 @@
 <template>
-	<div class="col-4">
+	<div class="col-12 col-md-4">
 				<aside>
+					<div class="titlefilters2 d-block d-md-none">
+				    	<button type="button" data-toggle="modal" data-target="#modalwindow">Filtros</button>
+					</div>
 				    <filters-selected></filters-selected>
-					<div class="filters" >
+					<div class="d-none d-md-block filters" id="filtersid" >
 					    <dl v-for="filterType in filterTree">
 					    	<dt>{{filterType.type}}</dt>
 					        <dd 
@@ -15,6 +18,7 @@
 </template>
 
 <script>
+	import axios from 'axios'
   	import FiltersSelected from '@/components/FiltersSelected'
 	import { eventBus } from '@/main.js'
 
@@ -25,7 +29,6 @@
 	    return {
 	    	filterTree: null,
 	    	selected:[]
-
 	    }
 	  },
 	  components: {
