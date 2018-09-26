@@ -6,7 +6,7 @@
 					</div>
 				    <filters-selected></filters-selected>
 					<div class="d-none d-md-block filters" id="filtersid" >
-					    <dl v-for="filterType in filterTree">
+					    <dl v-for="filterType in filtersAvailable">
 					    	<dt>{{filterType.type}}</dt>
 					        <dd 
 					        	v-for="filter in filterType.filters"
@@ -20,45 +20,46 @@
 <script>
 	import axios from 'axios'
   	import FiltersSelected from '@/components/FiltersSelected'
-	import { eventBus } from '@/main.js'
-
 
 	export default {
-	  name: 'TheSidebar',
-	  data () {
-	    return {
-	    	filterTree: null,
-	    	selected:[],
-	    	searchQuery: ''
-	    }
-	  },
-	  components: {
-	  	FiltersSelected
-	  },
-	  created() {
-	  	eventBus.$on('filtrosOfrecidos', (data) => {
-	  		this.filterTree = data;
-	  	}),
-	  	eventBus.$on('filtersChanged', (data) => {
-	  		this.selected = data;
-	  	}),
-	  	eventBus.$on('searchSubmited', (data) => {
-	  		this.searchQuery = data;
-	    });
-	  },
-	  methods: {
-	  	filterclick: function(id,name) {
-	  	 	var filter = {id:id, name:name};
-	  	 	var result = this.selected.some(function (el){
-	  	 		return el.id === id;
-	  	 	});
-	  	 	
-	  	 	if (!result) {
-	  	 		this.selected.push(filter);
-      			eventBus.changeFilters(this.selected);
-	  	 	}
-    	},
-	  }
+		name: 'TheSidebar',
+		data () {
+			return {
+		    }
+		},
+		components: {
+		  	FiltersSelected
+		},
+		created() {
+		 
+		},
+		computed: {
+		  	searchQuery() {
+		        return this.$store.state.searchQuery;
+		    },
+		  	filtersAvailable() {
+	        	return this.$store.state.filtersAvailable;
+	   		},
+	   		filtersSelected() {
+		        return this.$store.state.searchQueryFilters;
+		    },
+		    selected() {
+		        return this.$store.state.searchQueryFilters;
+		    }
+		},
+		methods: {
+		  	filterclick: function(id,name) {
+		  	 	var filter = {id:id, name:name};
+		  	 	var result = this.selected.some(function (el){
+		  	 		return el.id === id;
+		  	 	});
+		  	 	
+		  	 	if (!result) {
+		  	 		this.selected.push(filter);
+	      			this.$store.dispatch('changeQueryFilters', this.selected); 
+		  	 	}
+	    	},
+		  }
 	}
 </script>
 

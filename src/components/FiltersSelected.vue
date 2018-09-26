@@ -10,23 +10,27 @@
 </template>
 
 <script>
-	import { eventBus } from '@/main.js'
 
 	export default {
 	  name: 'FiltersSelected',
 	  data () {
 	  	return {
-	  		selected: null,
-	  		searchQuery: null
+	  		
 	  	}
 	  },
 	  created() {
-	  	eventBus.$on('filtersChanged', (data) => {
-	  		this.selected = data;
-	  	}),
-	  	eventBus.$on('searchSubmited', (data) => {
-	  		this.searchQuery = data;
-	    })
+	 
+	  },
+	  computed: {
+  		searchQuery() {
+	        return this.$store.state.searchQuery;
+	    },
+	  	filtersAvailable() {
+        	return this.$store.state.filtersAvailable;
+   		},
+	    selected() {
+	        return this.$store.state.searchQueryFilters;
+	    }
 	  },
 	  methods: {
 	  	remove(id){
@@ -41,12 +45,14 @@
 			}
 
 			this.selected.splice(end);
-			eventBus.changeFilters(this.selected);
+			this.$store.dispatch(' changeQueryFilters', this.selected);
 
 	  	},
 	  	removeQuery(){
 	  		this.searchQuery= null;
-	  		eventBus.$emit("searchSubmited", this.searchQuery);
+	  		this.$store.dispatch('changeQuerySearch', this.searchInput);
+	  		this.$store.dispatch('getServices');
+
 	  	}
 	  }
 	}

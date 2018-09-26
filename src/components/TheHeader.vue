@@ -11,7 +11,7 @@
           placeholder="Buscar servicios, instituciones..." 
           aria-label="Recipient's username" 
           aria-describedby="button-addon2"
-          v-model="searchQuery">
+          v-model="searchInput">
         <div class="input-group-append boton">
           <a class="btn btn-outline-secondary rounded-0 boton" @click="submitSearch" href="/#/results">Buscar</a>
         </div>
@@ -21,19 +21,23 @@
 </template>
 
 <script>
-import { eventBus } from '@/main.js'
 
 export default {
   name: 'TheHeader',
   data () {
     return {
-      searchQuery: ''
+      searchInput: ''
     }
   }, 
+  computed: {
+     searchQuery: function(){
+      return this.$store.state.searchQuery;
+     }
+  },
   methods: {
     submitSearch: function () {
-      eventBus.$emit("searchSubmited", this.searchQuery);
-
+      this.$store.dispatch('changeQuerySearch', this.searchInput);
+      this.$store.dispatch('getServices');
     }
   }
 }

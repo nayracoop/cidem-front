@@ -19,19 +19,13 @@ import TheFooter from '@/components/TheFooter'
 import TheSidebar from '@/components/TheSidebar'
 import Results from '@/views/Results'
 import Lander from '@/views/Lander'
-import { eventBus } from '@/main.js'
 
 export default {
   name: 'App',
   data() {
     return {
       childDataLoaded: false,
-      services: null,
       errors: [],
-      filterTree: null,
-      searchQuery: '',
-      filtersSelected: [],
-      selected: []
     }
   },
   components: {
@@ -42,79 +36,42 @@ export default {
     Lander
   }, 
   mounted: function mounted(){
-    this.getData();
+    this.getFiltersAvailable();
   },
   created() {
-    eventBus.$on('searchSubmited', (data) => {
-      this.load();
-      this.searchQuery = data;
-    });
-    eventBus.$on('getFiltros', () => (this.getipos()));
-    eventBus.$on('filtersChanged', (data) => {
-      this.selected = data;
-      var filters = [];
-       for (var i = 0; i < (this.selected.length); i++){
-          filters.push(this.selected[i].id);
-        } 
-        this.filtersSelected = filters;
-        this.setUrl();
-    });
+    
   },
   computed: {
     test() {
         return this.$store.getters.capitalize;
-      }
+    },
+    filtersAvailable() {
+        return this.$store.state.filtersAvailable;
+    },
+    searchQuery() {
+        return this.$store.state.searchQuery;
+    },
+    filtersSelected() {
+        return this.$store.state.searchQueryFilters;
+    },
+    selected() {
+        return this.$store.state.searchQueryFilters;
+    },
+    services() {
+        return this.$store.state.services;
+    }
   },
   methods: {
-    getData: function(){
-      var _this = this; 
-      axios.get('http://127.0.0.1:8000/api/services')
-      .then(response => {_
-        this.services = response.data;
-        eventBus.changeServices(_this.services);
-      })
-      .catch(e => {
-        _this.errors.push(e)
-      }) 
-      
-
-       axios.get('http://127.0.0.1:8000/api/filter-tree')
-      .then(response => {
-        _this.filterTree = response.data.data;
-        eventBus.$emit('filtrosOfrecidos', _this.filterTree);
-      })
-      .catch(e => {
-        _this.errors.push(e)
-      });
+    /*load: function() {
+      this.getFiltersAvailable();
+      this.getServices();
+    },*/
+    getFiltersAvailable: function() {
+      this.$store.dispatch('getFiltersAvailable');
     },
-    getipos: function() {
-      const that = this;
-      axios.get('http://127.0.0.1:8000/api/filter-tree')
-      .then(response => (that.filterTree = response.data.data)  )
-      .catch(e => {
-        this.errors.push(e)
-      }) 
-      eventBus.$emit('filtrosOfrecidos', that.filterTree)
-    },
-    getservicios: function() {
-      eventBus.changeServices(this.services);
-      axios.get('http://127.0.0.1:8000/api/services',  {
-        params: {
-          service: this.searchQuery,
-          filters: this.filtersSelected
-        }
-      })
-      .then(response => {
-        this.services = response.data;
-        this.setUrl();
-      })
-      .catch(e => {
-        this.errors.push(e)
-      }) 
-    },
-    load: function() {
-      this.getipos();
-      this.getservicios();
+    getServices: function() {
+     this.$store.dispatch('getServices');
+     this.setUrl();
     },
     setUrl: function() {
       history.pushState({ info: `searchQuery ${this.searchQuery}` }, this.searchQuery, `/#/?service=${this.searchQuery}&filter=[${this.filtersSelected}]`)

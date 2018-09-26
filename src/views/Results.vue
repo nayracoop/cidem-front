@@ -7,12 +7,12 @@
 						<div class="results">
 							<aside class="alertresults">Se encontraron {{metadata.total}} resultados para "{{searchQuery}}"</aside>
 							<button v-if="previousPage" 
-								@click="changepage(previousPage)"> anterior </button> 
+								@click="changePage(previousPage)"> anterior </button> 
 							<label>{{metadata.current_page}}</label>
 							<button v-if="nextPage" 
-								@click="changepage(nextPage)"> siguiente </button>
-							<button @click="print(impresion)"> print </button>
-							<article v-for="service in services" class="card art" id="impresion">
+								@click="changePage(nextPage)"> siguiente </button>
+							<button @click="print"> print </button>
+							<article v-for="service in services" class="card art">
 								<div class="card-body box">
 									<h2> {{ service.name }}</h2>
 									<dl>
@@ -32,16 +32,11 @@
 <script>
 import axios from 'axios'
 import TheSidebar from '@/components/TheSidebar'
-import { eventBus } from '@/main.js'
 
 export default {
 	name: 'Results',
 	data () {
 	    return {
-	    	services: [],
-	    	metadata: [],
-	    	links: [],
-	    	searchQuery: ''
 
 	    }
 	}, 
@@ -49,45 +44,40 @@ export default {
 		TheSidebar
 	},
 	mounted: function mounted(){
-    	eventBus.$emit("getFiltros")
+
   	},
 	created() {
-		eventBus.$emit('listadoCreated');
-		eventBus.$on('servicesChanged', (data) => {
-	  		this.services = data.data;
-	  		this.metadata = data.meta;
-	  		this.links = data.links;
-	  	});
-		eventBus.$on('searchSubmited', (data) => {
-	      this.searchQuery = data;
-	    });
+	
 	},
 	methods: {
-		changepage: function (link) {
-			eventBus.$emit("changePage",link);
-			axios.get(link)
-		     .then(response => {
-		     	this.services = response.data;
-		     	eventBus.changeServices(response.data);
-		     })
-		     .catch(e => {
-		       this.errors.push(e)
-		    })   
+		changePage: function (link) { 
+		   	this.$store.dispatch('changePage', link); 
 		},
 		print: function () {
 			console.log("agregar funcionalidad")
-
     	}
 	},
 	computed: {
+		services: function(){
+        	return this.$store.state.services.data;
+		},
+    	metadata:  function(){
+			return this.$store.state.services.meta;
+		},
+    	links:  function(){
+			return this.$store.state.services.links;
+		},
+    	searchQuery:  function(){
+			return this.$store.state.searchQuery;
+		},
 		previousPage: function (){
 			if (this.links.prev) {
-				return this.links.prev
+				return this.links.prev;
 			} 
 		},
 		nextPage: function () {
 			if (this.links.next) {
-				return this.links.next
+				return this.links.next;
 			}
 		}
 	}
