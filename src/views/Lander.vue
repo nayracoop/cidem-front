@@ -1,10 +1,10 @@
 <template>
-
+	<h1>BUSCADOR </h1>
 </template>
 
 <script>
 export default {
-  name: 'Home',
+  name: 'Lander',
   data () {
     return {
     }

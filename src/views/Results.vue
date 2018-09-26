@@ -5,14 +5,14 @@
 			<div class="col-sm-12 col-md-7 offset-md-1" id="list">
 				<section>
 						<div class="results">
-							<aside class="alertresults">Se encontraron {{metadata.total}} resultados para "CASEROS"</aside>
+							<aside class="alertresults">Se encontraron {{metadata.total}} resultados para "{{searchQuery}}"</aside>
 							<button v-if="previousPage" 
 								@click="changepage(previousPage)"> anterior </button> 
 							<label>{{metadata.current_page}}</label>
 							<button v-if="nextPage" 
 								@click="changepage(nextPage)"> siguiente </button>
-
-							<article v-for="service in services" class="card art">
+							<button @click="print(impresion)"> print </button>
+							<article v-for="service in services" class="card art" id="impresion">
 								<div class="card-body box">
 									<h2> {{ service.name }}</h2>
 									<dl>
@@ -35,25 +35,32 @@ import TheSidebar from '@/components/TheSidebar'
 import { eventBus } from '@/main.js'
 
 export default {
-	name: 'Listado',
+	name: 'Results',
 	data () {
 	    return {
 	    	services: [],
 	    	metadata: [],
-	    	links: []
+	    	links: [],
+	    	searchQuery: ''
 
 	    }
 	}, 
 	components: {
 		TheSidebar
 	},
+	mounted: function mounted(){
+    	eventBus.$emit("getFiltros")
+  	},
 	created() {
 		eventBus.$emit('listadoCreated');
 		eventBus.$on('servicesChanged', (data) => {
 	  		this.services = data.data;
 	  		this.metadata = data.meta;
 	  		this.links = data.links;
-	  	})
+	  	});
+		eventBus.$on('searchSubmited', (data) => {
+	      this.searchQuery = data;
+	    });
 	},
 	methods: {
 		changepage: function (link) {
@@ -65,9 +72,12 @@ export default {
 		     })
 		     .catch(e => {
 		       this.errors.push(e)
-		    }) 
-		    
-		}
+		    })   
+		},
+		print: function () {
+			console.log("agregar funcionalidad")
+
+    	}
 	},
 	computed: {
 		previousPage: function (){

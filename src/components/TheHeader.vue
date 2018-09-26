@@ -1,7 +1,7 @@
 <template>
   <div class="row align-items-center header">
     <div class="col-sm-6 col-md-3 col-lg-3">  
-        <img src="../assets/img/logountref.svg" alt="logo-untref">  
+         <a href="/#/"><img src="../assets/img/logountref.svg" alt="logo-untref"></a>
     </div>
     <div class="d-none d-md-inline col-md-6 col-lg-6 offset-3">
       <div class="input-group">
@@ -10,9 +10,10 @@
           class="form-control rounded-0 place" 
           placeholder="Buscar servicios, instituciones..." 
           aria-label="Recipient's username" 
-          aria-describedby="button-addon2">
+          aria-describedby="button-addon2"
+          v-model="searchQuery">
         <div class="input-group-append boton">
-          <button class="btn btn-outline-secondary rounded-0 boton" type="button">Buscar</button>
+          <a class="btn btn-outline-secondary rounded-0 boton" @click="submitSearch" href="/#/results">Buscar</a>
         </div>
       </div>                  
     </div>
@@ -20,10 +21,19 @@
 </template>
 
 <script>
+import { eventBus } from '@/main.js'
+
 export default {
   name: 'TheHeader',
   data () {
     return {
+      searchQuery: ''
+    }
+  }, 
+  methods: {
+    submitSearch: function () {
+      eventBus.$emit("searchSubmited", this.searchQuery);
+
     }
   }
 }

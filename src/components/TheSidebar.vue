@@ -28,7 +28,8 @@
 	  data () {
 	    return {
 	    	filterTree: null,
-	    	selected:[]
+	    	selected:[],
+	    	searchQuery: ''
 	    }
 	  },
 	  components: {
@@ -40,7 +41,10 @@
 	  	}),
 	  	eventBus.$on('filtersChanged', (data) => {
 	  		this.selected = data;
-	  	})
+	  	}),
+	  	eventBus.$on('searchSubmited', (data) => {
+	  		this.searchQuery = data;
+	    });
 	  },
 	  methods: {
 	  	filterclick: function(id,name) {

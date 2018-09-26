@@ -2,10 +2,11 @@
   <div id="app" class="container">
     <the-header></the-header>
     <div class="test">
-      <button @click="load">cargar</button>
-      <listado></listado>
+      <router-view/>
     </div>
-    
+    <button @click="rutiar">rutiar</button>
+    <button @click="pressed">cambiar</button>
+    <h1>{{ test }}</h1>
     <the-footer></the-footer>
 
   </div>
@@ -16,7 +17,8 @@ import axios from 'axios'
 import TheHeader from '@/components/TheHeader'
 import TheFooter from '@/components/TheFooter'
 import TheSidebar from '@/components/TheSidebar'
-import Listado from '@/components/Listado'
+import Results from '@/views/Results'
+import Lander from '@/views/Lander'
 import { eventBus } from '@/main.js'
 
 export default {
@@ -27,16 +29,41 @@ export default {
       services: null,
       errors: [],
       filterTree: null,
+      searchQuery: '',
+      filtersSelected: [],
+      selected: []
     }
   },
   components: {
     TheHeader,
     TheFooter,
     TheSidebar,
-    Listado
+    Results,
+    Lander
   }, 
   mounted: function mounted(){
     this.getData();
+  },
+  created() {
+    eventBus.$on('searchSubmited', (data) => {
+      this.load();
+      this.searchQuery = data;
+    });
+    eventBus.$on('getFiltros', () => (this.getipos()));
+    eventBus.$on('filtersChanged', (data) => {
+      this.selected = data;
+      var filters = [];
+       for (var i = 0; i < (this.selected.length); i++){
+          filters.push(this.selected[i].id);
+        } 
+        this.filtersSelected = filters;
+        this.setUrl();
+    });
+  },
+  computed: {
+    test() {
+        return this.$store.getters.capitalize;
+      }
   },
   methods: {
     getData: function(){
@@ -70,10 +97,16 @@ export default {
       eventBus.$emit('filtrosOfrecidos', that.filterTree)
     },
     getservicios: function() {
-      axios.get('http://127.0.0.1:8000/api/services')
+      eventBus.changeServices(this.services);
+      axios.get('http://127.0.0.1:8000/api/services',  {
+        params: {
+          service: this.searchQuery,
+          filters: this.filtersSelected
+        }
+      })
       .then(response => {
         this.services = response.data;
-        eventBus.changeServices(this.services);
+        this.setUrl();
       })
       .catch(e => {
         this.errors.push(e)
@@ -82,7 +115,22 @@ export default {
     load: function() {
       this.getipos();
       this.getservicios();
-      console.log("dataloaded!!")
+    },
+    setUrl: function() {
+      history.pushState({ info: `searchQuery ${this.searchQuery}` }, this.searchQuery, `/#/?service=${this.searchQuery}&filter=[${this.filtersSelected}]`)
+    },
+    rutiar: function() {
+      axios.post('http://127.0.0.1:8000/api/services/3/filters/1')
+      .then(response => {
+        this.services = response.data;
+        this.setUrl();
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })     
+    },
+    pressed: function() {
+      this.$store.dispatch('changeTest', "holaea");
     }
  
   }

@@ -2,7 +2,48 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-//import router from './router'
+import router from './router'
+
+/////// inicia vuex store.js 
+import Vuex from 'vuex';
+
+Vue.use(Vuex);
+
+export const store = new Vuex.Store({ 
+  state: {
+    filtersAvailable: [],
+    searchQuery: [],
+    searchFilters: [],
+    test: 'testing'
+  },
+  mutations: { //syncronous
+    changeTest(state, text) {
+      state.test = text;
+    }
+  },
+  actions: { //asyncronous commit of mutations
+    changeTest(context, text) {
+      context.commit('changeTest', text);
+    }
+  },
+  getters: { //procesan la data en state para displayear
+    filterArray(state) {
+      var filters = [];
+       for (var i = 0; i < (state.searchFilters.length); i++){
+          filters.push(state.searchFilters[i].id);
+        } 
+      return filters;
+    },
+    capitalize(state) {
+      return state.test.toUpperCase();
+    }
+  }
+
+});
+///////// fin vuex store.js
+
+
+var querystring = require('querystring');
 
 Vue.config.productionTip = false
 
@@ -10,7 +51,7 @@ export const eventBus = new Vue({
 	data: {
 		filtrosOferta : [] ,
 		filtrosElegidos: [],
-		serviciosFiltrados:[]
+		searchQuery:{}
 	},
 	methods: {
    		changeFilters(filters) {
@@ -19,7 +60,7 @@ export const eventBus = new Vue({
    		},
    		changeServices(services) {
    			this.$emit('servicesChanged', services);
-   			this.serviciosFiltrados = services;
+   			this.searchQuery = services;
    		}
 	}
 });
@@ -27,7 +68,8 @@ export const eventBus = new Vue({
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  //router,
+  router,
+  store,
   components: { App },
   template: '<App/>'
 })

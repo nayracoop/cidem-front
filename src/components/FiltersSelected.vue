@@ -3,6 +3,9 @@
 		<dl v-for="filter in selected">
 	        <dd>{{filter.id}} / {{filter.name}} <i @click="remove(filter.id)" class="fas fa-times cruz"></i></dd>
      	</dl>
+     	<dl v-show="searchQuery">
+     		<dd>{{searchQuery}} <i @click="removeQuery" class="fas fa-times cruz"></i></dd>
+     	</dl>
 	</div>	
 </template>
 
@@ -13,13 +16,17 @@
 	  name: 'FiltersSelected',
 	  data () {
 	  	return {
-	  		selected: null
+	  		selected: null,
+	  		searchQuery: null
 	  	}
 	  },
 	  created() {
 	  	eventBus.$on('filtersChanged', (data) => {
 	  		this.selected = data;
-	  	})
+	  	}),
+	  	eventBus.$on('searchSubmited', (data) => {
+	  		this.searchQuery = data;
+	    })
 	  },
 	  methods: {
 	  	remove(id){
@@ -36,6 +43,10 @@
 			this.selected.splice(end);
 			eventBus.changeFilters(this.selected);
 
+	  	},
+	  	removeQuery(){
+	  		this.searchQuery= null;
+	  		eventBus.$emit("searchSubmited", this.searchQuery);
 	  	}
 	  }
 	}
