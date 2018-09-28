@@ -40,9 +40,6 @@
 		  	filtersAvailable() {
 	        	return this.$store.state.filtersAvailable;
 	   		},
-	   		filtersSelected() {
-		        return this.$store.state.searchQueryFilters;
-		    },
 		    selected() {
 		        return this.$store.state.searchQueryFilters;
 		    }
@@ -58,6 +55,8 @@
 		  	 		this.selected.push(filter);
 	      			this.$store.dispatch('changeQueryFilters', this.selected); 
 		  	 	}
+		  	 	this.$store.dispatch('getServices');
+
 	    	},
 		  }
 	}

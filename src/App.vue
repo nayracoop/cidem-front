@@ -4,21 +4,21 @@
     <div class="test">
       <router-view/>
     </div>
-    <button @click="rutiar">rutiar</button>
-    <button @click="pressed">cambiar</button>
-    <h1>{{ test }}</h1>
     <the-footer></the-footer>
 
   </div>
 </template>
 
 <script>
+import router from './router'
 import axios from 'axios'
 import TheHeader from '@/components/TheHeader'
 import TheFooter from '@/components/TheFooter'
 import TheSidebar from '@/components/TheSidebar'
 import Results from '@/views/Results'
 import Lander from '@/views/Lander'
+import Service from '@/views/Service'
+
 
 export default {
   name: 'App',
@@ -42,9 +42,6 @@ export default {
     
   },
   computed: {
-    test() {
-        return this.$store.getters.capitalize;
-    },
     filtersAvailable() {
         return this.$store.state.filtersAvailable;
     },
@@ -75,21 +72,7 @@ export default {
     },
     setUrl: function() {
       history.pushState({ info: `searchQuery ${this.searchQuery}` }, this.searchQuery, `/#/?service=${this.searchQuery}&filter=[${this.filtersSelected}]`)
-    },
-    rutiar: function() {
-      axios.post('http://127.0.0.1:8000/api/services/3/filters/1')
-      .then(response => {
-        this.services = response.data;
-        this.setUrl();
-      })
-      .catch(e => {
-        this.errors.push(e)
-      })     
-    },
-    pressed: function() {
-      this.$store.dispatch('changeTest', "holaea");
-    }
- 
+    } 
   }
   
 }

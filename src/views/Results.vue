@@ -14,7 +14,7 @@
 							<button @click="print"> print </button>
 							<article v-for="service in services" class="card art">
 								<div class="card-body box">
-									<h2> {{ service.name }}</h2>
+									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
 										<dt>Tipo:</dt>
 										<dd>{{service.summary}}</dd>
@@ -31,6 +31,7 @@
 
 <script>
 import axios from 'axios'
+import router from '../router'
 import TheSidebar from '@/components/TheSidebar'
 
 export default {
@@ -43,19 +44,17 @@ export default {
 	components: {
 		TheSidebar
 	},
-	mounted: function mounted(){
-
-  	},
 	created() {
-	
-	},
-	methods: {
-		changePage: function (link) { 
-		   	this.$store.dispatch('changePage', link); 
-		},
-		print: function () {
-			console.log("agregar funcionalidad")
-    	}
+		console.log("results: querySelected: " + this.querySelected + " (falta pasarlo a store.state.searchQueryFilters)" );
+		/* //ESTO VA A FUNCIONAR CUANDO 
+		var that = this;
+		if (this.querySelected) {
+			var selFil = this.filtersAvailable.filter(function(item) { return that.querySelected.indexOf(item.id)});
+			console.log(selFil);
+		  	this.$store.dispatch('changeQueryFilters', selFil); 
+		}
+		*/
+		this.submitSearch(); 
 	},
 	computed: {
 		services: function(){
@@ -68,7 +67,9 @@ export default {
 			return this.$store.state.services.links;
 		},
     	searchQuery:  function(){
-			return this.$store.state.searchQuery;
+			//return this.$store.state.searchQuery;
+			return this.$route.query.services;
+			console.log(this.$route.query.services);
 		},
 		previousPage: function (){
 			if (this.links.prev) {
@@ -79,7 +80,33 @@ export default {
 			if (this.links.next) {
 				return this.links.next;
 			}
-		}
+		},
+		querySelected: function() {
+	    	return this.$route.query.filters; //devuelve solo ID
+	    },
+	    /*
+	    selected: function() {
+	        return this.$store.state.searchQueryFilters; //devuelve ID y name
+	    },
+	    filtersAvailable: function() {
+        	return this.$store.state.filtersAvailable;
+   		},*/
+	},
+	methods: {
+		changePage: function (link) { 
+		   	this.$store.dispatch('changePage', link); 
+		},
+		print: function () {
+			console.log("results: print : agregar funcionalidad")
+    	},
+    	viewService: function (serviceID) {
+			//router.push({ name: 'Service', params:{id: serviceID}});			
+			router.push({ name: 'Service', query:{id: serviceID}}); // no pude acceder a los query params desde /service?id=n
+		},
+		submitSearch: function () {
+	      this.$store.dispatch('changeQuerySearch', this.searchQuery);
+	      this.$store.dispatch('getServices');
+	    }
 	}
 	
 }

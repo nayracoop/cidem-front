@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import router from '../router'
+
 
 	export default {
 	  name: 'FiltersSelected',
@@ -19,17 +21,24 @@
 	  	}
 	  },
 	  created() {
-	 
+	  	
 	  },
 	  computed: {
   		searchQuery() {
-	        return this.$store.state.searchQuery;
+	        if (this.$store.state.searchQuery) {
+	        	return this.$store.state.searchQuery;
+	    	} else {
+	    		return null;
+	    	}
 	    },
 	  	filtersAvailable() {
         	return this.$store.state.filtersAvailable;
    		},
 	    selected() {
-	        return this.$store.state.searchQueryFilters;
+	        return this.$store.state.searchQueryFilters; //devuelve ID y name
+	    },
+	    querySelected() {
+	    	return  this.$route.query.filters; //devuelve solo ID
 	    }
 	  },
 	  methods: {
@@ -43,14 +52,14 @@
 			        this.selected[end++] = obj;
 			    }
 			}
-
 			this.selected.splice(end);
-			this.$store.dispatch(' changeQueryFilters', this.selected);
+			this.$store.dispatch('changeQueryFilters', this.selected);
+			this.$store.dispatch('getServices');
 
 	  	},
 	  	removeQuery(){
-	  		this.searchQuery= null;
-	  		this.$store.dispatch('changeQuerySearch', this.searchInput);
+	  		this.searchQuery= "";
+	  		this.$store.dispatch('changeQuerySearch', null);
 	  		this.$store.dispatch('getServices');
 
 	  	}

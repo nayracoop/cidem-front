@@ -13,7 +13,7 @@
           aria-describedby="button-addon2"
           v-model="searchInput">
         <div class="input-group-append boton">
-          <a class="btn btn-outline-secondary rounded-0 boton" @click="submitSearch" href="/#/results">Buscar</a>
+          <a class="btn btn-outline-secondary rounded-0 boton" @click="submitSearch">Buscar</a>
         </div>
       </div>                  
     </div>
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import router from '../router'
+
 
 export default {
   name: 'TheHeader',
@@ -28,7 +30,7 @@ export default {
     return {
       searchInput: ''
     }
-  }, 
+  },
   computed: {
      searchQuery: function(){
       return this.$store.state.searchQuery;
@@ -38,6 +40,7 @@ export default {
     submitSearch: function () {
       this.$store.dispatch('changeQuerySearch', this.searchInput);
       this.$store.dispatch('getServices');
+
     }
   }
 }

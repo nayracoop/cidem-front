@@ -16,6 +16,7 @@ export const store = new Vuex.Store({
     searchQuery: "",
     searchQueryFilters: [],
     services:{},
+    service:{},
     urlQuery: '',
     test: 'testing'
   },
@@ -25,15 +26,13 @@ export const store = new Vuex.Store({
       .then(response => {
         state.filtersAvailable = response.data.data;
         console.log('mutation triggered');
-        eventBus.$emit('filtrosOfrecidos', state.filtersAvailable)//reemplazar
       })
       .catch(e => {
         this.errors.push(e)
       }) 
     },
-    
     changeQueryFilters(state, filters) {
-      state.searchFilters = filters
+      state.searchQueryFilters = filters
       //this.$emit('filtersChanged', filters);
     },
     changeQuerySearch(state, search) {
@@ -51,6 +50,30 @@ export const store = new Vuex.Store({
       })
       .then(response => {
         state.services = response.data;
+        //this.setUrl();  //VER COMO SE SETEARIA EL URL DESDE VUEX
+      })
+      .catch(e => {
+        this.errors.push(e)
+      }) 
+     
+      var filters = [];
+      if (state.searchQueryFilters.length > 0) {
+        for (var i = 0; i < (state.searchQueryFilters.length); i++){
+          filters.push(state.searchQueryFilters[i].id);
+        } 
+      }
+            
+      router.push({ name: 'Results', query:{services: state.searchQuery, filters: filters}});      
+
+    },
+    getServiceById(state, id){
+      // ADAPTAR A API/SERVICES/ID
+      var requestedID = 'http://127.0.0.1:8000/api/services/' + id;
+      axios.get(requestedID)
+      .then(response => {
+        state.service = response.data;
+        console.log(state.service);
+
         //this.setUrl();  //VER COMO SE SETEARIA EL URL DESDE VUEX
       })
       .catch(e => {
@@ -78,7 +101,7 @@ export const store = new Vuex.Store({
       context.commit('getFiltersAvailable');
     },
     changeQuerySearch(context, search) {
-     context.commit('changeQuerySearch', search)
+     context.commit('changeQuerySearch', search);     
       //this.$emit('servicesChanged', services);
     },
     changeQueryFilters(context, filters){
@@ -86,6 +109,9 @@ export const store = new Vuex.Store({
     },
     getServices(context){
       context.commit('getServices');
+    },
+    getServiceById(context, id){
+      context.commit('getServiceById', id);
     },
     changePage(context, link){
       context.commit('changePage', link);
@@ -115,24 +141,7 @@ var querystring = require('querystring');
 
 Vue.config.productionTip = false
 
-/// start eventBus
-export const eventBus = new Vue({
-	data: {
-		filtrosOferta : [] ,
-		filtrosElegidos: [],
-		searchQuery:{}
-	},
-	methods: {
-   		changeFilters(filters) {
-   			this.$emit('filtersChanged', filters);
-   			this.filtrosElegidos = filters;
-   		},
-   		changeServices(services) {
-   			this.$emit('servicesChanged', services);
-   			this.searchQuery = services;
-   		}
-	}
-});
+
 ////// end eventBus
 
 /* eslint-disable no-new */
