@@ -1,24 +1,15 @@
 <template>
 	<div class="footer">	
-		<div class="menufooter">
-			<ul>	
-				<li><a href="http://google.com">Términos de uso</a></li>
-				<li><a href="http://google.com>">Políticas de privacidad</a></li>
-				<li><a href="http://google.com>">Presentación</a></li>
-			</ul>						
-		</div>						
 		<div class="row justify-content-between final">
 			<div class="col-6 col-sm-6 col-md-3 cidem">	
-  				<img src="../assets/img/cidem-logo.png" alt="logo-cidem"> 			  					   
+  				<img src="../assets/img/cidem-logo.jpg" alt="logo-cidem"> 			  					   
 			</div>	
 			<div class="d-none d-md-inline col-md-6 direccion">
-				<p>Centro de Innovación y Desarrollo de Empresas y Organizaciones - CIDEM |
-				Av. San Martín 2921, 2º piso Caseros, Buenos Aires | 4759-9686/9810 | cidem@untref.edu.ar</p>
+				<p>Secretaria de Investigación y Desarrollo- SID
+				Av. San Martín 2508, Caseros, Buenos Aires│4716-0044│desarrollo@untref.edu.ar</p>
 			</div>
-			<div class="col-6 col-sm-6 col-md-2 copyright">
-				<p>Copyright 2018 
-				Universidad Nacional 
-				de Tres de Febrero</p>
+			<div class="col-6 col-md-3 cidem">	
+	  			<a href="#"><img src="../assets/img/logoSID.jpg" alt="logo-SID"></a> 			  					   
 			</div>
 		</div>						
 	</div>		

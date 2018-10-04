@@ -1,7 +1,7 @@
 <template>
 	<div class="d-block d-md-block selectedfilters">
 		<dl v-for="filter in selected">
-	        <dd>{{filter.id}} / {{filter.name}} <i @click="remove(filter.id)" class="fas fa-times cruz"></i></dd>
+	        <dd alt="filter.name"> {{filter.slug}} <i @click="remove(filter.id)" class="fas fa-times cruz"></i></dd>
      	</dl>
      	<dl v-show="searchQuery">
      		<dd>{{searchQuery}} <i @click="removeQuery" class="fas fa-times cruz"></i></dd>
@@ -34,6 +34,9 @@ import router from '../router'
 	  	filtersAvailable() {
         	return this.$store.state.filtersAvailable;
    		},
+		filterList(){
+  			return this.$store.state.filterList;
+	    },
 	    selected() {
 	        return this.$store.state.searchQueryFilters; //devuelve ID y name
 	    },
@@ -55,7 +58,6 @@ import router from '../router'
 			this.selected.splice(end);
 			this.$store.dispatch('changeQueryFilters', this.selected);
 			this.$store.dispatch('getServices');
-
 	  	},
 	  	removeQuery(){
 	  		this.searchQuery= "";
@@ -96,6 +98,11 @@ font-size:1.125em;
     margin-left: 5px;
     font-size: 0.75em;
     vertical-align: super;
+}
+
+.cruz {
+	float: right;
+	margin-top: 7px;
 }
 
 </style>

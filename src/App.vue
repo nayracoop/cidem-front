@@ -33,26 +33,36 @@ export default {
     TheFooter,
     TheSidebar,
     Results,
-    Lander
+    Lander,
+    Service
   }, 
-  mounted: function mounted(){
-    this.getFiltersAvailable();
-  },
   created() {
+    this.load();
+  },
+  mounted: function mounted(){
+  
     
+
   },
   computed: {
     filtersAvailable() {
         return this.$store.state.filtersAvailable;
     },
+    filterList(){
+      return this.$store.state.filterList;
+    },
+    filterTypes(){
+      return this.$store.state.filterTypes;
+    },
     searchQuery() {
         return this.$store.state.searchQuery;
     },
-    filtersSelected() {
-        return this.$store.state.searchQueryFilters;
-    },
-    selected() {
-        return this.$store.state.searchQueryFilters;
+    queryFilters() {
+        var result = this.filterList.some(function (el){
+            return el.id === this.$route.query.filters[0];
+        });
+        console.log(result);
+        return result
     },
     services() {
         return this.$store.state.services;
@@ -65,14 +75,33 @@ export default {
     },*/
     getFiltersAvailable: function() {
       this.$store.dispatch('getFiltersAvailable');
+
     },
-    getServices: function() {
-     this.$store.dispatch('getServices');
-     this.setUrl();
-    },
+    load: function(){
+      var that = this;
+      this.$store.dispatch('getFiltersAvailable');
+      this.$store.dispatch('getFilterList').then(response =>{ 
+
+      if (this.$route.query.filters) {
+          var selFil = this.filterList.filter(function(item) { return this.$route.query.filters.indexOf(item.id)});
+          console.log(selFil);
+          //this.$store.dispatch('changeQueryFilters', selFil); 
+       }
+
+      console.log(this.filterList);
+
+      });
+      this.$store.dispatch('getFilterTypes');
+      if (this.$route.query.services) {
+        this.$store.dispatch('changeQuerySearch', this.$route.query.services);
+      }
+      
+
+    }
+    /*,
     setUrl: function() {
       history.pushState({ info: `searchQuery ${this.searchQuery}` }, this.searchQuery, `/#/?service=${this.searchQuery}&filter=[${this.filtersSelected}]`)
-    } 
+    } */
   }
   
 }
@@ -130,29 +159,6 @@ export default {
       font-weight: 700;
       src: url('assets/fonts/tipo_-_distefanosans-bold-webfont.woff') format('woff');
   }
-/*
-  @font-face {
-      font-family: 'Distefano-Sans';
-      font-style: italic;
-      font-weight: 700;
-      src: url('../assets/fonts/tipo_-_distefanosans-bolditalic-webfont.woff') format('woff');
-  }
-  
-
-  @font-face {
-      font-family: 'Distefano-Slab';
-
-      font-weight: 900;
-      src: url('assets/fonts/tipo_-_distefanoslab-black-webfont.woff') format('woff');
-  }
-
-  @font-face {
-      font-family: 'Distefano-Slab';
-      font-style: italic;
-      font-weight: 900;
-      src: url('../assets/fonts/tipo_-_distefanoslab-blackitalic-webfont.woff') format('woff');
-  }
-  */
 
   @font-face {
       font-family: 'Distefano-Slab';
@@ -160,35 +166,7 @@ export default {
       font-weight: 700;
       src: url('assets/fonts/tipo_-_distefanoslab-bold-webfont.woff') format('woff');
   }
-/*
-  @font-face {
-      font-family: 'Distefano-Slab';
-      font-style: italic;
-      font-weight: 700;
-      src: url('../assets/fonts/tipo_-_distefanoslab-bolditalic-webfont.woff') format('woff');
-  }
 
-  @font-face {
-      font-family: 'Distefano-Slab';
-      font-style: italic;
-      font-weight: 400;
-      src: url('../assets/fonts/tipo_-_distefanoslab-italic-webfont.woff') format('woff');
-  }
-
-  @font-face {
-      font-family: 'Distefano-Slab';
-
-      font-weight: 200;
-      src: url('../assets/fonts/tipo_-_distefanoslab-light-webfont.woff') format('woff');
-  }
-
-  @font-face {
-      font-family: 'Distefano-Slab';
-      font-style: italic;
-      font-weight: 200;
-      src: url('../assets/fonts/tipo_-_distefanoslab-lightitalic-webfont.woff') format('woff');
-  }
-*/
 
   @font-face {
       font-family: 'Distefano-Slab';

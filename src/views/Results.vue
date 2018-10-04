@@ -5,7 +5,7 @@
 			<div class="col-sm-12 col-md-7 offset-md-1" id="list">
 				<section>
 						<div class="results">
-							<aside class="alertresults">Se encontraron {{metadata.total}} resultados para "{{searchQuery}}"</aside>
+							<aside  class="alertresults">Se encontraron {{totalPages}} resultados para "{{searchQuery}}"</aside>
 							<button v-if="previousPage" 
 								@click="changePage(previousPage)"> anterior </button> 
 							<label>{{metadata.current_page}}</label>
@@ -26,15 +26,21 @@
 				</section>
 			</div>	
 		</div>
+		<pre>{{services}}</pre>
 	</main>
 </template>
 
 <script>
+import vue from 'Vue'
 import axios from 'axios'
 import router from '../router'
 import TheSidebar from '@/components/TheSidebar'
 
 export default {
+	beforeRouteEnter (to, from, next) {
+		console.log("entra a la ruta");
+		next();
+	},
 	name: 'Results',
 	data () {
 	    return {
@@ -45,19 +51,17 @@ export default {
 		TheSidebar
 	},
 	created() {
-		console.log("results: querySelected: " + this.querySelected + " (falta pasarlo a store.state.searchQueryFilters)" );
-		/* //ESTO VA A FUNCIONAR CUANDO 
-		var that = this;
-		if (this.querySelected) {
-			var selFil = this.filtersAvailable.filter(function(item) { return that.querySelected.indexOf(item.id)});
-			console.log(selFil);
-		  	this.$store.dispatch('changeQueryFilters', selFil); 
-		}
-		*/
-		this.submitSearch(); 
+		console.log("created");
+
+		vue.nextTick();
+		
+	},
+	mounted(){
+		
 	},
 	computed: {
 		services: function(){
+			console.log("ejecuta este computed");
         	return this.$store.state.services.data;
 		},
     	metadata:  function(){
@@ -67,30 +71,26 @@ export default {
 			return this.$store.state.services.links;
 		},
     	searchQuery:  function(){
-			//return this.$store.state.searchQuery;
-			return this.$route.query.services;
-			console.log(this.$route.query.services);
+			return this.$store.state.searchQuery;
 		},
 		previousPage: function (){
-			if (this.links.prev) {
-				return this.links.prev;
+			if (this.$store.state.services.links.prev) {
+				return this.$store.state.services.links.prev;
 			} 
 		},
 		nextPage: function () {
-			if (this.links.next) {
-				return this.links.next;
+			if (this.$store.state.services.links.next) {
+				return this.$store.state.services.links.next;
 			}
 		},
 		querySelected: function() {
-	    	return this.$route.query.filters; //devuelve solo ID
+	    	return this.$route.query.filters;
 	    },
-	    /*
-	    selected: function() {
-	        return this.$store.state.searchQueryFilters; //devuelve ID y name
-	    },
-	    filtersAvailable: function() {
-        	return this.$store.state.filtersAvailable;
-   		},*/
+	    totalPages: function() {
+	    	if (this.$store.state.services.meta.total) {
+				return this.$store.state.services.meta.total;
+			} 
+	    }
 	},
 	methods: {
 		changePage: function (link) { 
@@ -102,11 +102,7 @@ export default {
     	viewService: function (serviceID) {
 			//router.push({ name: 'Service', params:{id: serviceID}});			
 			router.push({ name: 'Service', query:{id: serviceID}}); // no pude acceder a los query params desde /service?id=n
-		},
-		submitSearch: function () {
-	      this.$store.dispatch('changeQuerySearch', this.searchQuery);
-	      this.$store.dispatch('getServices');
-	    }
+		}
 	}
 	
 }
@@ -116,10 +112,11 @@ export default {
 <style scoped>
 main{
     margin:30px 0;
+    outline: 1px solid red !important;
 }
 
 .listado {
-	 outline: 1px solid red !important;
+	 
 }
  .btnnobtn button {
     border: none;

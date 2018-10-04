@@ -6,11 +6,12 @@
 					</div>
 				    <filters-selected></filters-selected>
 					<div class="d-none d-md-block filters" id="filtersid" >
-					    <dl v-for="filterType in filtersAvailable">
-					    	<dt>{{filterType.type}}</dt>
+					    <dl v-for="type in filterTypes">
+					    	<dt>{{type.name}}</dt>
 					        <dd 
-					        	v-for="filter in filterType.filters"
-					        	@click="filterclick(filter.id,filter.name)"><span>{{filter.id}} </span>{{filter.name}}</dd>
+					        	v-for="filter in filterList"
+					        	v-if="filter.filter_type_id == type.id"
+					        	@click="filterclick(filter)">{{filter.name}}</dd>
 					    </dl>
 					</div>
 				</aside>    						  
@@ -42,13 +43,18 @@
 	   		},
 		    selected() {
 		        return this.$store.state.searchQueryFilters;
-		    }
+		    },
+		    filterList(){
+      			return this.$store.state.filterList;
+		    },
+		    filterTypes(){
+		      	return this.$store.state.filterTypes;
+		    },
 		},
 		methods: {
-		  	filterclick: function(id,name) {
-		  	 	var filter = {id:id, name:name};
+		  	filterclick: function(filter) {
 		  	 	var result = this.selected.some(function (el){
-		  	 		return el.id === id;
+		  	 		return el.id === filter.id;
 		  	 	});
 		  	 	
 		  	 	if (!result) {
@@ -58,7 +64,7 @@
 		  	 	this.$store.dispatch('getServices');
 
 	    	},
-		  }
+		}
 	}
 </script>
 

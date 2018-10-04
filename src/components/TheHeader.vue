@@ -1,8 +1,11 @@
 <template>
+<!---------------- INICIO HEADER PRINCIPAL , ARRIBA DE TODO : ----------------->
   <div class="row align-items-center header">
+     <!---- LOGO UNTREF (SE VE SIEMPRE) -------->
     <div class="col-sm-6 col-md-3 col-lg-3">  
-         <a href="/#/"><img src="../assets/img/logountref.svg" alt="logo-untref"></a>
+         <img @click="goHome" src="../assets/img/logountref.svg" alt="logo-untref">
     </div>
+    <!------ BUSCADOR DEL HEADER, SE VE EN TODAS LAS VISTAS MENOS EL LANDER -------->
     <div class="d-none d-md-inline col-md-6 col-lg-6 offset-3">
       <div class="input-group">
         <input 
@@ -11,12 +14,15 @@
           placeholder="Buscar servicios, instituciones..." 
           aria-label="Recipient's username" 
           aria-describedby="button-addon2"
-          v-model="searchInput">
+          v-model="searchInput"
+          @keyup.enter="submitSearch">
         <div class="input-group-append boton">
           <a class="btn btn-outline-secondary rounded-0 boton" @click="submitSearch">Buscar</a>
         </div>
       </div>                  
     </div>
+    <!------ HAMBURGUESA (SE VE SIEMPRE) -------->
+<!---------------- FIN HEADER PRINCIPAL ----------------->
   </div>          
 </template>
 
@@ -40,8 +46,16 @@ export default {
     submitSearch: function () {
       this.$store.dispatch('changeQuerySearch', this.searchInput);
       this.$store.dispatch('getServices');
-
+      //router.push({ name: "Results", query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});
+      console.log("ook")      
+    },
+    goHome: function () {
+      router.push({name:"Lander"})
     }
+    /*,
+    setUrl: function() {
+      history.pushState({ info: `searchQuery ${this.searchQuery}` }, this.searchQuery, `/#/?service=${this.searchQuery}&filter=[${this.filtersSelected}]`)
+-   } */
   }
 }
 </script>
