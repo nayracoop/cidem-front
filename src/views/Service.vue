@@ -1,6 +1,6 @@
 <template>
 	<main role="main">
-		<div class="row listado">
+		<div v-if="service" class="row listado">
 			<p> {{id}}</p>
 			<h2>{{ service.name }}</h2>
 			<p>{{service.description}}</p>
@@ -10,7 +10,10 @@
 </template>
 
 <script>
-import router from '../router'
+import router from '../router';
+import store from '../store'
+
+//import store from '@/store'
 
 export default {
 	name: 'Service',
@@ -19,11 +22,20 @@ export default {
 	    	
 	    }
 	}, 
+	beforeRouteEnter (to, from, next) {
+		console.log(to);
+		
+		next();
+	},
+	befoteRouteUpdate(to, from, next){
+		this.$store.dispatch('fetchService', to.$route.query.id);
+	},
 	mounted: function mounted(){
-		this.getServiceById(this.id);
+		//this.$store.dispatch('getServiceById', this.$route.query.id);	
+	
 	},
 	created() {
-
+		this.$store.dispatch('fetchService', this.$route.query.id);	
 	},
 	computed: {
 		service() {
@@ -41,8 +53,9 @@ export default {
 	},
 	methods: {
 		getServiceById: function (id) {
-	      this.$store.dispatch('getServiceById', id);
+	      //this.$store.dispatch('getServiceById', id);
 	      router.push({ name: 'Service', query:{id: id}});
+	      this.$store.dispatch('fetchService', id);
 	    }
 	},
 	

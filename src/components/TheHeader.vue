@@ -6,7 +6,7 @@
          <img @click="goHome" src="../assets/img/logountref.svg" alt="logo-untref">
     </div>
     <!------ BUSCADOR DEL HEADER, SE VE EN TODAS LAS VISTAS MENOS EL LANDER -------->
-    <div class="d-none d-md-inline col-md-6 col-lg-6 offset-3">
+    <div class="d-none d-md-inline col-md-6 col-lg-6 offset-3" v-if="this.$route.name !== 'Lander'">
       <div class="input-group">
         <input 
           type="text" 
@@ -22,13 +22,15 @@
       </div>                  
     </div>
     <!------ HAMBURGUESA (SE VE SIEMPRE) -------->
+    <hamburguer></hamburguer>
 <!---------------- FIN HEADER PRINCIPAL ----------------->
   </div>          
 </template>
 
 <script>
 import router from '../router'
-
+import store from '../store'
+import Hamburguer from '@/components/Hamburguer'
 
 export default {
   name: 'TheHeader',
@@ -36,6 +38,9 @@ export default {
     return {
       searchInput: ''
     }
+  },
+  components: {
+    Hamburguer
   },
   computed: {
      searchQuery: function(){
@@ -45,9 +50,9 @@ export default {
   methods: {
     submitSearch: function () {
       this.$store.dispatch('changeQuerySearch', this.searchInput);
-      this.$store.dispatch('getServices');
+      this.$store.dispatch('fetchServices');
+      router.push({ name: 'Results', query:{services: this.searchQuery}});     
       //router.push({ name: "Results", query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});
-      console.log("ook")      
     },
     goHome: function () {
       router.push({name:"Lander"})

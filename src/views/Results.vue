@@ -4,7 +4,7 @@
 			<the-sidebar></the-sidebar>
 			<div class="col-sm-12 col-md-7 offset-md-1" id="list">
 				<section>
-						<div class="results">
+						<div v-if="services" class="results">
 							<aside  class="alertresults">Se encontraron {{totalPages}} resultados para "{{searchQuery}}"</aside>
 							<button v-if="previousPage" 
 								@click="changePage(previousPage)"> anterior </button> 
@@ -26,7 +26,6 @@
 				</section>
 			</div>	
 		</div>
-		<pre>{{services}}</pre>
 	</main>
 </template>
 
@@ -34,6 +33,8 @@
 import vue from 'Vue'
 import axios from 'axios'
 import router from '../router'
+import store from '../store'
+
 import TheSidebar from '@/components/TheSidebar'
 
 export default {

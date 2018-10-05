@@ -31,9 +31,6 @@ import router from '../router'
 	    		return null;
 	    	}
 	    },
-	  	filtersAvailable() {
-        	return this.$store.state.filtersAvailable;
-   		},
 		filterList(){
   			return this.$store.state.filterList;
 	    },
@@ -57,12 +54,12 @@ import router from '../router'
 			}
 			this.selected.splice(end);
 			this.$store.dispatch('changeQueryFilters', this.selected);
-			this.$store.dispatch('getServices');
+			this.$store.dispatch('fetchServices');
 	  	},
 	  	removeQuery(){
 	  		this.searchQuery= "";
 	  		this.$store.dispatch('changeQuerySearch', null);
-	  		this.$store.dispatch('getServices');
+	  		this.$store.dispatch('fetchServices');
 
 	  	}
 	  }
@@ -72,6 +69,7 @@ import router from '../router'
 <style scoped>
 .selectedfilters dl {
 	display: flex;
+	flex-wrap: wrap;
 }
 .selectedfilters dl dt,
 .selectedfilters dl dd{

@@ -61,7 +61,7 @@
 		  	 		this.selected.push(filter);
 	      			this.$store.dispatch('changeQueryFilters', this.selected); 
 		  	 	}
-		  	 	this.$store.dispatch('getServices');
+		  	 	this.$store.dispatch('fetchServices');
 
 	    	},
 		}

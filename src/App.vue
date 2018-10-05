@@ -41,13 +41,9 @@ export default {
   },
   mounted: function mounted(){
   
-    
 
   },
   computed: {
-    filtersAvailable() {
-        return this.$store.state.filtersAvailable;
-    },
     filterList(){
       return this.$store.state.filterList;
     },
@@ -55,7 +51,7 @@ export default {
       return this.$store.state.filterTypes;
     },
     searchQuery() {
-        return this.$store.state.searchQuery;
+      return this.$store.state.searchQuery;
     },
     queryFilters() {
         var result = this.filterList.some(function (el){
@@ -73,30 +69,26 @@ export default {
       this.getFiltersAvailable();
       this.getServices();
     },*/
-    getFiltersAvailable: function() {
-      this.$store.dispatch('getFiltersAvailable');
-
-    },
+    
     load: function(){
       var that = this;
-      this.$store.dispatch('getFiltersAvailable');
-      this.$store.dispatch('getFilterList').then(response =>{ 
-
-      if (this.$route.query.filters) {
-          var selFil = this.filterList.filter(function(item) { return this.$route.query.filters.indexOf(item.id)});
-          console.log(selFil);
-          //this.$store.dispatch('changeQueryFilters', selFil); 
-       }
-
-      console.log(this.filterList);
-
-      });
-      this.$store.dispatch('getFilterTypes');
       if (this.$route.query.services) {
         this.$store.dispatch('changeQuerySearch', this.$route.query.services);
       }
-      
+      this.$store.dispatch('fetchServices'); //para que este disponible para busquedas especificas, ids de servicios, etc 
+      this.$store.dispatch('fetchFilters').then(response =>{ 
 
+          if (this.$route.query.filters) {
+              var selFil = this.filterList.filter(function(item) { return this.$route.query.filters.indexOf(item.id)});
+              console.log(selFil);
+              //this.$store.dispatch('changeQueryFilters', selFil); 
+           }
+
+          console.log(this.filterList);
+
+      });
+
+     
     }
     /*,
     setUrl: function() {

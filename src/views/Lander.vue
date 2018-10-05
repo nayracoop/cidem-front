@@ -62,6 +62,10 @@
 </template>
 
 <script>
+import store from '../store'
+import router from '../router'
+
+
 export default {
   name: 'Lander',
  data () {
@@ -77,10 +81,17 @@ export default {
   methods: {
     submitSearch: function () {
       this.$store.dispatch('changeQuerySearch', this.searchInput);
-      this.$store.dispatch('getServices');
+      this.$store.dispatch('fetchServices');
+      router.push({ name: 'Results', query:{services: this.searchQuery}});     
       //router.push({ name: "Results", query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});
-      console.log("ook")      
-    }
+      console.log("ook")       
+    },
+    filterList(){
+      			return this.$store.state.filterList;
+	},
+	filterTypes(){
+		      	return this.$store.state.filterTypes;
+	}
   }
 }
 </script>
