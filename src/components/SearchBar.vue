@@ -13,7 +13,7 @@
 				<li 
 					v-for="filter in filterList"
 					v-if="filter.filterType.id == type.id" 
-					:class="{'is-selected': isSelected}"
+					:class="{highlight:selected.includes(filter.id)}"
 					@click="filterclick(filter, $event)">{{filter.name}}</li>
 			</ul>
 		</div>
@@ -43,7 +43,7 @@
 		data:function(){
 			return{
 				searchInput: '',
-				isSelected: this.selected ? this.selected : false
+				isSelected: this.selected ? this.selected : false,
 			}
 		},
 		computed: {
@@ -58,6 +58,10 @@
 		    },
 			filterList(){
       			return this.$store.state.filterList;
+		    },
+		    selected(){
+		    	console.log(this.$store.getters.filterArray)
+		    	return this.$store.getters.filterArray;
 		    }
 		},
 		methods: {
@@ -75,10 +79,21 @@
 		  	 	
 		  	 	if (!result) {
 		  	 		selected.push(filter);
-		  	 		console.log(selected);
-	      			this.$store.dispatch('changeQueryFilters', selected); 
-		  	 	} 
-		  	 	e.stopPropagation()    
+		  	 	} else if (result){
+		  	 		var end = 0;
+			  		var listToDelete = [filter.id];
+					for (var i = 0; i < selected.length; i++) {
+					    var obj = selected[i];
+
+					    if (listToDelete.indexOf(obj.id) === -1) {
+					        selected[end++] = obj;
+					    }
+					}
+				selected.splice(end);
+			  	}
+				e.stopPropagation();
+				this.$store.dispatch('changeQueryFilters', selected);     
+
 
 		    }
 		}
@@ -127,11 +142,11 @@
 }
 
 .scrollable-menu li:hover{
-    background-color:#f1f1f1; 
+    background-color:#17aae4;
 }
 
 .scrollable-menu li:active{
-    background-color:#17aae4;
+    background-color:#17bbe4;
 }
 
 
@@ -143,6 +158,10 @@
     .landerHiddenS{
         margin-top:18px;
     }
+}
+
+.highlight {
+    background-color:#1599e0;
 }
 
 </style>
