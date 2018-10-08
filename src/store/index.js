@@ -10,7 +10,7 @@ const store = new Vuex.Store({
 	state: {
 		filterTypes: [],
 		filterList: [],
-		searchQuery: " ",
+		searchQuery: null,
 		searchQueryFilters: [],
 		services:{
 			data: [],
@@ -37,6 +37,8 @@ const store = new Vuex.Store({
 		},
 		CHANGE_QUERY_FILTERS(state, searchQueryFilters){
 			state.searchQueryFilters = searchQueryFilters;
+			//console.log(state.searchQueryFilters);
+
 		}
 	},
 	actions: {
@@ -61,24 +63,26 @@ const store = new Vuex.Store({
 		      }) 
 		},
 		fetchServices({commit, state}){
+			var filters = [];
+		    if (state.searchQueryFilters.length > 0) {
+		        for (var i = 0; i < (state.searchQueryFilters.length); i++){
+		          filters.push(state.searchQueryFilters[i].id);
+		        } 
+		    };
+		    console.log(filters);   
 			axios.get('http://127.0.0.1:8000/api/services',  {
 		        params: {
 		          service: state.searchQuery,
-		          filters: state.searchQueryFilters
+		          filters: filters
 		        }
 		      })
 		      .then(response => {
+		      	console.log(response.data);
 		      	commit('FETCH_SERVICES', response.data);
 		      })
 		      // REVISAR DE ACA A ABAJO
 		      .then(() => {
-			      	var filters = [];
-				    if (state.searchQueryFilters.length > 0) {
-				        for (var i = 0; i < (state.searchQueryFilters.length); i++){
-				          filters.push(state.searchQueryFilters[i].id);
-				        } 
-				    };
-				    console.log(filters);   
+			      	
 		      })
 		      .catch(e => {
 		            this.errors.push(e)
@@ -103,7 +107,6 @@ const store = new Vuex.Store({
 	        })
 	        .then(response => {
 	          context.commit('FETCH_SERVICES', response.data);
-	          console.log("changed page");
 	        })
 	        .catch(e => {
 	           this.errors.push(e)
@@ -111,6 +114,7 @@ const store = new Vuex.Store({
 		},
 		changeQuerySearch(context, searchQuery){
 			context.commit('CHANGE_QUERY_SEARCH', searchQuery);
+
 		},
 		changeQueryFilters(context, searchQueryFilters){
 			context.commit('CHANGE_QUERY_FILTERS', searchQueryFilters);

@@ -1,11 +1,12 @@
 <template>
-	<div class="d-block d-md-block selectedfilters">
+	<div class="selectedfilters">
+		<dl v-show="searchQuery" id="search">
+     		<dd>{{searchQuery}} <i @click="removeQuery" class="fas fa-times cruz"></i></dd>
+     	</dl>
 		<dl v-for="filter in selected">
 	        <dd alt="filter.name"> {{filter.slug}} <i @click="remove(filter.id)" class="fas fa-times cruz"></i></dd>
      	</dl>
-     	<dl v-show="searchQuery">
-     		<dd>{{searchQuery}} <i @click="removeQuery" class="fas fa-times cruz"></i></dd>
-     	</dl>
+     	
 	</div>	
 </template>
 
@@ -25,11 +26,11 @@ import router from '../router'
 	  },
 	  computed: {
   		searchQuery() {
-	        if (this.$store.state.searchQuery) {
+	        //if (this.$store.state.searchQuery) {
 	        	return this.$store.state.searchQuery;
-	    	} else {
-	    		return null;
-	    	}
+	    	//} else {
+	    	//	return null;
+	    	//}
 	    },
 		filterList(){
   			return this.$store.state.filterList;
@@ -55,11 +56,13 @@ import router from '../router'
 			this.selected.splice(end);
 			this.$store.dispatch('changeQueryFilters', this.selected);
 			this.$store.dispatch('fetchServices');
+			router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
 	  	},
 	  	removeQuery(){
-	  		this.searchQuery= "";
+	  		this.searchQuery= " ";
 	  		this.$store.dispatch('changeQuerySearch', null);
 	  		this.$store.dispatch('fetchServices');
+	  		router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
 
 	  	}
 	  }
@@ -67,19 +70,29 @@ import router from '../router'
 </script>
 
 <style scoped>
-.selectedfilters dl {
+#search dd{
+	font-style: italic; 
+	background-color: #000000;
+}
+.selectedfilters{
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-content: flex-start;
+	outline: 1px solid blue;
 }
-.selectedfilters dl dt,
-.selectedfilters dl dd{
-    display: inline;
+.selectedfilters dl{
+	outline: 1px solid green;
+	margin: 5px 5px;
+	transition: all 300ms;
 }
-.selectedfilters dl dt{
-font-weight: 200;
-font-size:1.125em;
 
-}
+/*
+.selectedfilters dl dt{
+	display: inline;
+	font-weight: 200;
+	font-size:1.125em;
+}*/
 .selectedfilters dl dd{
     margin-left: 5px;
     border-radius: 25px;
@@ -88,7 +101,7 @@ font-size:1.125em;
     color:#fff;
     font-family:'Distefano-Slab';
     font-weight: 400;
-    font-size:1.125em;
+    font-size:0.9em;
     text-transform: uppercase;
 }
 

@@ -1,16 +1,19 @@
 <template>
 	<main role="main">
+		<filters-selected class="col-12 center"></filters-selected>
 		<div class="row listado">	   						    
 			<the-sidebar></the-sidebar>
 			<div class="col-sm-12 col-md-7 offset-md-1" id="list">
 				<section>
 						<div v-if="services" class="results">
-							<aside  class="alertresults">Se encontraron {{totalPages}} resultados para "{{searchQuery}}"</aside>
-							<button v-if="previousPage" 
-								@click="changePage(previousPage)"> anterior </button> 
-							<label>{{metadata.current_page}}</label>
-							<button v-if="nextPage" 
-								@click="changePage(nextPage)"> siguiente </button>
+							<aside  class="alertresults">Se encontraron {{metadata.total}} resultados para "{{searchQuery}}"</aside>
+							<ul class="pager">
+								<li v-if="previousPage" 
+									@click="changePage(previousPage)"> anterior </li> 
+								<label>{{metadata.current_page}}</label>
+								<li v-if="nextPage" 
+									@click="changePage(nextPage)"> siguiente </li>
+							</ul>
 							<button @click="print"> print </button>
 							<article v-for="service in services" class="card art">
 								<div class="card-body box">
@@ -34,12 +37,12 @@ import vue from 'Vue'
 import axios from 'axios'
 import router from '../router'
 import store from '../store'
+import FiltersSelected from '@/components/FiltersSelected'
 
 import TheSidebar from '@/components/TheSidebar'
 
 export default {
 	beforeRouteEnter (to, from, next) {
-		console.log("entra a la ruta");
 		next();
 	},
 	name: 'Results',
@@ -49,11 +52,10 @@ export default {
 	    }
 	}, 
 	components: {
-		TheSidebar
+		TheSidebar,
+		FiltersSelected
 	},
 	created() {
-		console.log("created");
-
 		vue.nextTick();
 		
 	},
@@ -62,7 +64,6 @@ export default {
 	},
 	computed: {
 		services: function(){
-			console.log("ejecuta este computed");
         	return this.$store.state.services.data;
 		},
     	metadata:  function(){
@@ -86,11 +87,6 @@ export default {
 		},
 		querySelected: function() {
 	    	return this.$route.query.filters;
-	    },
-	    totalPages: function() {
-	    	if (this.$store.state.services.meta.total) {
-				return this.$store.state.services.meta.total;
-			} 
 	    }
 	},
 	methods: {
@@ -98,7 +94,6 @@ export default {
 		   	this.$store.dispatch('changePage', link); 
 		},
 		print: function () {
-			console.log("results: print : agregar funcionalidad")
     	},
     	viewService: function (serviceID) {
 			//router.push({ name: 'Service', params:{id: serviceID}});			
@@ -112,7 +107,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 main{
-    margin:30px 0;
+    margin:0;
     outline: 1px solid red !important;
 }
 

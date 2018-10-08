@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container">
     <the-header></the-header>
-    <div class="test">
+    <div>
       <router-view/>
     </div>
     <the-footer></the-footer>
@@ -84,7 +84,7 @@ export default {
               //this.$store.dispatch('changeQueryFilters', selFil); 
            }
 
-          console.log(this.filterList);
+          //console.log(this.filterList);
 
       });
 
