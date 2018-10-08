@@ -6,7 +6,7 @@
          <img @click="goHome" src="../assets/img/logountref.svg" alt="logo-untref">
     </div>
     <!------ BUSCADOR DEL HEADER, SE VE EN TODAS LAS VISTAS MENOS EL LANDER -------->
-    <div class="d-none d-md-inline col-md-6 col-lg-6 offset-3" v-if="this.$route.name !== 'Lander'">
+    <div class="d-none d-md-inline col-md-6 col-lg-6" v-if="this.$route.name !== 'Lander'">
       <div class="input-group">
         <input 
           type="text" 

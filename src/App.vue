@@ -175,21 +175,9 @@ export default {
   }
 
   /* buscador */
-  .place{
-    background-color: #f4f4f4; 
-    margin-right: 15px;
-  }
+  
 
-  .place::placeholder{
-    font-size:0.8em;
-  }
-
-  .boton{
-    background-color: #000;
-    color:#fff;
-    text-transform: uppercase;
-      font-weight: 700;
-  }
+  
 
   @media (max-width: 576px){
     ul li a{
