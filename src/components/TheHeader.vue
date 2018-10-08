@@ -12,7 +12,7 @@
           type="text" 
           class="form-control rounded-0 place" 
           placeholder="Buscar servicios, instituciones..." 
-          aria-label="Recipient's username" 
+          aria-label="search" 
           aria-describedby="button-addon2"
           v-model="searchInput"
           @keyup.enter="submitSearch">

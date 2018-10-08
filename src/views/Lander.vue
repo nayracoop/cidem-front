@@ -54,10 +54,13 @@
 		    <a href="#"><i class="fas fa-building"></i></a>
 		    <a href="#"><i class="far fa-lightbulb"></i></a>
 		    <a href="#"><i class="fas fa-handshake"></i></a>
-		    <a href="#"><i class="fas fa-hands"></i></a>
-		    <a href="#"><i class="fas fa-graduation-cap"></i></a>
+		   	<i class="fas fa-hands"></i>
+		    <i class="fas fa-graduation-cap"></i>
 		    <a href="#"><i class="fas fa-microscope"></i></a>
-		</div>				
+		</div>
+		<button @click="goLogIn">LOG IN</button>
+		<button @click="goRef">REFERENCIAS</button>				
+				
 	</section>
 </template>
 
@@ -91,6 +94,12 @@ export default {
 	},
 	filterTypes(){
 		      	return this.$store.state.filterTypes;
+	},
+	goLogIn(){
+		router.push({ name: 'LogIn'});  
+	},
+	goRef(){
+		router.push({ name: 'Referencias'});  
 	}
   }
 }
