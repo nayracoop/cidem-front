@@ -82,6 +82,7 @@
 </template>
 <script>
 	export default{
+		name:"Ficha",
 		data:function(){
 			return{
 				backpage:"#",
@@ -217,6 +218,4 @@ aside .ph{
         margin-bottom: 10px; 
     }
 }
-
-
 </style>
