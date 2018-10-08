@@ -2,11 +2,11 @@
 <!---------------- INICIO HEADER PRINCIPAL , ARRIBA DE TODO : ----------------->
   <div class="row align-items-center header">
      <!---- LOGO UNTREF (SE VE SIEMPRE) -------->
-    <div class="col-sm-6 col-md-3 col-lg-3">  
+    <div class="col-sm-2 col-md-2 col-lg-2">  
          <img @click="goHome" src="../assets/img/logountref.svg" alt="logo-untref">
     </div>
     <!------ BUSCADOR DEL HEADER, SE VE EN TODAS LAS VISTAS MENOS EL LANDER -------->
-    <div class="d-none d-md-inline col-md-6 col-lg-6" v-if="this.$route.name !== 'Lander'">
+    <div class="d-none col-md-6 col-lg-6" v-if="this.$route.name !== 'Lander'">
       <div class="input-group">
         <input 
           type="text" 
@@ -21,8 +21,9 @@
         </div>
       </div>                  
     </div>
+    <search-bar class="col-sm-8 col-md-8" v-if="this.$route.name !== 'Lander'"></search-bar>
     <!------ HAMBURGUESA (SE VE SIEMPRE) -------->
-    <hamburguer></hamburguer>
+    <hamburguer class="col-2 col-md-2 float-right" v-if></hamburguer>
 <!---------------- FIN HEADER PRINCIPAL ----------------->
   </div>          
 </template>
@@ -31,6 +32,8 @@
 import router from '../router'
 import store from '../store'
 import Hamburguer from '@/components/Hamburguer'
+import SearchBar from '@/components/SearchBar'
+
 
 export default {
   name: 'TheHeader',
@@ -40,7 +43,8 @@ export default {
     }
   },
   components: {
-    Hamburguer
+    Hamburguer,
+    SearchBar
   },
   computed: {
      searchQuery: function(){
@@ -68,6 +72,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .header{
+
   margin-top: 1em;
   border-bottom:1px solid rgba(0, 0, 0, 0.2);
   width: 100%;
@@ -76,6 +81,7 @@ export default {
 
 /*HACER QUE DESAPAREZCA LINEA CON MEDIAQ, HACER EL BUSCADOR MÁS GRANDE CON MEDIAQ*/
 .header img{
+
     height: auto; 
     width: auto; 
     max-width: 150px; 

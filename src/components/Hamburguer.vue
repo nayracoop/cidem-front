@@ -1,5 +1,5 @@
 <template>	
-		<div class="col-3 col-md-3 dropdown ">
+		<div class="dropdown ">
 			<div class="hidebutton">
 				<button class="Fbtn" type="button" data-toggle="dropdown">
 				<i class="fas fa-bars"></i>

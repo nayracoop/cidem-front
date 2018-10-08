@@ -14,7 +14,7 @@
 	      	</div>
 	    </div>         
 	    <!------- BUSCADOR DEL LANDER -------->   
-	    <search-bar></search-bar>	  
+	    <search-bar class="col-sm-12 col-md-10 offset-md-1"></search-bar>	  
 	    <!------ LINK A VISTA DE TODOS LOS FILTROS ------>
 		<div class="linksearch">
 			<a href="#">Ver todos</a>
