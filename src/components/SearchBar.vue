@@ -4,13 +4,12 @@
 		class="input-group-prepend d-sm-none d-md-block "
 		 v-for="type in filterTypes"
 		 v-if="type.id !== 2">  
-			<label for="Tipodeservicio"></label>
 			<button 
 				class="btn btn-outline-secondary rounded-0" 
 				type="button" 
 				data-toggle="dropdown">{{type.name}}<span class="filterarrow"><i class="fas fa-caret-down"></i></span></button>
 			<ul class="dropdown-menu scrollable-menu" role="menu" aria-expanded="false">
-				<li 
+				<li  
 					v-for="filter in filterList"
 					v-if="filter.filterType.id == type.id" 
 					:class="{highlight:selected.includes(filter.id)}"
@@ -150,6 +149,11 @@
 }
 
 
+.highlight {
+    background-color:#1599e0;
+}
+
+
 @media screen and (max-width:992px){
     .scrollable-menu{
         width: inherit;
@@ -158,10 +162,6 @@
     .landerHiddenS{
         margin-top:18px;
     }
-}
-
-.highlight {
-    background-color:#1599e0;
 }
 
 </style>
