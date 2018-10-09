@@ -3,8 +3,7 @@
 				<aside>
 					<div class="d-block d-md-none">
 				    	<button type="button" data-toggle="modal" data-target="#modalwindow">Filtros</button>
-					</div>
-				    
+					</div>				    
 					<div class="d-none d-md-block filters" >
 					    <dl v-for="type in filterTypes">
 					    	<dt class="filter-type">{{type.name}}</dt>

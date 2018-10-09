@@ -6,8 +6,9 @@
 				</button>
 				<div class="dropdown-menu rounded-0 dropdown-menu-right headermenu" role="menu" aria-expanded="false">
 					<ul>	
-						<li><a class="dropdown-item" @click="goTo('LogIn')">Login</a></li>
+						<li><a class="dropdown-item" @click="goTo('LogIn')">Log in</a></li>
 						<li><a class="dropdown-item" @click="goTo('Referencias')">Referencias</a></li>
+            <li><a class="dropdown-item" @click="goTo('Contact')">Contacto</a></li>
 					</ul>
 				</div>
 			</div>
@@ -31,7 +32,7 @@ export default {
   }
 }	
 </script>
-<style>
+<style scope>
 .dropdown-item{
 	padding:0;
 }

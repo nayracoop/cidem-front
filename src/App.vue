@@ -5,7 +5,6 @@
       <router-view/>
     </div>
     <the-footer></the-footer>
-
   </div>
 </template>
 
@@ -167,35 +166,10 @@ export default {
       src: url('assets/fonts/tipo_-_distefanoslab-regular-webfont.woff') format('woff');
   }
 
-
   body {
     font: normal 100%/1.5 'Distefano-Sans', sans-serif;
     background: #fff;
     color:#000;
-  }
-
-  /* buscador */
-  
-
-  
-
-  @media (max-width: 576px){
-    ul li a{
-      display:block;
-      margin-bottom:1em;
-    }
-      .primeralinea h1{
-        font-size: 1.750em;
-      }
-
-      .segundalinea p{
-        font-size: 0.875em;
-      }
-
-      .place::placeholder{
-        font-size:0.8em;
-      }
-
   }
 
 </style>

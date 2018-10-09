@@ -1,7 +1,7 @@
 <template>
 	<div class="d-lg-flex input-group"> <!-- buscador principal -->
 		<div 
-		class="input-group-prepend d-sm-none d-md-block "
+		class="input-group-prepend d-sm-none d-md-block"
 		 v-for="type in filterTypes"
 		 v-if="type.id !== 2">  
 			<button 
@@ -27,7 +27,7 @@
 
 		<div class="input-group-append">
 			<button class="btn rounded searcherbtn d-lg-block  rounded-0" type="button"  @click="submitSearch">
-			<i class="d block d-md-none fa fa-search lupa"></i><span class= "d-none d-md-block">Buscar</span></button>
+			<i class="d block d-md-none fa fa-search lupa"></i><span class="d-none d-md-block">Buscar</span></button>
 		</div>	 	
 	</div>	
 		
@@ -42,7 +42,6 @@
 		data:function(){
 			return{
 				searchInput: '',
-				isSelected: this.selected ? this.selected : false,
 			}
 		},
 		computed: {
@@ -109,8 +108,6 @@
 .input-group-prepend{
 	
 }
-
-
 
 .searcherbtn{
     background-color: #000;

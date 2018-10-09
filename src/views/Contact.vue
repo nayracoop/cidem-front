@@ -37,7 +37,7 @@
 </template>	
 <script>
 	export default{
-		name:"contact",
+		name:"Contact",
 		data:function(){
 			return{
 				title:"consulta de oferta tecnológica",

@@ -1,11 +1,9 @@
 <template>
-<!---------------- INICIO HEADER PRINCIPAL , ARRIBA DE TODO : ----------------->
-  <div class="row align-items-center header">
-     <!---- LOGO UNTREF (SE VE SIEMPRE) -------->
+
+  <div class="row align-items-center header justify-content-between">
     <div class="col-sm-2 col-md-2 col-lg-2">  
          <img @click="goHome" src="../assets/img/logountref.svg" alt="logo-untref">
-    </div>
-    <!------ BUSCADOR DEL HEADER, SE VE EN TODAS LAS VISTAS MENOS EL LANDER -------->
+    </div>   
     <div class="d-none col-md-6 col-lg-6" v-if="this.$route.name !== 'Lander'">
       <div class="input-group">
         <input 
@@ -23,10 +21,10 @@
     </div>
     <search-bar class="col-sm-8 col-md-8" v-if="this.$route.name !== 'Lander'"></search-bar>
     <!------ HAMBURGUESA (SE VE SIEMPRE) -------->
-    <hamburguer class="col-2 col-md-2 float-right" v-if></hamburguer>
-<!---------------- FIN HEADER PRINCIPAL ----------------->
+    <hamburguer class="col-2 col-md-2" v-if></hamburguer>
   </div>          
 </template>
+<!-- -------------- FIN HEADER PRINCIPAL -----------------> -->
 
 <script>
 import router from '../router'
@@ -68,9 +66,8 @@ export default {
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 .header{
 
   margin-top: 1em;
@@ -79,7 +76,6 @@ export default {
   padding-bottom: 1em;
 }
 
-/*HACER QUE DESAPAREZCA LINEA CON MEDIAQ, HACER EL BUSCADOR MÁS GRANDE CON MEDIAQ*/
 .header img{
 
     height: auto; 
@@ -87,6 +83,5 @@ export default {
     max-width: 150px; 
     max-height: 150px;
 }
-
 
 </style>
