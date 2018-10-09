@@ -1,6 +1,6 @@
 <template>
 	<main role="main">
-		<filters-selected class="col-12 center"></filters-selected>
+		<filters-selected class="col-10 offset-md-1"></filters-selected>
 		<div class="row listado">	   						    
 			<the-sidebar></the-sidebar>
 			<div class="col-sm-12 col-md-7 offset-md-1" id="list">
@@ -108,7 +108,6 @@ export default {
 <style scoped>
 main{
     margin:0;
-    outline: 1px solid red !important;
 }
 
 .listado {

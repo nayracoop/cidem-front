@@ -5,7 +5,6 @@
       <router-view/>
     </div>
     <the-footer></the-footer>
-
   </div>
 </template>
 
@@ -69,7 +68,6 @@ export default {
       this.getFiltersAvailable();
       this.getServices();
     },*/
-    
     load: function(){
       var that = this;
       if (this.$route.query.services) {
@@ -79,13 +77,13 @@ export default {
           if (this.$route.query.filters) {
               //ARREGLAR ESTO 
               console.log(this.$route.query.filters);
-              
-              var selFil = this.filterList.filter(function(item) { return ~this.$route.query.filters.indexOf(item.id)}); 
+              /*
+              var selFil = this.filterList.filter(function(item) { return this.$route.query.filters.includes(item.id)}); 
               console.log("selfil");
               console.log(selFil);
-              this.$store.dispatch('changeQueryFilters', selFil); 
+              this.$store.dispatch('changeQueryFilters', selFil); */
           }
-          this.$store.dispatch('fetchServices'); //para que este disponible para busquedas especificas, ids de servicios, etc   
+          this.$store.dispatch('fetchServices', 10); //para que este disponible para busquedas especificas, ids de servicios, etc   
       });
       
     }
@@ -96,6 +94,7 @@ export default {
   }
   
 }
+
 </script>
 
 <style>

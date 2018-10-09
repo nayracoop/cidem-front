@@ -42,7 +42,6 @@
 		data:function(){
 			return{
 				searchInput: '',
-				isSelected: this.selected ? this.selected : false,
 			}
 		},
 		computed: {

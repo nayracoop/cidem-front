@@ -38,6 +38,6 @@ export default new Router({
       path: '/referencias',
       name: 'Referencias',
       component: Referencias
-    },
+    }
   ]
 })
