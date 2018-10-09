@@ -1,32 +1,40 @@
 <template>	
-		<div class="col-6 col-md-9 dropdown">
+		<div class="dropdown ">
 			<div class="hidebutton">
 				<button class="Fbtn" type="button" data-toggle="dropdown">
 				<i class="fas fa-bars"></i>
 				</button>
 				<div class="dropdown-menu rounded-0 dropdown-menu-right headermenu" role="menu" aria-expanded="false">
 					<ul>	
-						<li><a class="dropdown-item" href="#">{{log}}</a></li>
-						<li><a class="dropdown-item" href="#">{{reference}}</a></li>
-						<li><a class="dropdown-item" href="#">{{contact}}</a></li>
+						<li><a class="dropdown-item" @click="goTo('LogIn')">Login</a></li>
+						<li><a class="dropdown-item" @click="goTo('Referencias')">Referencias</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 </template>
 <script>
+import router from '../router'
+
 export default {
+
   name: 'Hamburguer',
   data:function () {
     return {
-    	log:"Log in",
-    	referencia:"referencia",
-    	contacto:"contacto"
+    
+  	}
+  },
+  methods:{
+  	goTo: function (link) {
+  		router.push({ name: link});     
   	}
   }
 }	
 </script>
 <style>
+.dropdown-item{
+	padding:0;
+}
 .hidebutton{
     text-align: right;
 }
@@ -45,13 +53,14 @@ export default {
 
 .headermenu ul li{
     text-align: right;       
-    padding-right:4px;
+    padding-right:0px;
     display: block;
     list-style: none;
 }
 
-.headermenu a{
+.headermenu{
     color:#000;
     font-size:1.25em;
+    width: 100px;
 }
 </style>

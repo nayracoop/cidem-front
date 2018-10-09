@@ -14,56 +14,28 @@
 	      	</div>
 	    </div>         
 	    <!------- BUSCADOR DEL LANDER -------->   
-	    <div class="d-none d-md-inline col-md-6 col-lg-6 offset-3">
-	      	<div class="input-group">
-		        <input 
-		          type="text" 
-		          class="form-control rounded-0 place" 
-		          placeholder="Buscar servicios, instituciones..." 
-		          aria-label="Recipient's username" 
-		          aria-describedby="button-addon2"
-		          v-model="searchInput"
-		          @keyup.enter="submitSearch">
-		        <div class="input-group-append boton">
-		          <a class="btn btn-outline-secondary rounded-0 boton" @click="submitSearch">Buscar</a>
-		        </div>
-	      	</div>                  
-	    </div>
-	    <!------- FILTROS DE LANDER (UN COMPONENTE APARTE) -------->
-	    <div class="row">
-	    	<!------ COMPONENTE FILTRO DROPDOWN UNICO------>
-		    <div  v-for="type in filterTypes" class="col-10 offset-2 selectes">
-		      	<div class="col-3 uno">
-			          <label>{{type.name}}</label>
-			          <select 
-			          	class="select" 
-			          	placeholder=""
-			          	v-for="filter in filterList"
-					    v-if="filter.filter_type_id == type.id">
-			            <option>{{filter.name}}</option>
-			          </select>
-		        </div>
-		    </div>
-	    </div>  
+	    <search-bar class="col-sm-12 col-md-10 offset-md-1"></search-bar>	  
 	    <!------ LINK A VISTA DE TODOS LOS FILTROS ------>
 		<div class="linksearch">
 			<a href="#">Ver todos</a>
 		</div>
-		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->													 
-	    <div class="icons">
-		    <a href="#"><i class="fas fa-building"></i></a>
-		    <a href="#"><i class="far fa-lightbulb"></i></a>
-		    <a href="#"><i class="fas fa-handshake"></i></a>
-		    <a href="#"><i class="fas fa-hands"></i></a>
-		    <a href="#"><i class="fas fa-graduation-cap"></i></a>
-		    <a href="#"><i class="fas fa-microscope"></i></a>
-		</div>				
+		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->	 
+	    <div class="icons col-12">
+		    <i class="fas fa-building"></i>
+		    <i class="far fa-lightbulb"></i>
+		    <i class="fas fa-handshake"></i>
+		   	<i class="fas fa-hands"></i>
+		    <i class="fas fa-graduation-cap"></i>
+		    <i class="fas fa-microscope"></i>
+		</div>
 	</section>
 </template>
 
 <script>
 import store from '../store'
 import router from '../router'
+import SearchBar from '@/components/SearchBar'
+
 
 
 export default {
@@ -73,10 +45,19 @@ export default {
       searchInput: ''
     }
   },
+  components:{
+  	SearchBar
+  },
   computed: {
      searchQuery: function(){
       return this.$store.state.searchQuery;
-     }
+     },
+     filterList(){
+      			return this.$store.state.filterList;
+	},
+	filterTypes(){
+		      	return this.$store.state.filterTypes;
+	},
   },
   methods: {
     submitSearch: function () {
@@ -84,14 +65,7 @@ export default {
       this.$store.dispatch('fetchServices');
       router.push({ name: 'Results', query:{services: this.searchQuery}});     
       //router.push({ name: "Results", query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});
-      console.log("ook")       
     },
-    filterList(){
-      			return this.$store.state.filterList;
-	},
-	filterTypes(){
-		      	return this.$store.state.filterTypes;
-	}
   }
 }
 </script>

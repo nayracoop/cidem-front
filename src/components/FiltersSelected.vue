@@ -95,7 +95,7 @@ import router from '../router'
 }*/
 .selectedfilters dl dd{
     margin-left: 5px;
-    border-radius: 25px;
+
     padding: 0.3em 0.4em;
     background-color:#17aae4;
     color:#fff;
