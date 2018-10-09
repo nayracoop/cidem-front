@@ -74,21 +74,20 @@ export default {
       var that = this;
       if (this.$route.query.services) {
         this.$store.dispatch('changeQuerySearch', this.$route.query.services);
-      }
-      this.$store.dispatch('fetchServices'); //para que este disponible para busquedas especificas, ids de servicios, etc 
+      };
       this.$store.dispatch('fetchFilters').then(response =>{ 
-
           if (this.$route.query.filters) {
-              var selFil = this.filterList.filter(function(item) { return this.$route.query.filters.indexOf(item.id)});
+              //ARREGLAR ESTO 
+              console.log(this.$route.query.filters);
+              
+              var selFil = this.filterList.filter(function(item) { return ~this.$route.query.filters.indexOf(item.id)}); 
+              console.log("selfil");
               console.log(selFil);
-              //this.$store.dispatch('changeQueryFilters', selFil); 
-           }
-
-          //console.log(this.filterList);
-
+              this.$store.dispatch('changeQueryFilters', selFil); 
+          }
+          this.$store.dispatch('fetchServices'); //para que este disponible para busquedas especificas, ids de servicios, etc   
       });
-
-     
+      
     }
     /*,
     setUrl: function() {
