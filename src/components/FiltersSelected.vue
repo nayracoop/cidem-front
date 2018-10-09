@@ -79,10 +79,8 @@ import router from '../router'
 	flex-wrap: wrap;
 	justify-content: flex-start;
 	align-content: flex-start;
-	outline: 1px solid blue;
 }
 .selectedfilters dl{
-	outline: 1px solid green;
 	margin: 5px 5px;
 	transition: all 300ms;
 }

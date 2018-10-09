@@ -5,6 +5,7 @@ import Lander from '@/views/Lander'
 import Results from '@/views/Results'
 import Service from '@/views/Service'
 import LogIn from '@/views/LogIn'
+import Oferta from '@/views/Oferta'
 import Referencias from '@/views/Referencias'
 
 
@@ -39,5 +40,10 @@ export default new Router({
       name: 'Referencias',
       component: Referencias
     },
+    {
+      path: '/oferta',
+      name: 'Oferta',
+      component: Oferta
+    }
   ]
 })
