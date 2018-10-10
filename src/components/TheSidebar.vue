@@ -11,7 +11,8 @@
 					        	v-for="filter in filterList"
 					        	v-if="filter.filterType.id == type.id" 
 					        	@click="filterclick(filter)"
-					        	class="filter-item">{{filter.name}}</dd>
+					        	class="filter-item"
+					       		:class="{highlight:selected.includes(filter.id)}">{{filter.name}}</dd>
 					    </dl>
 					</div>
 				</aside>    						  
@@ -39,7 +40,7 @@
 		  	searchQuery() {
 		        return this.$store.state.searchQuery;
 		    },
-		    selected() {
+		    searchQueryFilters() {
 		        return this.$store.state.searchQueryFilters;
 		    },
 		    filterList(){
@@ -48,16 +49,19 @@
 		    filterTypes(){
 		      	return this.$store.state.filterTypes;
 		    },
+		    selected(){
+		    	return this.$store.getters.filterArray; 
+		    }
 		},
 		methods: {
 		  	filterclick: function(filter) {
-		  	 	var result = this.selected.some(function (el){
+		  	 	var result = this.searchQueryFilters.some(function (el){
 		  	 		return el.id === filter.id;
 		  	 	});
 		  	 	
 		  	 	if (!result) {
-		  	 		this.selected.push(filter);
-	      			this.$store.dispatch('changeQueryFilters', this.selected); 
+		  	 		this.searchQueryFilters.push(filter);
+	      			this.$store.dispatch('changeQueryFilters', this.searchQueryFilters); 
 		  	 	}
 		  	 	this.$store.dispatch('fetchServices');
 		  	 	router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});     
@@ -68,10 +72,9 @@
 	}
 </script>
 
-<style>
-.filter-type {
-
-	
+<style scoped>
+.selected {
+	font-weight: 600;
 }
 .filter-item {
 	font-weight: 200;

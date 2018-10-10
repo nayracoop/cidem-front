@@ -1,12 +1,14 @@
 <template>
 	<main role="main">
-		<div class="row navficha"> <!-- FIRST LINE -->
+		<div class="row navficha flex justify-content-between"> <!-- FIRST LINE -->
+			<!--- BUGEADO NO FUNCIONA BIEN 
 			<div class="col-12 col-md-2 mainback">
 				<a @click="goBack()"><i class="fas fa-caret-left"></i>Volver</a>
 			</div>
-			<div class="col-12 col-md-7 offset-md-2 navfile">
+			--->
+			<div v-if="!(total===0)" class="col-12 col-md-7 offset-md-4 navfile">
 				<a v-if="prev" @click="getServiceById(prev)"><i class="fas fa-angle-double-left"></i><span class="d-none  d-md-inline">Anterior</span></a>
-				<p>Resultado {{current + 1}} de {{total}}</p>
+				<p >Resultado {{current + 1}} de {{total}}</p>
 				<a v-if="next" @click="getServiceById(next)"><span class="d-none d-md-inline">Siguiente</span><i class="fas fa-angle-double-right"></i></a>	
 			</div>
 			<div class="d-none d-md-block col-1 printbtn">
@@ -61,13 +63,13 @@
 					</div>
 					<div class="col-12 col-lg-3 contact">
 						<aside>
-							<h3>{{contact_info}}</h3>
+							<h3>Información de contacto</h3>
 							<div class="vcard"> 
 								<p>
-								<span class="name"><i class="fas fa-user"></i>{{contact_name}}</span>
-								<span class="email"><i class="fas fa-envelope"></i>{{contact_email}}</span> 
-								<span class="number"><i class="fas fa-phone ph"></i>{{contact_number}}</span>
-								<span class="region"><i class="fas fa-map-marker-alt"></i>{{contact_adress}}</span>
+									<span class="name"><i class="fas fa-user"></i>{{contact_name}}</span>
+									<span class="email"><i class="fas fa-envelope"></i>{{contact_email}}</span> 
+									<span class="number"><i class="fas fa-phone ph"></i>{{contact_number}}</span>
+									<span class="region"><i class="fas fa-map-marker-alt"></i>{{contact_adress}}</span>
 								</p>
 							</div>
 						</aside>
@@ -99,7 +101,6 @@ import store from '../store'
 				Dest_results:"Universidad",
 				C_Desc:"Descripción",
 				Desc_results:"Dessarrollo y ejecución de proyectos de fortalecimiento institucional de organismos públicos (Gobierno Nacional, Subnacional y Local). Se provee asistencia y asesoramiento en proceso de fortalecimiento institucional, orientados a la incorporación de capacidades, como por ejemplo mejora de procesos de gestión, realización de estudios y diagnósticos sectoriales, reorganizaciones y mejoras organizativas, gestión por resultados, diseño y puesta en funcionamiento de agencias y áreas de promoción económica, implementación de estándares de calidad y servicios al vecino.",
-				contact_info:"Información de contacto",
 				contact_name:"Diego Federico",
 				contact_email:"dfederico@untref.edu.ar",
 				contact_number:"01147599810",
@@ -138,7 +139,9 @@ import store from '../store'
 				return this.$store.getters.serviceIdArray;
 			},
 			total(){
-				return this.serviceIdArray.length;
+				if (this.serviceIdArray){
+					return this.serviceIdArray.length;
+				}
 			},
 			current(){
 				return this.serviceIdArray.indexOf(this.id);
@@ -166,16 +169,19 @@ import store from '../store'
 		    },
 		    goBack: function(){
 				 this.$store.dispatch('fetchServices');
-     			 router.push({ name: 'Results', query:{services: this.searchQuery, filters: this.searchQueryFilters}});     
+				 router.go(-1);
+     			 //router.push({ name: 'Results', query:{services: this.searchQuery, filters: this.searchQueryFilters}});     
 			}
 		}
 	}
 </script>
 
 <style scope>
-
+.vcard p span:hover {
+	cursor: pointer;
+}
 .navficha{
-    padding-bottom: 40px;
+    padding-bottom: 20px;
 }
 
 .navficha i{
@@ -207,11 +213,6 @@ import store from '../store'
 	text-align:right;
 }
 
-.titlefile h1{
-    font-size:1.3131em;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
 
 .categresultlast p,
 .categresult p{
@@ -223,6 +224,9 @@ import store from '../store'
     margin-bottom:10px;
 } 
 
+.categresult p {
+	cursor: pointer;
+}
 .categresultlast p{
  text-align: justify;
 }

@@ -6,6 +6,7 @@ import Results from '@/views/Results'
 import Service from '@/views/Service'
 import LogIn from '@/views/LogIn'
 import Oferta from '@/views/Oferta'
+import Contact from '@/views/Contact'
 import Referencias from '@/views/Referencias'
 
 
@@ -44,6 +45,11 @@ export default new Router({
       path: '/oferta',
       name: 'Oferta',
       component: Oferta
+    },
+    {
+      path: '/contacto',
+      name: 'Contact',
+      component: Contact
     }
   ]
 })

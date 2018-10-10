@@ -44,7 +44,6 @@ export default {
     border: none;
     background-color: white;
     font-size: 30px;
-    margin-top: 15px;
     cursor:pointer;
 }
 

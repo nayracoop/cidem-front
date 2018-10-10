@@ -12,11 +12,8 @@ const store = new Vuex.Store({
 		filterList: [],
 		searchQuery: null,
 		searchQueryFilters: [],
-		services:{
-			data: [],
-			meta:[],
-			links:[]
-		},
+		services:{},
+		fullServices:{},
 		service:{}
 	},
 	mutations: {
@@ -27,10 +24,14 @@ const store = new Vuex.Store({
 			state.filterList = filterList;
 		},
 		FETCH_SERVICES(state, services){
+			console.log(services);
 			state.services = services;
 		},
 		FETCH_SERVICE(state, service){
 			state.service = service;
+		},
+		FETCH_FULL_SERVICES(state, fullServices){
+			state.fullServices = fullServices;
 		},
 		CHANGE_QUERY_SEARCH(state, searchQuery){
 			state.searchQuery = searchQuery;
@@ -38,8 +39,8 @@ const store = new Vuex.Store({
 		CHANGE_QUERY_FILTERS(state, searchQueryFilters){
 			state.searchQueryFilters = searchQueryFilters;
 			//console.log(state.searchQueryFilters);
-
 		}
+
 	},
 	actions: {
 		fetchFilters(context){
@@ -69,7 +70,6 @@ const store = new Vuex.Store({
 		          filters.push(state.searchQueryFilters[i].id);
 		        } 
 		    };
-		    console.log(filters);   
 			axios.get('http://127.0.0.1:8000/api/services',  {
 		        params: {
 		          service: state.searchQuery,
@@ -77,8 +77,32 @@ const store = new Vuex.Store({
 		        }
 		      })
 		      .then(response => {
-		      	console.log(response.data);
 		      	commit('FETCH_SERVICES', response.data);
+		      })
+		      // REVISAR DE ACA A ABAJO
+		      .then(() => {
+			      	
+		      })
+		      .catch(e => {
+		            this.errors.push(e)
+		      })
+		},
+		fetchFullServices({commit, state}, total){
+			var filters = [];
+		    if (state.searchQueryFilters.length > 0) {
+		        for (var i = 0; i < (state.searchQueryFilters.length); i++){
+		          filters.push(state.searchQueryFilters[i].id);
+		        } 
+		    };
+			axios.get('http://127.0.0.1:8000/api/services',  {
+		        params: {
+		          service: state.searchQuery,
+		          filters: filters,
+		          per_page: total
+		        }
+		      })
+		      .then(response => {
+		      	commit('FETCH_FULL_SERVICES', response.data);
 		      })
 		      // REVISAR DE ACA A ABAJO
 		      .then(() => {
@@ -98,7 +122,8 @@ const store = new Vuex.Store({
 		        this.errors.push(e)
 		    }) 
 		},
-		changePage({context, state}, link){
+		changePage({commit, state}, link){
+			console.log(link);
 			axios.get(link,{
 	          	params: {
 		            service: state.searchQuery,
@@ -106,7 +131,7 @@ const store = new Vuex.Store({
 	          	}
 	        })
 	        .then(response => {
-	          context.commit('FETCH_SERVICES', response.data);
+	          commit('FETCH_SERVICES', response.data);
 	        })
 	        .catch(e => {
 	           this.errors.push(e)
@@ -131,13 +156,15 @@ const store = new Vuex.Store({
 	      return filters;
 	    },
 	    serviceIdArray(state) {
-	      var services = [];
-	       if (state.services.data.length > 0) {
-	        for (var i = 0; i < (state.services.data.length); i++){
-	          services.push(state.services.data[i].id);
-	        } 
-	      };
-	      return services;
+	      	var services = [];
+	      	if (state.fullServices.data) {
+	      		if (state.fullServices.data.length > 0) {
+		        	for (var i = 0; i < (state.fullServices.data.length); i++){
+		        		services.push(state.fullServices.data[i].id);
+		        	} 
+		        }
+	      	};
+	      	return services;
 	    }
 	}
 });

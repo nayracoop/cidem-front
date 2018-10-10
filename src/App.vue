@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container">
     <the-header></the-header>
-    <div>
+    <div class="view">
       <router-view/>
     </div>
     <the-footer></the-footer>
@@ -83,7 +83,7 @@ export default {
               console.log(selFil);
               this.$store.dispatch('changeQueryFilters', selFil); */
           }
-          this.$store.dispatch('fetchServices', 10); //para que este disponible para busquedas especificas, ids de servicios, etc   
+          this.$store.dispatch('fetchServices', this.$route.query.filters); //para que este disponible para busquedas especificas, ids de servicios, etc   
       });
       
     }
@@ -169,6 +169,13 @@ export default {
     font: normal 100%/1.5 'Distefano-Sans', sans-serif;
     background: #fff;
     color:#000;
+    margin: auto;
   }
+
+  .view{
+       padding-top:1em;   
+  }
+
+  input:focus {outline: none; }
 
 </style>

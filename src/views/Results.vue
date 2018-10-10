@@ -5,16 +5,16 @@
 			<the-sidebar></the-sidebar>
 			<div class="col-sm-12 col-md-7 offset-md-1" id="list">
 				<section>
-						<div v-if="services" class="results">
-							<aside  class="alertresults">Se encontraron {{metadata.total}} resultados para "{{searchQuery}}"</aside>
-							<ul class="pager">
-								<li v-if="previousPage" 
-									@click="changePage(previousPage)"> anterior </li> 
-								<label>{{metadata.current_page}}</label>
-								<li v-if="nextPage" 
-									@click="changePage(nextPage)"> siguiente </li>
-							</ul>
-							<button @click="print"> print </button>
+					<div v-if="services" class="results">
+						<aside class="alertresults">Se encontraron {{metadata.total}} resultados para "{{searchQuery}}"</aside>
+						<button @click="print"> print </button>	
+						<div class="row">
+							<div class="col-12 col-md-7 offset-md-4 navfile flex justify-content-between"">
+								<a v-if="previousPage" @click="changePage(previousPage)"><i class="fas fa-angle-double-left"></i><span class="d-none  d-md-inline">Anterior</span></a>
+								<p >Pagina {{metadata.current_page}}</p>
+								<a v-if="nextPage" @click="changePage(nextPage)"><span class="d-none d-md-inline">Siguiente</span><i class="fas fa-angle-double-right"></i></a>
+							</div>
+						</div>
 							<article v-for="service in services" class="card art">
 								<div class="card-body box">
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
@@ -25,7 +25,7 @@
 									<p>{{service.description}}</p>
 								</div>
 							</article>	
-					</div>							
+					</div>						
 				</section>
 			</div>	
 		</div>
@@ -48,7 +48,7 @@ export default {
 	name: 'Results',
 	data () {
 	    return {
-
+	    	render: true,
 	    }
 	}, 
 	components: {
@@ -94,10 +94,13 @@ export default {
 		   	this.$store.dispatch('changePage', link); 
 		},
 		print: function () {
+
     	},
     	viewService: function (serviceID) {
 			//router.push({ name: 'Service', params:{id: serviceID}});			
 			router.push({ name: 'Service', query:{id: serviceID}}); // no pude acceder a los query params desde /service?id=n
+			this.$store.dispatch('fetchFullServices', this.metadata.total); 
+
 		}
 	}
 	

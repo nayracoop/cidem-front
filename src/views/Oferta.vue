@@ -1,7 +1,9 @@
 <template>
 	<main role="main">
-		<h1>Oferta Completa</h1>
-
+		<div class="row">
+			<h1 class="col-11 text-center">Oferta Completa</h1>
+			<button class="col-1" @click="print()"> print </button>
+		</div>
 		<table class="table table-striped">
 		  <thead>
 		    <tr>
@@ -42,6 +44,9 @@ export default {
 	methods:{
 		viewService: function (id) {	
 			router.push({ name: 'Service', query:{id: id}}); // no pude acceder a los query params desde /service?id=n
+		},
+		print: function() {
+			window.print();
 		}
 	}
 }
@@ -49,5 +54,8 @@ export default {
 </script>
 
 <style>
+a:hover{
+	cursor: pointer;
+}
 	
 </style>

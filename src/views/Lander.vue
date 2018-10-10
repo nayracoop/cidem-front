@@ -20,7 +20,7 @@
 	    </div>	  
 	    <!------ LINK A VISTA DE TODOS LOS FILTROS ------>
 		<div class="all_icons">
-			<a href="#">{{all}}</a>
+			<a><router-link to="Oferta">Ver Todos</router-link></a>
 		</div>
 		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->	 
 	    <div class="icons col-12">
@@ -48,7 +48,6 @@ export default {
       searchInput: '',
       title:'Portal de soluciones y servicios tecnológicos',
       subtitle:'En este portal se podrá acceder al catálogo de servicios tecnológicos que ofrece la Universidad Nacional de Tres de Febrero.',
-      all:'Ver todos'
     }
   },
   components:{
@@ -78,11 +77,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.Lander{
-    padding-top:1em;     
-}
 
 .titleLander h1{
+    margin-top: 1em;
     text-align: center;
     font-weight: 700;
     text-transform: uppercase;
@@ -92,13 +89,13 @@ export default {
 .subLander p{
     margin-top:20px;
     text-align:center;
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: #4a4a4a;
     font-family:'DistefanoSlab-Regular','DistefanoSlab';
 }
 
 .searcher{
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .searcherbtn{
@@ -169,7 +166,7 @@ export default {
 }
 
 .all_icons{
-    margin-top: 50px;
+    margin: 50px auto 50px auto ;
     text-align: center;
 }
 .icons{
@@ -177,6 +174,9 @@ export default {
 }
 
 .icons i{
+    -webkit-text-stroke-width: 0px;
+    -webkit-text-stroke-color: blue;
+
     padding:5px 5px;
     font-size: 40px;
     margin:30px 25px;
@@ -184,8 +184,9 @@ export default {
 }
 
 .icons i:hover{
-    text-shadow: 10px 2px grey;
-    transition: 0.2s;
+  -webkit-text-stroke-width: 2px;
+   -webkit-text-stroke-color: blue;
+    transition: 0.4s;
     cursor:pointer;
 }
 

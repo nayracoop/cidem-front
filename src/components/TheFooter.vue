@@ -1,13 +1,13 @@
 <template>
   <div class="footer">	
-    <div class="row d-flex rowfooter">
-      <div class="col-6 col-md-3 cidem order-1 order-md-0"> 
-          <a href="#"><img src="../assets/img/CIDEM.jpg" alt="logo-cidem"></a>            
+    <div class="row d-flex justify-content-between rowfooter">
+      <div class="col-6 col-md-3 cidem text-center order-1 order-md-0"> 
+          <a href="#"><img src="../assets/img/CIDEM.jpg" alt="logo-cidem"></a>       
       </div>  
       <div class="col-12 col-md-6 SIDcontact order-0 order-md-1">
         <address>{{SID}} <span class="address">{{SIDaddress}}</span></address>
       </div>  
-      <div class="col-6 col-md-3 cidem order-2">  
+      <div class="col-6 col-md-3 text-center cidem order-2">  
           <a href="#"><img src="../assets/img/logoSID.jpg" alt="logo-SID"></a>              
       </div>
     </div>
@@ -36,7 +36,7 @@ export default {
 .cidem img{
     max-width: 200px; 
     max-height: 200px;
-    width: 100%;
+    width: 60%;
 }
 
 .SIDcontact{
@@ -46,7 +46,7 @@ export default {
 }
 
 .rowfooter{
-padding: 20px 0;
+  padding: 10px 0;
 }
 
 .address{

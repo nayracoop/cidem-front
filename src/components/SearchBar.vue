@@ -1,14 +1,14 @@
 <template>
 	<div class="d-lg-flex input-group"> <!-- buscador principal -->
 		<div 
-		class="input-group-prepend d-sm-none d-md-block"
+		class="input-group-prepend d-none d-sm-none d-md-block"
 		 v-for="type in filterTypes"
 		 v-if="type.id !== 2">  
 			<button 
 				class="btn btn-outline-secondary rounded-0" 
 				type="button" 
 				data-toggle="dropdown">{{type.name}}<span class="filterarrow"><i class="fas fa-caret-down"></i></span></button>
-			<ul class="dropdown-menu scrollable-menu" role="menu" aria-expanded="false">
+			<ul class="dropdown-menu dropdown-menu-center scrollable-menu" role="menu" aria-expanded="false">
 				<li  
 					v-for="filter in filterList"
 					v-if="filter.filterType.id == type.id" 
@@ -58,7 +58,6 @@
       			return this.$store.state.filterList;
 		    },
 		    selected(){
-		    	console.log(this.$store.getters.filterArray)
 		    	return this.$store.getters.filterArray;
 		    }
 		},
@@ -98,6 +97,8 @@
 }
 </script>
 <style scoped>
+
+
 .input-group input {
 	background: #f4f4f4;
 }
@@ -134,7 +135,7 @@
 .scrollable-menu{
     max-height: 200px;
     overflow-x: hidden;
-    max-width: 95%;
+    max-width: 50%;
 }
 
 .scrollable-menu li:hover{
@@ -154,10 +155,6 @@
 @media screen and (max-width:992px){
     .scrollable-menu{
         width: inherit;
-    }
-
-    .landerHiddenS{
-        margin-top:18px;
     }
 }
 
