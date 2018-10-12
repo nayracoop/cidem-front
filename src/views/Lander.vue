@@ -24,12 +24,12 @@
 		</div>
 		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->	 
 	    <div class="icons col-12">
-		    <i class="fas fa-building"></i>
-		    <i class="far fa-lightbulb"></i>
-		    <i class="fas fa-handshake"></i>
-		   	<i class="fas fa-hands"></i>
-		    <i class="fas fa-graduation-cap"></i>
-		    <i class="fas fa-microscope"></i>
+		    <i class="fas fa-building" data-toggle="tooltip" data-placement="top" title="Gobierno"></i>
+		    <i class="far fa-lightbulb" data-toggle="tooltip" data-placement="top" title="Emprendedores"></i>
+		    <i class="fas fa-handshake" data-toggle="tooltip" data-placement="top" title="Cooperativas"></i>
+		   	<i class="fas fa-hands" data-toggle="tooltip" data-placement="top" title="ONGs"></i>
+		    <i class="fas fa-graduation-cap" data-toggle="tooltip" data-placement="top" title="Universidades"></i>
+		    <i class="fas fa-microscope" data-toggle="tooltip" data-placement="top" title="Organismos de Ciencia y técnica"></i>
 		</div>
 	</section>
 </template>
@@ -73,6 +73,9 @@ export default {
     },
   }
 }
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -166,7 +169,7 @@ export default {
 }
 
 .all_icons{
-    margin: 50px auto 50px auto ;
+    margin: 50px auto 50px auto;
     text-align: center;
 }
 .icons{
@@ -174,24 +177,25 @@ export default {
 }
 
 .icons i{
-    -webkit-text-stroke-width: 0px;
-    -webkit-text-stroke-color: blue;
-
     padding:5px 5px;
     font-size: 40px;
     margin:30px 25px;
     color:#000;
+    position:relative;
+    transition:0.2s;
+    top:0;
+    border-bottom:solid white;
 }
 
 .icons i:hover{
-  -webkit-text-stroke-width: 2px;
-   -webkit-text-stroke-color: blue;
-    transition: 0.4s;
+    transition:0.3s;
+    position:relative;
+    top:-5px;
     cursor:pointer;
+    border-bottom:solid #17aae4;
 }
 
 .all_icons a{
-    font-style: italic;
     font-size: 1.1313em;
 }
 

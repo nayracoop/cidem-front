@@ -102,13 +102,6 @@
 .input-group input {
 	background: #f4f4f4;
 }
-.input-group input::placeholder {
-    font-size:0.8em;
-}
-
-.input-group-prepend{
-	
-}
 
 .searcherbtn{
     background-color: #000;

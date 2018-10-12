@@ -33,6 +33,7 @@ export default {
 }	
 </script>
 <style scope>
+
 .dropdown-item{
 	padding:0;
 }
@@ -53,7 +54,7 @@ export default {
 
 .headermenu ul li{
     text-align: right;       
-    padding-right:0px;
+    padding-right:7px;
     display: block;
     list-style: none;
 }
