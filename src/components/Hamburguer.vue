@@ -37,13 +37,14 @@ export default {
 .dropdown-item{
 	padding:0;
 }
+
 .hidebutton{
     text-align: right;
 }
 
 .hidebutton button{
     border: none;
-    background-color: white;
+    background-color: #fff;
     font-size: 30px;
     cursor:pointer;
     background: inherit;
@@ -56,18 +57,33 @@ export default {
 }
 
 .headermenu ul li{
-    text-align: right;       
-    padding-right:0px;
-    display: block;
-    list-style: none;
-    width: inherit;
+  list-style: none;
 }
 
+.headermenu ul li a{
+  transition:0.3s;
+}
+
+.dropdown-item{
+    text-align: right;       
+    padding-right:6px;
+    display: block;
+}
+
+
+.dropdown-item:active{
+ background-color:#f4f4f4;
+}
+
+.headermenu ul li a:hover{
+   transition:0.3s;
+   border-right:solid 4px #17aae4;
+}
 
 .headermenu{
     color:#000;
     font-size:1.25em;
     width: inherit;
-    background: rgba(100,100,100,0.5);
+    background: #f4f4f4;
 }
 </style>

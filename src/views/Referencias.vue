@@ -1,10 +1,10 @@
 <template>
 	<main role="main">
-		<div class="row">
+<!-- 		<div class="row">
 			<div class="col-12 mainback">
-				<button @click="goBack"><i class="fas fa-caret-left"></i>volver</button>
+				<button @click="goBack"><i class="fas fa-caret-left"></i> volver </button>
 			</div>
-		</div>			
+		</div> -->			
 		<div class="row">
 			<div class="col-12 OFtitle">
 				<h1> {{ofertaRef.title}}</h1>

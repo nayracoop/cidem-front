@@ -2,7 +2,7 @@
 	<main role="main">		
 		<div class="row">
 			<div class="col-12 mainback">
-				<button @click="goBack"><i class="fas fa-caret-left"></i> {{back}} </button>
+				<!-- <button @click="goBack"><i class="fas fa-caret-left"></i> {{back}} </button> -->
 				<h2>Iniciar Sesión</h2>
 			</div>
 		</div>	

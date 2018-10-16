@@ -79,7 +79,6 @@ export default {
 }
 
 .header img{
-
     height: auto; 
     width: auto; 
     max-width: 150px; 

@@ -1,5 +1,10 @@
 <template>
 	<main role="main">
+<!-- 		<div class="row">
+			<div class="col-12 mainback">
+				<button @click="goBack"><i class="fas fa-caret-left"></i> volver </button>
+			</div>
+		</div> -->	
 		<div class="row">
 			<div class="col-8 offset-2 titleconsult">
 				<h1>{{title}}</h1>
@@ -61,8 +66,17 @@
 </script>
 <style scoped>
 main {
-	margin-top: 15px;
+	margin-top: 20px;
 }
+
+.mainback button{
+    border:none;
+    background-color:#ffffff;
+    color:#000;
+    font-size:1.125em;
+    text-transform:uppercase;
+}
+
 .titleconsult h1{
     text-transform: uppercase;
     text-align: center;
@@ -70,15 +84,17 @@ main {
 
 .titleconsult h2{
     font-size: inherit;
-        text-align: center;
+    text-align: center;
  
 }
 .form-group input::placeholder{
 	font-style: italic;
 }
+
 .contactdata{
     margin-top:30px;
 }
+
 .contactdata textarea,
 .contactdata input{
     border:none;

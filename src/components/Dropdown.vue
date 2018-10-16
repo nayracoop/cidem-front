@@ -1,5 +1,5 @@
 <template>
-	<div class="d-block d-lg-none">
+	<div>
 		<div class="row landerHiddenF">
 			<div class="col-sm-12 col-md-10 offset-md-1">
 				<label for="Tipodeservicio"></label>
@@ -116,8 +116,6 @@
 .scrollable-menu li:hover{
     background-color:#f1f1f1; 
 }
-
-
 
 .scrollable-menu{
     width: inherit;

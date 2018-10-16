@@ -10,29 +10,33 @@
 	    </div>
 	    <!------- DESCRIPCION -------->
 	    <div class="row subLander"> <!-- segunda oracion -->
-	        <div class="col-8 offset-2">            
+	        <div class="col-12 col-md-8 offset-md-2">            
 	          	<p>{{subtitle}}</p>        
 	      	</div>
 	    </div>         
 	    <!------- BUSCADOR DEL LANDER -------->
-      <dropdown class="d-sm-block"></dropdown>   
+      <dropdown class="d-block d-lg-none"></dropdown>   
 	    <div class="row searcher">
 	    	<SearchBar class="col-sm-12 col-md-10 offset-md-1"></SearchBar>
-        <Dr
+        
 	    </div>	  
 	    <!------ LINK A VISTA DE TODOS LOS FILTROS ------>
-		<div class="all_icons">
-			<a><router-link to="Oferta">Ver Todos</router-link></a>
-		</div>
+		<div class="row">
+      <div class="all_icons">
+  		  	<a><router-link to="Oferta">Ver Todos</router-link></a>
+  		</div>
+    </div>
 		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->	 
-	    <div class="icons col-12">
+	  <div class="row">  
+      <div class="icons col-12">
 		    <i class="fas fa-building" data-toggle="tooltip" data-placement="top" title="Gobierno"></i>
 		    <i class="far fa-lightbulb" data-toggle="tooltip" data-placement="top" title="Emprendedores"></i>
 		    <i class="fas fa-handshake" data-toggle="tooltip" data-placement="top" title="Cooperativas"></i>
 		   	<i class="fas fa-hands" data-toggle="tooltip" data-placement="top" title="ONGs"></i>
 		    <i class="fas fa-graduation-cap" data-toggle="tooltip" data-placement="top" title="Universidades"></i>
 		    <i class="fas fa-microscope" data-toggle="tooltip" data-placement="top" title="Organismos de Ciencia y técnica"></i>
-		</div>
+		  </div>
+    </div>  
 	</section>
 </template>
 
@@ -174,7 +178,7 @@ $(function () {
 }
 
 .all_icons{
-    margin: 50px auto 50px auto;
+    margin: 50px auto;
     text-align: center;
 }
 .icons{
@@ -206,5 +210,34 @@ $(function () {
 
 .lupa{
     margin:3px auto;
+}
+
+@media screen and (max-width:576px){
+  .titleLander h1{
+      margin-top: 0.5em;
+      font-size: 1.25em;
+  }
+  .subLander p{
+      margin:5px auto;
+      text-align:justify;
+      font-size: 0.9em;
+      font-family:'DistefanoSlab-Regular','DistefanoSlab';
+  }
+  .all_icons a{
+      font-size: 1em;
+  }
+  .all_icons{
+      margin:30px auto;
+  }
+
+  .icons i{
+      font-size: 30px;
+      margin:8px;
+      color:#000;
+      position:relative;
+      transition:0.2s;
+      top:0;
+      border-bottom:solid white;
+  }
 }
 </style>

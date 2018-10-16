@@ -25,10 +25,18 @@
 			v-model="searchInput"
           	@keyup.enter="submitSearch">
 
-		<div class="input-group-append">
-			<button class="btn rounded searcherbtn d-lg-block  rounded-0" type="button"  @click="submitSearch">
+		<div class="input-group-append" v-if="this.$route.name !== 'Lander'">
+			<button class="btn rounded searcherbtn rounded-0" type="button"  @click="submitSearch">
 			<i class="d block d-md-none fa fa-search lupa"></i><span class="d-none d-md-block">Buscar</span></button>
-		</div>	 	
+		</div>
+		<div class="d-none d-lg-block input-group-append" v-if="this.$route.name == 'Lander'">
+			<button class="btn rounded searcherbtn rounded-0" type="button"  @click="submitSearch">
+			<i class="d block d-md-none fa fa-search lupa"></i><span class="d-none d-md-block">Buscar</span></button>
+		</div>
+		<div class="d-block d-lg-none input-group btnalone" v-if="this.$route.name == 'Lander'">
+			<button class="btn rounded d-lg-block rounded-0 searcherbtn" type="button"  @click="submitSearch">
+			Buscar</button>
+		</div>	 		 	
 	</div>	
 		
 </template>
@@ -96,17 +104,17 @@
 		}
 }
 // CAMBIA EL PLACEHOLDER
-var media = "screen and (min-width: 576px)",
-    placeholderShort = "Buscar",
-    placeholderLong = "Buscar por ubicación, área, palabras clave...";
-$(window).resize(function(){    
-    if(window.matchMedia(media).matches) {
-      $('.form-control').attr('placeholder', placeholderLong); 
-    }
-    else {
-      $('.form-control').attr('placeholder', placeholderShort); 
-    }
-});
+// var media = "screen and (min-width: 576px)",
+//     placeholderShort = "Buscar",
+//     placeholderLong = "Buscar por ubicación, área, palabras clave...";
+// $(window).resize(function(){    
+//     if(window.matchMedia(media).matches) {
+//       $('.form-control').attr('placeholder', placeholderLong); 
+//     }
+//     else {
+//       $('.form-control').attr('placeholder', placeholderShort); 
+//     }
+// });
 </script>
 <style scoped>
 
@@ -119,7 +127,11 @@ $(window).resize(function(){
     color:#fff;
     text-transform: uppercase;
     font-weight: 700;
+}
 
+.btnalone{
+	text-align: center;
+	margin-top: 30px;
 }
 
 .searcherbtn:hover{
@@ -153,6 +165,12 @@ $(window).resize(function(){
 
 .highlight {
     background-color:#1599e0;
+}
+
+@media screen and (max-width:576px){
+	.form-control{
+		font-size:0.9em;
+	}
 }
 
 
