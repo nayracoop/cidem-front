@@ -65,6 +65,7 @@ export default {
 -   } */
   }
 }
+
 </script>
 <style scoped>
 .divide{

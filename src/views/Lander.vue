@@ -17,6 +17,7 @@
 	    <!------- BUSCADOR DEL LANDER -------->   
 	    <div class="row searcher">
 	    	<SearchBar class="col-sm-12 col-md-10 offset-md-1"></SearchBar>
+        <Dr
 	    </div>	  
 	    <!------ LINK A VISTA DE TODOS LOS FILTROS ------>
 		<div class="all_icons">

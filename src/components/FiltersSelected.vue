@@ -1,7 +1,7 @@
 <template>
 	<div class="selectedfilters">
 		<dl v-show="searchQuery" id="search">
-     		<dd>{{searchQuery}} <i @click="removeQuery" class="fas fa-times cruz"></i></dd>
+     		<dd>{{searchQuery}} <i @click="removeQuery" class="fas fa-times-circle"></i></dd>
      	</dl>
 		<dl v-for="filter in selected">
 	        <dd alt="filter.name"> {{filter.slug}} <i @click="remove(filter.id)" class="fas fa-times cruz"></i></dd>
@@ -71,8 +71,7 @@ import router from '../router'
 
 <style scoped>
 #search dd{
-	font-style: italic; 
-	background-color: #000000;
+	background-color:#f4f4f4;
 }
 .selectedfilters{
 	display: flex;
@@ -93,25 +92,16 @@ import router from '../router'
 }*/
 .selectedfilters dl dd{
     margin-left: 5px;
-
-    padding: 0.3em 0.4em;
+    padding: 0.4em 1em;
     background-color:#17aae4;
-    color:#fff;
-    font-family:'Distefano-Slab';
     font-weight: 400;
-    font-size:0.9em;
-    text-transform: uppercase;
+    font-size:1em;
 }
 
 .selectedfilters i{
-    margin-left: 5px;
-    font-size: 0.75em;
-    vertical-align: super;
-}
-
-.cruz {
-	float: right;
-	margin-top: 7px;
+    margin-left:10px;
+    vertical-align:middle;
+    font-size:0.9em;
 }
 
 </style>

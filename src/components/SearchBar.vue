@@ -18,8 +18,8 @@
 		</div>
 		
 		<input type="text" 
-			class="form-control d-lg-block  rounded-0" 
-			placeholder="Buscar por ubicación, área, palabras claves..." 
+			class="form-control d-lg-block rounded-0 searcherbox" 
+			placeholder="Buscar por ubicación, área, palabras clave..." 
 			aria-label="Recipient's username" 
 			aria-describedby="button-addon2"
 			v-model="searchInput"
@@ -95,9 +95,20 @@
 		    }
 		}
 }
+// CAMBIA EL PLACEHOLDER
+var media = "screen and (min-width: 576px)",
+    placeholderShort = "Buscar",
+    placeholderLong = "Buscar por ubicación, área, palabras clave...";
+$(window).resize(function(){    
+    if(window.matchMedia(media).matches) {
+      $('.form-control').attr('placeholder', placeholderLong); 
+    }
+    else {
+      $('.form-control').attr('placeholder', placeholderShort); 
+    }
+});
 </script>
 <style scoped>
-
 
 .input-group input {
 	background: #f4f4f4;
@@ -117,8 +128,10 @@
     transition: 0.2s;   
 }
 
-.searcherbox{
-    background-color: #f4f4f4; 
+.form-control{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:inline-block;
 }
 
 .filterarrow{
@@ -139,16 +152,9 @@
     background-color:#17bbe4;
 }
 
-
 .highlight {
     background-color:#1599e0;
 }
 
-
-@media screen and (max-width:992px){
-    .scrollable-menu{
-        width: inherit;
-    }
-}
 
 </style>
