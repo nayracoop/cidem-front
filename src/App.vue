@@ -1,10 +1,10 @@
 <template>
   <div id="app" class="container">
-    <the-header></the-header>
+    <the-header class="d-print-none"></the-header>
     <div class="view">
       <router-view/>
     </div>
-    <the-footer></the-footer>
+    <the-footer class="d-print-none"></the-footer>
   </div>
 </template>
 
@@ -53,11 +53,14 @@ export default {
       return this.$store.state.searchQuery;
     },
     queryFilters() {
-        var result = this.filterList.some(function (el){
-            return el.id === this.$route.query.filters[0];
-        });
-        console.log(result);
-        return result
+        var filtros = [];
+        for (var i=0; i < this.$route.query.filters.length; i++){
+            var filtri = this.$store.state.filterList.find(function(e){
+              return e.id == that .$route.query.filters[i];
+            })
+            filtros.push(filtri);
+        }
+        return filtros
     },
     services() {
         return this.$store.state.services;
@@ -75,9 +78,22 @@ export default {
       };
       this.$store.dispatch('fetchFilters').then(response =>{ 
           if (this.$route.query.filters) {
-              //ARREGLAR ESTO 
-              console.log(this.$route.query.filters);
-              /*
+              if(this. filterList){
+                 var that = this;
+                //ARREGLAR ESTO 
+                var filtros = [];
+                for (var i=0; i < this.$route.query.filters.length; i++){
+                    var filtri = this.$store.state.filterList.find(function(e){
+                      return e.id == that .$route.query.filters[i];
+                    })
+                    filtros.push(filtri);
+                }
+                if (filtros[0]){
+                  console.log(filtros);
+                  this.$store.dispatch('changeQueryFilters', filtros);
+                }
+              }
+             /*
               var selFil = this.filterList.filter(function(item) { return this.$route.query.filters.includes(item.id)}); 
               console.log("selfil");
               console.log(selFil);
@@ -180,6 +196,7 @@ export default {
 a{
   cursor: pointer;
 }
+
 
 
 </style>

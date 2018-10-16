@@ -8,6 +8,7 @@ import LogIn from '@/views/LogIn'
 import Oferta from '@/views/Oferta'
 import Contact from '@/views/Contact'
 import Referencias from '@/views/Referencias'
+import Dashboard from '@/views/Dashboard'
 
 
 
@@ -50,6 +51,12 @@ export default new Router({
       path: '/contacto',
       name: 'Contact',
       component: Contact
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: Dashboard
     }
+
   ]
 })

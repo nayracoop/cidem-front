@@ -29,7 +29,7 @@
 		        <div class="row">
 		        	<div class="col-12">	
 			        	<div class="Submit">
-				         	<a class="btn btn-outline-secondary rounded-0">Iniciar </a>
+				         	<a @click="log()" class="btn btn-outline-secondary rounded-0">Iniciar </a>
 				        </div>    
 				    </div>
 				</div>                    
@@ -54,6 +54,9 @@
 		methods: {
 			goBack: function(){
 				router.go(-1)
+			},
+			log: function(){
+				router.push({ name: 'Dashboard'});
 			}
 		}
 	}
