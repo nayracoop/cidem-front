@@ -5,7 +5,7 @@
 		 v-for="type in filterTypes"
 		 v-if="type.id !== 2">  
 			<button 
-				class="btn btn-outline-secondary rounded-0" 
+				class="btn dropwdown-btn btn-outline-secondary rounded-0" 
 				type="button" 
 				data-toggle="dropdown">{{type.name}}<span class="filterarrow"><i class="fas fa-caret-down"></i></span></button>
 			<ul class="dropdown-menu dropdown-menu-center scrollable-menu" role="menu" aria-expanded="false">
@@ -123,7 +123,6 @@ $(window).resize(function(){
 }
 
 .searcherbtn:hover{
-    background-color:#333333;
     color:#fff; 
     transition: 0.2s;   
 }

@@ -46,22 +46,28 @@ export default {
     background-color: white;
     font-size: 30px;
     cursor:pointer;
+    background: inherit;
 }
 
 .headermenu ul{
     padding:0;
+    margin:0;
+    width: inherit;
 }
 
 .headermenu ul li{
     text-align: right;       
-    padding-right:7px;
+    padding-right:0px;
     display: block;
     list-style: none;
+    width: inherit;
 }
+
 
 .headermenu{
     color:#000;
     font-size:1.25em;
-    width: 100px;
+    width: inherit;
+    background: rgba(100,100,100,0.5);
 }
 </style>
