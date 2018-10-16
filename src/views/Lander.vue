@@ -14,7 +14,8 @@
 	          	<p>{{subtitle}}</p>        
 	      	</div>
 	    </div>         
-	    <!------- BUSCADOR DEL LANDER -------->   
+	    <!------- BUSCADOR DEL LANDER -------->
+      <dropdown class="d-sm-block"></dropdown>   
 	    <div class="row searcher">
 	    	<SearchBar class="col-sm-12 col-md-10 offset-md-1"></SearchBar>
 	    </div>	  
@@ -38,6 +39,8 @@
 import store from '../store'
 import router from '../router'
 import SearchBar from '@/components/SearchBar'
+import Dropdown from '@/components/Dropdown'
+
 
 
 
@@ -51,7 +54,8 @@ export default {
     }
   },
   components:{
-  	SearchBar
+  	SearchBar,
+    Dropdown
   },
   computed: {
      searchQuery: function(){

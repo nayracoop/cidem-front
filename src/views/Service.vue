@@ -1,11 +1,11 @@
 <template>
 	<main role="main">
 		<div class="row navficha flex justify-content-between"> <!-- FIRST LINE -->
-			<!--- BUGEADO NO FUNCIONA BIEN 
+			<!--- BUGEADO NO FUNCIONA BIEN --->
 			<div class="col-12 col-md-2 mainback">
 				<a @click="goBack()"><i class="fas fa-caret-left"></i>Volver</a>
 			</div>
-			--->
+			
 			<div v-if="!(total===0)" class="col-12 col-md-7 offset-md-4 navfile">
 				<a v-if="prev" @click="getServiceById(prev)"><i class="fas fa-angle-double-left"></i><span class="d-none  d-md-inline">Anterior</span></a>
 				<p >Resultado {{current + 1}} de {{total}}</p>

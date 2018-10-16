@@ -170,12 +170,16 @@ export default {
     background: #fff;
     color:#000;
     margin: auto;
+    cursor: default;
+
   }
 
   .view{
        padding-top:1em;   
   }
+a{
+  cursor: pointer;
+}
 
-  input:focus {outline: none; }
 
 </style>

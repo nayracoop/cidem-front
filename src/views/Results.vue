@@ -10,13 +10,13 @@
 						<button @click="print"> print </button>	
 						<div class="row">
 							<div class="col-12 col-md-7 offset-md-4 navfile flex justify-content-between"">
-								<a v-if="previousPage" @click="changePage(previousPage)"><i class="fas fa-angle-double-left"></i><span class="d-none  d-md-inline">Anterior</span></a>
-								<p >Pagina {{metadata.current_page}}</p>
-								<a v-if="nextPage" @click="changePage(nextPage)"><span class="d-none d-md-inline">Siguiente</span><i class="fas fa-angle-double-right"></i></a>
+								<a @click="changePage(previousPage)"><i class="fas fa-angle-double-left"></i><span class="d-none  d-md-inline">Anterior</span></a>
+								<p >Pagina {{metadata.current_page}} / {{metadata.last_page}}</p>
+								<a @click="changePage(nextPage)"><span class="d-none d-md-inline">Siguiente</span><i class="fas fa-angle-double-right"></i></a>
 							</div>
 						</div>
-							<article v-for="service in services" class="card art">
-								<div class="card-body box">
+							<article v-for="service in services" class="card art ">
+								<div class="card-body box ">
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
 										<dt>Tipo:</dt>
@@ -189,9 +189,13 @@ main{
 .results h2{
     font-weight: 700;
     font-size: 1.25em;
-    color:#17aae4;
+    color:#111111;
+    transition: 0.1s;
 }
-
+.results h2:hover{
+	color:#17aae4;
+	cursor: pointer;
+}
 .box dl dt, 
 .box dl dd{   
     display: inline-block;

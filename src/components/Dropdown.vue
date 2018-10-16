@@ -69,17 +69,6 @@
 					</ul>
 				</div>
 			</div>
-		<div class="row landerHiddenS">
-			<div class="col-sm-12 col-md-10 offset-md-1">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Buscar por ubicación, área, palabras claves..." aria-label="Recipient's username" aria-describedby="button-addon2">
-					<div class="input-group-append">
-						<button class="btn rounded searcherbtn" type="button">
-						<i class="d block d-md-none fa fa-search lupa"></i><span class= "d-none d-md-block">Buscar</span></button>
-					</div>
-				</div>
-			</div>
-		</div>	
 	</div>
 </template>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -90,7 +79,7 @@
 		name: "Dropdown",
 		data:function(){
 			return{
-				
+				title: "Filtro"
 			}
 		}
 }
@@ -128,15 +117,11 @@
     background-color:#f1f1f1; 
 }
 
-.scrollable-menu li:active{
-    background-color:#17aae4;
-}
+
 
 .scrollable-menu{
     width: inherit;
 }
 
-.landerHiddenS{
-    margin-top:18px;
-}
+
 </style>
