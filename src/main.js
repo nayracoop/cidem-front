@@ -5,7 +5,9 @@ import App from './App'
 import router from './router'
 import store from './store'
 import axios from 'axios'
-
+import ModuleLibrary from '@coreui/vue';
+ 
+Vue.use(ModuleLibrary);
 
 /* 
 VUE LLAMA A LA ACCION

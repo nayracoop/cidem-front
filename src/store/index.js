@@ -24,7 +24,6 @@ const store = new Vuex.Store({
 			state.filterList = filterList;
 		},
 		FETCH_SERVICES(state, services){
-			console.log(services);
 			state.services = services;
 		},
 		FETCH_SERVICE(state, service){
@@ -123,11 +122,16 @@ const store = new Vuex.Store({
 		    }) 
 		},
 		changePage({commit, state}, link){
-			console.log(link);
+			var filters = [];
+		    if (state.searchQueryFilters.length > 0) {
+		        for (var i = 0; i < (state.searchQueryFilters.length); i++){
+		          filters.push(state.searchQueryFilters[i].id);
+		        } 
+		    };
 			axios.get(link,{
 	          	params: {
 		            service: state.searchQuery,
-		            filters: state.searchQueryFilters
+		            filters: filters
 	          	}
 	        })
 	        .then(response => {

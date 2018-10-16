@@ -58,10 +58,26 @@
 		  	 	var result = this.searchQueryFilters.some(function (el){
 		  	 		return el.id === filter.id;
 		  	 	});
+		  	 
+
 		  	 	
 		  	 	if (!result) {
 		  	 		this.searchQueryFilters.push(filter);
 	      			this.$store.dispatch('changeQueryFilters', this.searchQueryFilters); 
+		  	 	}else if (result){
+
+		  	 		var end = 0;
+			  		var listToDelete = [filter.id];
+					for (var i = 0; i < this.searchQueryFilters.length; i++) {
+					    var obj = this.searchQueryFilters[i];
+
+					    if (listToDelete.indexOf(obj.id) === -1) {
+					        this.searchQueryFilters[end++] = obj;
+					    }
+					}
+					this.searchQueryFilters.splice(end);
+		  	 		this.$store.dispatch('changeQueryFilters', this.searchQueryFilters); 
+
 		  	 	}
 		  	 	this.$store.dispatch('fetchServices');
 		  	 	router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});     
@@ -75,6 +91,9 @@
 <style scoped>
 .selected {
 	font-weight: 600;
+}
+.highlight{
+	font-weight: bold !important;
 }
 .filter-item {
 	font-weight: 200;

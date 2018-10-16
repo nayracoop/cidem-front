@@ -2,7 +2,7 @@
 	<main role="main">
 		<div class="row">
 			<h1 class="col-11 text-center">Oferta Completa</h1>
-			<button class="col-1" @click="print()"> print </button>
+			<button class="col-1 d-print-none" @click="print()"> print </button>
 		</div>
 		<table class="table table-striped">
 		  <thead>
