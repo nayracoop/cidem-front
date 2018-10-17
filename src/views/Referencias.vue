@@ -232,7 +232,7 @@ main {
 
 .OFp{
     margin-top: 20px;
-    padding-bottom:60px;
+    padding-bottom:20px;
     font-size: 1.25em;
     color: #4a4a4a;
     text-align: justify;
@@ -247,11 +247,11 @@ main {
 }
 
 .servicesRow{
-    margin-bottom:100px;
+    margin-bottom:60px;
 }
 
 .OFsub h2{
-    padding-bottom:60px;
+    padding-bottom:40px;
 }
 
 .OFicons{
@@ -275,10 +275,14 @@ main {
 @media screen and (max-width: 768px) {
     .OFicons{
         margin:0 auto; 
+        width: 2em;
+        height: 2em;
     }
-
+ 	.OFicons i {
+ 		font-size: 1em;
+ 	}
     .servicesRow{
-        margin-bottom: 130px;
+        margin-bottom: 10px;
     }
 
     .OFtipos{

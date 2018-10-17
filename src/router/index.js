@@ -9,6 +9,10 @@ import Oferta from '@/views/Oferta'
 import Contact from '@/views/Contact'
 import Referencias from '@/views/Referencias'
 import Dashboard from '@/views/Dashboard'
+import DefaultContainer from '@/containers/DefaultContainer'
+import DefaultAdminContainer from '@/containers/DefaultAdminContainer'
+
+
 
 
 
@@ -19,43 +23,58 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Lander',
-      component: Lander
-    },
+      Name:'Client',
+      component: DefaultContainer,
+      children: [
+        {
+          path: '/',
+          name: 'Lander',
+          component: Lander
+        },
+        {
+          path: '/results',
+          name: 'Results',
+          component: Results
+        },
+        {
+          path: '/service',
+          name: 'Service',  
+          component: Service
+        },
+
+        {
+          path: '/login',
+          name: 'LogIn',
+          component: LogIn
+        },
+         {
+          path: '/referencias',
+          name: 'Referencias',
+          component: Referencias
+        },
+        {
+          path: '/oferta',
+          name: 'Oferta',
+          component: Oferta
+        },
+        {
+          path: '/contacto',
+          name: 'Contact',
+          component: Contact
+        }
+      ]
+    }, 
     {
-      path: '/results',
-      name: 'Results',
-      component: Results
-    },
-    {
-      path: '/service',
-      name: 'Service',
-      component: Service
-    },
-    {
-      path: '/login',
-      name: 'LogIn',
-      component: LogIn
-    },
-     {
-      path: '/referencias',
-      name: 'Referencias',
-      component: Referencias
-    },
-    {
-      path: '/oferta',
-      name: 'Oferta',
-      component: Oferta
-    },
-    {
-      path: '/contacto',
-      name: 'Contact',
-      component: Contact
-    },
-    {
-      path: '/dashboard',
-      name: 'Dashboard',
-      component: Dashboard
+      path: '/admin',
+      name: 'Admin',
+      component: DefaultAdminContainer,
+      children: [
+        {
+          path: '/admin',
+          name: 'Dashboard' ,
+          component: Dashboard
+        }
+      ]
     }
 
   ]

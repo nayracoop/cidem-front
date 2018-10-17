@@ -3,11 +3,14 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import BootstrapVue from 'bootstrap-vue'
 import store from './store'
 import axios from 'axios'
 import ModuleLibrary from '@coreui/vue';
  
 Vue.use(ModuleLibrary);
+
+Vue.use(BootstrapVue);
 
 /* 
 VUE LLAMA A LA ACCION

@@ -8,7 +8,7 @@
         <address>{{SID}} <span class="address">{{SIDaddress}}</span></address>
       </div>  
       <div class="col-6 col-md-3 text-center cidem order-2">  
-          <a href="#"><img src="../assets/img/logoSID.jpg" alt="logo-SID"></a>              
+          <a href="#"><img src="../assets/img/logoSID.png" alt="logo-SID"></a>              
       </div>
     </div>
   </div>		

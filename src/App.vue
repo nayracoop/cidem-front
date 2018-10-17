@@ -1,10 +1,8 @@
 <template>
-  <div id="app" class="container">
-    <the-header class="d-print-none"></the-header>
-    <div class="view">
+  <div id="app">
+    <div class="view animated fadeIn">
       <router-view/>
     </div>
-    <the-footer class="d-print-none"></the-footer>
   </div>
 </template>
 
@@ -17,14 +15,16 @@ import TheSidebar from '@/components/TheSidebar'
 import Results from '@/views/Results'
 import Lander from '@/views/Lander'
 import Service from '@/views/Service'
+import DefaultContainer from '@/containers/DefaultContainer'
+import DefaultAdminContainer from '@/containers/DefaultAdminContainer'
+
 
 
 export default {
   name: 'App',
   data() {
     return {
-      childDataLoaded: false,
-      errors: [],
+
     }
   },
   components: {
@@ -33,7 +33,9 @@ export default {
     TheSidebar,
     Results,
     Lander,
-    Service
+    Service,
+    DefaultContainer,
+    DefaultAdminContainer
   }, 
   created() {
     this.load();
@@ -113,7 +115,12 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss" >
+
+  /* Import Bootstrap Vue Styles */
+  @import '../node_modules/bootstrap-vue/dist/bootstrap-vue.css';
+  @import '../node_modules/bootstrap/scss/bootstrap.scss';
+  
 
   @font-face {
       font-family: 'Distefano-Sans';

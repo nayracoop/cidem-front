@@ -2,7 +2,7 @@
 	<main role="main">
 		<div class="row navficha flex justify-content-between"> <!-- FIRST LINE -->
 			<!--- BUGEADO NO FUNCIONA BIEN --->
-			<div class="col-12 col-md-2 mainback">
+			<div class="col-12 col-md-2 mainback d-print-none">
 				<a @click="goBack()"><i class="fas fa-caret-left"></i>Volver</a>
 			</div>
 			
@@ -11,7 +11,7 @@
 				<p >Resultado {{current + 1}} de {{total}}</p>
 				<a v-if="next" @click="getServiceById(next)"><span class="d-none d-md-inline">Siguiente</span><i class="fas fa-angle-double-right"></i></a>	
 			</div>
-			<div class="d-none d-md-block col-1 printbtn">
+			<div class="d-none d-md-block col-1 printbtn d-print-none">
 				<button v-on:click="printpage()"><i class="fas fa-print"></i></button>
 			</div>
 		</div>	
@@ -164,7 +164,7 @@ import store from '../store'
 			},
 			getServiceById: function (id) {
 		      //this.$store.dispatch('getServiceById', id);
-		      router.push({ name: 'Service', query:{id: id}});
+		      router.replace({ name: 'Service', query:{id: id}});
 		      this.$store.dispatch('fetchService', id);
 		    },
 		    goBack: function(){

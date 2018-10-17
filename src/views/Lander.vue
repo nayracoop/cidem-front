@@ -1,6 +1,6 @@
 <template>
 <!---------------- INICIO LANDER ----------------------->
-<section class="Lander col-12">
+<section class="Lander col-12 animated fadeIn">
 		<!------- TITULO-------->
 		
 		<div class="row titleLander"> <!-- primer oracion --> 
