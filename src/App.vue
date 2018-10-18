@@ -198,7 +198,7 @@ export default {
   }
 
   .view{
-       padding-top:1em;   
+       padding-top:0;   
   }
 a{
   cursor: pointer;
