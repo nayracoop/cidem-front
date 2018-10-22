@@ -1,6 +1,6 @@
 <template>	
-		<div class="dropdown ">
-			<div class="hidebutton">
+		<div>
+			<div class="hidebutton d-none d-sm-block">
 				<button class="Fbtn" type="button" data-toggle="dropdown">
 				<i class="fas fa-bars"></i>
 				</button>
@@ -11,8 +11,21 @@
             <li><a class="dropdown-item" @click="goTo('Contact')">Contacto</a></li>
 					</ul>
 				</div>
+      </div>  
+      <div class="hidebutton d-block d-sm-none"> 
+        <button class="Fbtn" type="button" data-toggle="collapse" data-target="#linksmenu">
+        <i class="fas fa-bars"></i>
+        </button>
+        <div class="rounded-0 collapse headercollapse" id="linksmenu" role="menu" aria-expanded="false">
+          <ul>  
+            <li><a @click="goTo('LogIn')">Log in</a></li>
+            <li><a @click="goTo('Referencias')">Referencias</a></li>
+            <li><a @click="goTo('Contact')">Contacto</a></li>
+          </ul>
+        </div>
 			</div>
 		</div>
+
 </template>
 <script>
 import router from '../router'
@@ -35,7 +48,7 @@ export default {
 <style scope>
 
 .dropdown-item{
-	padding:0;
+	  padding:0;
 }
 
 .hidebutton{
@@ -57,11 +70,11 @@ export default {
 }
 
 .headermenu ul li{
-  list-style: none;
+    list-style: none;
 }
 
 .headermenu ul li a{
-  transition:0.3s;
+    transition:0.3s;
 }
 
 .dropdown-item{
@@ -70,14 +83,13 @@ export default {
     display: block;
 }
 
-
 .dropdown-item:active{
- background-color:#f4f4f4;
+    background-color:#f4f4f4;
 }
 
 .headermenu ul li a:hover{
-   transition:0.3s;
-   border-right:solid 4px #17aae4;
+    transition:0.3s;
+    border-right:solid 4px #17aae4;
 }
 
 .headermenu{
@@ -86,4 +98,21 @@ export default {
     width: inherit;
     background: #f4f4f4;
 }
+
+.headercollapse ul li{
+    list-style:none;
+    display:inline-block;
+    margin:0 5px;
+}
+
+.headercollapse ul{
+    padding:0;
+
+}
+
+.collapse.show{
+  margin-left:-200px;
+}
+
+
 </style>

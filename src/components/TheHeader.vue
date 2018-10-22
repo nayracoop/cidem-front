@@ -21,7 +21,7 @@
     </div>
     <search-bar class="col-7 col-sm-8 col-md-8" v-if="this.$route.name !== 'Lander'"></search-bar>
     <!------ HAMBURGUESA (SE VE SIEMPRE) -------->
-    <hamburguer class="col-2 col-md-2" v-if></hamburguer>
+    <hamburguer class="col-2 col-md-2"></hamburguer>
   </div>          
 </template>
 <!-- -------------- FIN HEADER PRINCIPAL -----------------> -->
@@ -74,6 +74,7 @@ export default {
 .header{
   margin: auto;
   margin-top: 0.5em;
+  padding-top:1em;
   width: 100%;
   padding-bottom: 1em;
 }
