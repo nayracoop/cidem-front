@@ -1,15 +1,15 @@
 <template>
 	<b-row class="animated fadeIn">
       <b-col sm="12">
-        <c-table hover striped bordered small fixed caption="<i class='fa fa-align-justify'></i> Combined All Table"></c-table>
+        <services-table class="table-responsive" hover striped bordered small fixed caption="<i class='fa fa-align-justify'></i> Combined All Table"></services-table>
       </b-col>
     </b-row>
 </template>
 
 <script>
-	import cTable from '@/components/Table'
+	import ServicesTable from '@/components/ServicesTable'
 	export default{
 		name: 'AdminServicios',
-		components: {cTable}
+		components: {ServicesTable}
 	}
 </script>

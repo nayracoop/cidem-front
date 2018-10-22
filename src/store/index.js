@@ -14,7 +14,8 @@ const store = new Vuex.Store({
 		searchQueryFilters: [],
 		services:{},
 		fullServices:{},
-		service:{}
+		service:{},
+		consultas:[]
 	},
 	mutations: {
 		FETCH_FILTER_TYPES(state, filterTypes) {
@@ -38,29 +39,36 @@ const store = new Vuex.Store({
 		CHANGE_QUERY_FILTERS(state, searchQueryFilters){
 			state.searchQueryFilters = searchQueryFilters;
 			//console.log(state.searchQueryFilters);
+		},
+		LOAD_NEW_CONSULTA(state, newConsulta){
+			state.consultas.push(newConsulta);
 		}
 
 	},
 	actions: {
 		fetchFilters(context){
-			//get filter list
-			axios.get('http://127.0.0.1:8000/api/filters')
+
+			var getFilters = axios.get('http://127.0.0.1:8000/api/filters')
 		      .then(response => {
 		        //commit filterlist
 		      	context.commit('FETCH_FILTER_LIST', response.data.data);
-		      })
+						//return response.data.data;
+					})
 		      .catch(e => {
 		        this.errors.push(e)
-		      }) 
-			//get filter types
-		    axios.get('http://127.0.0.1:8000/api/filter-types')
+					}) 
+			var getFilterTypes = axios.get('http://127.0.0.1:8000/api/filter-types')
 		      .then(response => {
 		        //commit filtertypes
-				context.commit('FETCH_FILTER_TYPES', response.data.data);
+						context.commit('FETCH_FILTER_TYPES', response.data.data);
+						//return response.data.data;
+
 		      })
 		      .catch(e => {
 		        this.errors.push(e)
-		      }) 
+					}) 
+	
+			return Promise.all([getFilters, getFilterTypes]);
 		},
 		fetchServices({commit, state}){
 			var filters = [];
@@ -146,7 +154,10 @@ const store = new Vuex.Store({
 
 		},
 		changeQueryFilters(context, searchQueryFilters){
-			context.commit('CHANGE_QUERY_FILTERS', searchQueryFilters);
+			return context.commit('CHANGE_QUERY_FILTERS', searchQueryFilters);
+		},
+		loadNewConsulta(context, consu){
+			context.commit('LOAD_NEW_CONSULTA', consu);
 		}
 	},
 	getters:{

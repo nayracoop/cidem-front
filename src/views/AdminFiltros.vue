@@ -1,15 +1,19 @@
 <template>
 	<b-row class="animated fadeIn">
       <b-col sm="12">
-        <c-table hover striped bordered small fixed caption="<i class='fa fa-align-justify'></i> Combined All Table"></c-table>
+        <filters-table hover striped bordered   caption="<i class='fa fa-align-justify'></i> Listado de Filtros"></filters-table>
       </b-col>
     </b-row>
 </template>
 
 <script>
-	import cTable from '@/components/Table'
+	import FiltersTable from '@/components/FiltersTable'
+
 	export default{
 		name: 'AdminFiltros',
-		components: {cTable}
+		components: {FiltersTable},
+		computed: {
+	
+		}
 	}
 </script>

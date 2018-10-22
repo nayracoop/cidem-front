@@ -39,11 +39,17 @@ export default {
   }, 
   created() {
     this.load();
+    var consu = {
+      name: 'Martina',
+      company: 'Nayra',
+      phone: '666',
+      email: 'martu@nayra.coop',
+      description: 'hola queria saber que onda...'
+    };
+    this.$store.dispatch('loadNewConsulta',consu );
   },
   mounted: function mounted(){
-  
-
-  },
+   },
   computed: {
     filterList(){
       return this.$store.state.filterList;
@@ -73,15 +79,26 @@ export default {
       this.getFiltersAvailable();
       this.getServices();
     },*/
+    asyncLoad: function(){
+        //recibe una promise
+
+        // 1- chequear que la oferta de filtros se haya cargado en store  -> (load icon : true)
+        // 2- seleccionar filtros a partir del query, seleccionar search a partir del query
+        // 3- dispatchear busqueda
+        // 4- cargar front end -> (load icon : false)
+
+      
+    },
     load: function(){
       var that = this;
       if (this.$route.query.services) {
         this.$store.dispatch('changeQuerySearch', this.$route.query.services);
       };
-      this.$store.dispatch('fetchFilters').then(response =>{ 
+      this.$store.dispatch('fetchFilters').then(() =>{ 
+         
           if (this.$route.query.filters) {
               if(this. filterList){
-                 var that = this;
+                var that = this;
                 //ARREGLAR ESTO 
                 var filtros = [];
                 for (var i=0; i < this.$route.query.filters.length; i++){
@@ -92,23 +109,18 @@ export default {
                 }
                 if (filtros[0]){
                   console.log(filtros);
-                  this.$store.dispatch('changeQueryFilters', filtros);
+                  this.$store.dispatch('changeQueryFilters', filtros).then(() => {
+                         this.$store.dispatch('fetchServices', this.$route.query.filters);
+                  });
                 }
               }
-             /*
-              var selFil = this.filterList.filter(function(item) { return this.$route.query.filters.includes(item.id)}); 
-              console.log("selfil");
-              console.log(selFil);
-              this.$store.dispatch('changeQueryFilters', selFil); */
+          } else {
+              this.$store.dispatch('fetchServices', this.$route.query.filters);
           }
-          this.$store.dispatch('fetchServices', this.$route.query.filters); //para que este disponible para busquedas especificas, ids de servicios, etc   
       });
       
     }
-    /*,
-    setUrl: function() {
-      history.pushState({ info: `searchQuery ${this.searchQuery}` }, this.searchQuery, `/#/?service=${this.searchQuery}&filter=[${this.filtersSelected}]`)
-    } */
+
   }
   
 }
@@ -175,15 +187,11 @@ export default {
 
   @font-face {
       font-family: 'Distefano-Slab';
-
       font-weight: 700;
       src: url('assets/fonts/tipo_-_distefanoslab-bold-webfont.woff') format('woff');
   }
-
-
   @font-face {
       font-family: 'Distefano-Slab';
-
       font-weight: 400;
       src: url('assets/fonts/tipo_-_distefanoslab-regular-webfont.woff') format('woff');
   }
