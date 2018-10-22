@@ -4,7 +4,7 @@
     <div class="view">
       <router-view/>
     </div>
-    <the-footer class="d-print-none"></the-footer>
+    <the-footer></the-footer>
   </div>
 </template>
 

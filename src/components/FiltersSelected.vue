@@ -56,14 +56,17 @@ import router from '../router'
 			this.selected.splice(end);
 			this.$store.dispatch('changeQueryFilters', this.selected);
 			this.$store.dispatch('fetchServices');
-			router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
+			if (this.$route.name !== 'Lander'){
+				router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
+			};
 	  	},
 	  	removeQuery(){
 	  		this.searchQuery= " ";
 	  		this.$store.dispatch('changeQuerySearch', null);
-	  		this.$store.dispatch('fetchServices');
-	  		router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
-
+			this.$store.dispatch('fetchServices');
+			if (this.$route.name !== 'Lander'){
+				router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
+			}
 	  	}
 	  }
 	}
@@ -92,16 +95,16 @@ import router from '../router'
 }*/
 .selectedfilters dl dd{
     margin-left: 5px;
-    padding: 0.4em 1em;
+    padding: 0.3em 0.5em;
     background-color:#17aae4;
     font-weight: 400;
-    font-size:1em;
+    font-size:0.95em;
 }
 
 .selectedfilters i{
     margin-left:10px;
     vertical-align:middle;
-    font-size:0.9em;
+    font-size:0.7em;
 }
 
 </style>

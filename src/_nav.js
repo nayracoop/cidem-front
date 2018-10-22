@@ -2,13 +2,72 @@ export default {
   items: [
     {
       name: 'Dashboard',
-      url: '/dashboard',
-      icon: 'icon-speedometer',
+      url: '/admin',
+      icon: 'icon-speedometer'
+    },
+    {
+      name: 'Preferencias',
+      url: '/admin/config',
+      icon: 'icon-wrench'
+    },
+    {
+      name: 'Consultas',
+      url: '/admin/consultas',
+      icon: 'icon-envelope',
       badge: {
-        variant: 'primary',
-        text: 'NEW'
+        variant: 'danger',
+        text: '5'
       }
     },
+    {
+      title: true,
+      name: 'Servicios',
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+    {
+      name: 'Listado de Servicios',
+      url: '/admin/servicios',
+      icon: 'icon-layers'
+    },
+    {
+      name: 'Editar Servicio',
+      url: '/admin/servicio/edit',
+      icon: 'icon-pencil'
+    },
+    {
+      name: 'Crear Servicio',
+      url: '/admin/servicio/add',
+      icon: 'icon-plus'
+    },
+    {
+      title: true,
+      name: 'Filtros',
+      class: '',
+      wrapper: {
+        element: '',
+        attributes: {}
+      }
+    },
+    {
+      name: 'Listado de Filtros',
+      url: '/admin/filtros',
+      icon: 'icon-list'
+    },
+    {
+      name: 'Editar Filtro',
+      url: '/admin/filtro/add',
+      icon: 'icon-pencil'
+    },
+    {
+      name: 'Crear Filtro',
+      url: '/admin/filtro/edit',
+      icon: 'icon-plus'
+    },
+    /*
     {
       title: true,
       name: 'Theme',
@@ -17,7 +76,7 @@ export default {
         element: '',
         attributes: {}
       }
-    },/*
+    },
     {
       name: 'Colors',
       url: '/theme/colors',

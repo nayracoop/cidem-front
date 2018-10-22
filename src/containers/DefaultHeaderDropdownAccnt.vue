@@ -12,9 +12,8 @@
         <b-badge variant="info">{{ itemsCount }}</b-badge>
       </b-dropdown-item>
       <b-dropdown-item><i class="fa fa-envelope-o" /> Consultas
-        <b-badge variant="success">{{ itemsCount }}</b-badge>
+        <b-badge variant="info">{{ itemsCount }}</b-badge>
       </b-dropdown-item>
-     
       <b-dropdown-item><i class="fa fa-comments" /> Comments
         <b-badge variant="warning">{{ itemsCount }}</b-badge>
       </b-dropdown-item>

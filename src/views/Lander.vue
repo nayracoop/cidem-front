@@ -13,7 +13,9 @@
 	        <div class="col-12 col-md-8 offset-md-2">            
 	          	<p>{{subtitle}}</p>        
 	      	</div>
-	    </div>         
+	    </div>
+        <!------ TAGS FILTROS ------->
+		<filters-selected class="col-12 offset-md-1 col-md-10 col-lg-10 offset-lg-1"></filters-selected>
 	    <!------- BUSCADOR DEL LANDER -------->
       <dropdown class="d-block d-lg-none"></dropdown>   
 	    <div class="row searcher">
@@ -23,12 +25,13 @@
 	    <!------ LINK A VISTA DE TODOS LOS FILTROS ------>
 		<div class="row">
       <div class="all_icons">
-  		  	<a><router-link to="Oferta">Ver Todos</router-link></a>
+  		  	<a @click="verTodos()">Ver Todos</a>
   		</div>
     </div>
 		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->	 
 	  <div class="row">  
-      <div class="icons col-12">
+      <h4 class="col-2">Destinatarios: </h4>
+      <div class="icons col-10">
 		    <i class="fas fa-building" data-toggle="tooltip" data-placement="top" title="Gobierno"></i>
 		    <i class="far fa-lightbulb" data-toggle="tooltip" data-placement="top" title="Emprendedores"></i>
 		    <i class="fas fa-handshake" data-toggle="tooltip" data-placement="top" title="Cooperativas"></i>
@@ -45,8 +48,7 @@ import store from '../store'
 import router from '../router'
 import SearchBar from '@/components/SearchBar'
 import Dropdown from '@/components/Dropdown'
-
-
+import FiltersSelected from '@/components/FiltersSelected'
 
 
 export default {
@@ -60,7 +62,8 @@ export default {
   },
   components:{
   	SearchBar,
-    Dropdown
+    Dropdown,
+    FiltersSelected
   },
   computed: {
      searchQuery: function(){
@@ -79,6 +82,12 @@ export default {
       this.$store.dispatch('fetchServices');
       router.push({ name: 'Results', query:{services: this.searchQuery}});     
       //router.push({ name: "Results", query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});
+    },
+    verTodos: function () {
+        this.$store.dispatch('changeQueryFilters', []);
+        this.$store.dispatch('changeQuerySearch', null);
+        this.$store.dispatch('fetchServices');
+        router.push({ name: "Oferta"});
     },
   }
 }
