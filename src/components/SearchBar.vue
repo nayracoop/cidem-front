@@ -156,15 +156,17 @@
 }
 
 .scrollable-menu li:hover{
-    background-color:#17aae4;
+    background-color:#63fbf4;
 }
 
 .scrollable-menu li:active{
-    background-color:#17bbe4;
+    background-color:#43dbf4;
 }
 
+
+
 .highlight {
-    background-color:#1599e0;
+    background-color:#23cbf4;
 }
 
 @media screen and (max-width:576px){

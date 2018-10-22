@@ -9,13 +9,13 @@
 						<aside class="alertresults">Se encontraron {{metadata.total}} resultados para "{{searchQuery}}"</aside>
 						<button @click="print"> print </button>	
 						<div class="row">
-							<div class="col-12 col-md-7 offset-md-4 navfile flex justify-content-between"">
+							<div class="col-12 col-md-7 offset-md-4 navfile flex justify-content-between">
 								<a @click="changePage(previousPage)"><i class="fas fa-angle-double-left"></i><span class="d-none  d-md-inline">Anterior</span></a>
 								<p >Pagina {{metadata.current_page}} / {{metadata.last_page}}</p>
 								<a @click="changePage(nextPage)"><span class="d-none d-md-inline">Siguiente</span><i class="fas fa-angle-double-right"></i></a>
 							</div>
 						</div>
-							<article v-for="service in services" class="card art ">
+							<article v-for="service in services" class="card art">
 								<div class="card-body box ">
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
@@ -121,9 +121,6 @@ main{
     margin:0;
 }
 
-.listado {
-	 
-}
  .btnnobtn button {
     border: none;
     background: none;    

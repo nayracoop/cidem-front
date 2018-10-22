@@ -57,6 +57,8 @@ export default {
       //router.push({ name: "Results", query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});
     },
     goHome: function () {
+	  	this.$store.dispatch('changeQuerySearch', null);
+      this.$store.dispatch('changeQueryFilters', []);
       router.push({name:"Lander"})
     }
     /*,

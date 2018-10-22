@@ -1,6 +1,7 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
+import NotFound404 from '@/views/NotFound404'
 import Lander from '@/views/Lander'
 import Results from '@/views/Results'
 import Service from '@/views/Service'
@@ -51,52 +52,19 @@ export default new Router({
   //mode: 'history', //hay que hacer el catch-all en el server para que ande
   routes: [
     {
-      path: '/',
-      Name:'Client',
-      component: DefaultContainer,
-      children: [
-        {
-          path: '/',
-          name: 'Lander',
-          component: Lander
-        },
-        {
-          path: '/results',
-          name: 'Results',
-          component: Results
-        },
-        {
-          path: '/service',
-          name: 'Service',  
-          component: Service
-        },
-
-        {
-          path: '/login',
-          name: 'LogIn',
-          component: LogIn
-        },
-         {
-          path: '/referencias',
-          name: 'Referencias',
-          component: Referencias
-        },
-        {
-          path: '/oferta',
-          name: 'Oferta',
-          component: Oferta
-        },
-        {
-          path: '/contacto',
-          name: 'Contact',
-          component: Contact
-        }
-      ]
-    }, 
-    {
       path: '/admin',
       name: 'Admin',
       component: DefaultAdminContainer,
+      meta: {
+        requiresAuth: true,
+      },
+      beforeEnter(to, from, next) {
+        if (to.meta.requiresAuth){
+            next();
+        } else {
+          next({name:'Login'});
+        }
+      },
       children: [
         {
           path: '/admin',
@@ -150,6 +118,55 @@ export default new Router({
       name: 'Login' ,
       component: AdminLogin
     },
+    {
+      path: '/',
+      Name:'Client',
+      component: DefaultContainer,
+      children: [
+        {
+          path: '/',
+          name: 'Lander',
+          component: Lander
+        },
+        {
+          path: '/results',
+          name: 'Results',
+          component: Results
+        },
+        {
+          path: '/service',
+          name: 'Service',  
+          component: Service
+        },
+
+        {
+          path: '/login',
+          name: 'LogIn',
+          component: LogIn
+        },
+         {
+          path: '/referencias',
+          name: 'Referencias',
+          component: Referencias
+        },
+        {
+          path: '/oferta',
+          name: 'Oferta',
+          component: Oferta
+        },
+        {
+          path: '/contacto',
+          name: 'Contact',
+          component: Contact
+        },
+        {
+          path: '/*',
+          name: '404' ,
+          component: NotFound404
+        }
+      ]
+    }, 
+
 
   ]
 })
