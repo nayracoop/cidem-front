@@ -1,8 +1,13 @@
 <template>
   <b-card :header="caption">
-    <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
+    <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
       <template slot="status" slot-scope="data">
         <b-badge :variant="getBadge(data.item.status)">{{data.item.status}}</b-badge>
+      </template>
+      <template slot="actions" slot-scope="data">
+        <b-badge  class='badge-pill badge-success badge-action'><i class="fa fa-eye"></i></b-badge>
+        <b-badge  class='badge-pill badge-warning badge-action'><i class="icon-pencil"></i></b-badge>
+        <b-badge  class='badge-pill badge-danger badge-action'><i class="icon-trash"></i></b-badge>
       </template>
     </b-table>
     <nav>
@@ -27,7 +32,7 @@ const shuffleArray = (array) => {
 }
 
 export default {
-  name: 'c-table',
+  name: 'ServicesTable',
   props: {
     caption: {
       type: String,
@@ -85,9 +90,11 @@ export default {
       ]),
       fields: [
         {key: 'servicio'},
-        {key: 'registered'},
-        {key: 'filtro'},
-        {key: 'status'}
+        {key: 'unidad'},
+        {key: 'tipo'},
+        {key: 'sector'},
+        {key: 'destinatario'},
+        {key: 'actions'}
       ],
       currentPage: 1,
       perPage: 10,
@@ -107,3 +114,12 @@ export default {
   }
 }
 </script>
+
+<style>
+.badge-action i{
+  color:black;
+}
+.badge-action:hover{
+  cursor:pointer;
+}
+</style>

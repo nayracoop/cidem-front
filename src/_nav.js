@@ -1,3 +1,6 @@
+import store from './store'
+
+
 export default {
   items: [
     {
@@ -16,7 +19,7 @@ export default {
       icon: 'icon-envelope',
       badge: {
         variant: 'danger',
-        text: '5'
+        text: store.state.consultas.length
       }
     },
     {

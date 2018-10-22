@@ -62,7 +62,9 @@ export default new Router({
         if (to.meta.requiresAuth){
             next();
         } else {
-          next({name:'Login'});
+         // next({name:'Login'});
+         console.log('logearse ...');
+         next();
         }
       },
       children: [
