@@ -17,16 +17,35 @@ import AdminFiltros from '@/views/AdminFiltros'
 import AdminAddFiltro from '@/views/AdminAddFiltro'
 import AdminConsultas from '@/views/AdminConsultas'
 import AdminConfig from '@/views/AdminConfig'
-
-
-
-
-
-
+import AdminLogin from '@/views/AdminLogin'
+import store from '@/store';
 
 
 
 Vue.use(Router);
+
+function requireAuth (to, from, next) {
+  function proceed () {
+  /*
+    If the user has been loaded determine where we should
+    send the user.
+  */
+  if ( store.getters.getUserLoadStatus() == 2 ) {
+    /*
+      If the user is not empty, that means there's a user
+      authenticated we allow them to continue. Otherwise, we
+      send the user back to the home page.
+    */
+    if( store.getters.getUser != '' ){
+      next();
+    }else{
+      next('/lander');
+    }
+  }
+}
+
+}
+
 
 export default new Router({
   //mode: 'history', //hay que hacer el catch-all en el server para que ande
@@ -125,7 +144,12 @@ export default new Router({
           component: AdminConfig
         },
       ]
-    }
+    },
+    {
+      path: '/admin/login',
+      name: 'Login' ,
+      component: AdminLogin
+    },
 
   ]
 })

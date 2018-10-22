@@ -28,7 +28,8 @@
     </div>
 		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->	 
 	  <div class="row">  
-      <div class="icons col-12">
+      <h4 class="col-2">Destinatarios: </h4>
+      <div class="icons col-10">
 		    <i class="fas fa-building" data-toggle="tooltip" data-placement="top" title="Gobierno"></i>
 		    <i class="far fa-lightbulb" data-toggle="tooltip" data-placement="top" title="Emprendedores"></i>
 		    <i class="fas fa-handshake" data-toggle="tooltip" data-placement="top" title="Cooperativas"></i>

@@ -19,10 +19,18 @@
 								<div class="card-body box ">
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
+										<dt>Destinatarios:</dt>
+										<dd>{{service.summary}}</dd>
+									</dl>
+									<dl>
 										<dt>Tipo:</dt>
 										<dd>{{service.summary}}</dd>
 									</dl>
-									<p>{{service.description}}</p>
+									<dl>
+										<dt>Sector:</dt>
+										<dd>{{service.summary}}</dd>
+									</dl>
+									
 								</div>
 							</article>	
 					</div>						

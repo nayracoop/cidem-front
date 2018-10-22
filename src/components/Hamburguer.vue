@@ -6,7 +6,7 @@
 				</button>
 				<div class="dropdown-menu rounded-0 dropdown-menu-right headermenu" role="menu" aria-expanded="false">
 					<ul>	
-						<li><a class="dropdown-item" @click="goTo('LogIn')">Log in</a></li>
+						<li><a class="dropdown-item" @click="goTo('Lander')">Inicio</a></li>
 						<li><a class="dropdown-item" @click="goTo('Referencias')">Referencias</a></li>
             <li><a class="dropdown-item" @click="goTo('Contact')">Contacto</a></li>
 					</ul>
