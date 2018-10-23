@@ -1,7 +1,7 @@
 <template>
 	<main role="main">
 		<div class="row navficha flex justify-content-between"> <!-- FIRST LINE -->
-			<!--- BUGEADO NO FUNCIONA BIEN --->
+			<!--- BUGEADO NO FUNCIONA BIEN -->
 			<div class="col-12 col-md-2 mainback d-print-none">
 				<a @click="goBack()"><i class="fas fa-caret-left"></i>Volver</a>
 			</div>
@@ -109,15 +109,17 @@ import store from '../store'
 			}
 		},
 		beforeRouteEnter (to, from, next) {
-		console.log(to);
-		
-		next();
+			store.dispatch('fetchService', to.query.id).then(() =>{
+				next();
+			});
 		},
 		befoteRouteUpdate(to, from, next){
-			this.$store.dispatch('fetchService', to.$route.query.id);
+			store.dispatch('fetchService', to.query.id).then(() =>{
+				next();
+			});
 		},
 		created() {
-			this.$store.dispatch('fetchService', this.$route.query.id);	
+			//this.$store.dispatch('fetchService', this.$route.query.id);	
 		},
 		computed: {
 			searchQuery: function(){

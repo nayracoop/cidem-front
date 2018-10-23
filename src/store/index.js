@@ -121,13 +121,14 @@ const store = new Vuex.Store({
 		},
 		fetchService(context, id){
 		    var requestedID = 'http://127.0.0.1:8000/api/services/' + id;
-		    axios.get(requestedID)
-		    .then(response => {
-		        context.commit('FETCH_SERVICE', response.data);
-		    })
-		    .catch(e => {
-		        this.errors.push(e)
-		    }) 
+		    var getFilter = axios.get(requestedID)
+					.then(response => {
+							context.commit('FETCH_SERVICE', response.data);
+					})
+					.catch(e => {
+							this.errors.push(e)
+					});
+				return Promise.all([getFilter]);
 		},
 		changePage({commit, state}, link){
 			var filters = [];
