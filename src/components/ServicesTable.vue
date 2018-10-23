@@ -1,5 +1,10 @@
 <template>
-  <b-card :header="caption">
+  <b-card >
+    <div slot="header">
+	    <header><i class="fa fa-gear"></i> Administrar Servicios
+        <b-button class="btn-success float-right"> Crear Nuevo Servicio </b-button>
+      </header>
+	  </div>
     <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
       <template slot="status" slot-scope="data">
         <b-badge :variant="getBadge(data.item.status)">{{data.item.status}}</b-badge>

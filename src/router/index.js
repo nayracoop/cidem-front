@@ -14,8 +14,9 @@ import DefaultContainer from '@/containers/DefaultContainer'
 import DefaultAdminContainer from '@/containers/DefaultAdminContainer'
 import AdminServicios from '@/views/AdminServicios'
 import AdminAddServicio from '@/views/AdminAddServicio'
+import AdminEditServicio from '@/views/AdminEditServicio'
+
 import AdminFiltros from '@/views/AdminFiltros'
-import AdminAddFiltro from '@/views/AdminAddFiltro'
 import AdminConsultas from '@/views/AdminConsultas'
 import AdminConfig from '@/views/AdminConfig'
 import AdminLogin from '@/views/AdminLogin'
@@ -86,22 +87,12 @@ export default new Router({
         {
           path: '/admin/servicio/edit',
           name: 'Editar Servicio' ,
-          component: AdminAddServicio
+          component: AdminEditServicio
         },
         {
           path: '/admin/filtros',
           name: 'Filtros',
           component: AdminFiltros
-        },
-        {
-          path: '/admin/filtro/add',
-          name: 'Crear Filtro' ,
-          component: AdminAddFiltro
-        },
-        {
-          path: '/admin/filtro/edit',
-          name: 'Editar Filtro' ,
-          component: AdminAddFiltro
         },
         {
           path: '/admin/consultas',

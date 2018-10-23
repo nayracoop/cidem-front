@@ -116,7 +116,6 @@
 				e.stopPropagation();
 				this.$store.dispatch('changeQueryFilters', selected);     
 
-
 			},
 			handleResize() {
 				this.window.width = window.innerWidth;
@@ -148,6 +147,7 @@
     color:#fff;
     text-transform: uppercase;
     font-weight: 700;
+	z-index:0;
 }
 
 .btnalone{
