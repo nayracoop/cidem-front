@@ -2,7 +2,7 @@
 	<main role="main">
 		<filters-selected class="col-10 offset-md-1"></filters-selected>
 		<div class="row listado">	   						    
-			<the-sidebar></the-sidebar>
+			<the-sidebar class="d-print-none"></the-sidebar>
 			<div class="col-sm-12 col-md-7 offset-md-1" id="list">
 				<section>
 					<div v-if="services" class="results">
@@ -15,7 +15,7 @@
 								<a @click="changePage(nextPage)"><span class="d-none d-md-inline">Siguiente</span><i class="fas fa-angle-double-right"></i></a>
 							</div>
 						</div>
-							<article v-for="service in services" class="card art">
+							<article v-if="printing === false" v-for="service in services" class="card art">
 								<div class="card-body box ">
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
@@ -30,9 +30,29 @@
 										<dt>Sector:</dt>
 										<dd>{{service.summary}}</dd>
 									</dl>
-									
 								</div>
-							</article>	
+							</article>
+							<article v-if="printing === true" v-for="service in fullServices" class="card art">
+								<div class="card-body box ">
+									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
+									<dl>
+										<dt>Destinatarios:</dt>
+										<dd>{{service.summary}}</dd>
+									</dl>
+									<dl>
+										<dt>Tipo:</dt>
+										<dd>{{service.summary}}</dd>
+									</dl>
+									<dl>
+										<dt>Sector:</dt>
+										<dd>{{service.summary}}</dd>
+									</dl>
+									<dl>
+										<dt>Teléfono</dt>
+										<dd>4887-6783</dd>
+									</dl>
+								</div>
+							</article>		
 					</div>						
 				</section>
 			</div>	
@@ -56,7 +76,9 @@ export default {
 	name: 'Results',
 	data () {
 	    return {
-	    	render: true,
+			printing: false,
+			render: true,
+			loading: false
 	    }
 	}, 
 	components: {
@@ -73,6 +95,9 @@ export default {
 	computed: {
 		services: function(){
         	return this.$store.state.services.data;
+		},
+		fullServices: function(){
+        	return this.$store.state.fullServices.data;
 		},
     	metadata:  function(){
 			return this.$store.state.services.meta;
@@ -102,13 +127,19 @@ export default {
 		   	this.$store.dispatch('changePage', link); 
 		},
 		print: function () {
+			this.loading = true;
+			this.printing = true;
+			this.$store.dispatch('fetchFullServices', this.metadata.total).then(()=>{
+				this.loading = false;
+				window.print();
+				this.printing = false;
+			}); 
 
     	},
     	viewService: function (serviceID) {
 			//router.push({ name: 'Service', params:{id: serviceID}});			
 			router.push({ name: 'Service', query:{id: serviceID}}); // no pude acceder a los query params desde /service?id=n
 			this.$store.dispatch('fetchFullServices', this.metadata.total); 
-
 		}
 	}
 	

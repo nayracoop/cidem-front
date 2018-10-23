@@ -86,10 +86,6 @@ const store = new Vuex.Store({
 		      .then(response => {
 		      	commit('FETCH_SERVICES', response.data);
 		      })
-		      // REVISAR DE ACA A ABAJO
-		      .then(() => {
-			      	
-		      })
 		      .catch(e => {
 		            this.errors.push(e)
 		      })
@@ -100,24 +96,21 @@ const store = new Vuex.Store({
 		        for (var i = 0; i < (state.searchQueryFilters.length); i++){
 		          filters.push(state.searchQueryFilters[i].id);
 		        } 
-		    };
-			axios.get('http://127.0.0.1:8000/api/services',  {
-		        params: {
-		          service: state.searchQuery,
-		          filters: filters,
-		          per_page: total
-		        }
-		      })
-		      .then(response => {
-		      	commit('FETCH_FULL_SERVICES', response.data);
-		      })
-		      // REVISAR DE ACA A ABAJO
-		      .then(() => {
-			      	
-		      })
-		      .catch(e => {
-		            this.errors.push(e)
-		      })
+				};
+			var getFullServices = axios.get('http://127.0.0.1:8000/api/services',  {
+								params: {
+									service: state.searchQuery,
+									filters: filters,
+									per_page: total
+								}
+							})
+							.then(response => {
+								commit('FETCH_FULL_SERVICES', response.data);
+							})
+							.catch(e => {
+										this.errors.push(e)
+							})
+			return Promise.all([getFullServices]);
 		},
 		fetchService(context, id){
 		    var requestedID = 'http://127.0.0.1:8000/api/services/' + id;
@@ -138,21 +131,20 @@ const store = new Vuex.Store({
 		        } 
 		    };
 			axios.get(link,{
-	          	params: {
-		            service: state.searchQuery,
-		            filters: filters
-	          	}
-	        })
-	        .then(response => {
-	          commit('FETCH_SERVICES', response.data);
-	        })
-	        .catch(e => {
-	           this.errors.push(e)
-	        })
+									params: {
+										service: state.searchQuery,
+										filters: filters
+									}
+							})
+							.then(response => {
+								commit('FETCH_SERVICES', response.data);
+							})
+							.catch(e => {
+								this.errors.push(e)
+							})
 		},
 		changeQuerySearch(context, searchQuery){
 			context.commit('CHANGE_QUERY_SEARCH', searchQuery);
-
 		},
 		changeQueryFilters(context, searchQueryFilters){
 			return context.commit('CHANGE_QUERY_FILTERS', searchQueryFilters);
