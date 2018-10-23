@@ -4,15 +4,17 @@
 					<div class="d-block d-md-none">
 				    	<button type="button" data-toggle="modal" data-target="#modalwindow">Filtros</button>
 					</div>				    
-					<div class="d-none d-md-block filters" >
+					<div class="d-none d-md-block filters" id='filtersid'>
 					    <dl v-for="type in filterTypes">
-					    	<dt class="filter-type">{{type.name}}</dt>
-					        <dd 
-					        	v-for="filter in filterList"
-					        	v-if="filter.filterType.id == type.id" 
-					        	@click="filterclick(filter)"
-					        	class="filter-item"
-					       		:class="{highlight:selected.includes(filter.id)}">{{filter.name}}</dd>
+					    	<dt class="filter-type collapsed" data-toggle="collapse" :data-target="'#'+type.id" >{{type.name}}</dt>
+					    	<div :id="type.id" class="collapse" data-parent='#filtersid'>
+					        	<dd 
+						        	v-for="filter in filterList"
+						        	v-if="filter.filterType.id == type.id" 
+						        	@click="filterclick(filter)"
+						        	class="filter-item"
+						       		:class="{highlight:selected.includes(filter.id)}">{{filter.name}}</dd>
+					    	</div>
 					    </dl>
 					</div>
 				</aside>    						  
@@ -51,6 +53,7 @@
 		    selected(){
 		    	return this.$store.getters.filterArray; 
 		    }
+
 		},
 		methods: {
 		  	filterclick: function(filter) {
@@ -99,6 +102,16 @@
 	font-size: 0.9em;
 	padding: 3px 10px;
 	margin: auto ;
+}
+
+.filters .filter-type:after{
+    font-family: 'FontAwesome';
+    content: "\f0d7";
+    margin: 20px;
+}
+
+.filters .collapsed:after{
+    content: "\f0da";
 }
 
 </style>
