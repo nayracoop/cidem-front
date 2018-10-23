@@ -19,7 +19,7 @@
 		
 		<input type="text" 
 			class="form-control d-lg-block rounded-0 searcherbox" 
-			placeholder="Buscar por ubicación, área, palabras clave..." 
+			:placeholder="placeholder" 
 			aria-label="Recipient's username" 
 			aria-describedby="button-addon2"
 			v-model="searchInput"
@@ -50,7 +50,18 @@
 		data:function(){
 			return{
 				searchInput: '',
+				window: {
+					width: 0,
+					height: 0
+				}
 			}
+		},
+		created(){
+			window.addEventListener('resize', this.handleResize);
+   			this.handleResize();
+		},
+		destroyed() {
+			window.removeEventListener('resize', this.handleResize);
 		},
 		computed: {
 			searchQuery: function(){
@@ -67,14 +78,20 @@
 		    },
 		    selected(){
 		    	return this.$store.getters.filterArray;
-		    }
+			},
+			placeholder(){
+				if (this.window.width >= 768 ) {
+					return 'Buscar por ubicación, área, palabras clave...'
+				} else {
+					return 'Buscar'
+				}
+			}
 		},
 		methods: {
 		    submitSearch: function () {
 		      	this.$store.dispatch('changeQuerySearch', this.searchInput);
 		      	this.$store.dispatch('fetchServices');
 		  	 	router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});   
-		      //router.push({ name: "Results", query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});
 		    },
 		    filterclick: function(filter, e){
 		    	var selected = this.searchQueryFilters;
@@ -100,7 +117,11 @@
 				this.$store.dispatch('changeQueryFilters', selected);     
 
 
-		    }
+			},
+			handleResize() {
+				this.window.width = window.innerWidth;
+				this.window.height = window.innerHeight;
+			}
 		}
 }
 // CAMBIA EL PLACEHOLDER
