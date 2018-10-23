@@ -29,21 +29,23 @@
   		</div>
     </div>
 		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->	 
-	  <div class="row">  
-      <h4 class="col-2">Destinatarios: </h4>
-      <div class="icons col-10">
-		    <i class="fas fa-building" data-toggle="tooltip" data-placement="top" title="Gobierno"></i>
-		    <i class="far fa-lightbulb" data-toggle="tooltip" data-placement="top" title="Emprendedores"></i>
-		    <i class="fas fa-handshake" data-toggle="tooltip" data-placement="top" title="Cooperativas"></i>
-		   	<i class="fas fa-hands" data-toggle="tooltip" data-placement="top" title="ONGs"></i>
-		    <i class="fas fa-graduation-cap" data-toggle="tooltip" data-placement="top" title="Universidades"></i>
-		    <i class="fas fa-microscope" data-toggle="tooltip" data-placement="top" title="Organismos de Ciencia y técnica"></i>
-		  </div>
+	<div class="row">  
+        <h5 class="col-lg-1 col-12 text-center align-text-bottom">Destinatarios:</h5>
+        <div class="icons col-lg-10 col-12">
+                <i  v-for="destinatario in destinatarios" 
+                    :key="destinatario.id" 
+                    :class="destinatario.icon" 
+                    class="fa-xs"
+                    data-toggle="tooltip" 
+                    data-placement="top" 
+                    :title="destinatario.name"></i>
+        </div>  
     </div>  
 	</section>
 </template>
 
 <script>
+import destinatarios from '@/_destinatarios'
 import store from '../store'
 import router from '../router'
 import SearchBar from '@/components/SearchBar'
@@ -56,6 +58,7 @@ export default {
  data () {
     return {
       searchInput: '',
+      destinatarios: destinatarios.items,
       title:'Portal de soluciones y servicios tecnológicos',
       subtitle:'En este portal se podrá acceder al catálogo de servicios tecnológicos que ofrece la Universidad Nacional de Tres de Febrero.',
     }
@@ -196,8 +199,8 @@ $(function () {
 
 .icons i{
     padding:5px 5px;
-    font-size: 40px;
-    margin:30px 25px;
+    font-size: 30px;
+    margin:10px 15px;
     color:#000;
     position:relative;
     transition:0.2s;
@@ -213,9 +216,6 @@ $(function () {
     border-bottom:solid #17aae4;
 }
 
-.all_icons a{
-    font-size: 1.1313em;
-}
 
 .lupa{
     margin:3px auto;
@@ -232,9 +232,7 @@ $(function () {
       font-size: 0.9em;
       font-family:'DistefanoSlab-Regular','DistefanoSlab';
   }
-  .all_icons a{
-      font-size: 1em;
-  }
+
   .all_icons{
       margin:30px auto;
   }
