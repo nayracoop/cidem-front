@@ -42,12 +42,12 @@ const store = new Vuex.Store({
 		},
 		LOAD_NEW_CONSULTA(state, newConsulta){
 			state.consultas.push(newConsulta);
-		}
+		}, 
+
 
 	},
 	actions: {
 		fetchFilters(context){
-
 			var getFilters = axios.get('http://127.0.0.1:8000/api/filters')
 		      .then(response => {
 		        //commit filterlist
@@ -151,7 +151,43 @@ const store = new Vuex.Store({
 		},
 		loadNewConsulta(context, consu){
 			context.commit('LOAD_NEW_CONSULTA', consu);
+		},
+		postNewService(context, newService){
+				console.log(newService);
+				var service = newService;
+				//dos acciones encadenadas
+				// 1 post / service con todos sus campos => devuelve el servicio nuevo con el id
+				axios.post('http://127.0.0.1:8000/api/services',  {
+		        params: {
+		          name: service.name,
+							slug: service.name,
+							summary: service.dir, 
+							description: service.description,
+							icon: 'fa-close',
+							website: service.email,
+							created_at: Date.now(),
+							updated_at: Date.now()
+		        }
+		      })
+		      .then(response => {
+						// 2 post / filters , a partir del servicio nuevo sacar el id, y asociar id de servicio e id de filtros, ciclo for. 
+						console.log(`Se ha creado el servicio #${response.data.data.id}`);
+
+						for(var i = 0; i < service.filters.length; i++){
+							var link = `http://127.0.0.1:8000/api/services/${response.data.data.id}/filters/${service.filters[i]}`
+							console.log(`asociando servicio #${response.data.data.id} con filtro #${service.filters[i]}\nlink: ${link}`);
+							axios.post(link).then(response => {
+									console.log(`nuevo servicio creado : ${response}`);
+									//conectar con handler en el front end
+							}).catch(e => this.errors.push(e));
+						}
+		      })
+		      .catch(e => {
+		            this.errors.push(e)
+		      });
+				
 		}
+
 	},
 	getters:{
 		filterArray(state) {
