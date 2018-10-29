@@ -174,6 +174,17 @@
 	       		 </b-card>
 	      	</b-col>
 	    </b-row>
+		<b-modal ok-only :title="'Servicio creado /' + createdService.id" class="modal-success" v-model="createdModal" size="lg" > 
+			<h1>Nuevo servicio creado.</h1>	
+			<h2>{{createdService.name}}</h2>
+			<h6>{{createdService.description}}</h6>
+			<h5>{{createdService.website}}</h5>
+			<h3>{{createdService.slug}}</h3>
+			<template slot="modal-ok">
+				<b-button @click="confirmed()">ok </b-button>
+			</template>
+		
+		</b-modal>
 	</div>
 </template>
 
@@ -197,7 +208,9 @@ export default {
 				dir: '',
 				description: '',
 				filters: []
-			}
+			},
+			createdModal: false,
+			createdService: {}
 		}
 	},
 	beforeRouteEnter(to,from,next){
@@ -226,9 +239,26 @@ export default {
 			filters.push(this.form.unidad);
 			filters.push(this.form.subunidad);
 			this.form.filters = filters;
-			document.querySelector('#newService').submit();
-			store.dispatch('postNewService', this.form);
+			store.dispatch('postNewService', this.form).then(response => {
+				this.createdService = response;
+				this.createdModal = true;
+				this.form.name= '';
+				this.form.unidad= [];
+				this.form.subunidad= [];
+				this.form.tipo= [];
+				this.form.sector= [];
+				this.form.destinatario= [];
+				this.form.contacto= '';
+				this.form.email= '';
+				this.form.tel= '';
+				this.form.dir= '';
+				this.form.description= '';
+				this.form.filters= [];
+			});
 		},	
+		confirmed: function(){
+			this.$router.push({name: "Servicios"});
+		}
 	}
 }
 </script>

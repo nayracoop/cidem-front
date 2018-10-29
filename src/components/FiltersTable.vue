@@ -20,8 +20,8 @@
       <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next" hide-goto-end-buttons/>
     </nav>
   </b-card>
-    <b-modal title="Crear filtro" class="modal-success" v-model="newModal" size="lg" > 
-      <b-form @submit.prevent="createFilter($event)" v-if="filterCreated === false">
+  <b-modal title="Crear filtro" class="modal-success" v-model="newModal" size="lg" > 
+      <b-form @submit.prevent="editFilter($event)" v-if="filterCreated === false">
           <b-form-group
               description=""
               label="Nombre del Filtro"
@@ -70,25 +70,40 @@
       </div>
       <template slot="modal-footer">
         
-          <label for="submit-create-form"  class="btn rounded m-0 p-0"
-                  type="submit" variant="success" v-if="filterCreated === false" ><b-button variant="success" class="rounded m-0">Crear filtro </b-button>  </label>
+          <label for="submit-create-form"  class="btn rounded m-0 btn-success"
+                  type="submit" variant="success" v-if="filterCreated === false" >Crear filtro  </label>
         <b-button type="cancel" v-if="filterCreated === false"  @click="newModal = false; closeModal()" > Cancel </b-button>
         <b-button v-if="filterCreated === true" @click="newModal = false; closeModal()" variant="success"> Ok </b-button>
       </template>
   </b-modal>
-  <b-modal :title="'Editar filtro ' + currentFilter.id" class="modal-warning" v-model="editModal" @ok="closeModal(editModal)" ok-variant="success" size="lg" > 
+  <b-modal :title="'Editar filtro ' + currentFilter.id" class="modal-warning" v-model="editModal" size="lg" > 
       <div class="p-2">
       <h5>Los siguientes servicios se verán afectados por el cambio:</h5>
       <p>filter . getServicesRelated = [] / #2, #4, #6 </p>
       </div>
-      <b-form>
+      <b-form @submit.prevent="submitEditedFilter($event)">
           <b-form-group
             description=""
             label="Nombre del Filtro"
             label-for="filterName"
             :label-cols="3"
             :horizontal="true">
-            <b-form-input id="filterName" type="text" :placeholder="currentFilter.filtro"></b-form-input>
+            <div v-if="editFilterName === false" class="m-1">
+              <p class="d-inline">{{currentFilter.filtro}}</p> 
+              <b-badge @click="editFilterName = true"  class='badge-pill badge-warning badge-action d-inline m-1'>
+								<i class="fa fa-pencil"></i>
+							</b-badge>
+            </div>
+            <div v-if="editFilterName === true" class="d-inline">
+              <b-form-input id="filterName" type="text" :placeholder="currentFilter.filtro" v-model="editedFilter.name"></b-form-input>
+            	<b-badge @click="editFilterName = false"  class='badge-pill badge-danger badge-action float-right m-1'>
+								<i class="fa fa-close"></i>
+							</b-badge>
+							<b-badge @click="editServiceUnidad = false"  
+									class='badge-pill badge-success badge-action float-right m-1'>
+								<i class="fa fa-check"></i>
+							</b-badge>
+            </div>
           </b-form-group>
             <b-form-group
             description=""
@@ -96,27 +111,65 @@
             label-for="filterTag"
             :label-cols="3"
             :horizontal="true">
-            <b-form-input id="filterTag" type="text" placeholder="Etiqueta del filtro"></b-form-input>
+            <div v-if="editFilterTag === false" class="m-1">
+              <p class="d-inline">{{currentFilter.etiqueta}}</p> 
+              <b-badge @click="editFilterTag = true"  class='badge-pill badge-warning badge-action d-inline m-1'>
+								<i class="fa fa-pencil"></i>
+							</b-badge>
+            </div>
+              <div v-if="editFilterTag === true" class="d-inline">
+              <b-form-input id="filterTag" type="text" :placeholder="currentFilter.etiqueta" v-model="editedFilter.tag"></b-form-input>
+            	<b-badge @click="editFilterTag = false"  class='badge-pill badge-danger badge-action float-right m-1'>
+								<i class="fa fa-close"></i>
+							</b-badge>
+							<b-badge @click="editFilterTag = false"  
+									class='badge-pill badge-success badge-action float-right m-1'>
+								<i class="fa fa-check"></i>
+							</b-badge>
+            </div>
           </b-form-group>
             <b-form-group
             label="Tipo de filtro"
             label-for="filterType"
             :label-cols="3"
             :horizontal="true">
-            <b-form-radio-group id="filterType"
-              :plain="true"
-              :options="[
-                {text: 'Unidad ', value: '1'},
-                {text: 'Subunidad ', value: '2'},
-                {text: 'Tipo de servicio ', value: '3'},
-                {text: 'Sector al que esta destinado ', value: '4'},
-                {text: 'Destinatarios ', value: '5'}
-              ]"
-              checked="2"
-              stacked>
-            </b-form-radio-group>
+            <div v-if="editFilterType === false" class="m-1">
+              <p class="d-inline">{{currentFilter.tipo}}</p> 
+              <b-badge @click="editFilterType = true"  class='badge-pill badge-warning badge-action d-inline m-1'>
+								<i class="fa fa-pencil"></i>
+							</b-badge>
+            </div>
+              <div v-if="editFilterType === true" class="d-inline">
+                <b-form-radio-group id="filterType"
+                    :plain="true"
+                    :options="[
+                      {text: 'Unidad ', value: '1'},
+                      {text: 'Subunidad ', value: '2'},
+                      {text: 'Tipo de servicio ', value: '3'},
+                      {text: 'Sector al que esta destinado ', value: '4'},
+                      {text: 'Destinatarios ', value: '5'}
+                    ]"
+                    :checked="currentFilter.tipoId"
+                    stacked
+                    v-model="editedFilter.type">
+                </b-form-radio-group>
+                <b-badge @click="editFilterType = false"  class='badge-pill badge-danger badge-action float-right m-1'>
+                  <i class="fa fa-close"></i>
+                </b-badge>
+                <b-badge @click="editFilterType = false"  
+                    class='badge-pill badge-success badge-action float-right m-1'>
+                  <i class="fa fa-check"></i>
+                </b-badge>
+            </div>
           </b-form-group>
+          <input type="submit" id="submit-edit-form" hidden/>
       </b-form>
+      <template slot="modal-footer">
+        <label for="submit-edit-form" class="btn rounded m-0 btn-success"
+                  type="submit" variant="success" v-if="filterEdited === false" >Guardar cambios</label>
+        <b-button type="cancel" v-if="filterEdited === false"  @click="editModal = false; closeModal()" > Cancel </b-button>
+        <b-button v-if="filterEdited === true" @click="editModal = false; closeModal()" variant="success"> Ok </b-button>
+      </template>
   </b-modal>
   <b-modal :title="'Eliminar filtro ' + currentFilter.id" class="modal-danger" v-model="deleteModal" @ok="closeModal(deleteModal)" size="lg" >
       <h3>No se puede eliminar el filtro #{{currentFilter.id}}</h3>
@@ -171,11 +224,22 @@ export default {
         filterCreated: false,
         currentFilter: {},
         newModal: false,
+        filterEdited: false,
         editModal: false,
+        editFilterName: false,
+        editFilterTag: false,
+        editFilterType: false,
+        editedFilter:{
+          id: '',
+          name: '',
+          type: '',
+          tag: ''
+        },
         deleteModal: false,
         fields: [
             {key: 'id'},
             {key: 'tipo'},
+            {key: 'tipoId', thClass: 'd-none', tdClass: 'd-none' },
             {key: 'filtro'},
             {key: 'etiqueta'},
             {key: 'servicios_asociados'},
@@ -202,7 +266,8 @@ export default {
                     id: this.filterList[i].id,
                     tipo: this.filterList[i].filterType.name,
                     filtro: this.filterList[i].name,
-                    etiqueta: this.filterList[i].tag
+                    etiqueta: this.filterList[i].tag,
+                    tipoId: this.filterList[i].filterType.id
                 };
                 rowsArray.push(holi);
             }
@@ -225,6 +290,11 @@ export default {
     editFilter(filter){
         this.editModal = true;
         this.currentFilter = filter;
+        this.editedFilter.id = this.currentFilter.id;
+        this.editedFilter.name = this.currentFilter.filtro;
+        this.editedFilter.tag = this.currentFilter.etiqueta;
+        this.editedFilter.type = this.currentFilter.tipoId;
+
         console.log(filter);
     },
     deleteFilter(filter){
@@ -239,6 +309,10 @@ export default {
        this.newFilter.name = '';
        this.newFilter.tag = '';
        this.newFilter.type = '';
+        this.editedFilter.id = '';
+        this.editedFilter.name = '';
+        this.editedFilter.tag = '';
+        this.editedFilter.type = '';
     },
     createFilter(evt){
       evt.preventDefault();
@@ -248,6 +322,12 @@ export default {
         this.currentFilter = response;
         this.filterCreated = true;
       });
+    },
+    submitEditedFilter(evt){
+      console.log('current filter');
+      console.log(this.currentFilter);
+      console.log('edited filter');
+      console.log(this.editedFilter);
     }
   }
 }

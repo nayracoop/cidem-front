@@ -157,7 +157,7 @@ const store = new Vuex.Store({
 				var service = newService;
 				//dos acciones encadenadas
 				// 1 post / service con todos sus campos => devuelve el servicio nuevo con el id
-				axios.post(`${SERVER_PATH}/services`,  {
+			return axios.post(`${SERVER_PATH}/services`,  {
 		           	name: service.name,
 					slug: service.name,
 					summary: service.dir, 
@@ -170,16 +170,14 @@ const store = new Vuex.Store({
 		      })
 		      .then(response => {
 						// 2 post / filters , a partir del servicio nuevo sacar el id, y asociar id de servicio e id de filtros, ciclo for. 
-						for(var i = 0; i < service.filters.length; i++){
+						for(var i = 0; i < (service.filters.length - 1); i++){
 							var link = `${SERVER_PATH}/services/${response.data.data.id}/filters/${service.filters[i]}`
 							console.log(`asociando servicio #${response.data.data.id} con filtro #${service.filters[i]}\nlink: ${link}`);
 							axios.post(link).then(response => {
 										
 							}).catch(e => this.errors.push(e));
-							if(i === (service.filters.length - 1) ){
-								console.log(`nuevo servicio creado : ${response}`);
-							}
 						}
+						return response.data.data;
 		      })
 		      .catch(e => {
 		            this.errors.push(e)

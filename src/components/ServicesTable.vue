@@ -9,8 +9,7 @@
       <template slot="status" slot-scope="data">
         <b-badge :variant="getBadge(data.item.status)">{{data.item.status}}</b-badge>
       </template>
-      <template slot="actions" slot-scope="data">
-        <b-badge  class='badge-pill badge-success badge-action'><i class="fa fa-eye"></i></b-badge>
+      <template slot="acciones" slot-scope="data">
         <b-badge @click="editService(1)" class='badge-pill badge-warning badge-action'><i class="icon-pencil"></i></b-badge>
         <b-badge  class='badge-pill badge-danger badge-action'><i class="icon-trash"></i></b-badge>
       </template>
@@ -23,19 +22,7 @@
 
 <script>
 import router from "@/router"
-/**
-   * Randomize array element order in-place.
-   * Using Durstenfeld shuffle algorithm.
-   */
-const shuffleArray = (array) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1))
-    let temp = array[i]
-    array[i] = array[j]
-    array[j] = temp
-  }
-  return array
-}
+
 
 export default {
   name: 'ServicesTable',
@@ -74,7 +61,7 @@ export default {
         {key: 'tipo'},
         {key: 'sector'},
         {key: 'destinatario'},
-        {key: 'actions'}
+        {key: 'acciones'}
       ],
       currentPage: 1,
       perPage: 10,
@@ -87,13 +74,13 @@ export default {
     },
     items(){
       var rowsArray = [];
-            console.log(this.services.data);
+       
             for (var i = 0; i < this.services.data.length; i++){
                 var filter1 = [];
                 var filter2 = [];
                 var filter3 = [];
                 var filter4 = [];
-                console.log(this.services.data[i].filters);
+               
                 if (this.services.data[i].filters.length > 0){
                     for (var n = 0; n < this.services.data[i].filters.length; n++){
                         if (this.services.data[i].filters[n].filterType.id === 1){
@@ -118,7 +105,6 @@ export default {
                 rowsArray.push(service);
             }
 
-            console.log(rowsArray);
             return rowsArray;
     }
   },
