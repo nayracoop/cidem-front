@@ -4,7 +4,7 @@
      		<dd>{{searchQuery}} <i @click="removeQuery" class="fas fa-times-circle"></i></dd>
      	</dl>
 		<dl v-for="filter in selected">
-	        <dd alt="filter.name"> {{filter.slug}} <i @click="remove(filter.id)" class="fas fa-times cruz"></i></dd>
+	        <dd alt="filter.name"> {{filter.slug}} <i @click="remove(filter.id)" class="fas fa-times-circle"></i></dd>
      	</dl>
      	
 	</div>	
@@ -74,7 +74,7 @@ import router from '../router'
 
 <style scoped>
 #search dd{
-	background-color:#f4f4f4;
+	
 }
 .selectedfilters{
 	display: flex;
@@ -96,7 +96,7 @@ import router from '../router'
 .selectedfilters dl dd{
     margin-left: 5px;
     padding: 0.3em 0.5em;
-    background-color:#17aae4;
+  	background-color:#f4f4f4;
     font-weight: 400;
     font-size:0.95em;
 }
