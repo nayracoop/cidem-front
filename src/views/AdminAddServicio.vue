@@ -1,8 +1,8 @@
 <template>
 	<div class="animated fadeIn">
 		<b-row>
-			<b-col md="8" offset="2">
-				<b-card>
+			<b-col class="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+				<b-card class="clearfix">
 					<div slot="header">
 						<strong>Crear Nuevo Servicio</strong>
 					</div>
@@ -27,9 +27,9 @@
 								:horizontal="true">
 							<b-form-select id="sUnidad"
 											:plain="true"
-											:multiple="true"
 											required 
-											v-model="form.unidad">
+											v-model="form.unidad"
+											placeholder="Selecciona una unidad">
 								<option v-if="filter.filterType.id === 1" 
 										v-for="filter in filterList" 
 										:key="filter.id" 
@@ -43,8 +43,8 @@
 								:horizontal="true">
 							<b-form-select id="sSubunidad"
 										:plain="true"
-										:multiple="true"
-										v-model="form.subunidad">
+										v-model="form.subunidad"
+										placeholder="Selecciona una subunidad">
 								<option v-if="filter.filterType.id === 2" 
 										v-for="filter in filterList" 
 										:key="filter.id" 
@@ -106,7 +106,7 @@
 								:horizontal="true">
 							<b-form-textarea id="sDescripcion" 
 											:textarea="true" 
-											:rows="3" 
+											rows="3" 
 											placeholder="Escribe descipción del servicio"
 											required 
 											v-model="form.description">
@@ -160,15 +160,15 @@
 								label-for="sDir"
 								:label-cols="3"
 								:horizontal="true">
-							<b-form-textarea id="sDir" 
+							<b-form-input id="sDir" 
 											type="text" 
 											placeholder=""
 											required 
 											v-model="form.dir">
-							</b-form-textarea>				
+							</b-form-input>				
 						</b-form-group>
 
-     				 <b-button  type="submit" variant="primary">Submit</b-button>
+     				 <b-button class="float-right"  type="submit" variant="success">Crear nuevo servicio</b-button>
 
 					</b-form >
 	       		 </b-card>
@@ -197,9 +197,18 @@ export default {
 				dir: '',
 				description: '',
 				filters: []
-
 			}
 		}
+	},
+	beforeRouteEnter(to,from,next){
+		store.dispatch('fetchServices').then(()=>{
+			next();
+		});
+	},
+	beforeRouteUpdate(to,from,next){
+		store.dispatch('fetchServices').then(()=>{
+			next();
+		});
 	},
 	computed:{
 		filterTypes(){
@@ -212,7 +221,10 @@ export default {
 	methods:{
 		submit(evt){
 			evt.preventDefault();
-			var filters = this.form.unidad.concat(this.form.subunidad).concat(this.form.tipo).concat(this.form.sector).concat(this.form.destinatario);
+			
+			var filters = this.form.tipo.concat(this.form.sector).concat(this.form.destinatario);
+			filters.push(this.form.unidad);
+			filters.push(this.form.subunidad);
 			this.form.filters = filters;
 			document.querySelector('#newService').submit();
 			store.dispatch('postNewService', this.form);

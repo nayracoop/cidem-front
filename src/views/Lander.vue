@@ -73,7 +73,7 @@ export default {
       return this.$store.state.searchQuery;
      },
      filterList(){
-      			return this.$store.state.filterList;
+      	return this.$store.state.filterList;
 	},
 	filterTypes(){
 		      	return this.$store.state.filterTypes;

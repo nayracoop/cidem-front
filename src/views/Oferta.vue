@@ -15,7 +15,7 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		    <tr v-for="service in services">
+		    <tr v-for="service in services" :key="service.id">
 		      <th scope="row">{{service.id}}</th>
 		      <td @click="viewService(service.id)"><a>{{service.name}}</a></td>
 		      <td>{{service.slug}}</td>

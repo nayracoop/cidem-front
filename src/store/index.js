@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 
+const SERVER_PATH = process.env.SERVER_PATH;
 
 Vue.use(Vuex);
 
@@ -48,7 +49,7 @@ const store = new Vuex.Store({
 	},
 	actions: {
 		fetchFilters(context){
-			var getFilters = axios.get('http://127.0.0.1:8000/api/filters')
+			var getFilters = axios.get(`${SERVER_PATH}/filters`)
 		      .then(response => {
 		        //commit filterlist
 		      	context.commit('FETCH_FILTER_LIST', response.data.data);
@@ -57,7 +58,7 @@ const store = new Vuex.Store({
 		      .catch(e => {
 		        this.errors.push(e)
 					}) 
-			var getFilterTypes = axios.get('http://127.0.0.1:8000/api/filter-types')
+			var getFilterTypes = axios.get(`${SERVER_PATH}/filter-types`)
 		      .then(response => {
 		        //commit filtertypes
 						context.commit('FETCH_FILTER_TYPES', response.data.data);
@@ -77,7 +78,7 @@ const store = new Vuex.Store({
 		          filters.push(state.searchQueryFilters[i].id);
 		        } 
 		    };
-			axios.get('http://127.0.0.1:8000/api/services',  {
+			axios.get(`${SERVER_PATH}/services`,  {
 		        params: {
 		          service: state.searchQuery,
 		          filters: filters,
@@ -97,7 +98,7 @@ const store = new Vuex.Store({
 		          filters.push(state.searchQueryFilters[i].id);
 		        } 
 				};
-			var getFullServices = axios.get('http://127.0.0.1:8000/api/services',  {
+			var getFullServices = axios.get(`${SERVER_PATH}/services`,  {
 								params: {
 									service: state.searchQuery,
 									filters: filters,
@@ -113,7 +114,7 @@ const store = new Vuex.Store({
 			return Promise.all([getFullServices]);
 		},
 		fetchService(context, id){
-		    var requestedID = 'http://127.0.0.1:8000/api/services/' + id;
+		    var requestedID = `${SERVER_PATH}/services/` + id;
 		    var getFilter = axios.get(requestedID)
 					.then(response => {
 							context.commit('FETCH_SERVICE', response.data);
@@ -131,17 +132,17 @@ const store = new Vuex.Store({
 		        } 
 		    };
 			axios.get(link,{
-									params: {
-										service: state.searchQuery,
-										filters: filters
-									}
-							})
-							.then(response => {
-								commit('FETCH_SERVICES', response.data);
-							})
-							.catch(e => {
-								this.errors.push(e)
-							})
+				params: {
+					service: state.searchQuery,
+					filters: filters
+				}
+			})
+			.then(response => {
+				commit('FETCH_SERVICES', response.data);
+			})
+			.catch(e => {
+				this.errors.push(e)
+			})
 		},
 		changeQuerySearch(context, searchQuery){
 			context.commit('CHANGE_QUERY_SEARCH', searchQuery);
@@ -153,41 +154,53 @@ const store = new Vuex.Store({
 			context.commit('LOAD_NEW_CONSULTA', consu);
 		},
 		postNewService(context, newService){
-				console.log(newService);
 				var service = newService;
 				//dos acciones encadenadas
 				// 1 post / service con todos sus campos => devuelve el servicio nuevo con el id
-				axios.post('http://127.0.0.1:8000/api/services',  {
-		        params: {
-		          name: service.name,
-							slug: service.name,
-							summary: service.dir, 
-							description: service.description,
-							icon: 'fa-close',
-							website: service.email,
-							created_at: Date.now(),
-							updated_at: Date.now()
-		        }
+				axios.post(`${SERVER_PATH}/services`,  {
+		           	name: service.name,
+					slug: service.name,
+					summary: service.dir, 
+					description: service.description,
+					icon: 'fa-close',
+					website: service.email,
+					created_at: Date.now(),
+					updated_at: Date.now()
+		        
 		      })
 		      .then(response => {
 						// 2 post / filters , a partir del servicio nuevo sacar el id, y asociar id de servicio e id de filtros, ciclo for. 
-						console.log(`Se ha creado el servicio #${response.data.data.id}`);
-
 						for(var i = 0; i < service.filters.length; i++){
-							var link = `http://127.0.0.1:8000/api/services/${response.data.data.id}/filters/${service.filters[i]}`
+							var link = `${SERVER_PATH}/services/${response.data.data.id}/filters/${service.filters[i]}`
 							console.log(`asociando servicio #${response.data.data.id} con filtro #${service.filters[i]}\nlink: ${link}`);
 							axios.post(link).then(response => {
-									console.log(`nuevo servicio creado : ${response}`);
-									//conectar con handler en el front end
+										
 							}).catch(e => this.errors.push(e));
+							if(i === (service.filters.length - 1) ){
+								console.log(`nuevo servicio creado : ${response}`);
+							}
 						}
 		      })
 		      .catch(e => {
 		            this.errors.push(e)
 		      });
-				
+		},
+		postNewFilter(context, newFilter){
+			return axios.post(`${SERVER_PATH}/filters`,  {
+				name: newFilter.name,
+				tag: newFilter.tag, 
+				filter_type_id: newFilter.type,
+			})
+			.then(response => {
+				return response.data.data;
+			})
+			.catch(e => {
+				this.errors.push(e);
+			});
+			 
+		
 		}
-
+		
 	},
 	getters:{
 		filterArray(state) {
@@ -205,11 +218,38 @@ const store = new Vuex.Store({
 	      		if (state.fullServices.data.length > 0) {
 		        	for (var i = 0; i < (state.fullServices.data.length); i++){
 		        		services.push(state.fullServices.data[i].id);
-		        	} 
+		        	};
 		        }
 	      	};
 	      	return services;
-	    }
+		},
+		serviceFilters(state){
+			var filter1 = [];
+			var filter2 = [];
+			var filter3 = [];
+			var filter4 = [];
+
+			var filtersByType = [];
+			
+			for (var i = 0; i < state.service.data.filters.length; i++){
+				console.log(state.service.data.filters[i]);
+				if (state.service.data.filters[i].filterType.id === 1){
+					filter1.push(state.service.data.filters[i].id);
+				} else if (state.service.data.filters[i].filterType.id === 2){
+					filter2.push(state.service.data.filters[i].id);
+				} else if (state.service.data.filters[i].filterType.id === 3){
+					filter3.push(state.service.data.filters[i].id);
+				} else if (state.service.data.filters[i].filterType.id === 4){
+					filter4.push(state.service.data.filters[i].id);
+				} 
+			}
+			filtersByType.push(filter1);
+			filtersByType.push(filter2);
+			filtersByType.push(filter3);
+			filtersByType.push(filter4);
+			
+			return filtersByType;
+		}
 	}
 });
 

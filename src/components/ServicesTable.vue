@@ -2,7 +2,7 @@
   <b-card >
     <div slot="header">
 	    <header><i class="fa fa-gear"></i> Administrar Servicios
-        <b-button class="btn-success float-right"> Crear Nuevo Servicio </b-button>
+        <b-button @click="addService()" class="btn-success float-right"> Crear Nuevo Servicio </b-button>
       </header>
 	  </div>
     <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
@@ -11,7 +11,7 @@
       </template>
       <template slot="actions" slot-scope="data">
         <b-badge  class='badge-pill badge-success badge-action'><i class="fa fa-eye"></i></b-badge>
-        <b-badge  class='badge-pill badge-warning badge-action'><i class="icon-pencil"></i></b-badge>
+        <b-badge @click="editService(1)" class='badge-pill badge-warning badge-action'><i class="icon-pencil"></i></b-badge>
         <b-badge  class='badge-pill badge-danger badge-action'><i class="icon-trash"></i></b-badge>
       </template>
     </b-table>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import router from "@/router"
 /**
    * Randomize array element order in-place.
    * Using Durstenfeld shuffle algorithm.
@@ -66,35 +67,9 @@ export default {
   },
   data: () => {
     return {
-      items: shuffleArray([
-        {servicio: 'Samppa Nori', registered: '2012/01/01', filtro: 'Member', status: 'Active'},
-        {servicio: 'Estavan Lykos', registered: '2012/02/01', filtro: 'Staff', status: 'Banned'},
-        {servicio: 'Chetan Mohamed', registered: '2012/02/01', filtro: 'Admin', status: 'Inactive'},
-        {servicio: 'Derick Maximinus', registered: '2012/03/01', filtro: 'Member', status: 'Pending'},
-        {servicio: 'Friderik Dávid', registered: '2012/01/21', filtro: 'Staff', status: 'Active'},
-        {servicio: 'Yiorgos Avraamu', registered: '2012/01/01', filtro: 'Member', status: 'Active'},
-        {servicio: 'Avram Tarasios', registered: '2012/02/01', filtro: 'Staff', status: 'Banned'},
-        {servicio: 'Quintin Ed', registered: '2012/02/01', filtro: 'Admin', status: 'Inactive'},
-        {servicio: 'Enéas Kwadwo', registered: '2012/03/01', filtro: 'Member', status: 'Pending'},
-        {servicio: 'Agapetus Tadeáš', registered: '2012/01/21', filtro: 'Staff', status: 'Active'},
-        {servicio: 'Carwyn Fachtna', registered: '2012/01/01', filtro: 'Member', status: 'Active'},
-        {servicio: 'Nehemiah Tatius', registered: '2012/02/01', filtro: 'Staff', status: 'Banned'},
-        {servicio: 'Ebbe Gemariah', registered: '2012/02/01', filtro: 'Admin', status: 'Inactive'},
-        {servicio: 'Eustorgios Amulius', registered: '2012/03/01', filtro: 'Member', status: 'Pending'},
-        {servicio: 'Leopold Gáspár', registered: '2012/01/21', filtro: 'Staff', status: 'Active'},
-        {servicio: 'Pompeius René', registered: '2012/01/01', filtro: 'Member', status: 'Active'},
-        {servicio: 'Paĉjo Jadon', registered: '2012/02/01', filtro: 'Staff', status: 'Banned'},
-        {servicio: 'Micheal Mercurius', registered: '2012/02/01', filtro: 'Admin', status: 'Inactive'},
-        {servicio: 'Ganesha Dubhghall', registered: '2012/03/01', filtro: 'Member', status: 'Pending'},
-        {servicio: 'Hiroto Šimun', registered: '2012/01/21', filtro: 'Staff', status: 'Active'},
-        {servicio: 'Vishnu Serghei', registered: '2012/01/01', filtro: 'Member', status: 'Active'},
-        {servicio: 'Zbyněk Phoibos', registered: '2012/02/01', filtro: 'Staff', status: 'Banned'},
-        {servicio: 'Einar Randall', registered: '2012/02/01', filtro: 'Admin', status: 'Inactive'},
-        {servicio: 'Félix Troels', registered: '2012/03/21', filtro: 'Staff', status: 'Active'},
-        {servicio: 'Aulus Agmundr', registered: '2012/01/01', filtro: 'Member', status: 'Pending'}
-      ]),
-      fields: [
-        {key: 'servicio'},
+       fields: [
+        {key: 'id'},
+        {key: 'name'},
         {key: 'unidad'},
         {key: 'tipo'},
         {key: 'sector'},
@@ -106,6 +81,47 @@ export default {
       totalRows: 0
     }
   },
+  computed: {
+    services(){
+      return this.$store.state.services;
+    },
+    items(){
+      var rowsArray = [];
+            console.log(this.services.data);
+            for (var i = 0; i < this.services.data.length; i++){
+                var filter1 = [];
+                var filter2 = [];
+                var filter3 = [];
+                var filter4 = [];
+                console.log(this.services.data[i].filters);
+                if (this.services.data[i].filters.length > 0){
+                    for (var n = 0; n < this.services.data[i].filters.length; n++){
+                        if (this.services.data[i].filters[n].filterType.id === 1){
+                            filter1.push(this.services.data[i].filters[n].name);
+                        } else if (this.services.data[i].filters[n].filterType.id === 2){
+                            filter2.push(this.services.data[i].filters[n].name);
+                        } else if (this.services.data[i].filters[n].filterType.id === 3){
+                            filter3.push(this.services.data[i].filters[n].name);
+                        } else if (this.services.data[i].filters[n].filterType.id === 4){
+                            filter4.push(this.services.data[i].filters[n].name);
+                        } 
+                    }
+                }
+               
+                var service = {
+                    id: this.services.data[i].id,
+                    name: this.services.data[i].name,
+                    unidad: filter1,
+                    tipo: filter3,
+                    sector: filter4
+                };
+                rowsArray.push(service);
+            }
+
+            console.log(rowsArray);
+            return rowsArray;
+    }
+  },
   methods: {
     getBadge (status) {
       return status === 'Active' ? 'success'
@@ -115,6 +131,13 @@ export default {
     },
     getRowCount (items) {
       return items.length
+    },
+    editService: function (serviceID) {
+			//router.push({ name: 'Service', params:{id: serviceID}});			
+			router.push({ name: 'Editar Servicio', query:{id: serviceID}}); // no pude acceder a los query params desde /service?id=n
+    },
+    addService: function () {
+      router.push({ name: 'Crear Servicio'});
     }
   }
 }

@@ -5,12 +5,13 @@
 				    	<button type="button" data-toggle="modal" data-target="#modalwindow">Filtros</button>
 					</div>				    
 					<div class="d-none d-md-block filters" id='filtersid'>
-					    <dl v-for="type in filterTypes">
+					    <dl v-for="type in filterTypes" :key="type.id">
 					    	<dt class="filter-type collapsed" data-toggle="collapse" :data-target="'#'+type.id" >{{type.name}}</dt>
 					    	<div :id="type.id" class="collapse" data-parent='#filtersid'>
 					        	<dd 
 						        	v-for="filter in filterList"
 						        	v-if="filter.filterType.id == type.id" 
+									:key="filter.id"
 						        	@click="filterclick(filter)"
 						        	class="filter-item"
 						       		:class="{highlight:selected.includes(filter.id)}">{{filter.name}}</dd>

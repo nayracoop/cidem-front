@@ -55,6 +55,7 @@ export default new Router({
     {
       path: '/admin',
       name: 'Admin',
+      redirect: '/admin/dashboard',
       component: DefaultAdminContainer,
       meta: {
         requiresAuth: true,
@@ -70,7 +71,7 @@ export default new Router({
       },
       children: [
         {
-          path: '/admin',
+          path: '/admin/dashboard',
           name: 'Dashboard' ,
           component: Dashboard
         },

@@ -20,31 +20,33 @@
       <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next" hide-goto-end-buttons/>
     </nav>
   </b-card>
-    <b-modal title="Crear filtro" class="modal-success" v-model="newModal" @ok="closeModal(newModal)" ok-variant="success" size="lg" > 
-      <b-form>
+    <b-modal title="Crear filtro" class="modal-success" v-model="newModal" size="lg" > 
+      <b-form @submit.prevent="createFilter($event)" v-if="filterCreated === false">
           <b-form-group
-            description=""
-            label="Nombre del Filtro"
-            label-for="filterName"
-            :label-cols="3"
-            :horizontal="true">
-            <b-form-input id="filterName" type="text" placeholder="Nombre del Filtro"></b-form-input>
+              description=""
+              label="Nombre del Filtro"
+              label-for="filterName"
+              :label-cols="3"
+              :horizontal="true">
+            <b-form-input id="filterName" type="text" required placeholder="Nombre del Filtro" v-model="newFilter.name"></b-form-input>
           </b-form-group>
             <b-form-group
-            description=""
-            label="Etiqueta del Filtro"
-            label-for="filterTag"
-            :label-cols="3"
-            :horizontal="true">
-            <b-form-input id="filterTag" type="text" placeholder="Etiqueta del filtro"></b-form-input>
+              description=""
+              label="Etiqueta del Filtro"
+              label-for="filterTag"
+              :label-cols="3"
+              :horizontal="true">
+            <b-form-input id="filterTag" type="text" required placeholder="Etiqueta del filtro" v-model="newFilter.tag"></b-form-input>
           </b-form-group>
             <b-form-group
-            label="Tipo de filtro"
-            label-for="filterType"
-            :label-cols="3"
-            :horizontal="true">
+              label="Tipo de filtro"
+              label-for="filterType"
+              :label-cols="3"
+              :horizontal="true">
             <b-form-radio-group id="filterType"
               :plain="true"
+              v-model="newFilter.type"
+              required
               :options="[
                 {text: 'Unidad ', value: '1'},
                 {text: 'Subunidad ', value: '2'},
@@ -56,10 +58,29 @@
               stacked>
             </b-form-radio-group>
           </b-form-group>
+          <input type="submit" id="submit-create-form" hidden/>
       </b-form>
+      <div v-if="filterCreated === true">
+        <h2> El filtro #{{currentFilter.id}} se ha creado exitosamente </h2>
+        <ul class="pb-0 pt-1 mb-0 m-2">
+        <p> <strong> Nombre : </strong> {{currentFilter.name}}  </p>
+        <p>  <strong> Etiqueta : </strong>{{currentFilter.tag}}</p>
+        <p>  <strong> Tipo de Filtro:  </strong> {{currentFilter.filterType.id}} - {{currentFilter.filterType.name}}</p>
+        </ul>
+      </div>
+      <template slot="modal-footer">
+        
+          <label for="submit-create-form"  class="btn rounded m-0 p-0"
+                  type="submit" variant="success" v-if="filterCreated === false" ><b-button variant="success" class="rounded m-0">Crear filtro </b-button>  </label>
+        <b-button type="cancel" v-if="filterCreated === false"  @click="newModal = false; closeModal()" > Cancel </b-button>
+        <b-button v-if="filterCreated === true" @click="newModal = false; closeModal()" variant="success"> Ok </b-button>
+      </template>
   </b-modal>
-  <b-modal :title="'Editar filtro  ' + currentFilter.id" class="modal-warning" v-model="editModal" @ok="closeModal(editModal)" ok-variant="success" size="lg" > 
-      <h3>{{currentFilter.filtro}}</h3>
+  <b-modal :title="'Editar filtro ' + currentFilter.id" class="modal-warning" v-model="editModal" @ok="closeModal(editModal)" ok-variant="success" size="lg" > 
+      <div class="p-2">
+      <h5>Los siguientes servicios se verán afectados por el cambio:</h5>
+      <p>filter . getServicesRelated = [] / #2, #4, #6 </p>
+      </div>
       <b-form>
           <b-form-group
             description=""
@@ -97,33 +118,20 @@
           </b-form-group>
       </b-form>
   </b-modal>
-  <b-modal :title="'Eliminar filtro   ' + currentFilter.id" class="modal-danger" v-model="deleteModal" @ok="closeModal(deleteModal)" size="lg" >
+  <b-modal :title="'Eliminar filtro ' + currentFilter.id" class="modal-danger" v-model="deleteModal" @ok="closeModal(deleteModal)" size="lg" >
       <h3>No se puede eliminar el filtro #{{currentFilter.id}}</h3>
-      <h7>Los siguientes servicios se encuentran asociados a este filtro:</h7>
+      <h5>Los siguientes servicios se encuentran asociados a este filtro:</h5>
       <ul>
         <li>#34 Servicio bhlabalbha (click link a pag de edicion del servicio)</li>
         <li>#12 Servicio bhlabalbha (click link a pag de edicion del servicio)</li>
         <li>#7 Servicio bhlabalbha (click link a pag de edicion del servicio)</li>
-
       </ul>
   </b-modal>
   </div>
 </template>
 
 <script>
-/**
-   * Randomize array element order in-place.
-   * Using Durstenfeld shuffle algorithm.
-   */
-const shuffleArray = (array) => {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1))
-    let temp = array[i]
-    array[i] = array[j]
-    array[j] = temp
-  }
-  return array
-}
+import store from '@/store'
 
 export default {
   name: 'FiltersTable',
@@ -155,6 +163,12 @@ export default {
   },
   data: () => {
       return {
+        newFilter: {
+          name: '',
+          type: '',
+          tag: ''
+        },
+        filterCreated: false,
         currentFilter: {},
         newModal: false,
         editModal: false,
@@ -164,6 +178,7 @@ export default {
             {key: 'tipo'},
             {key: 'filtro'},
             {key: 'etiqueta'},
+            {key: 'servicios_asociados'},
             {key: 'acciones'}
         ],
         currentPage: 1,
@@ -186,12 +201,13 @@ export default {
                 var holi = {
                     id: this.filterList[i].id,
                     tipo: this.filterList[i].filterType.name,
-                    filtro: this.filterList[i].name
+                    filtro: this.filterList[i].name,
+                    etiqueta: this.filterList[i].tag
                 };
                 rowsArray.push(holi);
             }
 
-            console.log(rowsArray);
+            
             return rowsArray;
         
         }
@@ -217,7 +233,21 @@ export default {
         console.log(id);
     },
     closeModal(modal){
-       modal = false;  
+       this.filterCreated = false;
+      
+       this.currentFilter = {};
+       this.newFilter.name = '';
+       this.newFilter.tag = '';
+       this.newFilter.type = '';
+    },
+    createFilter(evt){
+      evt.preventDefault();
+      this.$store.dispatch('postNewFilter', this.newFilter).then(response => {
+        console.log(response);
+        this.$store.dispatch('fetchFilters');
+        this.currentFilter = response;
+        this.filterCreated = true;
+      });
     }
   }
 }

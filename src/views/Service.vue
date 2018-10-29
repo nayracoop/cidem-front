@@ -245,7 +245,7 @@ aside .vcard{
 
 aside .vcard i{
     margin-right:4px;
-    font-size:;
+   
 }
 
 aside .vcard span {

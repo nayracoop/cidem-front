@@ -8,7 +8,6 @@
 
 <script>
 import router from './router'
-import axios from 'axios'
 import TheHeader from '@/components/TheHeader'
 import TheFooter from '@/components/TheFooter'
 import TheSidebar from '@/components/TheSidebar'
@@ -38,6 +37,8 @@ export default {
     DefaultAdminContainer
   }, 
   created() {
+    			
+
     this.load();
     var consu = {
       name: 'Martina',
@@ -75,35 +76,20 @@ export default {
     }
   },
   methods: {
-    /*load: function() {
-      this.getFiltersAvailable();
-      this.getServices();
-    },*/
-    asyncLoad: function(){
-        //recibe una promise
-
-        // 1- chequear que la oferta de filtros se haya cargado en store  -> (load icon : true)
-        // 2- seleccionar filtros a partir del query, seleccionar search a partir del query
-        // 3- dispatchear busqueda
-        // 4- cargar front end -> (load icon : false)
-
-      
-    },
-    load: function(){
-      var that = this;
-      if (this.$route.query.services) {
-        this.$store.dispatch('changeQuerySearch', this.$route.query.services);
-      };
-      this.$store.dispatch('fetchFilters').then(() =>{ 
+      load: function(){
+        var that = this;
+        if (this.$route.query.services) {
+          this.$store.dispatch('changeQuerySearch', this.$route.query.services);
+        };
+        this.$store.dispatch('fetchFilters').then(() =>{ 
          
           if (this.$route.query.filters) {
               if(this. filterList){
                 var that = this;
-                //ARREGLAR ESTO 
                 var filtros = [];
                 for (var i=0; i < this.$route.query.filters.length; i++){
                     var filtri = this.$store.state.filterList.find(function(e){
-                      return e.id == that .$route.query.filters[i];
+                      return e.id == that.$route.query.filters[i];
                     })
                     filtros.push(filtri);
                 }
