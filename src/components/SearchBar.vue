@@ -116,7 +116,6 @@
 				e.stopPropagation();
 				this.$store.dispatch('changeQueryFilters', selected);     
 
-
 			},
 			handleResize() {
 				this.window.width = window.innerWidth;

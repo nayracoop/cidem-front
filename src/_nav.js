@@ -35,12 +35,12 @@ export default {
       name: 'Listado de Servicios',
       url: '/admin/servicios',
       icon: 'icon-layers'
-    },
+    },/*
     {
       name: 'Editar Servicio',
       url: '/admin/servicio/edit',
       icon: 'icon-pencil'
-    },
+    },*/
     {
       name: 'Crear Servicio',
       url: '/admin/servicio/add',
@@ -56,19 +56,9 @@ export default {
       }
     },
     {
-      name: 'Listado de Filtros',
+      name: 'Administrar Filtros',
       url: '/admin/filtros',
       icon: 'icon-list'
-    },
-    {
-      name: 'Editar Filtro',
-      url: '/admin/filtro/add',
-      icon: 'icon-pencil'
-    },
-    {
-      name: 'Crear Filtro',
-      url: '/admin/filtro/edit',
-      icon: 'icon-plus'
     },
     /*
     {

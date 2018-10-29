@@ -7,23 +7,9 @@
         <img class="navbar-brand-minimized ml-5" src="../assets/img/logountref.svg" width="55" alt="Courier Admin Logo">
       </b-link>
       <SidebarToggler class="d-md-down-none mr-auto" display="lg" />
-      <b-navbar-nav class="d-md-down-none">
-        <b-nav-item class="px-3">Dashboard</b-nav-item>
+      <b-navbar-nav class="d-md-down-none float-right">
+        <b-nav-item class="px-3">Logout</b-nav-item>
         <b-nav-item class="px-3">Users</b-nav-item>
-        <b-nav-item class="px-3">Settings</b-nav-item>
-      </b-navbar-nav>
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item class="d-md-down-none">
-          <i class="fa fa-envelope-o"></i>
-          <b-badge pill variant="danger">5</b-badge>
-        </b-nav-item>
-        <b-nav-item class="d-md-down-none">
-          <i class="icon-list"></i>
-        </b-nav-item>
-        <b-nav-item class="d-md-down-none">
-          <i class="icon-location-pin"></i>
-        </b-nav-item>
-        <!--DefaultHeaderDropdownAccnt/-->
       </b-navbar-nav>
       <!--AsideToggler class="d-none d-lg-block" /-->
       <!--AsideToggler class="d-lg-none" mobile /-->

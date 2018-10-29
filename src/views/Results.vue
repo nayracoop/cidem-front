@@ -14,10 +14,11 @@
 								<span class="printbtn d-none d-md-block"><button @click="print"><i class="fas fa-print"></i></button></span>	
 							</div>
 						</div>
+
 						<aside class="alertresults">Se encontraron {{metadata.total}} resultados para "{{searchQuery}}"</aside>
-						
-							<article v-if="printing === false" v-for="service in services" class="card art">
-								<div class="card-body box ">
+
+							<article v-if="printing === false" v-for="service in services" :key="service.id" class="card art">
+								<div class="card-body box" >
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
 										<dt>Destinatarios:</dt>
@@ -33,7 +34,7 @@
 									</dl>
 								</div>
 							</article>
-							<article v-if="printing === true" v-for="service in fullServices" class="card art">
+							<article v-if="printing === true" v-for="service in fullServices" :key="service.id" class="card art">
 								<div class="card-body box ">
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
