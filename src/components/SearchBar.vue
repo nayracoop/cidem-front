@@ -148,6 +148,7 @@
     color:#fff;
     text-transform: uppercase;
     font-weight: 700;
+    z-index:0;
 }
 
 .btnalone{
