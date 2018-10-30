@@ -10,7 +10,7 @@
         <b-badge :variant="getBadge(data.item.status)">{{data.item.status}}</b-badge>
       </template>
       <template slot="acciones" slot-scope="data">
-        <b-badge @click="editService(1)" class='badge-pill badge-warning badge-action'><i class="icon-pencil"></i></b-badge>
+        <b-badge @click="editService(data.item.id)" class='badge-pill badge-warning badge-action'><i class="icon-pencil"></i></b-badge>
         <b-badge  class='badge-pill badge-danger badge-action'><i class="icon-trash"></i></b-badge>
       </template>
     </b-table>
@@ -70,7 +70,7 @@ export default {
   },
   computed: {
     services(){
-      return this.$store.state.services;
+      return this.$store.state.fullServices;
     },
     items(){
       var rowsArray = [];

@@ -8,8 +8,20 @@
 
 <script>
 	import ServicesTable from '@/components/ServicesTable'
+	import store from '../store'
+
 	export default{
 		name: 'AdminServicios',
-		components: {ServicesTable}
+		components: {ServicesTable},
+		beforeRouteEnter(to, from, next){
+			store.dispatch('fetchFullServices').then(()=>{
+				next();
+			});
+		},
+		beforeRouteUpdate(to, from, next){
+			store.dispatch('fetchFullServices').then(()=>{
+				next();
+		});
+  },
 	}
 </script>

@@ -43,9 +43,9 @@ export default {
     var consu = {
       name: 'Martina',
       company: 'Nayra',
-      phone: '666',
+      phone: '011-1112-3344',
       email: 'martu@nayra.coop',
-      description: 'hola queria saber que onda...'
+      description: 'hola queria saber ...'
     };
     this.$store.dispatch('loadNewConsulta',consu );
   },
