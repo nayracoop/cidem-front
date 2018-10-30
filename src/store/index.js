@@ -201,25 +201,48 @@ const store = new Vuex.Store({
 			var service = editedService;
 				//dos acciones encadenadas
 				// 1 post / service con todos sus campos => devuelve el servicio nuevo con el id
-			return axios.post(`${SERVER_PATH}/services`,  {
+			return axios.put(`${SERVER_PATH}/services`,  {
 		           	name: service.name,
 					slug: service.name,
 					summary: service.dir, 
 					description: service.description,
 					icon: 'fa-close',
 					website: service.email,
-					created_at: Date.now(),
 					updated_at: Date.now()
 		    })
 		      .then(response => {
-		
-				return response.data.data;
+					return response.data.data;
 		      })
 		      .catch(e => {
 		            this.errors.push(e)
 		      });
 
-		}
+		},
+		editFilter(context, editedFilter){
+			console.log('enviando request de edit del filtro');
+			console.log(editedFilter);
+			return axios.post(`${SERVER_PATH}/filters`,  {
+				id: editedFilter.id,
+				name: editedFilter.name,
+				tag: editedFilter.tag, 
+				filter_type_id: editedFilter.type,
+			})
+			.then(response => {
+				return response.data.data;
+			})
+			.catch(e => {
+				this.errors.push(e);
+			});
+		
+		},
+		deleteFilter(context, deletedFilter){
+			console.log('axios DELETE FILTER -> falta endpoint');
+			console.log(deletedFilter);
+		},
+		deleteService(context, deletedService){
+			console.log('axios DELETE SERVICE -> falta endpoint');
+			console.log(deletedService);
+		},
 		
 	},
 	getters:{

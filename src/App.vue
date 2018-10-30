@@ -118,74 +118,10 @@ export default {
   /* Import Bootstrap Vue Styles */
   @import '../node_modules/bootstrap-vue/dist/bootstrap-vue.css';
   @import '../node_modules/bootstrap/scss/bootstrap.scss';
-  
-
-  @font-face {
-      font-family: 'Distefano-Sans';
-      font-style: normal;
-      font-weight: 400;
-      src: url('assets/fonts/tipo_-_distefanosans_regular-webfont.woff') format('woff');
-  }
-/*
-  @font-face {
-      font-family: 'Distefano-Sans';
-      font-style: italic;
-      font-weight: 400;
-      src: url('../assets/fonts/tipo_-_distefanosans-italic-webfont.woff') format('woff');
-  }
-*/
-  @font-face {
-      font-family: 'Distefano-Sans';
-      font-style: normal;
-      font-weight: 200;
-      src: url('assets/fonts/tipo_-_distefanosans_light-webfont.woff') format('woff');
-  }
-/*
-  @font-face {
-      font-family: 'Distefano-Sans';
-      font-style: italic;
-      font-weight: 200;
-      src: url('../assets/fonts/tipo_-_distefanosanslightitalic-webfont.woff') format('woff');
-  }
-*/
-  @font-face {
-      font-family: 'Distefano-Sans';
-      font-style: normal;
-      font-weight: 900;
-      src: url('assets/fonts/tipo_-_distefanosans-black-webfont.woff') format('woff');
-  }
-
-/*
-  @font-face {
-      font-family: 'Distefano-Sans';
-      font-style: italic;
-      font-weight: 900;
-      src: url('../assets/fonts/tipo_-_distefanosans-blackitalic-webfont.woff') format('woff');
-  }
-  */
-
-  @font-face {
-      font-family: 'Distefano-Sans';
-      font-style: normal;
-      font-weight: 700;
-      src: url('assets/fonts/tipo_-_distefanosans-bold-webfont.woff') format('woff');
-  }
-
-  @font-face {
-      font-family: 'Distefano-Slab';
-      font-weight: 700;
-      src: url('assets/fonts/tipo_-_distefanoslab-bold-webfont.woff') format('woff');
-  }
-  @font-face {
-      font-family: 'Distefano-Slab';
-      font-weight: 400;
-      src: url('assets/fonts/tipo_-_distefanoslab-regular-webfont.woff') format('woff');
-  }
-
+ 
   body {
-    font: normal 100%/1.5 'Distefano-Sans', sans-serif;
+   
     background: #fff;
-    color:#000;
     margin: auto;
     cursor: default;
 
@@ -195,7 +131,5 @@ export default {
 a{
   cursor: pointer;
 }
-
-
 
 </style>

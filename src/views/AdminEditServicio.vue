@@ -448,9 +448,8 @@ export default {
 	methods: {
 		submitEditedService(evt){
 			//IF HUBO CAMBIOS => MODAL CONFIRMACIÓN CON CAMPOS CAMBIADOS ; ELSE => NO HUBO CAMBIOS
+			
 		
-			console.log('edicion enviada: ');
-			console.log(this.editedService);
 		},
 		cancel(){
 			//MODAL => SEGURO QUE QUIERES ABANDONAR LOS CAMBIOS

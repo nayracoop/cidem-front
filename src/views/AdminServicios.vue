@@ -1,7 +1,7 @@
 <template>
 	<b-row class="animated fadeIn">
       <b-col sm="12">
-        <services-table class="table-responsive" hover striped bordered small fixed caption="<i class='fa fa-align-justify'></i> Combined All Table"></services-table>
+        <services-table class="table-responsive" caption="<i class='fa fa-align-justify'></i> Combined All Table"></services-table>
       </b-col>
     </b-row>
 </template>
