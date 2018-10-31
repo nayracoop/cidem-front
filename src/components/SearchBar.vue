@@ -1,7 +1,7 @@
 <template>
 	<div class="d-lg-flex input-group"> <!-- buscador principal -->
 		<div 
-		class="input-group-prepend d-none d-sm-none d-md-block"
+		class="input-group-prepend d-none d-md-block"
 		 v-for="type in filterTypes"
 		 v-if="type.id !== 2">  
 			<button 
@@ -26,15 +26,15 @@
           	@keyup.enter="submitSearch">
 
 		<div class="input-group-append" v-if="this.$route.name !== 'Lander'">
-			<button class="btn rounded searcherbtn rounded-0" type="button"  @click="submitSearch">
+			<button class="btn searcherbtn rounded-0" type="button"  @click="submitSearch">
 			<i class="d block d-md-none fa fa-search lupa"></i><span class="d-none d-md-block">Buscar</span></button>
 		</div>
-		<div class="d-none d-lg-block input-group-append" v-if="this.$route.name == 'Lander'">
-			<button class="btn rounded searcherbtn rounded-0" type="button"  @click="submitSearch">
+		<div class="d-none d-md-block input-group-append" v-if="this.$route.name == 'Lander'">
+			<button class="btn searcherbtn rounded-0" type="button"  @click="submitSearch">
 			<i class="d block d-md-none fa fa-search lupa"></i><span class="d-none d-md-block">Buscar</span></button>
 		</div>
-		<div class="d-block d-lg-none input-group btnalone" v-if="this.$route.name == 'Lander'">
-			<button class="btn rounded d-lg-block rounded-0 searcherbtn" type="button"  @click="submitSearch">
+		<div class="d-block d-md-none input-group btnalone" v-if="this.$route.name == 'Lander'">
+			<button class="btn d-lg-block searcherbtn rounded-0" type="button"  @click="submitSearch">
 			Buscar</button>
 		</div>	 		 	
 	</div>	

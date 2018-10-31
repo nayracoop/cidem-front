@@ -35,7 +35,7 @@
 						<textarea type="text" class="form-control rounded-0" id="description"></textarea>
 					</div>
 				</form>
-				<button v-on:click="sendalert()" class="btn btn-primary offset-5 sendbtn rounded-0" type="submit" value="Submit">Enviar</button>	
+				<button v-on:click="sendalert()" class="btn offset-5 sendbtn rounded-0" type="submit" value="Submit">Enviar</button>	
 			</div>
 		</div>
 	</main>	
@@ -119,5 +119,10 @@ margin-right: 10px;
 
 .sendbtn{
     margin-top: 20px;
+    background-color: #000;
+    color:#fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    border:none;
 }
 </style>

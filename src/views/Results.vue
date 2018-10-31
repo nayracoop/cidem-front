@@ -1,7 +1,8 @@
 <template>
 	<main role="main">
 		<filters-selected class="col-10 offset-md-1"></filters-selected>
-		<div class="row listado">	   						    
+		<div class="row listado">
+			<filters-mobile></filters-mobile>	   						    
 			<the-sidebar class="d-print-none"></the-sidebar>
 			<div class="col-sm-12 col-md-7 offset-md-1" id="list">
 				<section>
@@ -68,7 +69,7 @@ import axios from 'axios'
 import router from '../router'
 import store from '../store'
 import FiltersSelected from '@/components/FiltersSelected'
-
+import FiltersMobile from '@/components/FiltersMobile'
 import TheSidebar from '@/components/TheSidebar'
 
 export default {
@@ -80,12 +81,14 @@ export default {
 	    return {
 			printing: false,
 			render: true,
-			loading: false
+			loading: false,
+			hide:false
 	    }
 	}, 
 	components: {
 		TheSidebar,
-		FiltersSelected
+		FiltersSelected,
+		FiltersMobile
 	},
 	created() {
 		vue.nextTick();
@@ -154,6 +157,10 @@ main{
     margin:0;
 }
 
+.resultshide{
+	margin-left:-2000px;
+}
+
  .btnnobtn button {
     border: none;
     background: none;    
@@ -177,12 +184,6 @@ main{
     font-weight:700;
     font-size:1.25em;
 /*    text-align: center;*/
-}
-
-.modalscreen{
-    padding:0;
-    margin:0;
-    width:100%;
 }
 
 .selectedfilters ul{

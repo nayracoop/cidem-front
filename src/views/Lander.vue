@@ -17,9 +17,9 @@
         <!------ TAGS FILTROS ------->
 		<filters-selected class="col-12 offset-md-1 col-md-10 col-lg-10 offset-lg-1"></filters-selected>
 	    <!------- BUSCADOR DEL LANDER -------->
-      <dropdown class="d-block d-lg-none"></dropdown>   
+      <dropdown class="d-block d-md-none"></dropdown>   
 	    <div class="row searcher">
-	    	<SearchBar class="col-sm-12 col-md-10 offset-md-1"></SearchBar>
+	    	<SearchBar class="col-12 col-lg-10  offset-lg-1"></SearchBar>
         
 	    </div>	  
 	    <!------ LINK A VISTA DE TODOS LOS FILTROS ------>

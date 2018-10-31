@@ -172,7 +172,7 @@
 						description_3: "Cubre la actualización de normas nacionales, la calibración de normas secundarias y los ensayos y análisis rutinarios de materiales, componentes, productos, procesos, suelos, atmósfera, etc.",
 						title_4: "Calificación", 
 						description_4: "Evaluación de la manera en que una cosa o una persona  realiza alguna actividad y en base a ello determinar las cualidades, capacidades y aptitudes para ser utilizado en alguna actividad específica.",
-						title_5: "Certificación/Homologación/Regímenes Especiales", 
+						title_5: "Certificación /Homologación/ Regímenes Especiales", 
 						description_5: "Verificación  del cumplimiento de determinadas especificaciones o características de un objeto o acción.",
 						title_6: "Control ambiental/Medio ambiental", 
 						description_6: "Inspección, vigilancia y aplicación de las medidas legales y técnicas que se aplican y son necesarias para disminuir o evitar, cualquier tipo de afección al medio ambiente en general, y a un ecosistema en particular.",

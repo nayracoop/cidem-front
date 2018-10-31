@@ -99,7 +99,7 @@ export default {
     height: 200px;
     right: -1px;
     height:100%;
-    z-index:1;
+    z-index:4;
     top:-1px;
     padding-top:50px;
 }
