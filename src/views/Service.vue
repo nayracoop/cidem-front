@@ -17,41 +17,43 @@
 		</div>	
 		<div class="row">
 			<div class="col-sm-12 col-lg-10 offset-md-1">
-				<div class="titlefile">
+				<div class="titlefile mb-4">
 					<h1>{{ service.name }}</h1>
 				</div>
 				<div class="row">
 					<div class="col-md-9">
 						<div class="row">
 							<div class="col-sm-3 categ">
-								<h2>{{C_Uni}}</h2>
+								<h2>Unidad</h2>
 							</div>
 							<div class="col-sm-9 categresult">
-								<p>{{Uni_results}}</p>
+								<p><span v-for="service in serviceFilters[0]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
+							</div>
+							<div v-if="serviceFilters[1].length > 0" class="col-sm-3 categ">
+								<h2>Subunidad</h2>
+							</div>
+							<div v-if="serviceFilters[1].length > 0" class="col-sm-9 categresult">
+								<p><span v-for="service in serviceFilters[1]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
+
 							</div>
 							<div class="col-sm-3 categ">
-								<h2>{{C_Sub}}</h2>
+								<h2>Tipo de servicio</h2>
 							</div>
 							<div class="col-sm-9 categresult">
-								<p>{{Sub_results}}</p>
+								<p><span v-for="service in serviceFilters[2]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
 							</div>
 							<div class="col-sm-3 categ">
-								<h2>{{C_Tipo}}</h2>
+								<h2>Sector al que está destinado el servicio</h2>
 							</div>
 							<div class="col-sm-9 categresult">
-								<p>{{Tipo_Results}}</p>
-							</div>
-							<div class="col-sm-3 categ">
-								<h2>{{C_Sec}}</h2>
-							</div>
-							<div class="col-sm-9 categresult">
-								<p>{{Sec_results}}</p>
+								<p><span v-for="service in serviceFilters[3]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
+
 							</div>
 							<div class="col-sm-3 categ">
 								<h2>Destinatario</h2>
 							</div>
 							<div class="col-sm-9 categresult">
-								<p>{{Dest_results}}</p>
+								<p><span v-for="service in serviceFilters[4]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
 							</div>
 							<div class="col-sm-3 categ">
 								<h2>Descripción</h2>
@@ -69,7 +71,9 @@
 									<span class="name"><i class="fas fa-user"></i>{{contact_name}}</span>
 									<span class="email"><i class="fas fa-envelope"></i>{{contact_email}}</span> 
 									<span class="number"><i class="fas fa-phone ph"></i>{{contact_number}}</span>
+									<span v-if="contact_web" class="region"><i class="fas fa-globe"></i>{{contact_web}}</span>
 									<span class="region"><i class="fas fa-map-marker-alt"></i>{{contact_adress}}</span>
+
 								</p>
 							</div>
 						</aside>
@@ -104,7 +108,8 @@ import store from '../store'
 				contact_name:"Diego Federico",
 				contact_email:"dfederico@untref.edu.ar",
 				contact_number:"01147599810",
-				contact_adress:"Av. San Martín 2921, Caseros (1678), Provincia de Buenos Aires"
+				contact_adress:"Av. San Martín 2921, Caseros (1678), Provincia de Buenos Aires",
+				contact_web: 'www.hola.com'
 
 			}
 		},
@@ -128,11 +133,16 @@ import store from '../store'
 			searchQueryFilters() {
 				return this.$store.state.searchQueryFilters;
 			},
+			serviceFilters(){
+				return this.$store.getters.serviceFiltersNames;
+			},
 			service() {
+								console.log(this.$store.state.service.data);
+
 				return this.$store.state.service.data;
 			},
 			services(){
-	        	return this.$store.state.services.data;
+	        	return this.$store.state.fullServices.data;
 			},
 			id(){
 				return this.$route.query.id;

@@ -4,7 +4,7 @@
 	      	<b-col md="8" offset="2">
 	        	<b-card>
 					<div slot="header">
-						<strong>Ver / Editar Servicio  /// b-select default :value = filtro original </strong>
+						<strong>Ver / Editar Servicio </strong>
 					</div>
 					<b-form @submit="submitEditedService($event)" >
 						<b-form-group label="Nombre del servicio"
@@ -13,7 +13,7 @@
 								:label-cols="3"
 								:horizontal="true">
 							<div v-if="editServiceName === false" class="mt-2">
-								<p class="d-inline" :class="{edited:editedFields.includes('name')}">{{service.name}}</p> 
+								<p class="d-inline" :class="{edited:editedFields.includes('name')}">{{editedService.name}}</p> 
 								<b-badge @click="editServiceName = true"  
 										class='badge-pill badge-warning badge-action  d-inline'>
 									<i class="fa fa-pencil"></i>
@@ -25,11 +25,11 @@
 											placeholder="Inserte nuevo nombre del servicio"
 											v-model="form.name">
 								</b-form-input>
-								<b-badge @click="editServiceName = false"  
+								<b-badge @click="editServiceName = false; form.name= editedService.name"  
 										class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceName = false; editedFields.push('name')"  
+								<b-badge @click="editServiceName = false; editedService.name = form.name"  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>
@@ -42,7 +42,7 @@
 								:label-cols="3"
 								:horizontal="true">
 							<div v-if="editServiceUnidad === false"  class="mt-2">
-								<p class="d-inline" v-if="form.unidad">Unidad</p>
+								<p class="d-inline">{{namedFilters.unidad.toString()}} </p>
 								<b-badge @click="editServiceUnidad = true"  
 										class='badge-pill badge-warning badge-action d-inline'>
 									<i class="fa fa-pencil"></i>
@@ -57,11 +57,11 @@
 										:key="filter.id" 
 										:value="filter.id">{{filter.name}}</option>
 								</b-form-select>
-								<b-badge @click="editServiceUnidad = false"  
+								<b-badge @click="editServiceUnidad = false; form.unidad = editedService.unidad"  
 										class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceUnidad = false"  
+								<b-badge @click="editServiceUnidad = false; editedService.unidad = filterList.find(x => x.id === form.unidad).name"  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>
@@ -73,7 +73,7 @@
 								:label-cols="3"
 								:horizontal="true">
 							<div v-if="editServiceSubunidad === false"  class="mt-2">
-								<p class="d-inline" v-if="form.subunidad" >subunidad</p>
+								<p class="d-inline" v-if="editedService.subunidad" >{{namedFilters.subunidad.toString()}}</p>
 								<b-badge @click="editServiceSubunidad = true"  class='badge-pill badge-warning badge-action d-inline'>
 									<i class="fa fa-pencil"></i>
 								</b-badge>
@@ -87,10 +87,10 @@
 											:key="filter.id" 
 											:value="filter.id">{{filter.name}}</option>
 								</b-form-select>
-								<b-badge @click="editServiceSubunidad = false"  class='badge-pill badge-danger badge-action float-right m-1'>
+								<b-badge @click="editServiceSubunidad = false; form.subunidad = editedService.subunidad"  class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceUnidad = false"  
+								<b-badge @click="editServiceSubunidad = false; editedService.subunidad = filterList.find(x => x.id === form.subunidad).name "  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>	
@@ -103,7 +103,7 @@
 								:label-cols="3"
 								:horizontal="true">
 							<div v-if="editServiceTipo === false"  class="mt-2">
-								<p v-if="form.tipo" class="d-inline">tipo</p> 
+								<p class="d-inline">{{ namedFilters.tipo.toString() }} </p> 
 								<b-badge @click="editServiceTipo = true"  class='badge-pill badge-warning badge-action d-inline'>
 									<i class="fa fa-pencil"></i>
 								</b-badge>
@@ -118,10 +118,10 @@
 											:key="filter.id" 
 											:value="filter.id">{{filter.name}}</option>
 								</b-form-select>
-								<b-badge @click="editServiceTipo = false" class='badge-pill badge-danger badge-action float-right m-1'>
+								<b-badge @click="editServiceTipo = false; form.tipo=editedService.tipo" class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceUnidad = false"  
+								<b-badge @click="editServiceTipo = false; editedService.tipo= form.tipo "  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>
@@ -134,7 +134,7 @@
 								:label-cols="3"
 								:horizontal="true">
 							<div v-if="editServiceSector === false" class="mt-2">
-								<p class="d-inline" v-if="form.sector">0</p> 
+								<p class="d-inline" >{{namedFilters.sector.toString()}} </p> 
 								<b-badge @click="editServiceSector = true"  class='badge-pill badge-warning badge-action d-inline'>
 									<i class="fa fa-pencil"></i>
 								</b-badge>
@@ -146,10 +146,10 @@
 									v-model="form.sector">
 										<option v-if="filter.filterType.id === 4" v-for="filter in filterList" :key="filter.id" :value="filter.id">{{filter.name}}</option>
 								</b-form-select>
-								<b-badge @click="editServiceSector = false"  class='badge-pill badge-danger badge-action float-right m-1'>
+								<b-badge @click="editServiceSector = false; form.sector = editedService.sector"  class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceUnidad = false"  
+								<b-badge @click="editServiceSector = false; editedService.sector=[] ;form.sector.forEach(function(e){editedService.sector.push(filterList.find(x => x.id === e).name)}) "  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>
@@ -162,7 +162,7 @@
 								:label-cols="3"
 								:horizontal="true">
 							<div v-if="editServiceDestinatario === false"  class="mt-2">
-								<p class="d-inline"> Gobierno local</p> 
+								<p class="d-inline">{{namedFilters.destinatario.toString()}} </p> 
 								<b-badge @click="editServiceDestinatario = true"  class='badge-pill badge-warning badge-action d-inline'>
 										<i class="fa fa-pencil"></i>
 								</b-badge>
@@ -177,10 +177,10 @@
 											:key="filter.id" 
 											:value="filter.id">{{filter.name}}</option>
 								</b-form-select>
-								<b-badge @click="editServiceDestinatario = false"  class='badge-pill badge-danger badge-action float-right m-1'>
+								<b-badge @click="editServiceDestinatario = false; form.destinatario = editedService.destinatario"  class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceUnidad = false"  
+								<b-badge @click="editServiceDestinatario = false;editedService.destinatario=[] ;form.destinatario.forEach(function(e){editedService.destinatario.push(filterList.find(x => x.id === e).name)}) "  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>
@@ -193,22 +193,21 @@
 								:label-cols="3"
 								:horizontal="true">
 							<div v-if="editServiceDescripcion === false" class="mt-2">
-								<p  class="d-inline">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor neque enim nihil veritatis dolore nemo cumque odit repudiandae deleniti quis omnis eveniet, delectus culpa impedit velit in, inventore voluptas quaerat.</p> 
+								<p  class="d-inline">{{editedService.description}}</p> 
 								<b-badge @click="editServiceDescripcion = true"  class='badge-pill badge-warning badge-action  d-inline'>
 									<i class="fa fa-pencil"></i>
 								</b-badge>
 							</div>
 							<div v-show="editServiceDescripcion === true" clearfix>
-								<b-form-input id="sDescription" 
-											:textarea="true" 
-											:rows="9" 
+								<b-form-textarea id="sDescription" 
+											:rows="4" 
 											v-model="form.description"
 											placeholder="Escribe descipción del servicio">
-								</b-form-input>
-								<b-badge @click="editServiceDescripcion = false"  class='badge-pill badge-danger badge-action float-right m-1'>
+								</b-form-textarea>
+								<b-badge @click="editServiceDescripcion = false; form.description"  class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceUnidad = false"  
+								<b-badge @click="editServiceDescripcion = false; editedService.description = form.description"  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>
@@ -222,11 +221,10 @@
 								:label-cols="3"
 								:horizontal="true">
 							<div v-if="editServiceContacto === false" class="mt-2">
-								<p class="d-inline">Señor servicio numoero uno</p> 
+								<p class="d-inline">{{editedService.contacto}} </p> 
 								<b-badge @click="editServiceContacto = true"  class='badge-pill badge-warning badge-action d-inline'>
 									<i class="fa fa-pencil"></i>
 								</b-badge>
-								
 							</div>
 							<div v-show="editServiceContacto === true" clearfix>
 								<b-form-input id="sContacto" 
@@ -234,10 +232,10 @@
 										placeholder=""
 										v-model="form.contacto">
 								</b-form-input>
-								<b-badge @click="editServiceContacto = false"  class='badge-pill badge-danger badge-action float-right m-1'>
+								<b-badge @click="editServiceContacto = false; form.contacto=''"  class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceUnidad = false"  
+								<b-badge @click="editServiceContacto = false; editedService.contacto = form.contacto"  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>
@@ -252,17 +250,17 @@
 								:label-cols="3"
 								:horizontal="true">
 							<div v-if="editServiceEmail === false" class="mt-2">
-								<p  class="d-inline">Señor servicio numoero uno</p> 
+								<p  class="d-inline">{{editedService.email}} </p> 
 								<b-badge @click="editServiceEmail = true"  class='badge-pill badge-warning badge-action  d-inline'>
 									<i class="fa fa-pencil"></i>
 								</b-badge>
 							</div>
 							<div v-show="editServiceEmail === true">
 								<b-form-input id="sEmail" type="email" placeholder="Ingrese mail de contacto" autocomplete="email"></b-form-input>
-								<b-badge @click="editServiceEmail = false"  class='badge-pill badge-danger badge-action float-right m-1'>
+								<b-badge @click="editServiceEmail = false; form.email=''"  class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceUnidad = false"  
+								<b-badge @click="editServiceEmail = false; editedService.email = form.email"  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>
@@ -276,17 +274,17 @@
 									:label-cols="3"
 									:horizontal="true">
 								<div v-if="editServiceTelefono === false"  class="mt-2">
-									<p class="d-inline">Señor servicio numoero uno</p> 
+									<p class="d-inline">{{editedService.tel}} </p> 
 									<b-badge @click="editServiceTelefono = true"  class='badge-pill badge-warning badge-action  d-inline'>
 										<i class="fa fa-pencil"></i>
 									</b-badge>
 								</div>
 								<div v-show="editServiceTelefono === true" clearfix>
 									<b-form-input id="sTel" type="text" placeholder=""></b-form-input>
-									<b-badge @click="editServiceTelefono = false"  class='badge-pill badge-danger badge-action float-right m-1'>
+									<b-badge @click="editServiceTelefono = false; form.tel=''"  class='badge-pill badge-danger badge-action float-right m-1'>
 										<i class="fa fa-close"></i>
 									</b-badge>
-									<b-badge @click="editServiceUnidad = false"  
+									<b-badge @click="editServiceTelefono = false; editedService.tel = form.tel"  
 											class='badge-pill badge-success badge-action float-right m-1'>
 											<i class="fa fa-check"></i>
 									</b-badge>
@@ -299,25 +297,29 @@
 									:label-cols="3"
 									:horizontal="true">
 								<div v-if="editServiceDireccion === false" class="mt-2">
-									<p  class="d-inline">Señor servicio numoero uno</p> 
+									<p  class="d-inline">{{editedService.dir}}</p> 
 									<b-badge @click="editServiceDireccion = true"  class='badge-pill badge-warning badge-action d-inline'>
 										<i class="fa fa-pencil"></i>
 									</b-badge>
 								</div>
 								<div v-show="editServiceDireccion === true" clearfix>
-									<b-form-input id="sDir" type="text" placeholder=""></b-form-input>
-									<b-badge @click="editServiceDireccion = false"  
+									<b-form-input id="sDir" type="text" placeholder="" v-model="form.dir"></b-form-input>
+									<b-badge @click="editServiceDireccion = false; form.dir = ''"  
 											class='badge-pill badge-danger badge-action float-right m-1'>
 										<i class="fa fa-close"></i>
 									</b-badge>
-									<b-badge @click="editServiceUnidad = false"  
+									<b-badge @click="editServiceDireccion = false; editedService.dir = form.dir"  
 											class='badge-pill badge-success badge-action float-right m-1'>
 										<i class="fa fa-check"></i>
 									</b-badge>
 								</div>
 							</b-form-group>
-							<b-button type="submit" variant="success"> Guardar cambios </b-button>
 
+							<div class="clearfix">
+								
+								<b-button type="submit" variant="success" class="float-right m-1"> Guardar cambios </b-button>
+								<b-button type="cancel" class="float-right m-1" @click="cancel()">Cancelar </b-button>
+							</div>
 						</b-form>
 
 	        	</b-card>
@@ -329,22 +331,39 @@
 <script>
 import store from '../store'
 
+
 export default {
 	name: 'AdminEditServicio',
 	data() {
 		return {
 			form: {
-				name: '',
+				name: this.$store.state.service.data.name,
 				unidad: this.$store.getters.serviceFilters[0][0],
 				subunidad: this.$store.getters.serviceFilters[1][0],
 				tipo: this.$store.getters.serviceFilters[2],
 				sector: this.$store.getters.serviceFilters[3],
-				destinatario: [], //falta agregar a db
+				destinatario: this.$store.getters.serviceFilters[4], //falta agregar a db
 				contacto: '',
 				email: '',
 				tel: '',
 				dir: '',
-				description: '',
+				description: this.$store.state.service.data.description,
+				web: this.$store.state.service.data.website,
+				filters: []
+			},
+			editedService: {
+				name: this.$store.state.service.data.name,
+				unidad: this.$store.getters.serviceFilters[0],
+				subunidad: this.$store.getters.serviceFilters[1],
+				tipo: this.$store.getters.serviceFilters[2],
+				sector: this.$store.getters.serviceFilters[3],
+				destinatario: this.$store.getters.serviceFilters[4], //falta agregar a db
+				contacto: '',
+				email: '',
+				tel: '',
+				dir: '',
+				description: this.$store.state.service.data.description,
+				web: this.$store.state.service.data.website,
 				filters: []
 			},
 			editServiceName: false,
@@ -388,12 +407,53 @@ export default {
 		},
 		filters(){
 			return this.$store.getters.serviceFilters;
+		},
+		namedFilters(){
+			var that = this;
+			var names = {
+				unidad: [],
+				subunidad: [],
+				tipo : [],
+				sector: [],
+				destinatario: []
+			};
+			if (this.editedService.unidad.length > 0){
+				this.editedService.unidad.forEach(function(e){
+					names.unidad.push(that.filterList.find(x => x.id === e).name);
+				});
+			};
+			if (this.editedService.subunidad.length > 0){
+				this.editedService.subunidad.forEach(function(e){
+					names.subunidad.push(that.filterList.find(x => x.id === e).name);
+				});
+			};
+			if (this.editedService.tipo.length > 0){
+				this.editedService.tipo.forEach(function(e){
+					names.tipo.push(that.filterList.find(x => x.id === e).name);
+				});
+			}
+			if (this.editedService.sector.length > 0){
+				this.editedService.sector.forEach(function(e){
+					names.sector.push(that.filterList.find(x => x.id === e).name);
+				});
+			}
+			if (this.editedService.destinatario.length > 0){
+				this.editedService.destinatario.forEach(function(e){
+					names.destinatario.push(that.filterList.find(x => x.id === e).name);
+				});
+			}
+			return names;
 		}
 	}, 
 	methods: {
 		submitEditedService(evt){
-				console.log(this.form);
-				console.log(this.service);
+			//IF HUBO CAMBIOS => MODAL CONFIRMACIÓN CON CAMPOS CAMBIADOS ; ELSE => NO HUBO CAMBIOS
+			
+		
+		},
+		cancel(){
+			//MODAL => SEGURO QUE QUIERES ABANDONAR LOS CAMBIOS
+			this.$router.push({name: 'Servicios'});
 		}
 	}
 	
@@ -402,7 +462,7 @@ export default {
 
 <style scoped>
 .edited{ 
-	text-transform: uppercase;
+	font-style: italic;
 	color: #337020 !important;
 }
 </style>

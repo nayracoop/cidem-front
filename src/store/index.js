@@ -39,7 +39,6 @@ const store = new Vuex.Store({
 		},
 		CHANGE_QUERY_FILTERS(state, searchQueryFilters){
 			state.searchQueryFilters = searchQueryFilters;
-			//console.log(state.searchQueryFilters);
 		},
 		LOAD_NEW_CONSULTA(state, newConsulta){
 			state.consultas.push(newConsulta);
@@ -98,7 +97,7 @@ const store = new Vuex.Store({
 		          filters.push(state.searchQueryFilters[i].id);
 		        } 
 				};
-			var getFullServices = axios.get(`${SERVER_PATH}/services`,  {
+			return axios.get(`${SERVER_PATH}/services`,  {
 								params: {
 									service: state.searchQuery,
 									filters: filters,
@@ -107,11 +106,12 @@ const store = new Vuex.Store({
 							})
 							.then(response => {
 								commit('FETCH_FULL_SERVICES', response.data);
+								return response.data;
 							})
 							.catch(e => {
 										this.errors.push(e)
 							})
-			return Promise.all([getFullServices]);
+			
 		},
 		fetchService(context, id){
 		    var requestedID = `${SERVER_PATH}/services/` + id;
@@ -154,7 +154,7 @@ const store = new Vuex.Store({
 			context.commit('LOAD_NEW_CONSULTA', consu);
 		},
 		postNewService(context, newService){
-				var service = newService;
+			var service = newService;
 				//dos acciones encadenadas
 				// 1 post / service con todos sus campos => devuelve el servicio nuevo con el id
 			return axios.post(`${SERVER_PATH}/services`,  {
@@ -172,7 +172,6 @@ const store = new Vuex.Store({
 						// 2 post / filters , a partir del servicio nuevo sacar el id, y asociar id de servicio e id de filtros, ciclo for. 
 						for(var i = 0; i < (service.filters.length - 1); i++){
 							var link = `${SERVER_PATH}/services/${response.data.data.id}/filters/${service.filters[i]}`
-							console.log(`asociando servicio #${response.data.data.id} con filtro #${service.filters[i]}\nlink: ${link}`);
 							axios.post(link).then(response => {
 										
 							}).catch(e => this.errors.push(e));
@@ -197,7 +196,53 @@ const store = new Vuex.Store({
 			});
 			 
 		
-		}
+		},
+		editService(context, editedService){
+			var service = editedService;
+				//dos acciones encadenadas
+				// 1 post / service con todos sus campos => devuelve el servicio nuevo con el id
+			return axios.put(`${SERVER_PATH}/services`,  {
+		           	name: service.name,
+					slug: service.name,
+					summary: service.dir, 
+					description: service.description,
+					icon: 'fa-close',
+					website: service.email,
+					updated_at: Date.now()
+		    })
+		      .then(response => {
+					return response.data.data;
+		      })
+		      .catch(e => {
+		            this.errors.push(e)
+		      });
+
+		},
+		editFilter(context, editedFilter){
+			console.log('enviando request de edit del filtro');
+			console.log(editedFilter);
+			return axios.post(`${SERVER_PATH}/filters`,  {
+				id: editedFilter.id,
+				name: editedFilter.name,
+				tag: editedFilter.tag, 
+				filter_type_id: editedFilter.type,
+			})
+			.then(response => {
+				return response.data.data;
+			})
+			.catch(e => {
+				this.errors.push(e);
+			});
+		
+		},
+		deleteFilter(context, deletedFilter){
+			console.log('axios DELETE FILTER -> falta endpoint');
+			console.log(deletedFilter);
+		},
+		deleteService(context, deletedService){
+			console.log('axios DELETE SERVICE -> falta endpoint');
+			console.log(deletedService);
+		},
 		
 	},
 	getters:{
@@ -226,11 +271,11 @@ const store = new Vuex.Store({
 			var filter2 = [];
 			var filter3 = [];
 			var filter4 = [];
+			var filter5 = [];
 
 			var filtersByType = [];
 			
 			for (var i = 0; i < state.service.data.filters.length; i++){
-				console.log(state.service.data.filters[i]);
 				if (state.service.data.filters[i].filterType.id === 1){
 					filter1.push(state.service.data.filters[i].id);
 				} else if (state.service.data.filters[i].filterType.id === 2){
@@ -239,12 +284,46 @@ const store = new Vuex.Store({
 					filter3.push(state.service.data.filters[i].id);
 				} else if (state.service.data.filters[i].filterType.id === 4){
 					filter4.push(state.service.data.filters[i].id);
+				} else if (state.service.data.filters[i].filterType.id === 5 ){
+					filter5.push(state.service.data.filters[i].id);
 				} 
 			}
 			filtersByType.push(filter1);
 			filtersByType.push(filter2);
 			filtersByType.push(filter3);
 			filtersByType.push(filter4);
+			filtersByType.push(filter5);
+			
+			return filtersByType;
+		},
+		serviceFiltersNames(state){
+			var filter1 = [];
+			var filter2 = [];
+			var filter3 = [];
+			var filter4 = [];
+			var filter5 = [];
+
+
+			var filtersByType = [];
+			
+			for (var i = 0; i < state.service.data.filters.length; i++){
+				if (state.service.data.filters[i].filterType.id === 1){
+					filter1.push(state.service.data.filters[i].name);
+				} else if (state.service.data.filters[i].filterType.id === 2){
+					filter2.push(state.service.data.filters[i].name);
+				} else if (state.service.data.filters[i].filterType.id === 3){
+					filter3.push(state.service.data.filters[i].name);
+				} else if (state.service.data.filters[i].filterType.id === 4){
+					filter4.push(state.service.data.filters[i].name);
+				} else if (state.service.data.filters[i].filterType.id === 5){
+					filter5.push(state.service.data.filters[i].name);
+				} 
+			}
+			filtersByType.push(filter1);
+			filtersByType.push(filter2);
+			filtersByType.push(filter3);
+			filtersByType.push(filter4);
+			filtersByType.push(filter5);
 			
 			return filtersByType;
 		}
