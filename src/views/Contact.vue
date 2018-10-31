@@ -119,6 +119,7 @@ margin-right: 10px;
 
 .sendbtn{
     margin-top: 20px;
+    margin-bottom:20px;
     background-color: #000;
     color:#fff;
     text-transform: uppercase;
