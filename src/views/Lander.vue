@@ -36,8 +36,7 @@
                     :key="destinatario.id" 
                     :class="destinatario.icon" 
                     class="fa-xs"
-                    data-toggle="tooltip" 
-                    data-placement="top" 
+                    v-b-tooltip.hover  
                     :title="destinatario.name"></i>
         </div>  
     </div>  

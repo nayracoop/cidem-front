@@ -213,7 +213,7 @@
 
 <style>
 main {
-	margin: 20px 0;
+	margin: 40px 0;
 }
 
 .mainback button{
@@ -225,7 +225,6 @@ main {
 }
 
 .OFtitle{
-    margin-top:20px;
     text-align:center;
     text-transform: uppercase;
 }
@@ -275,11 +274,11 @@ main {
 @media screen and (max-width: 768px) {
     .OFicons{
         margin:0 auto; 
-        width: 2em;
-        height: 2em;
+        width: 3em;
+        height: 3em;
     }
  	.OFicons i {
- 		font-size: 1em;
+ 		font-size: 1.5em;
  	}
     .servicesRow{
         margin-bottom: 10px;

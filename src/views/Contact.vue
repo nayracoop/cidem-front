@@ -6,12 +6,21 @@
 			</div>
 		</div> -->	
 		<div class="row">
-			<div class="col-8 offset-2 titleconsult">
+			<div class="col-12 titleconsult">
 				<h1>{{title}}</h1>
-					<h2>{{subtitle}}</h2>
+			</div>
+		</div>
+		<div class="row">		
+			<div class="col-sm-10 offset-sm-1 titleconsult">
+				<h2>{{subtitle}}</h2>
+			</div>		
+		</div>
+		<div class="row">		
+			<div class="col-12 offset-sm-2 titleconsult">					
 					<small>{{reference}}</small>
 			</div>
-			<div class="col-md-6 offset-md-3">
+		</div>	
+			<div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
 				<form autocomplete="off" class="contactdata">
 					<div class="form-group">
 						<label for="name"><span class="numberconsult">1-</span>{{name}}</label>
@@ -46,7 +55,7 @@
 		data:function(){
 			return{
 				title:"consulta de oferta tecnológica",
-				subtitle:"Complete el siguiente formulario con sus datos personales y describa su consulta o el tipo de búsqueda que quiere realizar",
+				subtitle:"Complete el siguiente formulario con sus datos personales y describa su consulta o el tipo de búsqueda que quiere realizar.",
 				reference:"*Obligatorio",
 				name:"Nombre y Apellido",
 				company:"Institución/empresa *",
@@ -66,7 +75,7 @@
 </script>
 <style scoped>
 main {
-	margin-top: 20px;
+	margin:0 auto;
 }
 
 .mainback button{
@@ -80,13 +89,16 @@ main {
 .titleconsult h1{
     text-transform: uppercase;
     text-align: center;
+    margin: 40px auto;
 }
 
 .titleconsult h2{
-    font-size: inherit;
-    text-align: center;
- 
+    padding-bottom:20px;
+    font-size: 1.25em;
+    color: #4a4a4a;
+    text-align: justify;
 }
+
 .form-group input::placeholder{
 	font-style: italic;
 }

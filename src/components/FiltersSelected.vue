@@ -5,8 +5,7 @@
      	</dl>
 		<dl v-for="filter in selected">
 	        <dd alt="filter.name"> {{filter.slug}} <i @click="remove(filter.id)" class="fas fa-times-circle"></i></dd>
-     	</dl>
-     	
+     	</dl>    	
 	</div>	
 </template>
 

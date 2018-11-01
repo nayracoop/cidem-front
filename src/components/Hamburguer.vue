@@ -6,10 +6,10 @@
 		<div class="headermenu" role="menu" :class='{headermenushow: openSide}'>
 			<span class="close" @click="openSide = false"><i class="fas fa-times"></i></span>
          	<ul>	
-				<li><a class="item" @click="goTo('Lander')">Inicio</a></li>
-				<li><a class="item" @click="goTo('Referencias')">Referencias</a></li>
-           		<li><a class="item" @click="goTo('Contact')">Contacto</a></li>
-			</ul>
+    				<li><a class="item" @click="()=>{goTo('Lander');openSide = false}">Inicio</a></li>
+    				<li><a class="item" @click="()=>{goTo('Referencias');openSide = false}">Referencias</a></li>
+           	<li><a class="item" @click="()=>{goTo('Contact');openSide = false}">Contacto</a></li>
+			    </ul>
 		</div>
 	</div>	
       
