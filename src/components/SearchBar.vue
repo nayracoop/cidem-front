@@ -3,13 +3,15 @@
 		<div 
 		class="input-group-prepend d-none d-md-block"
 		 v-for="type in filterTypes"
-		 v-if="type.id !== 2">  
+		 v-if="filterCondition(type.id)"
+		 :key="type.id">  
 			<button 
 				class="btn dropwdown-btn btn-outline-secondary rounded-0" 
 				type="button" 
 				data-toggle="dropdown">{{type.name}}<span class="filterarrow"><i class="fas fa-caret-down"></i></span></button>
 			<ul class="dropdown-menu dropdown-menu-center scrollable-menu" role="menu" aria-expanded="false">
 				<li  
+					:key="filter.id"
 					v-for="filter in filterList"
 					v-if="filter.filterType.id == type.id" 
 					:class="{highlight:selected.includes(filter.id)}"
@@ -85,7 +87,8 @@
 				} else {
 					return 'Buscar'
 				}
-			}
+			},
+		
 		},
 		methods: {
 		    submitSearch: function () {
@@ -120,6 +123,13 @@
 			handleResize() {
 				this.window.width = window.innerWidth;
 				this.window.height = window.innerHeight;
+			},
+			filterCondition(type){
+				if (type === 2 || type === 5) {
+					return false;
+				} else {
+					return true;
+				}
 			}
 		}
 }

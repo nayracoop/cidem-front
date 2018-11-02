@@ -199,22 +199,21 @@ const store = new Vuex.Store({
 		},
 		editService(context, editedService){
 			var service = editedService;
-				//dos acciones encadenadas
-				// 1 post / service con todos sus campos => devuelve el servicio nuevo con el id
-			return axios.put(`${SERVER_PATH}/services`,  {
-		           	name: service.name,
+			
+			return axios.put(`${SERVER_PATH}/services/${editedService.id}`,  {
+					name: service.name,
 					slug: service.name,
 					summary: service.dir, 
 					description: service.description,
 					icon: 'fa-close',
 					website: service.email,
-					updated_at: Date.now()
+					updated_at: Date.now(),
 		    })
 		      .then(response => {
-					return response.data.data;
+				return response.data.data;
 		      })
 		      .catch(e => {
-		            this.errors.push(e)
+				this.errors.push(e)
 		      });
 
 		},
@@ -249,9 +248,13 @@ const store = new Vuex.Store({
 		filterArray(state) {
 	      var filters = [];
 	       if (state.searchQueryFilters.length > 0) {
-	        for (var i = 0; i < (state.searchQueryFilters.length); i++){
-	          filters.push(state.searchQueryFilters[i].id);
-	        } 
+			   
+				for (var i = 0; i < (state.searchQueryFilters.length); i++){
+			
+					filters.push(state.searchQueryFilters[i].id);
+				 
+			   	}
+	        
 	      };
 	      return filters;
 	    },

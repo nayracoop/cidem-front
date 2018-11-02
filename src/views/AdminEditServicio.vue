@@ -352,6 +352,7 @@ export default {
 				filters: []
 			},
 			editedService: {
+				id:  this.$store.state.service.data.id, 
 				name: this.$store.state.service.data.name,
 				unidad: this.$store.getters.serviceFilters[0],
 				subunidad: this.$store.getters.serviceFilters[1],
@@ -447,16 +448,13 @@ export default {
 	}, 
 	methods: {
 		submitEditedService(evt){
-			//IF HUBO CAMBIOS => MODAL CONFIRMACIÓN CON CAMPOS CAMBIADOS ; ELSE => NO HUBO CAMBIOS
-			
-		
+			this.$store.dispatch('editService',this.editService);	//IF HUBO CAMBIOS => MODAL CONFIRMACIÓN CON CAMPOS CAMBIADOS ; ELSE => NO HUBO CAMBIOS
 		},
 		cancel(){
 			//MODAL => SEGURO QUE QUIERES ABANDONAR LOS CAMBIOS
 			this.$router.push({name: 'Servicios'});
 		}
 	}
-	
 }
 </script>
 

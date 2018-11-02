@@ -6,52 +6,52 @@ export default {
   items: [
     {
       name: 'Comunidad',
-      filterId: 1,
+      filterId: 77,
       icon: 'fa fa-users'
     },
     {
       name: 'Cooperativas y Org. De la economía social',
-      filterId: 2,
+      filterId: 78,
       icon: 'fa fa-handshake'
     },
     {
       name: 'Emprendedores',
-      filterId: 3,
+      filterId: 79,
       icon: 'fa fa-lightbulb',
     },
     {
       name: 'Empresas',
-      filterId: 4,
+      filterId: 87,
       icon: 'fa fa-american-sign-language-interpreting'
     },
     {
       name: 'Gobierno Nacional',
-      filterId: 5,
+      filterId: 88,
       icon: 'fa fa-flag'
     },
     {
       name: 'Gobierno Provincial',
-      filterId: 6,
+      filterId: 89,
       icon: 'fa fa-building'
     },
     {
         name: 'Gobierno Local',
-        filterId: 7,
+        filterId: 90,
         icon: 'fa fa-university'
     },
     {
-        name: 'Organismos de ciencia y tércnica',
-        filterId: 8,
+        name: 'Organismos de ciencia y técnica',
+        filterId: 91,
         icon: 'fas fa-microscope'
     },
     {
         name: 'Org. No gubernamental (ONG)',
-        filterId: 9,
+        filterId: 103,
         icon: 'fas fa-hands'
     },
     {
         name: 'Universidades',
-        filterId: 10,
+        filterId: 104,
         icon: 'fas fa-graduation-cap'
     },
   ]

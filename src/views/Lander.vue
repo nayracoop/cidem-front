@@ -37,7 +37,8 @@
                     :class="destinatario.icon" 
                     class="fa-xs"
                     v-b-tooltip.hover  
-                    :title="destinatario.name"></i>
+                    :title="destinatario.name"
+                    @click="searchDestinatario(destinatario.filterId)"></i>
         </div>  
     </div>  
 	</section>
@@ -79,18 +80,21 @@ export default {
 	},
   },
   methods: {
-    submitSearch: function () {
-      this.$store.dispatch('changeQuerySearch', this.searchInput);
-      this.$store.dispatch('fetchServices');
-      router.push({ name: 'Results', query:{services: this.searchQuery}});     
-      //router.push({ name: "Results", query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});
-    },
     verTodos: function () {
         this.$store.dispatch('changeQueryFilters', []);
         this.$store.dispatch('changeQuerySearch', null);
         this.$store.dispatch('fetchServices');
         router.push({ name: "Oferta"});
     },
+    searchDestinatario: function (destId) {
+        var filtro = this.$store.state.filterList.find(function(e){
+            return e.id === destId;
+        });
+        this.$store.dispatch('changeQuerySearch', null);
+        this.$store.dispatch('changeQueryFilters', [filtro]);
+        this.$store.dispatch('fetchServices');
+        router.push({ name: 'Results', query:{filters: destId}});   
+    }   
   }
 }
 $(function () {
