@@ -20,6 +20,7 @@
       <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next" hide-goto-end-buttons/>
     </nav>
   </b-card>
+
   <b-modal title="Crear filtro" class="modal-success" v-model="newModal" size="lg" > 
       <b-form @submit.prevent="createFilter($event)" v-if="filterCreated === false">
           <b-form-group
@@ -179,13 +180,23 @@
       </template>
   </b-modal>
   <b-modal :title="'Eliminar filtro ' + currentFilter.id" class="modal-danger" v-model="deleteModal" @ok="closeModal(deleteModal)" size="lg" >
-      <h3>No se puede eliminar el filtro #{{currentFilter.id}}</h3>
-      <h5>Los siguientes servicios se encuentran asociados a este filtro:</h5>
-      <ul>
-        <li>#34 Servicio bhlabalbha (click link a pag de edicion del servicio)</li>
-        <li>#12 Servicio bhlabalbha (click link a pag de edicion del servicio)</li>
-        <li>#7 Servicio bhlabalbha (click link a pag de edicion del servicio)</li>
-      </ul>
+      <div v-if="associatedServices.length > 0"> 
+        <h3>No se puede eliminar el filtro #{{currentFilter.id}}</h3>
+        <h5>Los siguientes servicios se encuentran asociados a este filtro:</h5>
+        <ul>
+          <li v-for="service in associatedServices" :key="service.id"> #{{service.id}} - {{service.name}} </li>
+        </ul>
+      </div>
+      <div v-if="associatedServices.length === 0">
+        <p> Confirmar eliminación del filtro </p>
+        <b-button variant="danger"> Si, quiero eliminar el filtro número {{currentFilter.id}} </b-button>
+      </div>
+      <template slot="modal-footer">
+      
+       
+      <b-button type="cancel"  v-if="associatedServices.length === 0" @click="deleteModal = false; closeModal() "> Cancel </b-button>
+      <b-button type="ok" variant="primary" v-if="associatedServices.length > 0" @click="deleteModal = false; closeModal()" > Ok </b-button>
+    </template>
   </b-modal>
   </div>
 </template>
@@ -257,6 +268,7 @@ export default {
         currentPage: 1,
         perPage: 10,
         totalRows: 0,
+        associatedServices: []
         
       }
   },
@@ -317,8 +329,14 @@ export default {
     deleteFilter(filter){
         this.deleteModal = true;
         this.currentFilter = filter;
-        console.log(id);
-    },
+        //get services associados with filter
+        console.log(filter);
+        this.$store.dispatch('getAssociatedFilters', filter.id).then(response => {
+          console.log(response);
+          this.associatedServices = response;
+        });
+        //
+},
     closeModal(modal){
         this.filterCreated = false;
         this.filterEdited= false;

@@ -39,6 +39,8 @@
 
 <script>
 import nav from '@/_nav'
+import store from '@/store'
+
 import { Header as AppHeader, SidebarToggler, Sidebar as AppSidebar, SidebarFooter, SidebarForm, SidebarHeader, SidebarMinimizer, SidebarNav, Aside as AppAside, AsideToggler, Breadcrumb } from '@coreui/vue'
 import DefaultAside from '@/containers/DefaultAside'
 import DefaultHeaderDropdownAccnt from '@/containers/DefaultHeaderDropdownAccnt'
@@ -60,6 +62,12 @@ export default {
     SidebarHeader,
     SidebarNav,
     SidebarMinimizer
+  },
+  beforeRouteEnter(to, from, next){
+    store.dispatch('fetchMessages').then(() => {
+      console.log(store.state.messages);
+      next();
+    }); 
   },
   data () {
     return {

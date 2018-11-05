@@ -16,7 +16,7 @@
 							</div>
 						</div>
 
-						<aside class="alertresults">Se encontraron {{metadata.total}} resultados para "{{searchQuery}}"</aside>
+						<aside class="alertresults">Se encontraron {{metadata.total}} resultados<span v-if="searchQuery"> para "{{searchQuery}}" </span></aside>
 
 							<article v-if="printing === false" v-for="service in services" :key="service.id" class="card art">
 								<div class="card-body box" >

@@ -87,7 +87,7 @@ export default {
       perPage: 10,
       pageOptions: [ 5, 10, 15, 20, 25 ],
       totalRows: 0,
-       filter: null,
+      filter: null,
     }
   },
   computed: {
@@ -96,38 +96,38 @@ export default {
     },
     items(){
       var rowsArray = [];
-       
-            for (var i = 0; i < this.services.data.length; i++){
-                var filter1 = [];
-                var filter2 = [];
-                var filter3 = [];
-                var filter4 = [];
-               
-                if (this.services.data[i].filters.length > 0){
-                    for (var n = 0; n < this.services.data[i].filters.length; n++){
-                        if (this.services.data[i].filters[n].filterType.id === 1){
-                            filter1.push(this.services.data[i].filters[n].name);
-                        } else if (this.services.data[i].filters[n].filterType.id === 2){
-                            filter2.push(this.services.data[i].filters[n].name);
-                        } else if (this.services.data[i].filters[n].filterType.id === 3){
-                            filter3.push(this.services.data[i].filters[n].name);
-                        } else if (this.services.data[i].filters[n].filterType.id === 4){
-                            filter4.push(this.services.data[i].filters[n].name);
-                        } 
-                    }
-                }
-               
-                var service = {
-                    id: this.services.data[i].id,
-                    name: this.services.data[i].name,
-                    unidad: filter1.toString(),
-                    tipo: filter3.toString(),
-                    sector: filter4.toString()
-                };
-                rowsArray.push(service);
-            }
+     
+      for (var i = 0; i < this.services.data.length; i++){
+          var filter1 = [];
+          var filter2 = [];
+          var filter3 = [];
+          var filter4 = [];
+          
+      if (this.services.data[i].filters.length > 0){
+          for (var n = 0; n < this.services.data[i].filters.length; n++){
+              if (this.services.data[i].filters[n].filterType.id === 1){
+                  filter1.push(this.services.data[i].filters[n].name);
+              } else if (this.services.data[i].filters[n].filterType.id === 2){
+                  filter2.push(this.services.data[i].filters[n].name);
+              } else if (this.services.data[i].filters[n].filterType.id === 3){
+                  filter3.push(this.services.data[i].filters[n].name);
+              } else if (this.services.data[i].filters[n].filterType.id === 4){
+                  filter4.push(this.services.data[i].filters[n].name);
+              } 
+          }
+      }
+          
+          var service = {
+              id: this.services.data[i].id,
+              name: this.services.data[i].name,
+              unidad: filter1.toString(),
+              tipo: filter3.toString(),
+              sector: filter4.toString()
+          };
+          rowsArray.push(service);
+      }
 
-            return rowsArray;
+      return rowsArray;
     }
   },
   methods: {

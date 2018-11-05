@@ -16,7 +16,7 @@ const store = new Vuex.Store({
 		services:{},
 		fullServices:{},
 		service:{},
-		consultas:[]
+		messages:[]
 	},
 	mutations: {
 		FETCH_FILTER_TYPES(state, filterTypes) {
@@ -40,8 +40,8 @@ const store = new Vuex.Store({
 		CHANGE_QUERY_FILTERS(state, searchQueryFilters){
 			state.searchQueryFilters = searchQueryFilters;
 		},
-		LOAD_NEW_CONSULTA(state, newConsulta){
-			state.consultas.push(newConsulta);
+		FETCH_MESSAGES(state, messages){
+			state.messages = messages;
 		}, 
 
 
@@ -150,9 +150,6 @@ const store = new Vuex.Store({
 		changeQueryFilters(context, searchQueryFilters){
 			return context.commit('CHANGE_QUERY_FILTERS', searchQueryFilters);
 		},
-		loadNewConsulta(context, consu){
-			context.commit('LOAD_NEW_CONSULTA', consu);
-		},
 		postNewService(context, newService){
 			var service = newService;
 				//dos acciones encadenadas
@@ -218,8 +215,7 @@ const store = new Vuex.Store({
 
 		},
 		editFilter(context, editedFilter){
-			console.log('enviando request de edit del filtro');
-			console.log(editedFilter);
+			
 			return axios.post(`${SERVER_PATH}/filters`,  {
 				id: editedFilter.id,
 				name: editedFilter.name,
@@ -242,6 +238,55 @@ const store = new Vuex.Store({
 			console.log('axios DELETE SERVICE -> falta endpoint');
 			console.log(deletedService);
 		},
+		postMessage(context, mess){
+			return axios.post(`${SERVER_PATH}/messages`, {
+				name: mess.name,
+				institution: mess.institution, 
+				email: mess.email,
+				description: mess.description,
+				status: 'unread'
+			})
+			.then(response => {
+				console.log(response.data);
+			})
+			.catch(e => {
+				this.errors.push(e);
+			});
+
+		},
+		fetchMessages(context){
+			return axios.get(`${SERVER_PATH}/messages`)
+			.then(response => {
+				return context.commit('FETCH_MESSAGES', response.data.data);
+			})
+			.catch(e => {
+				this.errors.push(e);
+			});
+
+		},
+		changeMessageStatus({commit, dispatch}, newStatus){
+			console.log(`mess ${newStatus.id} status ${newStatus.status}`);
+			return axios.put(`${SERVER_PATH}/messages/${newStatus.id}`, {
+				status: newStatus.status
+			})
+			.then(response => {
+				dispatch('fetchMessages');
+			})
+			.catch(e => {
+				this.errors.push(e);
+			});
+
+		},
+		getAssociatedFilters(context, filterId){
+			return axios.get(`${SERVER_PATH}/filters/${filterId}/services`)
+			.then(response => {
+				return response.data.data;
+			})
+			.catch(e => {
+				this.errors.push(e);
+			});
+
+		}
 		
 	},
 	getters:{

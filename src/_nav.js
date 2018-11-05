@@ -1,5 +1,6 @@
 import store from './store'
 
+var nMessages = store.state.messages.length;
 
 export default {
   items: [
@@ -19,7 +20,7 @@ export default {
       icon: 'icon-envelope',
       badge: {
         variant: 'danger',
-        text: store.state.consultas.length
+        text: nMessages
       }
     },
     {

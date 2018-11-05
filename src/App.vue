@@ -38,16 +38,7 @@ export default {
   }, 
   created() {
     			
-
     this.load();
-    var consu = {
-      name: 'Martina',
-      company: 'Nayra',
-      phone: '011-1112-3344',
-      email: 'martu@nayra.coop',
-      description: 'hola queria saber ...'
-    };
-    this.$store.dispatch('loadNewConsulta',consu );
   },
   mounted: function mounted(){
    },
@@ -103,6 +94,8 @@ export default {
           } else {
               this.$store.dispatch('fetchServices', this.$route.query.filters);
           }
+          this.$store.dispatch('fetchMessages');
+
       });
       
     }

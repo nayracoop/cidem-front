@@ -29,8 +29,8 @@
   		</div>
     </div>
 		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->	 
-	<div class="row">  
-        <h5 class="col-lg-1 col-12 text-center align-text-bottom">Destinatarios:</h5>
+	<div class="row mb-5">  
+        <h5 class="col-lg-1 col-12 text-center mt-3">Destinatarios:</h5>
         <div class="icons col-lg-10 col-12">
                 <i  v-for="destinatario in destinatarios" 
                     :key="destinatario.id" 
