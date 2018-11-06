@@ -463,22 +463,20 @@ export default {
 	}, 
 	methods: {
 		submitEditedService(evt){
+			evt.preventDefault();
 			var newFilters = this.form.tipo.concat(this.form.sector).concat(this.form.destinatario);
 			newFilters.push(this.form.unidad);
 			newFilters.push(this.form.subunidad);
 			this.editedService.newFilters = newFilters;
-			console.log(`filtros viejos = ${newFilters} `);
-
 
 			var oldFilters = this.$store.getters.serviceFilters[2].concat(this.$store.getters.serviceFilters[3])
 						.concat(this.$store.getters.serviceFilters[4])
 						.concat(this.$store.getters.serviceFilters[0])
 						.concat(this.$store.getters.serviceFilters[1]);
 			this.editedService.oldFilters = oldFilters;
-			console.log(`filtros viejos = ${oldFilters} `);
 			this.$store.dispatch('editService',this.editedService).then(response => {
 				this.$router.push({name: 'Servicios'});
-			});	//IF HUBO CAMBIOS => MODAL CONFIRMACIÓN CON CAMPOS CAMBIADOS ; ELSE => NO HUBO CAMBIOS
+			});	
 		},
 		cancel(){
 			//MODAL => SEGURO QUE QUIERES ABANDONAR LOS CAMBIOS
