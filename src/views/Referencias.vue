@@ -1,10 +1,10 @@
 <template>
 	<main role="main">
-<!-- 		<div class="row">
+		<div class="row">
 			<div class="col-12 mainback">
 				<button @click="goBack"><i class="fas fa-caret-left"></i> volver </button>
 			</div>
-		</div> -->			
+		</div>			
 		<div class="row">
 			<div class="col-12 OFtitle">
 				<h1> {{ofertaRef.title}}</h1>
@@ -213,7 +213,7 @@
 
 <style>
 main {
-	margin: 40px 0;
+	margin:20px auto;
 }
 
 .mainback button{
@@ -222,6 +222,7 @@ main {
     color:#000;
     font-size:1.125em;
     text-transform:uppercase;
+    cursor:pointer;
 }
 
 .OFtitle{
@@ -291,6 +292,26 @@ main {
     .OFsub h2{
         text-align: center;
     }
+}
+
+@media screen and (max-width: 576px) {
+	
+	.OFtipos h3,
+	.OFsub h2,
+	.OFtitle h1{
+		font-size: 1.25em;
+	}
+
+	.mainback button,
+	.OFtipos p,
+	.OFp{
+		font-size: 0.9em;
+	}
+
+	.mainback{
+		margin-bottom:20px;
+	}
+
 }
 
 </style>
