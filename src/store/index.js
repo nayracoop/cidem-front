@@ -159,8 +159,12 @@ const store = new Vuex.Store({
 					slug: service.name,
 					summary: service.dir, 
 					description: service.description,
+					contact_name: service.contacto,
+					email: service.email,
+					phone: service.tel,
+					address: service.dir,
 					icon: 'fa-close',
-					website: service.email,
+					website: service.website,
 					created_at: Date.now(),
 					updated_at: Date.now()
 		        
@@ -168,16 +172,21 @@ const store = new Vuex.Store({
 		      .then(response => {
 						// 2 post / filters , a partir del servicio nuevo sacar el id, y asociar id de servicio e id de filtros, ciclo for. 
 						for(var i = 0; i < (service.filters.length - 1); i++){
+		
 							var link = `${SERVER_PATH}/services/${response.data.data.id}/filters/${service.filters[i]}`
 							axios.post(link).then(response => {
-										
+							
 							}).catch(e => this.errors.push(e));
+							if (i === (newService.filters.length-2)) {
+								return response.data.data;
+							}
 						}
-						return response.data.data;
+					
 		      })
 		      .catch(e => {
 		            this.errors.push(e)
-		      });
+			  });
+			  
 		},
 		postNewFilter(context, newFilter){
 			return axios.post(`${SERVER_PATH}/filters`,  {
@@ -195,24 +204,41 @@ const store = new Vuex.Store({
 		
 		},
 		editService(context, editedService){
-			var service = editedService;
-			
+			console.log(editedService);
+			// desasociar old filters
+			for(var i = 0; i < (editedService.oldFilters.length - 1); i++){
+				var link = `${SERVER_PATH}/services/${editedService.id}/filters/${editedService.oldFilters[i]}`
+				axios.delete(link).then(response => {
+					console.log(`desasociando servicio ${editedService.id} de filtro ${editedService.oldFilters[i]}`)
+				}).catch(e => this.errors.push(e));
+			}
+		
 			return axios.put(`${SERVER_PATH}/services/${editedService.id}`,  {
-					name: service.name,
-					slug: service.name,
-					summary: service.dir, 
-					description: service.description,
+					name: editedService.name,
+					slug: editedService.name,
+					summary: editedService.dir, 
+					description: editedService.description,
 					icon: 'fa-close',
-					website: service.email,
+					phone: editedService.tel,
+					address: editedService.dir,
+					email: editedService.email,
+					contact_name: editedService.contacto,
+					website: editedService.web,
 					updated_at: Date.now(),
 		    })
 		      .then(response => {
+				  	//asociar new filters
+				for(var i = 0; i < (editedService.newFilters.length - 2); i++){
+					var link = `${SERVER_PATH}/services/${editedService.id}/filters/${editedService.newFilters[i]}`
+					axios.post(link).then(response => {
+						console.log(`asociando servicio ${editedService.id} a filtro ${editedService.newFilters[i]}`)
+					}).catch(e => this.errors.push(e));
+				}
 				return response.data.data;
 		      })
 		      .catch(e => {
 				this.errors.push(e)
-		      });
-
+			  });
 		},
 		editFilter(context, editedFilter){
 			
@@ -231,12 +257,21 @@ const store = new Vuex.Store({
 		
 		},
 		deleteFilter(context, deletedFilter){
-			console.log('axios DELETE FILTER -> falta endpoint');
-			console.log(deletedFilter);
+			return axios.delete(`${SERVER_PATH}/filters/${deletedFilter}`)
+			.then(response => {
+			})
+			.catch(e => {
+				this.errors.push(e);
+			});
 		},
-		deleteService(context, deletedService){
-			console.log('axios DELETE SERVICE -> falta endpoint');
-			console.log(deletedService);
+		deleteService(context, deletedServiceId){
+			return axios.delete(`${SERVER_PATH}/services/${deletedServiceId}`)
+			.then(response => {
+				return response.data.data;
+			})
+			.catch(e => {
+				this.errors.push(e);
+			});
 		},
 		postMessage(context, mess){
 			return axios.post(`${SERVER_PATH}/messages`, {

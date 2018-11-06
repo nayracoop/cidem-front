@@ -179,6 +179,8 @@
         <b-button v-if="filterEdited === true" @click="editModal = false; closeModal()" variant="success"> Ok </b-button>
       </template>
   </b-modal>
+
+
   <b-modal :title="'Eliminar filtro ' + currentFilter.id" class="modal-danger" v-model="deleteModal" @ok="closeModal(deleteModal)" size="lg" >
       <div v-if="associatedServices.length > 0"> 
         <h3>No se puede eliminar el filtro #{{currentFilter.id}}</h3>
@@ -187,15 +189,22 @@
           <li v-for="service in associatedServices" :key="service.id"> #{{service.id}} - {{service.name}} </li>
         </ul>
       </div>
-      <div v-if="associatedServices.length === 0">
-        <p> Confirmar eliminación del filtro </p>
-        <b-button variant="danger"> Si, quiero eliminar el filtro número {{currentFilter.id}} </b-button>
+      <div v-if="associatedServices.length === 0">  
+         <div v-if="filterDeleted === false">
+            <p> Confirmar eliminación del filtro </p>
+            <b-button variant="danger" @click="confirmDelete()"> Si, quiero eliminar el filtro número {{currentFilter.id}} </b-button>
+          </div>   
+          <p class="alert-success" v-if="filterDeleted === true"> el filtro #{{currentFilter.id}} fue eliminado exitosamente  </p>
+       
       </div>
       <template slot="modal-footer">
-      
-       
-      <b-button type="cancel"  v-if="associatedServices.length === 0" @click="deleteModal = false; closeModal() "> Cancel </b-button>
-      <b-button type="ok" variant="primary" v-if="associatedServices.length > 0" @click="deleteModal = false; closeModal()" > Ok </b-button>
+          <div  v-if="filterDeleted === false">
+            <b-button type="cancel"  v-if="associatedServices.length === 0" @click="deleteModal = false; closeModal() "> Cancel </b-button>
+            <b-button type="ok" variant="primary" v-if="associatedServices.length > 0" @click="deleteModal = false; closeModal()" > Ok </b-button>
+          </div>
+          <div v-if="filterDeleted === true">
+            <b-button type="ok" variant="primary" @click="deleteModal = false; closeModal()" > Ok </b-button>
+          </div>
     </template>
   </b-modal>
   </div>
@@ -256,6 +265,7 @@ export default {
         changesWereMade: false,
         noChangesWereMade: false,
         deleteModal: false,
+        filterDeleted: false,
         fields: [
             {key: 'id'},
             {key: 'tipo'},
@@ -330,9 +340,7 @@ export default {
         this.deleteModal = true;
         this.currentFilter = filter;
         //get services associados with filter
-        console.log(filter);
         this.$store.dispatch('getAssociatedFilters', filter.id).then(response => {
-          console.log(response);
           this.associatedServices = response;
         });
         //
@@ -349,6 +357,7 @@ export default {
         this.editedFilter.name = '';
         this.editedFilter.tag = '';
         this.editedFilter.type = '';
+        this.filterDeleted = false;
     },
     createFilter(evt){
       evt.preventDefault();
@@ -368,6 +377,13 @@ export default {
         } else {
           this.noChangesWereMade = true;
         }
+    },
+    confirmDelete(){
+     
+      this.$store.dispatch('deleteFilter', this.currentFilter.id).then(()=>{
+        this.$store.dispatch('fetchFilters');
+        this.filterDeleted = true;
+      });
     }
   }
 }
