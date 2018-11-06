@@ -22,27 +22,46 @@
         </b-form-group>
       </b-col>
      </b-row>
-    <b-table hover striped bordered small responsive="sm" 
+    <b-table id="servicesTable" striped small responsive="sm" 
     :filter="filter" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
       <template slot="status" slot-scope="data">
         <b-badge :variant="getBadge(data.item.status)">{{data.item.status}}</b-badge>
       </template>
+      <template slot="row-details" slot-scope="data">
+          <div class="p-3">
+						<h4> {{data.item.website}} </h4> 
+            <p> {{data.item.description}} </p>
+            <p> <strong>{{data.item.nombre_contacto}}</strong> - {{data.item.tel}} - {{data.item.email}} - {{data.item.dir}} </p>
+          </div>
+					</template>
       <template slot="acciones" slot-scope="data">
-        <b-button @click="editService(data.item.id)" class='btn-warning badge-warning badge-action p-1'><i class="icon-pencil mr-1"></i>Editar</b-button>
-        <b-button  class='btn-danger badge-action p-1 m-1'><i class="icon-trash mr-1"></i> Eliminar</b-button>
-        <b-button  class='btn-success badge-action p-1'><i class="icon-eye mr-1"></i> Ver más</b-button>
-
+        <b-button class='btn-warning badge-warning badge-action p-0 mb-1'  @click="editService(data.item.id)" ><i class="icon-pencil mr-1"></i>Editar</b-button>
+        <b-button  class='btn-danger badge-action p-0 mb-1' @click="confirmDeletion(data.item.id)"><i class="icon-trash mr-1"  ></i> Eliminar</b-button>
+        <b-button  class='btn-success badge-action p-0' @click="data.toggleDetails" ><i class="icon-eye mr-1"></i> Ver más</b-button>
       </template>
     </b-table>
     <nav>
       <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next" hide-goto-end-buttons/>
     </nav>
+    <b-modal ok-only :title="'Confirmar eliminacion'" class="modal-danger" v-model="deleteModal" size="lg" > 
+        <div v-if="IDtoDelete">
+          <h1>¿Eliminar el servicio #{{IDtoDelete}} ?</h1>
+          <b-button variant="danger" @click="deleteService(IDtoDelete)"> Si, quiero eliminarlo </b-button>	
+        </div>
+        <p class="alert-success" v-if="!IDtoDelete"> El servicio fue eliminado exitósamente. </p>
+       <template slot="modal-footer">
+          <b-button @click="deleteModal = false" > Cerrar </b-button>
+        </template>
+		</b-modal>
   </b-card>
+
+
 </template>
 
 <script>
 import router from "@/router"
 
+  var $table = $('#servicesTable');
 
 export default {
   name: 'ServicesTable',
@@ -88,6 +107,8 @@ export default {
       pageOptions: [ 5, 10, 15, 20, 25 ],
       totalRows: 0,
       filter: null,
+      deleteModal: false,
+      IDtoDelete: false,
     }
   },
   computed: {
@@ -102,6 +123,7 @@ export default {
           var filter2 = [];
           var filter3 = [];
           var filter4 = [];
+          var filter5 = [];          
           
       if (this.services.data[i].filters.length > 0){
           for (var n = 0; n < this.services.data[i].filters.length; n++){
@@ -113,6 +135,8 @@ export default {
                   filter3.push(this.services.data[i].filters[n].name);
               } else if (this.services.data[i].filters[n].filterType.id === 4){
                   filter4.push(this.services.data[i].filters[n].name);
+              } else if (this.services.data[i].filters[n].filterType.id === 5){
+                  filter5.push(this.services.data[i].filters[n].name);
               } 
           }
       }
@@ -122,7 +146,16 @@ export default {
               name: this.services.data[i].name,
               unidad: filter1.toString(),
               tipo: filter3.toString(),
-              sector: filter4.toString()
+              sector: filter4.toString(),
+              destinatario: filter5.toString(),
+
+              description:  this.services.data[i].description,
+              nombre_contacto:  this.services.data[i].contact_name,
+              tel:  this.services.data[i].phone,
+              email:  this.services.data[i].email,
+              dir:  this.services.data[i].address,
+              website:  this.services.data[i].website,
+              _showDetails: false,
           };
           rowsArray.push(service);
       }
@@ -151,6 +184,22 @@ export default {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length
       this.currentPage = 1
+    },
+    confirmDeletion(serviceID){
+      this.IDtoDelete = serviceID;
+      this.deleteModal = true;
+    },
+    deleteService(serviceID){
+      console.log('solicitud de eliminacion');
+      console.log(serviceID);
+      this.$store.dispatch('deleteService', serviceID).then(()=>{
+          console.log('eliminado');
+          this.$store.dispatch('fetchServices');
+          this.IDtoDelete = false;
+         //router.push({ name: 'Servicios'});
+
+
+      });
     }
   }
 }
@@ -161,6 +210,7 @@ export default {
   color:black;
 }
 .badge-action {
+  font-size: 0.75rem;
   color:black !important;
   font:black;
 }

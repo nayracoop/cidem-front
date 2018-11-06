@@ -25,7 +25,7 @@
       <main class="main">
         <breadcrumb :list="list"/>
         <div class="container-fluid">
-          <router-view></router-view>
+          <router-view ></router-view>
         </div>
       </main>
       <AppAside fixed>
@@ -65,7 +65,6 @@ export default {
   },
   beforeRouteEnter(to, from, next){
     store.dispatch('fetchMessages').then(() => {
-      console.log(store.state.messages);
       next();
     }); 
   },

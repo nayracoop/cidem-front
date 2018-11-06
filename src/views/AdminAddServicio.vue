@@ -93,7 +93,7 @@
 										:multiple="true"
 										required 
 										v-model="form.destinatario">
-								<option v-if="filter.filterType.id === 4"
+								<option v-if="filter.filterType.id === 5"
 										v-for="filter in filterList" 
 										:key="filter.id" 
 										:value="filter.id">{{filter.name}}</option>
@@ -122,7 +122,7 @@
 								:horizontal="true">
 	            			<b-form-input id="sContacto" 
 										type="text" 
-										placeholder=""
+										placeholder="Ingresa el nombre de la persona de contacto"
 										required 
 										v-model="form.contacto">
 							</b-form-input>
@@ -135,10 +135,25 @@
 							:horizontal="true">	
 								<b-form-input id="sEmail" 
 											type="email" 
-											placeholder="Enter your email" 
+											placeholder="Ingresa el email de contacto" 
 											autocomplete="email"
 											required 
 											v-model="form.email">
+								</b-form-input>
+						</b-form-group>
+
+						
+						<b-form-group label="Web de contacto"
+							description=""
+							label-for="sWeb"
+							:label-cols="3"
+							:horizontal="true">	
+								<b-form-input id="sWeb" 
+											type="web" 
+											placeholder="Ingresa la pagina web de contacto" 
+											autocomplete="web"
+											required 
+											v-model="form.website">
 								</b-form-input>
 						</b-form-group>
 	         			
@@ -149,7 +164,7 @@
 							:horizontal="true">
 								<b-form-input id="sTel" 
 											type="text" 
-											placeholder=""
+											placeholder="Ingresa el telefono de contacto"
 											required 
 											v-model="form.tel">
 								</b-form-input>
@@ -162,7 +177,7 @@
 								:horizontal="true">
 							<b-form-input id="sDir" 
 											type="text" 
-											placeholder=""
+											placeholder="Ingresa la direccion de contacto"
 											required 
 											v-model="form.dir">
 							</b-form-input>				
@@ -174,16 +189,21 @@
 	       		 </b-card>
 	      	</b-col>
 	    </b-row>
-		<b-modal ok-only :title="'Servicio creado /' + createdService.id" class="modal-success" v-model="createdModal" size="lg" > 
-			<h1>Nuevo servicio creado.</h1>	
+		<b-modal v-if="createdService.name" ok-only :title="'Servicio creado /' + createdService.id" class="modal-success"  v-model="createdModal" size="lg" > 
+			<p class="alert-success">El servicio fue creado exitosamente.</p>	
 			<h2>{{createdService.name}}</h2>
-			<h6>{{createdService.description}}</h6>
-			<h5>{{createdService.website}}</h5>
-			<h3>{{createdService.slug}}</h3>
+			<p>{{createdService.description}}</p>
+			<h5> Filtros: {{createdService.filters.toString()}}</h5>
+			<ul>
+				<h5>Datos de contacto</h5>
+				<li>{{createdService.contact_name}}</li>
+				<li>{{createdService.email}}</li>
+				<li>{{createdService.phone}}</li>
+				<li>{{createdService.address}}</li>
+			</ul>
 			<template slot="modal-ok">
-				<b-button @click="confirmed()">ok </b-button>
+				<span @click="confirmed()">ok </span>
 			</template>
-		
 		</b-modal>
 	</div>
 </template>
@@ -206,6 +226,7 @@ export default {
 				email: '',
 				tel: '',
 				dir: '',
+				website: '',
 				description: '',
 				filters: []
 			},
@@ -241,6 +262,7 @@ export default {
 			this.form.filters = filters;
 			store.dispatch('postNewService', this.form).then(response => {
 				this.createdService = response;
+				console.log(this.createdService);
 				this.createdModal = true;
 				this.form.name= '';
 				this.form.unidad= [];
@@ -252,6 +274,7 @@ export default {
 				this.form.email= '';
 				this.form.tel= '';
 				this.form.dir= '';
+				this.form.website= '';
 				this.form.description= '';
 				this.form.filters= [];
 			});

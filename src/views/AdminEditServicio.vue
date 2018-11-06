@@ -6,7 +6,7 @@
 					<div slot="header">
 						<strong>Ver / Editar Servicio </strong>
 					</div>
-					<b-form @submit="submitEditedService($event)" >
+					<b-form @submit="submitEditedService($event)" @enter="$event.preventDefault()">
 						<b-form-group label="Nombre del servicio"
 								description=""
 								label-for="sName"
@@ -61,7 +61,7 @@
 										class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceUnidad = false; editedService.unidad = filterList.find(x => x.id === form.unidad).name"  
+								<b-badge @click="editServiceUnidad = false; editedService.unidad = form.unidad"  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>
@@ -90,7 +90,7 @@
 								<b-badge @click="editServiceSubunidad = false; form.subunidad = editedService.subunidad"  class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceSubunidad = false; editedService.subunidad = filterList.find(x => x.id === form.subunidad).name "  
+								<b-badge @click="editServiceSubunidad = false; editedService.subunidad = form.subunidad "  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>	
@@ -144,12 +144,16 @@
 									:plain="true"
 									:multiple="true"
 									v-model="form.sector">
-										<option v-if="filter.filterType.id === 4" v-for="filter in filterList" :key="filter.id" :value="filter.id">{{filter.name}}</option>
+										<option v-if="filter.filterType.id === 4" 
+												v-for="filter in filterList" 
+												:key="filter.id" 
+												:value="filter.id">{{filter.name}}</option>
 								</b-form-select>
+
 								<b-badge @click="editServiceSector = false; form.sector = editedService.sector"  class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceSector = false; editedService.sector=[] ;form.sector.forEach(function(e){editedService.sector.push(filterList.find(x => x.id === e).name)}) "  
+								<b-badge @click="editServiceSector = false; editedService.sector= form.sector  "  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>
@@ -172,7 +176,7 @@
 									:plain="true"
 									:multiple="true"
 									v-model="form.destinatario">
-									<option v-if="filter.filterType.id === 4" 
+									<option v-if="filter.filterType.id === 5" 
 											v-for="filter in filterList" 
 											:key="filter.id" 
 											:value="filter.id">{{filter.name}}</option>
@@ -180,7 +184,7 @@
 								<b-badge @click="editServiceDestinatario = false; form.destinatario = editedService.destinatario"  class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceDestinatario = false;editedService.destinatario=[] ;form.destinatario.forEach(function(e){editedService.destinatario.push(filterList.find(x => x.id === e).name)}) "  
+								<b-badge @click="editServiceDestinatario = false; editedService.destinatario= form.destinatario  "  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>
@@ -256,7 +260,7 @@
 								</b-badge>
 							</div>
 							<div v-show="editServiceEmail === true">
-								<b-form-input id="sEmail" type="email" placeholder="Ingrese mail de contacto" autocomplete="email"></b-form-input>
+								<b-form-input id="sEmail" type="email" placeholder="Ingrese mail de contacto" autocomplete="email" v-model="form.email"></b-form-input>
 								<b-badge @click="editServiceEmail = false; form.email=''"  class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
@@ -280,7 +284,7 @@
 									</b-badge>
 								</div>
 								<div v-show="editServiceTelefono === true" clearfix>
-									<b-form-input id="sTel" type="text" placeholder=""></b-form-input>
+									<b-form-input id="sTel" type="text" placeholder="" v-model="form.tel"></b-form-input>
 									<b-badge @click="editServiceTelefono = false; form.tel=''"  class='badge-pill badge-danger badge-action float-right m-1'>
 										<i class="fa fa-close"></i>
 									</b-badge>
@@ -343,10 +347,10 @@ export default {
 				tipo: this.$store.getters.serviceFilters[2],
 				sector: this.$store.getters.serviceFilters[3],
 				destinatario: this.$store.getters.serviceFilters[4], //falta agregar a db
-				contacto: '',
-				email: '',
-				tel: '',
-				dir: '',
+				contacto: this.$store.state.service.data.contact_name,
+				email: this.$store.state.service.data.email,
+				tel: this.$store.state.service.data.phone,
+				dir: this.$store.state.service.data.address,
 				description: this.$store.state.service.data.description,
 				web: this.$store.state.service.data.website,
 				filters: []
@@ -359,13 +363,14 @@ export default {
 				tipo: this.$store.getters.serviceFilters[2],
 				sector: this.$store.getters.serviceFilters[3],
 				destinatario: this.$store.getters.serviceFilters[4], //falta agregar a db
-				contacto: '',
-				email: '',
-				tel: '',
-				dir: '',
+				contacto: this.$store.state.service.data.contact_name,
+				email: this.$store.state.service.data.email,
+				tel: this.$store.state.service.data.phone,
+				dir: this.$store.state.service.data.address,
 				description: this.$store.state.service.data.description,
 				web: this.$store.state.service.data.website,
-				filters: []
+				oldFilters: [],
+				newFilters: []
 			},
 			editServiceName: false,
 			editServiceUnidad: false,
@@ -418,16 +423,26 @@ export default {
 				sector: [],
 				destinatario: []
 			};
-			if (this.editedService.unidad.length > 0){
+			if (this.editedService.unidad.constructor === Array) {
 				this.editedService.unidad.forEach(function(e){
 					names.unidad.push(that.filterList.find(x => x.id === e).name);
 				});
+			} else {
+				if (that.filterList.find(x => x.id === this.editedService.unidad) != undefined){
+					names.unidad.push(that.filterList.find(x => x.id === this.editedService.unidad).name);
+				};
 			};
-			if (this.editedService.subunidad.length > 0){
+			
+			if (this.editedService.subunidad.constructor === Array) {
 				this.editedService.subunidad.forEach(function(e){
 					names.subunidad.push(that.filterList.find(x => x.id === e).name);
 				});
+			} else {
+				if (that.filterList.find(x => x.id === this.editedService.subunidad) != undefined){
+					names.subunidad.push(that.filterList.find(x => x.id === this.editedService.subunidad).name);
+				};	
 			};
+			
 			if (this.editedService.tipo.length > 0){
 				this.editedService.tipo.forEach(function(e){
 					names.tipo.push(that.filterList.find(x => x.id === e).name);
@@ -448,7 +463,22 @@ export default {
 	}, 
 	methods: {
 		submitEditedService(evt){
-			this.$store.dispatch('editService',this.editService);	//IF HUBO CAMBIOS => MODAL CONFIRMACIÓN CON CAMPOS CAMBIADOS ; ELSE => NO HUBO CAMBIOS
+			var newFilters = this.form.tipo.concat(this.form.sector).concat(this.form.destinatario);
+			newFilters.push(this.form.unidad);
+			newFilters.push(this.form.subunidad);
+			this.editedService.newFilters = newFilters;
+			console.log(`filtros viejos = ${newFilters} `);
+
+
+			var oldFilters = this.$store.getters.serviceFilters[2].concat(this.$store.getters.serviceFilters[3])
+						.concat(this.$store.getters.serviceFilters[4])
+						.concat(this.$store.getters.serviceFilters[0])
+						.concat(this.$store.getters.serviceFilters[1]);
+			this.editedService.oldFilters = oldFilters;
+			console.log(`filtros viejos = ${oldFilters} `);
+			this.$store.dispatch('editService',this.editedService).then(response => {
+				this.$router.push({name: 'Servicios'});
+			});	//IF HUBO CAMBIOS => MODAL CONFIRMACIÓN CON CAMPOS CAMBIADOS ; ELSE => NO HUBO CAMBIOS
 		},
 		cancel(){
 			//MODAL => SEGURO QUE QUIERES ABANDONAR LOS CAMBIOS
