@@ -96,9 +96,15 @@
 .highlight{
 	font-weight: bold !important;
 }
+
+.filter-type{
+	font-size:1.125em;
+	font-weight:500;
+}
+
 .filter-item {
 	font-weight: 200;
-	font-size: 0.9em;
+	font-size: 0.95em;
 	padding: 3px 10px;
 	margin: auto ;
 }

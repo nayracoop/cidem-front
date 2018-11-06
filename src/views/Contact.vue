@@ -1,10 +1,10 @@
 <template>
 	<main role="main">
-<!-- 		<div class="row">
+		<div class="row">
 			<div class="col-12 mainback">
-				<button @click="goBack"><i class="fas fa-caret-left"></i> volver </button>
+				<button @click="volver()"><i class="fas fa-caret-left"></i> volver </button>
 			</div>
-		</div> -->	
+		</div>	
 		<div class="row">
 			<div class="col-12 titleconsult">
 				<h1>Consulta de Oferta Tecnológica</h1>
@@ -44,16 +44,17 @@
 							<p>A continuación escriba su consulta o tipo de búsqueda que quiera realizar y en breve nos estaremos comunicando.</p>
 							<textarea required type="text" class="form-control rounded-0" id="description" v-model="form.description"></textarea>
 						</div>
-						<button class="btn offset-5 sendbtn rounded-0" type="submit" value="Submit">Enviar</button>	
+						<div class="text-center">
+						<button class="btn sendbtn rounded-0" type="submit" value="Submit">Enviar</button>
+						</div>	
 
 					</form>
 				</div>
 			</div>
 			<div v-if="consultaEnviada">
 				<div class="row">
-					<div class="text-center center col-10 offset-1 mb-5 ">
-						<h3> su consulta fue enviada exitosamente </h3>
-						<button @click="volver()" class="mt-5 mb-2"> Volver</button>
+					<div class="text-center center col-10 offset-1 mb-5 alert">
+						<h3> Su consulta fue enviada exitosamente </h3>
 					</div>
 				</div>
 			</div>
@@ -90,7 +91,7 @@
 </script>
 <style scoped>
 main {
-	margin:0 auto;
+	margin:20px auto;
 }
 
 .mainback button{
@@ -99,12 +100,12 @@ main {
     color:#000;
     font-size:1.125em;
     text-transform:uppercase;
+    cursor:pointer;
 }
 
 .titleconsult h1{
     text-transform: uppercase;
     text-align: center;
-    margin: 40px auto;
 }
 
 .titleconsult h2{
@@ -112,6 +113,7 @@ main {
     font-size: 1.25em;
     color: #4a4a4a;
     text-align: justify;
+    margin-top:20px;
 }
 
 .form-group input::placeholder{
@@ -152,5 +154,35 @@ margin-right: 10px;
     text-transform: uppercase;
     font-weight: 700;
     border:none;
+}
+
+.alert h3{
+    color: #4a4a4a;
+    margin:80px auto;
+}
+
+@media screen and (max-width: 576px) {
+	
+	
+	.titleconsult h1,	
+	.alert h3{
+		font-size: 1.25em;
+	}
+
+	.mainback{
+		margin-bottom:20px;
+	}
+
+	.contactdata p,
+	.contactdata label,
+	.titleconsult h2,
+	.mainback button{
+		font-size:0.9em;
+	}
+
+	.contactdata textarea{
+		height:50px;
+	}
+
 }
 </style>

@@ -189,6 +189,10 @@ import store from '../store'
 </script>
 
 <style scope>
+main {
+	margin:20px auto;
+}
+
 .vcard p span:hover {
 	cursor: pointer;
 }

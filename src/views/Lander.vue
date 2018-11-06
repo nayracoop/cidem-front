@@ -23,14 +23,10 @@
         
 	    </div>	  
 	    <!------ LINK A VISTA DE TODOS LOS FILTROS ------>
-		<div class="row">
-      <div class="all_icons">
-  		  	<a @click="verTodos()">Ver Todos</a>
-  		</div>
-    </div>
+
 		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->	 
-	<div class="row mb-5">  
-        <h5 class="col-lg-1 col-12 text-center mt-3">Destinatarios:</h5>
+	<div class="row dest">  
+        <h5 class="col-md-1 col-12 text-center">Destinatarios:</h5>
         <div class="icons col-lg-10 col-12">
                 <i  v-for="destinatario in destinatarios" 
                     :key="destinatario.id" 
@@ -40,7 +36,12 @@
                     :title="destinatario.name"
                     @click="searchDestinatario(destinatario.filterId)"></i>
         </div>  
-    </div>  
+    </div> 
+        <div class="row">
+      <div class="all_icons">
+          <a @click="verTodos()">Ver Todos</a>
+      </div>
+    </div> 
 	</section>
 </template>
 
@@ -192,10 +193,18 @@ $(function () {
     background-color:#17aae4;
 }
 
-.all_icons{
-    margin: 50px auto;
-    text-align: center;
+.dest{
+  margin-top:70px;
+  margin-bottom:40px;
 }
+
+.all_icons{
+    margin: 0 auto;
+    padding-bottom:20px;
+    text-align: center;
+    text-decoration:underline;
+}
+
 .icons{
     text-align: center;
 }
@@ -236,13 +245,17 @@ $(function () {
       font-family:'DistefanoSlab-Regular','DistefanoSlab';
   }
 
+  .dest h5{
+      font-size: 1.125em;
+  }
+
   .all_icons{
       margin:30px auto;
   }
 
   .icons i{
       font-size: 30px;
-      margin:8px;
+      margin:15px;
       color:#000;
       position:relative;
       transition:0.2s;

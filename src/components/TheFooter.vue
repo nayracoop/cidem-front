@@ -2,13 +2,13 @@
   <div class="footer">	
     <div class="row d-flex justify-content-between rowfooter">
       <div class="col-6 col-md-3 cidem text-center order-1 order-md-0"> 
-          <a href="#"><img src="../assets/img/CIDEM.jpg" alt="logo-cidem"></a>       
+          <a href="http://untref.edu.ar/sitios/cidem"><img src="../assets/img/CIDEM.jpg" alt="logo-cidem"></a>       
       </div>  
       <div class="col-12 col-md-6 SIDcontact order-0 order-md-1">
         <address>{{SID}} <span class="address">{{SIDaddress}}</span></address>
       </div>  
       <div class="col-6 col-md-3 text-center cidem order-2">  
-          <a href="#"><img src="../assets/img/logoSID.png" alt="logo-SID"></a>              
+          <a href="http://www.untref.edu.ar/investigacion-y-desarrollo"><img src="../assets/img/logoSID.png" alt="logo-SID"></a>              
       </div>
     </div>
   </div>		

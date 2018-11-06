@@ -1,12 +1,13 @@
 <template>			
 	<div class="col-12 d-block d-md-none">
-		<button type="button" class="btn applybtn rounded-0" @click="show = true">Filtros</button>
+		<button type="button" class="btn rounded-0 filterbtn" @click="show = true"><i class="fas fa-sliders-h"></i> Filtros</button>
 		<div class="hiddenfilters" :class='{showFilters:show}'>
 			<div class="Zbuttons align-items-center">	
 				<span class="cruz"><button type="button" class="close" @click="show = false"><i class="fas fa-times cruz"></i></button></span>
-				<span class="applybtn"<button type="button" class="applybtn btn rounded-0" @click="show = 	false">Aplicar</button>
+				<button type="button" class="applybtn btn rounded-0" @click="show =	false">Aplicar</button>
 			</div>
 			<h2>Filtros</h2>
+			<filters-selected class="offset-1 mb-4"></filters-selected>
 			<div class="filters" id='filtersid'>
 				<dl v-for="type in filterTypes" :key="type.id">
 					<dt class="filter-type collapsed" data-toggle="collapse" :data-target="'#'+type.id+'H'" >{{type.name}}</dt>
@@ -26,6 +27,7 @@
 </template>
 
 <script>
+	import FiltersSelected from '@/components/FiltersSelected'
 	export default {
 		name: 'FiltersMobile',
 		data () {
@@ -34,7 +36,7 @@
 		    }
 		},
 		components: {
-		  	
+		  	FiltersSelected
 		},
 		computed: {
 			searchQuery() {
@@ -90,6 +92,12 @@
 </script>
 <style scoped>
 
+.filterbtn{
+	background-color:#fff;
+	font-weight: 700;
+	font-size:1.25em;
+}
+
 .hiddenfilters{
     position: fixed;
     height:100%;
@@ -135,24 +143,33 @@
 .highlight{
 	font-weight: bold !important;
 }
+
+.filter-type{
+	font-size:1.125em;
+	font-weight:500;
+}
+
 .filter-item {
 	font-weight: 200;
 	font-size: 0.9em;
 	padding: 3px 10px;
-	margin: auto ;
+	margin: 10px auto;
 }
 
-.filters {
-	margin-left:40px;
+.filters{
+	margin-left:60px;
 }
 
 .filters .filter-type:after{
     font-family: 'FontAwesome';
     content: "\f0d7";
-    margin: 20px;
+    float:right;
+    width:30%;
+
 }
 
 .filters .collapsed:after{
     content: "\f0da";
+
 }
 </style>					
