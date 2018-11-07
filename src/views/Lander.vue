@@ -14,18 +14,19 @@
 	          	<p>{{subtitle}}</p>        
 	      	</div>
 	    </div>
-        <!------ TAGS FILTROS ------->
-		<filters-selected class="col-12 offset-md-1 col-md-10 col-lg-10 offset-lg-1"></filters-selected>
+        <!------ TAGS FILTROS -------->
+		<filters-selected class="col-12 p-0 col-lg-10 offset-lg-1"></filters-selected>
 	    <!------- BUSCADOR DEL LANDER -------->
       <dropdown class="d-block d-md-none"></dropdown>   
 	    <div class="row searcher">
-	    	<SearchBar class="col-12 col-lg-10  offset-lg-1"></SearchBar>
-        
-	    </div>	  
+	    	<SearchBar class="col-12 col-lg-10 offset-lg-1"></SearchBar>
+        </div>	  
 	    <!------ LINK A VISTA DE TODOS LOS FILTROS ------>
 
 		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->	 
 	<div class="row dest">  
+
+         
         <h5 class="col-md-1 col-12 text-center">Destinatarios:</h5>
         <div class="icons col-lg-10 col-12">
                 <i  v-for="destinatario in destinatarios" 

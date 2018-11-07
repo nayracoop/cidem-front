@@ -10,11 +10,6 @@ export default {
       icon: 'icon-speedometer'
     },
     {
-      name: 'Preferencias',
-      url: '/admin/config',
-      icon: 'icon-wrench'
-    },
-    {
       name: 'Consultas',
       url: '/admin/consultas',
       icon: 'icon-envelope',

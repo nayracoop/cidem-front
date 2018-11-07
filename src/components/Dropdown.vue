@@ -1,85 +1,91 @@
 <template>
 	<div>
-		<div class="row landerHiddenF">
+		<div v-for="type in filterTypes" 
+			v-if="filterCondition(type.id)" 
+			class="row landerHiddenF"
+			:key="type.id">
 			<div class="col-sm-12 col-md-10 offset-md-1">
-				<label for="Tipodeservicio"></label>
-				<button class="btn rounded btn-outline-secondary btn-block" type="button" data-toggle="dropdown">{{title}}<span class="Filterarrow"><i class="fas fa-caret-down"></i></span></button>
+				<label for="tipo"></label>
+				<button class="btn rounded btn-outline-secondary btn-block" 
+						type="button" 
+						data-toggle="dropdown">{{type.name}}
+						<span class="Filterarrow">
+							<i class="fas fa-caret-down"></i>
+						</span>
+				</button>
 				<ul class="dropdown-menu scrollable-menu" role="menu" aria-expanded="false">
-					<li>Análisis</li>
-					<li>Asistencia Técnica</li>
-					<li>Calibración</li>
-					<li>Calificación</li>
-					<li>Certificación</li>
-					<li>Certificación/Homologación /Regímenes Especiales</li>
-					<li>Control ambiental/Medio ambiental</li>
-					<li>Control de calidad</li>
-					<li>Desarrollo de proceso</li>
-					<li>Desarrollo de productos</li>
-					<li>Ensayo</li>
-					<li>Formación de RRHH</li>
-					<li>Peritake</li>
-					<li>Programación y desarrollo de software</li>
-					<li>Tecnología de Gestión</li>
+					<li v-for="filter in filterList"
+						:key="filter.id"
+						v-if="filter.filterType.id === type.id"
+						:class="{highlight:selected.includes(filter.id)}"
+						@click="filterclick(filter, $event)">{{filter.name}} </li>
 				</ul>
 			</div>
 		</div>
-		<div class="row landerHiddenF">	
-			<div class="col-sm-12 col-md-10 offset-md-1">
-				<label for="Sector"></label>
-				<button type="button" class="btn rounded btn-outline-secondary btn-block" data-toggle="dropdown">{{title}}<span class="Filterarrow"><i class="fas fa-caret-down"></i></span></button>
-				<ul class="dropdown-menu scrollable-menu" role="menu">
-					<li>Administración pública</li>
-					<li>Agua y saneamiento</li>
-					<li>Ambiente y tecnología</li>
-					<li>Arte y cultura</li>
-					<li>Ciencia, tecnología e innovación</li>
-					<li>Derechos y ciudadanía</li>
-					<li>Desarrollo productivo</li>
-					<li>Desarrollo rural</li>
-					<li>Desarrollo social</li>
-					<li>Desarrollo urbano</li>
-					<li>Educación</li>
-					<li>Energía</li>
-					<li>Infraestructura</li>
-					<li>Minería e hidrocarburos</li>
-					<li>Ordenamiento territorial</li>
-					<li>Salud y deportes</li>
-					<li>Tecnologías de la información y la comunicación</li>
-					<li>Telecomunicaciones</li>
-					<li>Transporte y logística</li>
-					<li>Turismo</li>
-				</ul>
-			</div>
-		</div> 
-			<div class="row landerHiddenF">
-				<div class="col-sm-12 col-md-10 offset-md-1">
-					<label for="Destinatario"></label>
-					<button type="button" class="btn rounded btn-outline-secondary btn-block" data-toggle="dropdown">{{title}}<span class="Filterarrow"><i class="fas fa-caret-down"></i></span></button>
-					<ul class="dropdown-menu scrollable-menu" role="menu">
-						<li>Comunidad</li>
-						<li>Cooperativas y Org. de la economía social</li>
-						<li>Emprendedores</li>
-						<li>Empresas</li>
-						<li>Gobierno Nacional</li>
-						<li>Gobierno Provincial </li>
-						<li>Gobierno Local</li>
-						<li>Organismos de ciencia y técnica</li>
-						<li>Org. no gubernamental (ONG)</li>
-						<li>Universidades</li>
-					</ul>
-				</div>
-			</div>
 	</div>
 </template>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script>
+	import store from '../store'
+	import router from '../router'
+
 	export default{
 		name: "Dropdown",
 		data:function(){
 			return{
-				title: "Filtro"
+				searchInput: '',
+			}
+		}, 
+		computed: {
+			searchQuery(){
+		      return this.$store.state.searchQuery;
+		    },
+		    searchQueryFilters() {
+		        return this.$store.state.searchQueryFilters;
+		    },
+			filterTypes(){
+		      	return this.$store.state.filterTypes;
+		    },
+			filterList(){
+      			return this.$store.state.filterList;
+		    },
+		    selected(){
+		    	return this.$store.getters.filterArray;
+			},
+		}, 
+		methods: {
+			filterclick: function(filter, e){
+		    	var selected = this.searchQueryFilters;
+		    	var result = this.searchQueryFilters.some(function (el){
+		  	 		return el.id === filter.id;
+		  	 	});
+		  	 	
+		  	 	if (!result) {
+		  	 		selected.push(filter);
+		  	 	} else if (result){
+		  	 		var end = 0;
+			  		var listToDelete = [filter.id];
+					for (var i = 0; i < selected.length; i++) {
+					    var obj = selected[i];
+
+					    if (listToDelete.indexOf(obj.id) === -1) {
+					        selected[end++] = obj;
+					    }
+					}
+				selected.splice(end);
+			  	}
+				e.stopPropagation();
+				this.$store.dispatch('changeQueryFilters', selected);     
+
+			},
+			filterCondition(type){
+				if (type === 2 || type === 5) {
+					return false;
+				} else {
+					return true;
+				}
 			}
 		}
 }
@@ -121,5 +127,9 @@
     width: inherit;
 }
 
+
+.highlight {
+    font-weight: bold !important;
+}
 
 </style>

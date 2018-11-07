@@ -1,8 +1,10 @@
 <template>
 	<main role="main">
-		<filters-selected class="col-10 offset-md-1"></filters-selected>
+		<div class="row">
+			<filters-selected class="col-10 offset-md-1"></filters-selected>
+			<filters-mobile></filters-mobile>
+		</div>
 		<div class="row listado">
-			<filters-mobile></filters-mobile>	   						    
 			<the-sidebar class="d-print-none"></the-sidebar>
 			<div class="col-sm-12 col-md-7 offset-md-1" id="list">
 				<section>

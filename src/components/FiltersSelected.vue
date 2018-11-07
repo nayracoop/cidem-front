@@ -53,7 +53,7 @@ import router from '../router'
 			this.$store.dispatch('changeQueryFilters', this.selected);
 			this.$store.dispatch('fetchServices');
 			if (this.$route.name !== 'Lander'){
-				router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
+				this.$route.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
 			};
 	  	},
 	  	removeQuery(){
@@ -61,7 +61,7 @@ import router from '../router'
 	  		this.$store.dispatch('changeQuerySearch', null);
 			this.$store.dispatch('fetchServices');
 			if (this.$route.name !== 'Lander'){
-				router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
+				this.$route.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
 			}
 	  	}
 	  }
@@ -77,7 +77,7 @@ import router from '../router'
 	align-content: flex-start;
 }
 .selectedfilters dl{
-	margin: 5px 5px;
+	margin: 2px 2px;
 	transition: all 300ms;
 }
 
@@ -88,9 +88,9 @@ import router from '../router'
 	font-size:1.125em;
 }*/
 .selectedfilters dl dd{
-    margin-left: 5px;
+    margin: 2.5px;
     padding: 0.3em 0.5em;
-  	background-color:#f4f4f4;
+  	background-color:#a0b0a0;
     font-weight: 400;
     font-size:0.95em;
 }
@@ -100,5 +100,7 @@ import router from '../router'
     vertical-align:middle;
     font-size:0.7em;
 }
+
+
 
 </style>

@@ -1,6 +1,6 @@
 <template>			
 	<div class="col-12 d-block d-md-none">
-		<button type="button" class="btn rounded-0 filterbtn" @click="show = true"><i class="fas fa-sliders-h"></i> Filtros</button>
+		<button type="button" class="btn rounded-0 filterbtn mx-auto" @click="show = true"><i class="fas fa-sliders-h"></i> Filtros</button>
 		<div class="hiddenfilters" :class='{showFilters:show}'>
 			<div class="Zbuttons align-items-center">	
 				<span class="cruz"><button type="button" class="close" @click="show = false"><i class="fas fa-times cruz"></i></button></span>
@@ -96,6 +96,7 @@
 	background-color:#fff;
 	font-weight: 700;
 	font-size:1.25em;
+	margin:auto;
 }
 
 .hiddenfilters{
