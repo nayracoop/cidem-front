@@ -116,7 +116,7 @@
 						<h5> Información de contacto </h5>
 
 						<b-form-group label="Contacto"
-								description="Nombre del contacto"	
+								description=""	
 								label-for="sContacto"
 								:label-cols="3"
 								:horizontal="true">
@@ -149,9 +149,9 @@
 							:label-cols="3"
 							:horizontal="true">	
 								<b-form-input id="sWeb" 
-											type="web" 
+											type="website" 
 											placeholder="Ingresa la pagina web de contacto" 
-											autocomplete="web"
+											autocomplete="website"
 											required 
 											v-model="form.website">
 								</b-form-input>
@@ -193,16 +193,17 @@
 			<p class="alert-success">El servicio fue creado exitosamente.</p>	
 			<h2>{{createdService.name}}</h2>
 			<p>{{createdService.description}}</p>
-			<h5> Filtros: {{createdService.filters.toString()}}</h5>
+			<h5> Filtros: {{filters.toString()}}</h5>
+			<h5>Datos de contacto</h5>
 			<ul>
-				<h5>Datos de contacto</h5>
 				<li>{{createdService.contact_name}}</li>
 				<li>{{createdService.email}}</li>
 				<li>{{createdService.phone}}</li>
 				<li>{{createdService.address}}</li>
 			</ul>
-			<template slot="modal-ok">
-				<span @click="confirmed()">ok </span>
+			<template slot="modal-footer">
+				<b-button variant="cancel" @click="createdModal=false">Crear otro servicio </b-button>
+				<b-button variant="success" @click="confirmed()">Volver al listado </b-button>
 			</template>
 		</b-modal>
 	</div>
@@ -210,6 +211,7 @@
 
 <script>
 import store from '../store'
+import router from '../router'
 
 export default {
 	name: 'AdminAddServicio',
@@ -231,7 +233,8 @@ export default {
 				filters: []
 			},
 			createdModal: false,
-			createdService: {}
+			createdService: {},
+			filters: [],
 		}
 	},
 	beforeRouteEnter(to,from,next){
@@ -263,6 +266,7 @@ export default {
 			store.dispatch('postNewService', this.form).then(response => {
 				this.createdService = response;
 				console.log(this.createdService);
+				this.filters = this.form.filters;
 				this.createdModal = true;
 				this.form.name= '';
 				this.form.unidad= [];
@@ -279,9 +283,10 @@ export default {
 				this.form.filters= [];
 			});
 		},	
-		confirmed: function(){
-			this.$router.push({name: "Servicios"});
-		}
+		confirmed(){
+			router.push({name: "Servicios"});
+		},
+		
 	}
 }
 </script>
