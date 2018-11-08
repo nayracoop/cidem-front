@@ -29,11 +29,11 @@
 
 		<div class="input-group-append" v-if="this.$route.name !== 'Lander'">
 			<button class="btn searcherbtn rounded-0" type="button"  @click="submitSearch">
-			<i class="d block d-md-none fa fa-search lupa"></i><span class="d-none d-md-block">Buscar</span></button>
+			<i class="d-block d-lg-none fa fa-search lupa"></i><span class="d-none d-lg-block">Buscar</span></button>
 		</div>
 		<div class="d-none d-md-block input-group-append" v-if="this.$route.name == 'Lander'">
 			<button class="btn searcherbtn rounded-0" type="button"  @click="submitSearch">
-			<i class="d block d-md-none fa fa-search lupa"></i><span class="d-none d-md-block">Buscar</span></button>
+			<i class="d-block d-md-none fa fa-search lupa"></i><span class="d-none d-md-block">Buscar</span></button>
 		</div>
 		<div class="d-block d-md-none input-group btnalone" v-if="this.$route.name == 'Lander'">
 			<button class="btn d-lg-block searcherbtn rounded-0" type="button"  @click="submitSearch">
