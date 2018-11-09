@@ -1,22 +1,21 @@
 <template>
 	<div>
-		<b-card>
+		<b-card >
 			<template class="row " slot="header">
 				<header class="d-flex justify-space-around">
 				<h1 class="col-4"> Consultas </h1>
-				<p class="mt-2 float-right" > 5 consultas nuevas </p>
+				<p class="mt-2 float-right" > {{newMessages.length}} consultas no leidas </p>
 				</header>
 			</template>
 			<b-card-body>	
-			
+				<template slot="table-header">
+					<h1> holi </h1>
+				</template>
 				<b-table class="mb-0 col-12" 
-						responsive="sm" hover 
+						responsive="md" hover
 						:items="tableItems" outlined
 						:fields="tableFields" 
 						head-variant="light">
-					<template slot="toggle" slot-scope="row">
-						<b-button v-if="row.item.status !== 'archivado'" @click="row.toggleDetails" :class="{'btn-success':row.item.status === 'unread'}"> {{ row.detailsShowing ? 'Esconder' : 'Ver consulta'}} </b-button>
-					</template>
 					<template slot="name" slot-scope="row">
 						<p :class="{unread: row.item.status === 'unread', archived: row.item.status === 'archivado'} " >{{row.item.name}} </p>
 					</template>
@@ -24,29 +23,25 @@
 						<p :class="{unread: row.item.status === 'unread', archived: row.item.status === 'archivado'} " >{{row.item.institucion}} </p>
 					</template>
 					<template slot="row-details" slot-scope="row">
-						<p> 11:34 26/10/1994 - &lt; {{row.item.email}} &gt; </p> 
-						<p> {{row.item.message}} </p>	
+						<b-card class="mx-5">
+							<p>  {{row.item.fecha}} - &lt; {{row.item.email}} &gt; </p> 
+							<p> {{row.item.message}} </p>	
+						</b-card>
 					</template>
 					<template slot="status" slot-scope="row">
-						<b-badge :class="statusBadge(row.item.status)">{{row.item.status}}</b-badge>
+						<b-badge :class="statusBadge(row.item.status)">
+							<span v-if="row.item.status === 'unread' "><i class="fa fa-check"  ></i>No leida</span>  
+							<span v-if="row.item.status === 'read' "><i class="fa fa-check"></i>Leida</span>
+						</b-badge>
 					</template>
 					<template slot="accion" slot-scope="row">
-						<b-button v-if="row.item.status === 'unread'" 
-						v-b-tooltip.hover title="Marcar como leida"  
-						class="mb-1"
-						@click="markRead(row.item.id)">
-							<i class="fa fa-eye"></i>
-						</b-button>
-						<b-button v-if="row.item.status !== 'unread'"  
-							v-b-tooltip.hover title="Marcar como no leida" class="mb-1"
-							@click="markUnread(row.item.id)" >
-							<i class="fa fa-eye-slash"></i>
-						</b-button>
-						<b-button v-if="row.item.status === 'read'" v-b-tooltip.hover title="Archivar" class="mb-1"
-							@click="archive(row.item.id)">
-							<i  class="fa fa-archive"></i>
-						</b-button>
-					</template>					
+						
+						<b-button  class='toggle-button p-1 mb-1' v-if="row.item.status === 'unread'" @click="markRead(row.item.id)"><i class="fa fa-archive"  ></i> Marcar como leida</b-button>
+						<b-button   class='toggle-button p-1 mb-1' v-if="row.item.status !== 'unread'"   @click="markUnread(row.item.id)"><i class="fa fa-eye-slash"  ></i> Marcar como no leida</b-button>
+
+						<b-button variant="primary" class="toggle-button p-1 mb-1'" v-if="row.item.status !== 'archivado'" @click="row.toggleDetails"> {{ row.detailsShowing ? 'Esconder' : 'Ver consulta'}} </b-button>
+
+ 					</template>					
 				</b-table>			
 			</b-card-body>
 		</b-card>
@@ -62,12 +57,11 @@ export default {
 	data(){
 		return {
 			tableFields: [
-				{key: 'id'},
-				{key: 'toggle', label: '', class: 'toggleCol'},
-				{key: 'fecha'},
+				{key: 'id', sortable: true},
+				{key: 'status', label: 'Estado', sortable: true},
+				{key: 'fecha' , sortable: true},
 				{key:'name', label: 'Nombre'},
 				{key:'institucion'},
-				{key: 'status', label: 'Estado'},
 				{key: 'accion', class: 'actionCol'} 
 			]
 		}
@@ -79,37 +73,64 @@ export default {
 		tableItems(){
 			var rowsArray = [];
 
+			// v REEMPLAZAR POR FECHA DE DB	
+			var today = new Date();
+				var dd = today.getDate();
+				var mm = today.getMonth();
+				var yyyy = today.getFullYear();
+				var hh = today.getHours();
+				var min = today.getMinutes();
+
+
+				var today = dd+"/"+mm+"/"+yyyy + "  - " + hh + ":" + min;
+			/// ^ reemplazar por fecha de db
+
 			if (this.messages.length > 0){
-         		 for (var i = 0; i < this.messages.length; i++){
-					  var service = {
+         		 for (var i = (this.messages.length - 1); i > 0 ; i--){
+					  var message = {
 						  id: this.messages[i].id,
 						  name: this.messages[i].name,
 						  institucion: this.messages[i].institution,
 						  email: this.messages[i].email,
 						  message: this.messages[i].description,
 						  status: this.messages[i].status,
-						  _showDetails: false
+						  _showDetails: false,
+							fecha: today,
 					  }
-					  rowsArray.push(service);
+					  rowsArray.push(message);
 
 				}
 			}
 
 			return rowsArray;
 
-		} 
+		},
+		newMessages: function(){
+			
+			if (this.messages.length > 0){
+				var newMess = [];
+				for (var i = (this.messages.length - 1); i > 0 ; i--){
+					if (this.messages[i].status === 'unread'){
+						newMess.push(this.messages[i]);
+					}
+				}
+
+				return newMess;
+			}
+
+		}
 				
 			
 		
 	}, 
 	methods: {
 		statusBadge(status){
-			if (status === 'no leida'){
+			if (status === 'unread'){
 				return 'badge-danger'
-			} else if (status === 'leida'){
-				return 'badge-warning'
-			} else if (status === 'contestada'){
+			} else if (status === 'read'){
 				return 'badge-success'
+			} else if (status === 'archivado'){
+				return 'badge'
 			}  
 		},
 		markRead(id) {
@@ -149,5 +170,20 @@ export default {
 	}
 	.archived {
 		font-style:italic ;
+	}
+	.toggle-button {
+			font-size: 0.75rem !important;
+
+	}
+	.badge-action i{
+	color:white !important;
+	}
+	.badge-action {
+	font-size: 0.75rem !important;
+	color:white !important;
+	font:black;
+	}
+	.badge-action:hover{
+	cursor:pointer;
 	}
 </style>

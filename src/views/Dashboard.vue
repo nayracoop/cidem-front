@@ -1,8 +1,7 @@
 <template>
 	<div class="animated fadeIn">
-		<h1> 70 Servicios disponibles </h1>
 		<b-row>
-			<b-col sm="6" lg="3">
+			<b-col sm="6" lg="10" offset="1">
 		        <b-card no-body class="bg-primary">
 		          <b-card-body class="pb-0">
 		            <b-dropdown class="float-right" variant="transparent p-0" right>
@@ -12,33 +11,33 @@
 		              <b-dropdown-item>Action</b-dropdown-item>
 		              <b-dropdown-item>Another action</b-dropdown-item>
 		              <b-dropdown-item>Something else here...</b-dropdown-item>
-		              <b-dropdown-item disabled>Disabled action</b-dropdown-item>
 		            </b-dropdown>
-		            <h4 class="mb-0">9.823</h4>
-		            <p>Members online</p>
+		            <h4 class="mb-0">{{services.length}}</h4>
+		            <p>Servicios Disponibles</p>
 		          </b-card-body>
 		          <card-line-chart-example chartId="card-chart-01" class="chart-wrapper px-3" style="height:70px;" :height="70"/>
 		        </b-card>
 		  </b-col>
-		  <b-col sm="6" lg="3">
-		        <b-card no-body class="bg-info">
-		          <b-card-body class="pb-0">
-		            <b-dropdown class="float-right" variant="transparent p-0" right no-caret>
-		              <template slot="button-content">
-		                <i class="icon-location-pin"></i>
-		              </template>
-		              <b-dropdown-item>Action</b-dropdown-item>
-		              <b-dropdown-item>Another action</b-dropdown-item>
-		              <b-dropdown-item>Something else here...</b-dropdown-item>
-		              <b-dropdown-item disabled>Disabled action</b-dropdown-item>
-		            </b-dropdown>
-		            <h4 class="mb-0">9.823</h4>
-		            <p>Members online</p>
-		          </b-card-body>
-		          <card-line-chart-example chartId="card-chart-02" class="chart-wrapper px-3" style="height:70px;" :height="70"/>
-		        </b-card>
-	    </b-col>
-			<b-col sm="6" lg="3">
+		</b-row>
+		<!-- 		<b-col sm="6" lg="3">
+							<b-card no-body class="bg-info">
+								<b-card-body class="pb-0">
+									<b-dropdown class="float-right" variant="transparent p-0" right no-caret>
+										<template slot="button-content">
+											<i class="icon-location-pin"></i>
+										</template>
+										<b-dropdown-item>Action</b-dropdown-item>
+										<b-dropdown-item>Another action</b-dropdown-item>
+										<b-dropdown-item>Something else here...</b-dropdown-item>
+										<b-dropdown-item disabled>Disabled action</b-dropdown-item>
+									</b-dropdown>
+									<h4 class="mb-0">9.823</h4>
+									<p>Members online</p>
+								</b-card-body>
+								<card-line-chart-example chartId="card-chart-02" class="chart-wrapper px-3" style="height:70px;" :height="70"/>
+							</b-card>
+				</b-col> -->
+		<!-- 	<b-col sm="6" lg="3">
 		        <b-card no-body class="bg-danger">
 		          <b-card-body class="pb-0">
 		            <b-dropdown class="float-right" variant="transparent p-0" right>
@@ -56,14 +55,28 @@
 		          <card-line-chart-example chartId="card-chart-04" class="chart-wrapper px-3" style="height:70px;" height="70"/>
 		        </b-card>
 				</b-col>
-	  </b-row>
+	  </b-row> -->
+
 		<b-row> 
-			<b-card>
-				<div class="chart-wrapper">
-					<chart-pie id="chartTipo"></chart-pie>
+			<b-card class="col-10 offset-1">
+				 <b-row>
+	        <b-col sm="5">
+	          <h4 id="traffic" class="card-title mb-2">Servicios por Unidad</h4>
+	        </b-col>
+	        <b-col sm="7" class="d-none d-md-block">
+	          <b-button type="button" variant="primary" class="float-right"><i class="icon-cloud-download"></i></b-button>
+	        </b-col>
+	      </b-row>
+				<div class="chart-wrapper col-10 offset-1" >
+					<chart-unidad id="Unidad" ></chart-unidad>
+				</div>
+			<div class="chart-wrapper col-12" >
+					<chart-sector id="Unidad" :height="200"></chart-sector>
 				</div>
 			</b-card>
 		</b-row>
+
+	
 	    <b-card>
 	      <b-row>
 	        <b-col sm="5">
@@ -114,7 +127,10 @@
 	import CardLineChartExample from '@/components/CardLineChartExample'
 	import MainChartExample from '@/components/MainChartExample'
 	import ChartPie from '@/components/ChartPie'
+	import ChartUnidad from '@/components/ChartUnidad'
+	import ChartSector from '@/components/ChartSector'
 
+	import store from '../store'
 
 
 export default{
@@ -122,21 +138,77 @@ export default{
 	data() {
 		return {
 			selected: [], // Must be an array reference!
-      		show: true
+					show: true,
+					chU: {
+						labels: [],
+						data: []
+					}
 		}
 		
+	},
+
+	computed: {
+	 services () {
+      return this.$store.state.fullServices.data
+		},
+		filtersList () {
+      return this.$store.state.filterList
+    },
+    chartUnidadLabels (){
+			var that = this;
+      var chUnidadLabels = [];
+			for (var i = 0 ; i < this.filtersList.length; i++){
+				if (this.filtersList[i].filterType.id === 1){
+					chUnidadLabels.push(that.filtersList[i].name);
+				}
+			}
+			console.log(chUnidadLabels);
+			return chUnidadLabels;
+		},
+		chartUnidadData (){
+				var that = this;
+				var chUnidadData = [];
+				for (var i = 0 ;i < this.filtersList.length; i++){
+					if (this.filtersList[i].filterType.id === 1){
+						store.dispatch('getAssociatedServices', this.filtersList[i].id).then(response => {
+							chUnidadData.push(response.length);
+							if (i > (that.filtersList.length -1)){
+									console.log(chUnidadData);
+									return chUnidadData;		
+							}
+						}); 
+
+					}
+				}
+		}
 	},
 	components: {
 		Callout,
 		CalloutChartExample,
 		CardLineChartExample,
 		MainChartExample,
-		ChartPie
+		ChartUnidad,
+				ChartSector,
+
+		ChartPie,
+
 	},
 	methods: {
 	    click () {
 	      // do nothing
-	    }
+			},
+			loadChartData(){
+							var that = this;
+							for (var i = 0 ; i < this.filtersList.length; i++){
+								if (this.filtersList[i].filterType.id === 1){
+									chU.labels.push(that.filtersList[i].name);
+									store.dispatch('getAssociatedServices', this.filtersList[i].id).then(response => {
+										that.chU.data.push(response.length);
+									});
+								}
+							}
+
+			}
 	}
 }
 </script>

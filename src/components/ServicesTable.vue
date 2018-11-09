@@ -99,7 +99,7 @@ export default {
     return {
        fields: [
         {key: 'id', sortable: true, class: 'id-col'},
-        {key: 'name'},
+        {key: 'name', label:"Nombre",class: 'name-col'},
         {key: 'unidad', sortable: true},
         {key: 'tipo', sortable: true},
         {key: 'sector', sortable: true},
@@ -130,7 +130,7 @@ export default {
           var filter5 = [];         
           var filters = []; 
           
-      if (this.services.data[i].filters.length > 0){
+        if (this.services.data[i].filters.length > 0){
           for (var n = 0; n < this.services.data[i].filters.length; n++){
               if (this.services.data[i].filters[n].filterType.id === 1){
                   filter1.push(this.services.data[i].filters[n].name);
@@ -215,6 +215,9 @@ export default {
 <style scoped>
 .id-col {
   width: 2em !important;
+}
+.name-col {
+ width: 600px;
 }
 .act-col {
   width: 50px !important;

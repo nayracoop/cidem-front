@@ -13,7 +13,7 @@
 		</div>
 		<div class="row">
 			<div class="col-12">		
-				<table class="table table-striped">
+				<table class="table table-striped table-responsive">
 				  <thead>
 				    <tr>
 				      <th scope="col">#</th>
@@ -26,10 +26,10 @@
 				  <tbody>
 				    <tr v-for="service in services" :key="service.id">
 				      <th scope="row">{{service.id}}</th>
-				      <td @click="viewService(service.id)"><a>{{service.name}}</a></td>
-				      <td>{{service.slug}}</td>
-				      <td>{{service.summary}}</td>
-				      <td>{{service.website}}</td>
+				      <td class="w-25" @click="viewService(service.id)"><strong><a>{{service.name}}</a></strong></td>
+							<td><span v-for="filter in service.filters" :key="filter.id" v-if="filter.filterType.id == 3">{{filter.name}} </span></td>
+				      <td><span v-for="filter in service.filters" :key="filter.id" v-if="filter.filterType.id == 4">{{filter.name}} </span></td>
+				      <td><span v-for="filter in service.filters" :key="filter.id" v-if="filter.filterType.id == 5">{{filter.name}} </span></td>
 				    </tr>
 				  </tbody>
 				</table>
@@ -51,6 +51,7 @@ export default {
 		services: function(){
         	return this.$store.state.services.data;
 		},
+		
 	},
 	methods:{
 		viewService: function (id) {	

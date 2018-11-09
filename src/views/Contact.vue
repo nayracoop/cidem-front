@@ -71,13 +71,24 @@
 					email: '',
 					institution: '',
 					description: '',
-					phone: '' 
+					phone: '' ,
+					date: '',
+					time: '',
 				},
 				consultaEnviada: false
 			}
 		},	
 		methods:{
 			submitMessage: function(e){
+				var today = new Date();
+				var dd = today.getDate();
+				var mm = today.getMonth();
+				var yyyy = today.getFullYear();
+				var now = today.getHours();
+
+				var today = dd+"/"+mm+"/"+yyyy;
+				this.form.date=today;
+				this.form.time= now;
 				this.$store.dispatch('postMessage', this.form);
 				e.preventDefault();
 				this.consultaEnviada = true;

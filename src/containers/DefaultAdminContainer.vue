@@ -37,7 +37,6 @@ import nav from '@/_nav'
 import store from '@/store'
 
 import { Header as AppHeader, SidebarToggler, Sidebar as AppSidebar, SidebarFooter, SidebarForm, SidebarHeader, SidebarMinimizer, SidebarNav, Aside as AppAside, AsideToggler, Breadcrumb } from '@coreui/vue'
-import DefaultHeaderDropdownAccnt from '@/containers/DefaultHeaderDropdownAccnt'
 
 
 export default {
@@ -48,7 +47,6 @@ export default {
     AppSidebar,
     AppAside,
     Breadcrumb,
-    DefaultHeaderDropdownAccnt,
     SidebarForm,
     SidebarFooter,
     SidebarToggler,
@@ -63,16 +61,20 @@ export default {
   },
   data () {
     return {
-      nav: nav.items
+      
     }
   },
   computed: {
     name () {
       return this.$route.name
     },
+    nav () {
+      return nav.items;
+    },
     list () {
       return this.$route.matched
-    }
+    },
+
   },
   methods: {
     logout(){
