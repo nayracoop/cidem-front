@@ -73,7 +73,7 @@
 					description: '',
 					phone: '' 
 				},
-				consultaEnviada: true
+				consultaEnviada: false
 			}
 		},	
 		methods:{

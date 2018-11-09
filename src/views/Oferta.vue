@@ -1,29 +1,40 @@
 <template>
 	<main role="main">
 		<div class="row">
-			<h1 class="col-11 text-center">Oferta de soluciones y servicios tecnológicos</h1>
-			<button class="col-1 d-print-none" @click="print()"> print </button>
+			<div class="col-11 mainback">
+				<button @click="goBack"><i class="fas fa-caret-left"></i> volver </button>
+			</div>
+			<div class="col-1">	
+				<span class="printbtn d-none d-md-block"><button @click="print()"><i class="fas fa-print"></i></button></span>
+			</div>	
 		</div>
-		<table class="table table-striped">
-		  <thead>
-		    <tr>
-		      <th scope="col">#</th>
-		      <th scope="col">Nombre</th>
-		      <th scope="col">Tipo de servicio</th>
-		      <th scope="col">Sector al que esta destinado</th>
-		      <th scope="col">Destinatario</th>
-		    </tr>
-		  </thead>
-		  <tbody>
-		    <tr v-for="service in services" :key="service.id">
-		      <th scope="row">{{service.id}}</th>
-		      <td @click="viewService(service.id)"><a>{{service.name}}</a></td>
-		      <td>{{service.slug}}</td>
-		      <td>{{service.summary}}</td>
-		      <td>{{service.website}}</td>
-		    </tr>
-		  </tbody>
-		</table>
+		<div class="row">
+			<h1 class="col-12 text-center">Oferta de soluciones y servicios tecnológicos</h1>
+		</div>
+		<div class="row">
+			<div class="col-12">		
+				<table class="table table-striped">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">Nombre</th>
+				      <th scope="col">Tipo de servicio</th>
+				      <th scope="col">Sector al que esta destinado</th>
+				      <th scope="col">Destinatario</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr v-for="service in services" :key="service.id">
+				      <th scope="row">{{service.id}}</th>
+				      <td @click="viewService(service.id)"><a>{{service.name}}</a></td>
+				      <td>{{service.slug}}</td>
+				      <td>{{service.summary}}</td>
+				      <td>{{service.website}}</td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+		</div>		
 	</main>
 </template>
 
@@ -47,15 +58,40 @@ export default {
 		},
 		print: function() {
 			window.print();
-		}
+		},
+		goBack: function(){
+			router.go(-1)
+			}
 	}
 }
 	
 </script>
 
-<style>
+<style scoped>
 a:hover{
 	cursor: pointer;
+}
+
+.printbtn{
+	margin:auto;
+	float:right
+}
+
+.mainback button{
+    border:none;
+    background-color:#ffffff;
+    color:#000;
+    font-size:1.125em;
+    text-transform:uppercase;
+    cursor:pointer;
+}
+
+main{
+	margin: 20px auto;
+}
+
+table{
+	margin-top:20px;
 }
 	
 </style>

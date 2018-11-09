@@ -119,4 +119,8 @@
     content: "\f0da";
 }
 
+.filters dl dd{
+	margin:5px auto;
+}
+
 </style>

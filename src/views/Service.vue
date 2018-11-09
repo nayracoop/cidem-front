@@ -1,18 +1,20 @@
 <template>
 	<main role="main">
-		<div class="row navficha flex justify-content-between"> <!-- FIRST LINE -->
-			<!--- BUGEADO NO FUNCIONA BIEN -->
-			<div class="col-12 col-md-2 mainback d-print-none">
-				<a @click="goBack()"><i class="fas fa-caret-left"></i>Volver</a>
+		<div class="row">
+			<div class="col-6 mainback d-print-none">
+				<button @click="goBack()"><i class="fas fa-caret-left"></i> Volver</button>
+			</div>	
+				<div class="col-6 d-none d-md-block printbtn d-print-none">
+					<button v-on:click="printpage()"><i class="fas fa-print"></i></button>
+				</div>
 			</div>
-			
-			<div v-if="!(total===0)" class="col-12 col-md-7 offset-md-4 navfile">
+		</div>	
+		<div class="row navficha flex justify-content-between"> <!-- FIRST LINE -->
+			<!--- BUGEADO NO FUNCIONA BIEN -->			
+			<div v-if="!(total===0)" class="col-12 text-center navfile">
 				<a v-if="prev" @click="getServiceById(prev)"><i class="fas fa-angle-double-left"></i><span class="d-none  d-md-inline">Anterior</span></a>
 				<p >Resultado {{current + 1}} de {{total}}</p>
 				<a v-if="next" @click="getServiceById(next)"><span class="d-none d-md-inline">Siguiente</span><i class="fas fa-angle-double-right"></i></a>	
-			</div>
-			<div class="d-none d-md-block col-1 printbtn d-print-none">
-				<button v-on:click="printpage()"><i class="fas fa-print"></i></button>
 			</div>
 		</div>	
 		<div class="row">
@@ -196,6 +198,7 @@ main {
 .vcard p span:hover {
 	cursor: pointer;
 }
+
 .navficha{
     padding-bottom: 20px;
 }
@@ -210,16 +213,20 @@ main {
 }
 
 .navfile p{
-    margin:0 20px;
+    margin:0 70px;
     font-size:1.125em;
 }
 
-.mainback a{
-    text-transform: uppercase;
+.mainback button{
+    border:none;
+    background-color:#ffffff;
+    color:#000;
+    font-size:1.125em;
+    text-transform:uppercase;
+    cursor:pointer;
 }
 
-.navfile a,
-.mainback a{
+.navfile a {
     text-decoration: none;
     color:#000;
     font-size:1.125em;
@@ -229,16 +236,12 @@ main {
 	text-align:right;
 }
 
-
 .categresultlast p,
 .categresult p{
     font-style: italic;
     color:#7c7c7c;
+    margin-bottom:20px;
 }
-
-.categ:nth-child(7){
-    margin-bottom:10px;
-} 
 
 .categresult p {
 	cursor: pointer;
@@ -250,7 +253,11 @@ main {
 .contact h3,
 .categ h2{
     font-size:1.125em; 
-    font-weight: 700;
+    font-weight:500; 
+}
+
+.categ h2{
+	margin-bottom:30px;
 }
 
 aside .vcard{
@@ -276,17 +283,34 @@ aside .ph{
     transform: rotate(90deg);
 }
 
-@media screen and (max-width: 768px){
-    .navfile{
-        display: flex;
-        justify-content: space-between;
-    }    
+@media screen and (max-width: 576px){
+  
 
-    .mainback a{
-        color:#17aae4;
-    }
     .mainback{
         margin-bottom: 10px; 
+        font-size: 0.9em;
     }
+
+    .titlefile h1{
+    	font-size:1.25em;
+    	text-align:center;
+    }
+
+    .contact h3,
+    .categ h2{
+		font-size:0.9em;
+		margin-bottom:15px;
+	}
+
+	.navfile p{
+		font-size:0.9em;
+	}
+
+	.vcard p,	
+	.navfile p,
+	.categresultlast,
+	.categresult p{
+		font-size:0.9em;
+	}
 }
 </style>

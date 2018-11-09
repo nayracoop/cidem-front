@@ -21,7 +21,7 @@
 						<aside class="alertresults">Se encontraron {{metadata.total}} resultados<span v-if="searchQuery"> para "{{searchQuery}}" </span></aside>
 
 							<article v-if="printing === false" v-for="service in services" :key="service.id" class="card art">
-								<div class="card-body box rounded-0" >
+								<div class="box" >
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
 										<dt>Destinatarios:</dt>
@@ -38,7 +38,7 @@
 								</div>
 							</article>
 							<article v-if="printing === true" v-for="service in fullServices" :key="service.id" class="card art">
-								<div class="card-body box rounded-0">
+								<div class="box">
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
 										<dt>Destinatarios:</dt>
@@ -160,37 +160,11 @@ main{
     margin:0;
 }
 
-.resultshide{
-	margin-left:-2000px;
-}
-
  .btnnobtn button {
     border: none;
     background: none;    
     cursor: pointer;
     text-transform: uppercase;
-}
-
- .titlefilters2 button {
-    border: none;
-    background: none;    
-    text-align:left;
-    font-size: 1.5em;
-    margin:0 auto;
-    font-weight: 700;
-    cursor: pointer;
-}
-
- .titlefilters1 h2{
-    margin-top: 40px;
-    margin-right: 25px;
-    font-weight:700;
-    font-size:1.25em;
-/*    text-align: center;*/
-}
-
-.selectedfilters ul{
-    padding: 0;
 }
 
 .navfile{
@@ -210,34 +184,6 @@ main{
 	margin:0 40px;
 }
 
-.selectedfilters ul li{
-    display: inline-block;
-    border-radius: 20px;
-    padding: 0 0.4em;
-    margin:5px 4px;
-    background-color:#17aae4;
-    color:#fff;
-    font-family:'Distefano-Slab';
-    font-weight: 400;
-    font-size:1.125em;
-    text-transform: uppercase;
-}
-
-.selectedfilters i{
-    margin-left: 1px;
-    font-size: 0.75em;
-    vertical-align: super;
-}
-
-.filters dt{
-    font-size:1.125em    
-}
-
-.filters dd{
-    display: list-item;
-    font-weight: 200;
-}
-
 .alertresults{
     font-weight: 200;
     padding: 0;
@@ -250,18 +196,42 @@ main{
     font-size: 1.25em;
     color:#111111;
     transition: 0.1s;
+    margin-bottom:30px;
 }
+
 .results h2:hover{
 	color:#17aae4;
 	cursor: pointer;
 }
+
+.box {
+	padding:1.5em 1em;
+}
+
 .box dl dt, 
 .box dl dd{   
-    display: inline-block;
-    font-weight: 200;
     font-size: 0.875em;
 }
 
+.box dl dt{
+	font-weight:400;
+}
+
+.box dl dd{
+	font-weight:200;
+}
+
+.box dl dd{
+	margin-bottom:0;
+}
+
+.box dl{
+	margin-bottom:5px;
+}
+
+.box dl:last-child{
+	margin-bottom:0;
+}
 .results p{
     font-weight: 200;
     font-size: 0.875em;
@@ -270,5 +240,14 @@ main{
 .art{
     background-color:#f4f4f4;  
     margin-bottom: 30px;
+}
+
+@media screen and (max-width: 576px){
+
+.box dl dd,
+.box dl dt{
+	display:inline-block
+}
+
 }
 </style>
