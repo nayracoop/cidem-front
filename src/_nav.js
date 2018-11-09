@@ -1,6 +1,6 @@
 import store from './store'
 
-var nMessages = store.state.messages.length;
+var nMessages = store.state.messages.filter(message => message.status === "unread");
 
 export default {
   items: [
@@ -15,7 +15,7 @@ export default {
       icon: 'icon-envelope',
       badge: {
         variant: 'danger',
-        text: nMessages
+        text: nMessages.length.toString()
       }
     },
     {

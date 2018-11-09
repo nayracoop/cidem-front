@@ -312,7 +312,7 @@ const store = new Vuex.Store({
 			});
 
 		},
-		getAssociatedFilters(context, filterId){
+		getAssociatedServices(context, filterId){
 			return axios.get(`${SERVER_PATH}/filters/${filterId}/services`)
 			.then(response => {
 				return response.data.data;

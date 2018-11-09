@@ -8,11 +8,9 @@
       </b-link>
       <SidebarToggler class="d-md-down-none mr-auto" display="lg" />
       <b-navbar-nav class="d-md-down-none float-right">
-        <b-nav-item class="px-3">Logout</b-nav-item>
-        <b-nav-item class="px-3">Users</b-nav-item>
+        <b-nav-item class="px-3" @click="logout()">Cerrar sesión</b-nav-item>
       </b-navbar-nav>
-      <!--AsideToggler class="d-none d-lg-block" /-->
-      <!--AsideToggler class="d-lg-none" mobile /-->
+
     </AppHeader>
     <div class="app-body">
       <AppSidebar fixed>
@@ -20,7 +18,6 @@
         <SidebarForm/>
         <SidebarNav :navItems="nav"></SidebarNav>
         <SidebarFooter/>
-        <SidebarMinimizer/>
       </AppSidebar>
       <main class="main">
         <breadcrumb :list="list"/>
@@ -29,8 +26,6 @@
         </div>
       </main>
       <AppAside fixed>
-        <!--aside-->
-        <DefaultAside/>
       </AppAside>
     </div>
 
@@ -42,7 +37,6 @@ import nav from '@/_nav'
 import store from '@/store'
 
 import { Header as AppHeader, SidebarToggler, Sidebar as AppSidebar, SidebarFooter, SidebarForm, SidebarHeader, SidebarMinimizer, SidebarNav, Aside as AppAside, AsideToggler, Breadcrumb } from '@coreui/vue'
-import DefaultAside from '@/containers/DefaultAside'
 import DefaultHeaderDropdownAccnt from '@/containers/DefaultHeaderDropdownAccnt'
 
 
@@ -54,7 +48,6 @@ export default {
     AppSidebar,
     AppAside,
     Breadcrumb,
-    DefaultAside,
     DefaultHeaderDropdownAccnt,
     SidebarForm,
     SidebarFooter,
@@ -79,6 +72,11 @@ export default {
     },
     list () {
       return this.$route.matched
+    }
+  },
+  methods: {
+    logout(){
+      console.log('logout');
     }
   }
 }

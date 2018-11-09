@@ -1,5 +1,6 @@
 <template>
 	<div class="animated fadeIn">
+		<h1> 70 Servicios disponibles </h1>
 		<b-row>
 			<b-col sm="6" lg="3">
 		        <b-card no-body class="bg-primary">

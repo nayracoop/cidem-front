@@ -7,7 +7,11 @@
       </header>
 	  </div>
     
-    <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
+    <b-table :hover="hover" :striped="striped" 
+              :bordered="bordered" :small="small" 
+              :fixed="fixed" responsive="sm" 
+              :items="items" :fields="fields" 
+              :current-page="currentPage" :per-page="perPage">
       <template slot="status" slot-scope="data">
         <b-badge :variant="getBadge(data.item.status)">{{data.item.status}}</b-badge>
       </template>
@@ -16,8 +20,8 @@
         <b-badge @click="deleteFilter(data.item)" class='badge-pill badge-danger badge-action'><i class="icon-trash"></i></b-badge>
       </template>
     </b-table>
-    <nav>
-      <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next" hide-goto-end-buttons/>
+    <nav class="center">
+      <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Anterior" next-text="Siguiente" class="mx-auto"/>
     </nav>
   </b-card>
 
@@ -267,13 +271,12 @@ export default {
         deleteModal: false,
         filterDeleted: false,
         fields: [
-            {key: 'id'},
+            {key: 'id', class: 'id-col'},
             {key: 'tipo'},
             {key: 'tipoId', thClass: 'd-none', tdClass: 'd-none' },
             {key: 'filtro'},
             {key: 'etiqueta'},
-            {key: 'servicios_asociados'},
-            {key: 'acciones'}
+            {key: 'acciones', class: 'act-col'}
         ],
         currentPage: 1,
         perPage: 10,
@@ -293,14 +296,18 @@ export default {
             var rowsArray = [];
 
             for (var i = 0; i < this.filterList.length; i++){
-                var holi = {
+              
+                    var holi = {
                     id: this.filterList[i].id,
                     tipo: this.filterList[i].filterType.name,
                     filtro: this.filterList[i].name,
                     etiqueta: this.filterList[i].tag,
                     tipoId: this.filterList[i].filterType.id
+                   
                 };
                 rowsArray.push(holi);
+                
+                
             }
 
             
@@ -340,7 +347,7 @@ export default {
         this.deleteModal = true;
         this.currentFilter = filter;
         //get services associados with filter
-        this.$store.dispatch('getAssociatedFilters', filter.id).then(response => {
+        this.$store.dispatch('getAssociatedServices', filter.id).then(response => {
           this.associatedServices = response;
         });
         //
@@ -389,9 +396,24 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.id-col{
+  width: 20px !important;
+}
+.act-col{
+  width: 40px !important;
+}
+.badge-action{
+  margin-left: 2px;
+   color:black;
+}
+.badge-danger{
+   color:black !important;
+
+}
 .badge-action i{
-  color:black;
+  font-size:1.2em !important;
+  color:black !important;
 }
 .badge-action:hover{
   cursor:pointer;

@@ -1,8 +1,8 @@
 <template>
 	<main role="main">
-		<div class="row">
-			<filters-selected class="col-10 offset-md-1"></filters-selected>
+		<div class="d-inline">
 			<filters-mobile></filters-mobile>
+			<filters-selected class="col-12 m-2"></filters-selected>
 		</div>
 		<div class="row listado">
 			<the-sidebar class="d-print-none"></the-sidebar>
@@ -21,7 +21,7 @@
 						<aside class="alertresults">Se encontraron {{metadata.total}} resultados<span v-if="searchQuery"> para "{{searchQuery}}" </span></aside>
 
 							<article v-if="printing === false" v-for="service in services" :key="service.id" class="card art">
-								<div class="card-body box" >
+								<div class="card-body box rounded-0" >
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
 										<dt>Destinatarios:</dt>
@@ -38,7 +38,7 @@
 								</div>
 							</article>
 							<article v-if="printing === true" v-for="service in fullServices" :key="service.id" class="card art">
-								<div class="card-body box ">
+								<div class="card-body box rounded-0">
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
 										<dt>Destinatarios:</dt>

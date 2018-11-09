@@ -89,7 +89,7 @@ import router from '../router'
 }*/
 .selectedfilters dl dd{
     margin: 2.5px;
-    padding: 0.3em 0.5em;
+    padding: 0.1em 0.3em;
   	background-color:#a0b0a0;
     font-weight: 400;
     font-size:0.95em;

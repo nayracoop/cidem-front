@@ -9,7 +9,7 @@
       <b-col md="6" class="my-1">
         <b-form-group horizontal label="Filtrar" class="m-1 mb-0">
           <b-input-group>
-            <b-form-input v-model="filter" placeholder="Type to Search" />
+            <b-form-input v-model="filter" placeholder="Ingrese busqueda" />
             <b-input-group-append>
               <b-btn :disabled="!filter" @click="filter = ''">Borrar</b-btn>
             </b-input-group-append>
@@ -22,26 +22,30 @@
         </b-form-group>
       </b-col>
      </b-row>
-    <b-table id="servicesTable" striped small responsive="sm" 
-    :filter="filter" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
+    <b-table id="servicesTable" striped bordered
+            small responsive="sm" 
+           :filter="filter" 
+           :items="items" :fields="fields" 
+           :current-page="currentPage" :per-page="perPage">
       <template slot="status" slot-scope="data">
         <b-badge :variant="getBadge(data.item.status)">{{data.item.status}}</b-badge>
       </template>
       <template slot="row-details" slot-scope="data">
           <div class="p-3">
-						<h4> {{data.item.website}} </h4> 
-            <p> {{data.item.description}} </p>
-            <p> <strong>{{data.item.nombre_contacto}}</strong> - {{data.item.tel}} - {{data.item.email}} - {{data.item.dir}} </p>
+						<p> <strong> Descripción: </strong> {{data.item.description}} </p>
+            <p> <strong> Filtros relacionados (ID): </strong> {{data.item.filters}} </p>
+            <p> <strong> Contacto: </strong>{{data.item.nombre_contacto}} - {{data.item.tel}} - {{data.item.email}} - {{data.item.dir}} </p>
           </div>
 					</template>
       <template slot="acciones" slot-scope="data">
-        <b-button class='btn-warning badge-warning badge-action p-0 mb-1'  @click="editService(data.item.id)" ><i class="icon-pencil mr-1"></i>Editar</b-button>
-        <b-button  class='btn-danger badge-action p-0 mb-1' @click="confirmDeletion(data.item.id)"><i class="icon-trash mr-1"  ></i> Eliminar</b-button>
-        <b-button  class='btn-success badge-action p-0' @click="data.toggleDetails" ><i class="icon-eye mr-1"></i> Ver más</b-button>
+          <b-button class='btn-warning badge-warning badge-action p-1 mb-1'  @click="editService(data.item.id)" ><i class="icon-pencil mr-1"></i>Editar</b-button>
+          <b-button  class='btn-danger badge-action p-1 mb-1' @click="confirmDeletion(data.item.id)"><i class="icon-trash mr-1"  ></i> Eliminar</b-button>
+          <b-button  class='btn-success badge-action p-1' @click="data.toggleDetails" ><i class="icon-eye mr-1"></i> {{ data.detailsShowing ? 'Ver menos' : 'Ver más'}}</b-button>
       </template>
+      
     </b-table>
     <nav>
-      <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next" hide-goto-end-buttons/>
+      <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Anterior" next-text="Siguiente"/>
     </nav>
     <b-modal ok-only :title="'Confirmar eliminacion'" class="modal-danger" v-model="deleteModal" size="lg" > 
         <div v-if="IDtoDelete">
@@ -50,7 +54,7 @@
         </div>
         <p class="alert-success" v-if="!IDtoDelete"> El servicio fue eliminado exitósamente. </p>
        <template slot="modal-footer">
-          <b-button @click="deleteModal = false" > Cerrar </b-button>
+          <b-button @click="closeModal()"> Cerrar </b-button>
         </template>
 		</b-modal>
   </b-card>
@@ -94,13 +98,13 @@ export default {
   data: () => {
     return {
        fields: [
-        {key: 'id', sortable: true},
+        {key: 'id', sortable: true, class: 'id-col'},
         {key: 'name'},
         {key: 'unidad', sortable: true},
         {key: 'tipo', sortable: true},
         {key: 'sector', sortable: true},
-        {key: 'destinatario', sortable: true},
-        {key: 'acciones'}
+       // {key: 'destinatario', sortable: true},
+        {key: 'acciones', class: 'act-col'}
       ],
       currentPage: 1,
       perPage: 10,
@@ -123,7 +127,8 @@ export default {
           var filter2 = [];
           var filter3 = [];
           var filter4 = [];
-          var filter5 = [];          
+          var filter5 = [];         
+          var filters = []; 
           
       if (this.services.data[i].filters.length > 0){
           for (var n = 0; n < this.services.data[i].filters.length; n++){
@@ -137,7 +142,8 @@ export default {
                   filter4.push(this.services.data[i].filters[n].name);
               } else if (this.services.data[i].filters[n].filterType.id === 5){
                   filter5.push(this.services.data[i].filters[n].name);
-              } 
+              }  
+              filters.push(this.services.data[i].filters[n].id);
           }
       }
           
@@ -148,7 +154,7 @@ export default {
               tipo: filter3.toString(),
               sector: filter4.toString(),
               destinatario: filter5.toString(),
-
+              filters:  filters.toString(),
               description:  this.services.data[i].description,
               nombre_contacto:  this.services.data[i].contact_name,
               tel:  this.services.data[i].phone,
@@ -193,25 +199,32 @@ export default {
       console.log('solicitud de eliminacion');
       console.log(serviceID);
       this.$store.dispatch('deleteService', serviceID).then(()=>{
-          console.log('eliminado');
-          this.$store.dispatch('fetchServices');
-          this.IDtoDelete = false;
-         //router.push({ name: 'Servicios'});
-
-
+            console.log('eliminado');
+            this.$store.dispatch('fetchServices');
+            this.IDtoDelete = false;
       });
+    },
+    closeModal(){
+      this.deleteModal = false; 
+      if (this.IDtoDelete === false) {router.go()} else {};
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
+.id-col {
+  width: 2em !important;
+}
+.act-col {
+  width: 50px !important;
+}
 .badge-action i{
-  color:black;
+  color:white !important;
 }
 .badge-action {
-  font-size: 0.75rem;
-  color:black !important;
+  font-size: 0.75rem !important;
+  color:white !important;
   font:black;
 }
 .badge-action:hover{

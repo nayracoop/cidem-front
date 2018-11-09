@@ -318,10 +318,13 @@
 									</b-badge>
 								</div>
 							</b-form-group>
-
+							<p v-if="loaded" class="alert-success">El servicio se ha editado exitosamente </p>
 							<div class="clearfix">
 								
-								<b-button type="submit" variant="success" class="float-right m-1"> Guardar cambios </b-button>
+								<b-button type="submit" variant="success" class="float-right m-1">
+									<span v-if="!loading"> Guardar cambios </span>
+									<i v-if="loading" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+								</b-button>
 								<b-button type="cancel" class="float-right m-1" @click="cancel()">Cancelar </b-button>
 							</div>
 						</b-form>
@@ -384,6 +387,8 @@ export default {
 			editServiceTelefono: false,
 			editServiceDireccion: false,
 			editedFields: [],
+			loading: false,
+			loaded: false
 		}
 	},
 	beforeRouteEnter (to, from, next) {
@@ -464,6 +469,7 @@ export default {
 	methods: {
 		submitEditedService(evt){
 			evt.preventDefault();
+			this.loading = true;
 			var newFilters = this.form.tipo.concat(this.form.sector).concat(this.form.destinatario);
 			newFilters.push(this.form.unidad);
 			newFilters.push(this.form.subunidad);
@@ -475,6 +481,8 @@ export default {
 						.concat(this.$store.getters.serviceFilters[1]);
 			this.editedService.oldFilters = oldFilters;
 			this.$store.dispatch('editService',this.editedService).then(response => {
+				this.loaded = true;
+				this.loading = false;
 				this.$router.push({name: 'Servicios'});
 			});	
 		},

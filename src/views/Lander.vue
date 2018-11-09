@@ -21,6 +21,10 @@
 	    <div class="row searcher">
 	    	<SearchBar class="col-12 col-lg-10 offset-lg-1"></SearchBar>
         </div>	  
+
+
+
+
 	    <!------ LINK A VISTA DE TODOS LOS FILTROS ------>
 
 		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->	 

@@ -1,7 +1,7 @@
 <template>
 	<b-row class="animated fadeIn">
       <b-col sm="12">
-        <services-table class="table-responsive" caption="<i class='fa fa-align-justify'></i> Combined All Table"></services-table>
+        <services-table caption="<i class='fa fa-align-justify'></i> Admnistrar Servicios"></services-table>
       </b-col>
     </b-row>
 </template>
@@ -14,11 +14,15 @@
 		name: 'AdminServicios',
 		components: {ServicesTable},
 		beforeRouteEnter(to, from, next){
+			store.dispatch('changeQuerySearch', null);
+      store.dispatch('changeQueryFilters', []);
 			store.dispatch('fetchFullServices').then(()=>{
 				next();
 			});
 		},
 		beforeRouteUpdate(to, from, next){
+			store.dispatch('changeQuerySearch', null);
+      store.dispatch('changeQueryFilters', []);
 			store.dispatch('fetchFullServices').then(()=>{
 				next();
 		});
