@@ -3,11 +3,10 @@
 		<button type="button" class="btn rounded-0 filterbtn mx-auto" @click="show = true"><i class="fas fa-sliders-h"></i> Filtros</button>
 		<div class="hiddenfilters" :class='{showFilters:show}'>
 			<div class="Zbuttons align-items-center">	
-				<span class="cruz"><button type="button" class="close" @click="show = false"><i class="fas fa-times cruz"></i></button></span>
+				<h2 class="mt-2">Filtros</h2>
 				<button type="button" class="applybtn btn rounded-0" @click="show =	false">Aplicar</button>
 			</div>
-			<h2>Filtros</h2>
-			<filters-selected class="offset-1 mb-4"></filters-selected>
+			<filters-selected class="offset-1 mb-2"></filters-selected>
 			<div class="filters" id='filtersid'>
 				<dl v-for="type in filterTypes" :key="type.id">
 					<dt class="filter-type collapsed" data-toggle="collapse" :data-target="'#'+type.id+'H'" >{{type.name}}</dt>
@@ -32,9 +31,11 @@
 		name: 'FiltersMobile',
 		data () {
 			return {
-		    	show:false
+				show:false,
+				prevFilters :  this.$store.state.searchQueryFilters,
 		    }
 		},
+	
 		components: {
 		  	FiltersSelected
 		},
@@ -83,10 +84,9 @@
 
 		  	 	}
 		  	 	this.$store.dispatch('fetchServices');
-		  	 	router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});     
+		  	 	this.$router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});     
 
-
-	    	},
+			},
 		}
 }		
 </script>
@@ -114,7 +114,6 @@
 
 .hiddenfilters h2{
 	text-align:center;
-	padding-bottom:40px;
 }
 
 .showFilters{
@@ -127,7 +126,7 @@
 	display:flex;
 	justify-content:space-between;
 	margin:0 40px;
-	padding:40px 0;
+	padding:20px 0;
 }
 
 .applybtn{
@@ -172,5 +171,19 @@
 .filters .collapsed:after{
     content: "\f0da";
 
+}
+
+#filtersid {
+	padding: 20px;
+	margin: auto;
+}
+#filtersid dt{
+	width: 100%;
+	text-align: center;
+	margin: auto;
+	margin-bottom: 10px;
+}
+#filtersid dd{
+	margin: 5px 20px;
 }
 </style>					

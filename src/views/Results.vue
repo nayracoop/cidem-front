@@ -25,15 +25,16 @@
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
 										<dt>Destinatarios:</dt>
-										<dd>{{service.summary}}</dd>
+										<dd><span v-for="filter in service.filters" v-if="filter.filterType.id === 5" >{{filter.name}} <span v-if="service.filters.length > 1">, </span> </span></dd>
+
 									</dl>
 									<dl>
 										<dt>Tipo:</dt>
-										<dd>{{service.summary}}</dd>
+										<dd><span v-for="filter in service.filters" v-if="filter.filterType.id === 3" >{{filter.name}} <span v-if="service.filters.length > 1">, </span> </span></dd>
 									</dl>
 									<dl>
 										<dt>Sector:</dt>
-										<dd>{{service.summary}}</dd>
+										<dd><span v-for="filter in service.filters" v-if="filter.filterType.id === 4" >{{filter.name}} <span v-if="service.filters.length > 1">, </span> </span></dd>
 									</dl>
 								</div>
 							</article>
@@ -42,19 +43,21 @@
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
 										<dt>Destinatarios:</dt>
-										<dd>{{service.summary}}</dd>
+										<dd><span v-for="filter in service.filters" v-if="filter.filterType.id === 5" :key="filter.id" >{{filter.name}} <span v-if="service.filters.length > 1">, </span> </span></dd>
+
 									</dl>
 									<dl>
 										<dt>Tipo:</dt>
-										<dd>{{service.summary}}</dd>
+										<dd><span v-for="filter in service.filters" v-if="filter.filterType.id === 3" :key="filter.id" >{{filter.name}} <span v-if="service.filters.length > 1">, </span> </span></dd>
 									</dl>
 									<dl>
 										<dt>Sector:</dt>
-										<dd>{{service.summary}}</dd>
+										<dd><span v-for="filter in service.filters" v-if="filter.filterType.id === 4" :key="filter.id" >{{filter.name}} <span v-if="service.filters.length > 1">, </span> </span></dd>
+
 									</dl>
 									<dl>
 										<dt>Teléfono</dt>
-										<dd>4887-6783</dd>
+										<dd>{{service.phone}}</dd>
 									</dl>
 								</div>
 							</article>		
@@ -103,6 +106,9 @@ export default {
 	computed: {
 		services: function(){
         	return this.$store.state.services.data;
+		},
+		serviceFilters(){
+			return this.$store.getters.serviceFiltersNames;
 		},
 		fullServices: function(){
         	return this.$store.state.fullServices.data;
@@ -207,6 +213,13 @@ main{
 .box {
 	padding:1.5em 1em;
 }
+.box dl{
+	margin-bottom:5px;
+}
+
+.box dl:last-child{
+	margin-bottom:0;
+}
 
 .box dl dt, 
 .box dl dd{   
@@ -219,19 +232,9 @@ main{
 
 .box dl dd{
 	font-weight:200;
-}
-
-.box dl dd{
 	margin-bottom:0;
 }
 
-.box dl{
-	margin-bottom:5px;
-}
-
-.box dl:last-child{
-	margin-bottom:0;
-}
 .results p{
     font-weight: 200;
     font-size: 0.875em;
@@ -244,10 +247,38 @@ main{
 
 @media screen and (max-width: 576px){
 
-.box dl dd,
-.box dl dt{
-	display:inline-block
+	.box dl dd,
+	.box dl dt{
+		display:inline-block
+	}
+
 }
+@media print {
+	#list {
+		padding: 0px;
+		margin: auto;
+		width: 110%;
+	}
+	.results {
+		width: 100%;
+		margin: auto;
+	}
+
+	.results .card .box {
+
+		border: 3px solid black;
+		width: 100%;
+		margin: auto;
+		left: 0;
+		right: 0;
+	}
+
+	#list .results .card .box .dt{
+		display: inline;
+	}
+	#list .results .card .box .dd{
+		display: inline;
+	}
 
 }
 </style>

@@ -52,16 +52,16 @@ import router from '../router'
 			this.selected.splice(end);
 			this.$store.dispatch('changeQueryFilters', this.selected);
 			this.$store.dispatch('fetchServices');
-			if (this.$route.name !== 'Lander'){
-				this.$route.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
+			if (this.$router.name !== 'Lander'){
+				this.$router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
 			};
 	  	},
 	  	removeQuery(){
 	  		this.searchQuery= " ";
 	  		this.$store.dispatch('changeQuerySearch', null);
 			this.$store.dispatch('fetchServices');
-			if (this.$route.name !== 'Lander'){
-				this.$route.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
+			if (this.$router.name !== 'Lander'){
+				this.$router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
 			}
 	  	}
 	  }
