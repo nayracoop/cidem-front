@@ -4,7 +4,7 @@
 			<b-col class="col-12">
 				<b-card class="clearfix">
 					<div slot="header">
-						<strong>Crear Nuevo Servicio</strong>
+						<i class="icon-plus mr-2"></i>Crear Nuevo Servicio
 					</div>
 					<b-form id="newService" @submit="submit($event)" class="row clearfix"> 
 						<div class="col-7">
@@ -215,6 +215,8 @@
 <script>
 import store from '../store'
 import router from '../router'
+import { maxLength , minLength , required, email, url, alpha } from 'vuelidate/lib/validators'
+
 
 export default {
 	name: 'AdminAddServicio',
@@ -297,8 +299,8 @@ export default {
 <style>
 .submitbtn {
 	float: right;
-	margin-top: 160px !important;
-	padding: 0.8em !important;
-	font: 1.3em !important;
+	margin-top: 160px ;
+	padding: 0.8em ;
+	font: 1.3em;
 }
 </style>

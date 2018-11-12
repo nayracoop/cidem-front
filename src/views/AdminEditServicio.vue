@@ -337,7 +337,7 @@
 
 <script>
 import store from '../store'
-
+import { maxLength , minLength , required, email, url, alpha } from 'vuelidate/lib/validators'
 
 export default {
 	name: 'AdminEditServicio',

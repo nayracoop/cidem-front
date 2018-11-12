@@ -5,7 +5,7 @@
 			<filters-selected class="col-12 m-2"></filters-selected>
 		</div>
 		<div class="row listado">
-			<the-sidebar class="d-print-none"></the-sidebar>
+			<the-sidebar class="d-print-none" id="the-sidebar"></the-sidebar>
 			<div class="col-sm-12 col-md-7 offset-md-1" id="list">
 				<section>
 					<div v-if="services" class="results">
@@ -162,10 +162,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 main{
     margin:0;
 }
 
+#the-sidebar {
+	padding: 20px;
+}
  .btnnobtn button {
     border: none;
     background: none;    
@@ -244,6 +248,8 @@ main{
     background-color:#f4f4f4;  
     margin-bottom: 30px;
 }
+
+.
 
 @media screen and (max-width: 576px){
 

@@ -1,13 +1,13 @@
 <template>
   <div>
-  <b-card >
+  <b-card id="admin-filters">
     <div slot="header">
-	    <header><i class="fa fa-gear"></i> Administrar Filtros
+	    <header><i class="fa fa-gear  mr-2 pt-1"></i> Administrar Filtros
         <b-button class="btn-success float-right" @click="newModal = true"> Crear Nuevo Filtro </b-button>
       </header>
 	  </div>
     
-    <b-table :hover="hover" :striped="striped" 
+    <b-table id="filters-table" :hover="hover" :striped="striped" 
               :bordered="bordered" :small="small" 
               :fixed="fixed" responsive="sm" 
               :items="items" :fields="fields" 
@@ -16,24 +16,29 @@
         <b-badge :variant="getBadge(data.item.status)">{{data.item.status}}</b-badge>
       </template>
       <template slot="acciones" slot-scope="data">
-        <b-badge @click="editFilter(data.item)"  class='badge-pill badge-warning badge-action'><i class="icon-pencil"></i></b-badge>
-        <b-badge @click="deleteFilter(data.item)" class='badge-pill badge-danger badge-action'><i class="icon-trash"></i></b-badge>
+           <b-button class='btn-warning badge-warning badge-action p-1 mb-1'  @click="editFilter(data.item)"  ><i class="icon-pencil mr-1"></i>Editar</b-button>
+          <b-button  class='btn-danger badge-action p-1' @click="deleteFilter(data.item)" ><i class="icon-trash mr-1"  ></i> Eliminar</b-button>
       </template>
     </b-table>
-    <nav class="center">
+    <nav class="pagination-nav">
       <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Anterior" next-text="Siguiente" class="mx-auto"/>
     </nav>
   </b-card>
 
   <b-modal title="Crear filtro" class="modal-success" v-model="newModal" size="lg" > 
-      <b-form @submit.prevent="createFilter($event)" v-if="filterCreated === false">
+      <b-form @submit.stop.prevent="createFilter($event)" v-if="filterCreated === false">
           <b-form-group
               description=""
               label="Nombre del Filtro"
               label-for="filterName"
               :label-cols="3"
               :horizontal="true">
-            <b-form-input id="filterName" type="text" required placeholder="Nombre del Filtro" v-model="newFilter.name"></b-form-input>
+            <b-form-input id="filterName" type="text" placeholder="Nombre del Filtro" v-model="newFilter.name" @input="setName(newFilter.name)"></b-form-input>
+            <div v-if="validate">
+              <p class="alert-warning" v-if="!$v.name.minLength">Debe escribir al menos 4 caracteres.</p>
+              <p class="alert-warning" v-if="!$v.name.maxLength">No puede escribir más de 100 caracteres.</p>
+              <p class="alert-warning" v-if="!$v.name.required">No puede dejar este campo vacío</p>
+            </div>
           </b-form-group>
             <b-form-group
               description=""
@@ -41,7 +46,12 @@
               label-for="filterTag"
               :label-cols="3"
               :horizontal="true">
-            <b-form-input id="filterTag" type="text" required placeholder="Etiqueta del filtro" v-model="newFilter.tag"></b-form-input>
+            <b-form-input id="filterTag" type="text" placeholder="Etiqueta del filtro" v-model="newFilter.tag"></b-form-input>
+            <div v-if="validate">
+              <p class="alert-warning" v-if="!$v.name.minLength">Debe escribir al menos 4 caracteres.</p>
+              <p class="alert-warning" v-if="!$v.name.maxLength">No puede escribir más de 100 caracteres.</p>
+              <p class="alert-warning" v-if="!$v.name.required">No puede dejar este campo vacío</p>
+            </div>
           </b-form-group>
             <b-form-group
               label="Tipo de filtro"
@@ -51,7 +61,6 @@
             <b-form-radio-group id="filterType"
               :plain="true"
               v-model="newFilter.type"
-              required
               :options="[
                 {text: 'Unidad ', value: '1'},
                 {text: 'Subunidad ', value: '2'},
@@ -62,6 +71,11 @@
               checked="2"
               stacked>
             </b-form-radio-group>
+             <div v-if="validate">
+              <p class="alert-warning" v-if="!$v.name.minLength">Debe escribir al menos 4 caracteres.</p>
+              <p class="alert-warning" v-if="!$v.name.maxLength">No puede escribir más de 100 caracteres.</p>
+              <p class="alert-warning" v-if="!$v.name.required">No puede dejar este campo vacío</p>
+            </div>
           </b-form-group>
           <input type="submit" id="submit-create-form" hidden/>
       </b-form>
@@ -69,12 +83,11 @@
         <h2> El filtro #{{currentFilter.id}} se ha creado exitosamente </h2>
         <ul class="pb-0 pt-1 mb-0 m-2">
         <p> <strong> Nombre : </strong> {{currentFilter.name}}  </p>
-        <p>  <strong> Etiqueta : </strong>{{currentFilter.tag}}</p>
-        <p>  <strong> Tipo de Filtro:  </strong> {{currentFilter.filterType.id}} - {{currentFilter.filterType.name}}</p>
+        <p> <strong> Etiqueta : </strong>{{currentFilter.tag}}</p>
+        <p> <strong> Tipo de Filtro:  </strong> {{currentFilter.filterType.id}} - {{currentFilter.filterType.name}}</p>
         </ul>
       </div>
       <template slot="modal-footer">
-        
           <label for="submit-create-form"  class="btn rounded m-0 btn-success"
                   type="submit" variant="success" v-if="filterCreated === false" >Crear filtro  </label>
         <b-button type="cancel" v-if="filterCreated === false"  @click="newModal = false; closeModal()" > Cancel </b-button>
@@ -85,11 +98,13 @@
 
   <b-modal :title="'Editar filtro ' + currentFilter.id" class="modal-warning" v-model="editModal" size="lg" > 
       <div>
-        <div class="p-2">
-          <h5>Los siguientes servicios se verán afectados por el cambio:</h5>
-          <p>filter . getServicesRelated = [] / #2, #4, #6 </p>
-        </div>
-        <b-form @submit.prevent="submitEditedFilter($event)">
+       <div v-if="associatedServices.length > 0"> 
+        <h5>Los siguientes servicios se encuentran asociados a este filtro:</h5>
+        <ul>
+          <li v-for="service in associatedServices" :key="service.id"> #{{service.id}} - {{service.name}} </li>
+        </ul>
+      </div>
+        <b-form @submit.stop.prevent="submitEditedFilter($event)">
             <b-form-group
               description=""
               label="Nombre del Filtro"
@@ -185,7 +200,7 @@
   </b-modal>
 
 
-  <b-modal :title="'Eliminar filtro ' + currentFilter.id" class="modal-danger" v-model="deleteModal" @ok="closeModal(deleteModal)" size="lg" >
+  <b-modal :title="'Eliminar filtro ' + currentFilter.id" class="modal-danger" v-model="deleteModal" @ok="closeModal(deleteModal)" size="lg">
       <div v-if="associatedServices.length > 0"> 
         <h3>No se puede eliminar el filtro #{{currentFilter.id}}</h3>
         <h5>Los siguientes servicios se encuentran asociados a este filtro:</h5>
@@ -216,6 +231,8 @@
 
 <script>
 import store from '@/store'
+import { maxLength , minLength , required } from 'vuelidate/lib/validators'
+
 
 export default {
   name: 'FiltersTable',
@@ -281,9 +298,24 @@ export default {
         currentPage: 1,
         perPage: 10,
         totalRows: 0,
-        associatedServices: []
+        associatedServices: [],
+        name: '',
+        tag: '',
+        type: '',
+        validate: false
         
       }
+  },
+   validations: {
+    name: { required,
+            minLength: minLength(3),
+            maxLength: maxLength(100),
+    },
+    tag: {required,  
+      minLength: minLength(3),
+      maxLength: maxLength(50),
+    },
+    type: {required}
   },
   computed: {
         filterList(){
@@ -365,57 +397,80 @@ export default {
         this.editedFilter.tag = '';
         this.editedFilter.type = '';
         this.filterDeleted = false;
+        this.validate = false;
+
     },
     createFilter(evt){
       evt.preventDefault();
-      this.$store.dispatch('postNewFilter', this.newFilter).then(response => {
-        this.$store.dispatch('fetchFilters');
-        this.currentFilter = response;
-        this.filterCreated = true;
-      });
+      console.log('en construccion');
+      /*this.validate = true;
+      if (this.$v.name.minLength && this.$v.name.maxLength && this.$v.name.minLength) {
+        this.$store.dispatch('postNewFilter', this.newFilter).then(response => {
+          this.$store.dispatch('fetchFilters');
+          this.currentFilter = response;
+          this.filterCreated = true;
+        });
+      }*/
+      
     },
     submitEditedFilter(evt){
         if (this.changesWereMade === true ){
           this.$store.dispatch('editFilter', this.editedFilter).then(response => {
+            this.$store.dispatch('fetchFilters');
             this.filterEdited = true;
-             this.noChangesWereMade = false;
+            this.noChangesWereMade = false;
+            this.editFilterType = false;
+          this.editFilterName = false;
+          this.editFilterTag = false;
+                    
           });
           
         } else {
           this.noChangesWereMade = true;
         }
+        
     },
     confirmDelete(){
-     
       this.$store.dispatch('deleteFilter', this.currentFilter.id).then(()=>{
         this.$store.dispatch('fetchFilters');
         this.filterDeleted = true;
       });
+    },
+    setName(value) {
+      this.name = value
+      this.$v.name.$touch()
+    },
+    setTag(value) {
+      this.tag = value
+      this.$v.tag.$touch()
     }
   }
 }
 </script>
 
-<style scoped>
-.id-col{
-  width: 20px !important;
+<style>
+#filters-table .id-col{
+  width: 20px ;
 }
-.act-col{
-  width: 40px !important;
+#filters-table .act-col{
+  width: 40px ;
 }
-.badge-action{
-  margin-left: 2px;
-   color:black;
+#admin-filters .badge-action i{
+  color:white ;
 }
-.badge-danger{
-   color:black !important;
-
+#admin-filters .badge-action {
+  font-size: 0.75rem ;
+  color:white;
+  font:black;
 }
-.badge-action i{
-  font-size:1.2em !important;
-  color:black !important;
-}
-.badge-action:hover{
+#admin-filters .badge-action:hover{
   cursor:pointer;
+}
+
+#admin-filters .card-body {
+  text-align: center;
+}
+.pagination-nav {
+    display: inline-block;
 }
 </style>

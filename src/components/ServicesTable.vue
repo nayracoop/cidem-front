@@ -1,8 +1,8 @@
 <template>
-  <b-card >
+  <b-card id="admin-service">
     <div slot="header">
-	    <header><i class="fa fa-gear"></i> Administrar Servicios
-        <b-button @click="addService()" class="btn-success float-right"> Crear Nuevo Servicio </b-button>
+	    <header><i class="icon-layers mr-2 pt-1"></i> Administrar Servicios
+        <b-button @click="addService()" class="btn-success float-right"><i class="icon-plus mr-2"></i> Crear Nuevo Servicio </b-button>
       </header>
 	  </div>
      <b-row>
@@ -44,7 +44,7 @@
       </template>
       
     </b-table>
-    <nav>
+    <nav class="pagination-nav">
       <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Anterior" next-text="Siguiente"/>
     </nav>
     <b-modal ok-only :title="'Confirmar eliminacion'" class="modal-danger" v-model="deleteModal" size="lg" > 
@@ -133,15 +133,15 @@ export default {
         if (this.services.data[i].filters.length > 0){
           for (var n = 0; n < this.services.data[i].filters.length; n++){
               if (this.services.data[i].filters[n].filterType.id === 1){
-                  filter1.push(this.services.data[i].filters[n].name);
+                  filter1.push(this.services.data[i].filters[n].name + " ");
               } else if (this.services.data[i].filters[n].filterType.id === 2){
-                  filter2.push(this.services.data[i].filters[n].name);
+                  filter2.push(this.services.data[i].filters[n].name + " ");
               } else if (this.services.data[i].filters[n].filterType.id === 3){
-                  filter3.push(this.services.data[i].filters[n].name);
+                  filter3.push(this.services.data[i].filters[n].name + " ");
               } else if (this.services.data[i].filters[n].filterType.id === 4){
-                  filter4.push(this.services.data[i].filters[n].name);
+                  filter4.push(this.services.data[i].filters[n].name + " ");
               } else if (this.services.data[i].filters[n].filterType.id === 5){
-                  filter5.push(this.services.data[i].filters[n].name);
+                  filter5.push(this.services.data[i].filters[n].name + " ");
               }  
               filters.push(this.services.data[i].filters[n].id);
           }
@@ -150,11 +150,11 @@ export default {
           var service = {
               id: this.services.data[i].id,
               name: this.services.data[i].name,
-              unidad: filter1.toString(),
-              tipo: filter3.toString(),
-              sector: filter4.toString(),
-              destinatario: filter5.toString(),
-              filters:  filters.toString(),
+              unidad: filter1,
+              tipo: filter3,
+              sector: filter4,
+              destinatario: filter5,
+              filters:  filters,
               description:  this.services.data[i].description,
               nombre_contacto:  this.services.data[i].contact_name,
               tel:  this.services.data[i].phone,
@@ -212,25 +212,30 @@ export default {
 }
 </script>
 
-<style scoped>
-.id-col {
-  width: 2em !important;
+<style>
+#admin-service .id-col {
+  width: 2em ;
 }
-.name-col {
- width: 600px;
+
+#admin-service .act-col {
+  width: 50px ;
 }
-.act-col {
-  width: 50px !important;
+#admin-service .badge-action i{
+  color:white ;
 }
-.badge-action i{
-  color:white !important;
-}
-.badge-action {
-  font-size: 0.75rem !important;
-  color:white !important;
+#admin-service .badge-action {
+  font-size: 0.75rem ;
+  color:white;
   font:black;
 }
-.badge-action:hover{
+#admin-service .badge-action:hover{
   cursor:pointer;
+}
+#admin-service .card-body {
+  text-align: center;
+}
+
+#admin-service .pagination-nav{
+  display: inline-block;
 }
 </style>

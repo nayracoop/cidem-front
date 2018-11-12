@@ -241,9 +241,9 @@ const store = new Vuex.Store({
 			  });
 		},
 		editFilter(context, editedFilter){
+			console.log()
 			
-			return axios.post(`${SERVER_PATH}/filters`,  {
-				id: editedFilter.id,
+			return axios.put(`${SERVER_PATH}/filters/${editedFilter.id}`,  {
 				name: editedFilter.name,
 				tag: editedFilter.tag, 
 				filter_type_id: editedFilter.type,

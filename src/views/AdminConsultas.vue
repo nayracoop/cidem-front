@@ -4,7 +4,7 @@
 			<template class="row " slot="header">
 				<header class="d-flex justify-space-around">
 				<h1 class="col-4"> Consultas </h1>
-				<p class="mt-2 float-right" > {{newMessages.length}} consultas no leidas </p>
+				<p class="mt-2 float-right" > {{newMessages.length}} consulta<span v-if="newMessages.length != 1">s</span> no leída<span v-if="newMessages.length != 1">s</span> </p>
 				</header>
 			</template>
 			<b-card-body>	
@@ -30,14 +30,14 @@
 					</template>
 					<template slot="status" slot-scope="row">
 						<b-badge :class="statusBadge(row.item.status)">
-							<span v-if="row.item.status === 'unread' "><i class="fa fa-check"  ></i>No leida</span>  
-							<span v-if="row.item.status === 'read' "><i class="fa fa-check"></i>Leida</span>
+							<span v-if="row.item.status === 'unread' "><i class="fa fa-check"  ></i>No leída</span>  
+							<span v-if="row.item.status === 'read' "><i class="fa fa-check"></i>Leída</span>
 						</b-badge>
 					</template>
 					<template slot="accion" slot-scope="row">
 						
-						<b-button  class='toggle-button p-1 mb-1' v-if="row.item.status === 'unread'" @click="markRead(row.item.id)"><i class="fa fa-archive"  ></i> Marcar como leida</b-button>
-						<b-button   class='toggle-button p-1 mb-1' v-if="row.item.status !== 'unread'"   @click="markUnread(row.item.id)"><i class="fa fa-eye-slash"  ></i> Marcar como no leida</b-button>
+						<b-button  class='toggle-button p-1 mb-1' v-if="row.item.status === 'unread'" @click="markRead(row.item.id)"><i class="fa fa-archive"  ></i> Marcar como leída</b-button>
+						<b-button   class='toggle-button p-1 mb-1' v-if="row.item.status !== 'unread'"   @click="markUnread(row.item.id)"><i class="fa fa-eye-slash"  ></i> Marcar como no leída</b-button>
 
 						<b-button variant="primary" class="toggle-button p-1 mb-1'" v-if="row.item.status !== 'archivado'" @click="row.toggleDetails"> {{ row.detailsShowing ? 'Esconder' : 'Ver consulta'}} </b-button>
 

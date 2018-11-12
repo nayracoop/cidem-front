@@ -7,6 +7,9 @@ import BootstrapVue from 'bootstrap-vue'
 import store from './store'
 import axios from 'axios'
 import ModuleLibrary from '@coreui/vue';
+import Vuelidate from 'vuelidate'
+
+Vue.use(Vuelidate)
  
 Vue.use(ModuleLibrary);
 
