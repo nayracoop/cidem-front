@@ -120,7 +120,7 @@
                 </b-badge>
               </div>
               <div v-if="editFilterName === true" class="d-inline">
-                <b-form-input id="filterName" class="mt-2" type="text" required :placeholder="currentFilter.filtro" v-model="editedFilter.name"></b-form-input>
+                <b-form-input id="filterName" class="mt-2" type="text" :placeholder="currentFilter.filtro" v-model="editedFilter.name"></b-form-input>
                 <b-badge @click="editFilterName = false; editedFilter.name=currentFilter.filtro"  class='badge-pill badge-danger badge-action float-right m-1'>
                   <i class="fa fa-close"></i>
                 </b-badge>
@@ -148,7 +148,7 @@
                 </b-badge>
               </div>
                 <div v-if="editFilterTag === true" class="d-inline">
-                <b-form-input id="filterTag" type="text" required :placeholder="currentFilter.etiqueta" v-model="editedFilter.tag"></b-form-input>
+                <b-form-input id="filterTag" type="text" :placeholder="currentFilter.etiqueta" v-model="editedFilter.tag"></b-form-input>
                 <b-badge @click="editFilterTag = false; editedFilter.tag = currentFilter.etiqueta"  class='badge-pill badge-danger badge-action float-right m-1'>
                   <i class="fa fa-close"></i>
                 </b-badge>
@@ -187,7 +187,6 @@
                       ]"
                       :checked="editedFilter.type"
                       stacked
-                      required
                       v-model="editedFilter.type">
                   </b-form-radio-group>
                   <b-badge v-if="!$v.editedFilter.type.$invalid" @click="editFilterType = false; changesWereMade = true"  
@@ -443,7 +442,6 @@ export default {
     },
     validateCreateFilter(evt){
       evt.preventDefault();
-      console.log('validando created');
       this.$v.newFilter.$touch();
       if (this.$v.newFilter.$invalid) {
           this.creationDenied = true;
@@ -529,15 +527,14 @@ export default {
 .pagination-nav {
     display: inline-block;
 }
-.validation-error{
+p.validation-error{
   font-size: 0.75em;
   padding: 1px 6px;
-  margin-top: 6px;
+  margin-bottom: 3px;
   font-style: italic;
   color:red;
   opacity: 1 ;
   transition: all ease-out 400;
-
 }
 .hide {
   opacity: 0;

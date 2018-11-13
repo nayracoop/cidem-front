@@ -467,6 +467,10 @@ export default {
 		}
 	}, 
 	methods: {
+		validateEditedService(evt){
+			evt.preventDefault();
+
+		},
 		submitEditedService(evt){
 			evt.preventDefault();
 			this.loading = true;
