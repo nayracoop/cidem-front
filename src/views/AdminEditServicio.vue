@@ -323,7 +323,7 @@
 								
 								<b-button type="submit" variant="success" class="float-right m-1">
 									<span v-if="!loading"> Guardar cambios </span>
-									<i v-if="loading" class="fa fa-spinner fa-spin fa-2x fa-fw"></i>
+									<i v-if="loading" class="fa fa-spinner fa-spin fa-fw"></i>
 								</b-button>
 								<b-button type="cancel" class="float-right m-1" @click="cancel()">Cancelar </b-button>
 							</div>

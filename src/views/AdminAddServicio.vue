@@ -185,7 +185,10 @@
 												v-model="form.dir">
 								</b-form-input>				
 							</b-form-group>
-						<b-button class="submitbtn" type="submit" variant="success">Crear nuevo servicio</b-button>
+						<b-button class="submitbtn" type="submit" variant="success">
+							<span v-if="!loading"> Crear nuevo servicio </span>
+							<i v-if="loading" class="fa fa-spinner fa-spin fa-fw"></i>
+						</b-button>
 		
 						</div>
 					</b-form >
@@ -222,6 +225,7 @@ export default {
 	name: 'AdminAddServicio',
 	data() {
 		return {
+			loading: false,
 			form: {
 				name: '',
 				unidad: [],
