@@ -253,6 +253,8 @@
 								</b-badge>
 							</div>
 							<p class="validation-error" v-if="!$v.editedService.contacto.required">{{validationText.req}}</p>
+							<p class="validation-error" v-if="!$v.editedService.contacto.minLength">{{validationText.contacto.min}}</p>
+							<p class="validation-error" v-if="!$v.editedService.contacto.maxLength">{{validationText.contacto.max}}</p>
 						</b-form-group>
 
 						<b-form-group
