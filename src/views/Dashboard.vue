@@ -12,16 +12,18 @@
 		              <b-dropdown-item>Another action</b-dropdown-item>
 		              <b-dropdown-item>Something else here...</b-dropdown-item>
 		            </b-dropdown>
-		            <h4 class="mb-0">{{services.length}}</h4>
+		            <h4 class="mb-0"></h4>
 		            <p>Servicios Disponibles</p>
 		          </b-card-body>
 		          <card-line-chart-example chartId="card-chart-01" class="chart-wrapper px-3" style="height:70px;" :height="70"/>
 		        </b-card>
 		  </b-col>
 		</b-row>
+		<b-row>
+				<b-button type="button" variant="primary" class="float-right" @click="loadChartData()"><i v-if="!loadingData" class="fa fa-eye"></i><i v-if="loadingData" class="fa fa-spin fa-spinner" ></i> </b-button>
+		</b-row>
 
-
-		<b-row> 
+		<b-row v-if="dataLoaded === true"> 
 			<b-card class="col-10 offset-1 px-0">
 				<template slot="header" class="m-0">Cantidad de servicios ofrecidos por tipo de filtro 	          
 					<b-button type="button" variant="primary" class="float-right"><i class="fa fa-print"></i></b-button>
@@ -73,27 +75,11 @@ export default{
 					chU: {
 						labels: [],
 						data: []
-					}
+					},
+					dataLoaded : false,
+					loadingData: false,
 		}
 	},
-	beforeRouteEnter(to, from, next){
-			store.dispatch('changeQuerySearch', null);
-      store.dispatch('changeQueryFilters', []);
-			store.dispatch('fetchFullServices').then(()=>{
-				store.dispatch('fetchFilters').then(()=>{
-					next();
-				});
-			});
-		},
-		beforeRouteUpdate(to, from, next){
-			store.dispatch('changeQuerySearch', null);
-      store.dispatch('changeQueryFilters', []);
-			store.dispatch('fetchFullServices').then(()=>{
-				store.dispatch('fetchFilters').then(()=>{
-					next();
-				});
-		});
-		},
 	computed: {
 	 services () {
       return this.$store.state.fullServices.data
@@ -146,15 +132,25 @@ export default{
 	      // do nothing
 			},
 			loadChartData(){
-							var that = this;
-							for (var i = 0 ; i < this.filtersList.length; i++){
-								if (this.filtersList[i].filterType.id === 1){
-									chU.labels.push(that.filtersList[i].name);
-									store.dispatch('getAssociatedServices', this.filtersList[i].id).then(response => {
-										that.chU.data.push(response.length);
-									});
-								}
-							}
+							this.loadingData= true;
+							store.dispatch('changeQuerySearch', null);
+							store.dispatch('changeQueryFilters', []);
+							store.dispatch('fetchFullServices').then(()=>{
+								store.dispatch('fetchFilters').then(()=>{
+									var that = this;
+									for (var i = 0 ; i < this.filtersList.length; i++){
+										if (this.filtersList[i].filterType.id === 1){
+											this.chU.labels.push(that.filtersList[i].name);
+											store.dispatch('getAssociatedServices', this.filtersList[i].id).then(response => {
+												that.chU.data.push(response.length);
+												this.loadingData = false;
+												this.dataLoaded = true;
+											});
+										}
+									}
+								});
+							});
+						
 
 			}
 	}
