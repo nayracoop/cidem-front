@@ -19,9 +19,9 @@
 											placeholder="Nombre del servicio"
 											v-model="form.name">
 								</b-form-input>
-								<p class="validation-error" v-if="!$v.form.name.minLength">{{validationText.name.min}}</p>
-          						<p class="validation-error" v-if="!$v.form.name.maxLength">{{validationText.name.max}}</p>
-								<p class="validation-error" v-if="!$v.form.name.required">{{validationText.req}}</p>
+								<p class="validation-error" v-show="!$v.form.name.minLength">{{validationText.name.min}}</p>
+          						<p class="validation-error" v-show="!$v.form.name.maxLength">{{validationText.name.max}}</p>
+								<p class="validation-error" v-show="!$v.form.name.required">{{validationText.req}}</p>
 							</b-form-group>
 						
 							<b-form-group label="Unidad"
@@ -39,7 +39,7 @@
 											:key="filter.id" 
 											:value="filter.id">{{filter.name}}</option>
 								</b-form-select>
-								<p class="validation-error" v-if="!$v.form.unidad.required">{{validationText.req}}</p>
+								<p class="validation-error" v-show="!$v.form.unidad.required">{{validationText.req}}</p>
 							</b-form-group>
 
 							<b-form-group label="Subunidad"
@@ -72,7 +72,7 @@
 											:key="filter.id" 
 											:value="filter.id">{{filter.name}}</option>
 								</b-form-select>
-								<p class="validation-error" v-if="!$v.form.tipo.required">{{validationText.req}}</p>
+								<p class="validation-error" v-show="!$v.form.tipo.required">{{validationText.req}}</p>
 							</b-form-group>
 
 							<b-form-group label="Sector al que esta destinado"
@@ -89,7 +89,7 @@
 											:key="filter.id" 
 											:value="filter.id">{{filter.name}}</option>
 								</b-form-select>
-								<p class="validation-error" v-if="!$v.form.sector.required">{{validationText.req}}</p>
+								<p class="validation-error" v-show="!$v.form.sector.required">{{validationText.req}}</p>
 							</b-form-group>
 
 							<b-form-group label="Destinatario"
@@ -106,7 +106,7 @@
 											:key="filter.id" 
 											:value="filter.id">{{filter.name}}</option>
 								</b-form-select>
-								<p class="validation-error" v-if="!$v.form.destinatario.required">{{validationText.req}}</p>		
+								<p class="validation-error" v-show="!$v.form.destinatario.required">{{validationText.req}}</p>		
 							</b-form-group>
 
 							<b-form-group label="Descripción"
@@ -120,9 +120,9 @@
 												placeholder="Escribe descipción del servicio"
 												v-model="form.description">
 								</b-form-textarea>
-								<p class="validation-error" v-if="!$v.form.description.required">{{validationText.req}}</p>
-								<p class="validation-error" v-if="!$v.form.description.minLength">{{validationText.descripcion.min}}</p>
-          						<p class="validation-error" v-if="!$v.form.description.maxLength">{{validationText.descripcion.max}}</p>
+								<p class="validation-error" v-show="!$v.form.description.required">{{validationText.req}}</p>
+								<p class="validation-error" v-show="!$v.form.description.minLength">{{validationText.description.min}}</p>
+          						<p class="validation-error" v-show="!$v.form.description.maxLength">{{validationText.description.max}}</p>
 							</b-form-group>
 						</div>
 						<div class="col-5">
@@ -139,9 +139,9 @@
 											placeholder="Ingresa el nombre de la persona de contacto"
 											v-model="form.contacto">
 								</b-form-input>
-								<p class="validation-error" v-if="!$v.form.contacto.required">{{validationText.req}}</p>
-								<p class="validation-error" v-if="!$v.form.contacto.minLength">{{validationText.contacto.min}}</p>
-          						<p class="validation-error" v-if="!$v.form.contacto.maxLength">{{validationText.contacto.max}}</p>
+								<p class="validation-error" v-show="!$v.form.contacto.required">{{validationText.req}}</p>
+								<p class="validation-error" v-show="!$v.form.contacto.minLength">{{validationText.contacto.min}}</p>
+          						<p class="validation-error" v-show="!$v.form.contacto.maxLength">{{validationText.contacto.max}}</p>
 							</b-form-group>
 
 							<b-form-group label="Email"
@@ -156,8 +156,8 @@
 											autocomplete="email"
 											v-model="form.email">
 								</b-form-input>
-								<p class="validation-error" v-if="!$v.form.email.required">{{validationText.req}}</p>
-								<p class="validation-error" v-if="!$v.form.email.email">{{validationText.email}}</p>
+								<p class="validation-error" v-show="!$v.form.email.required">{{validationText.req}}</p>
+								<p class="validation-error" v-show="!$v.form.email.email">{{validationText.email}}</p>
 							</b-form-group>
 
 							
@@ -172,8 +172,7 @@
 												autocomplete="website"
 												v-model="form.website">
 									</b-form-input>
-									<p class="validation-error" v-if="!$v.form.website.required">{{validationText.req}}</p>
-									<p class="validation-error" v-if="!$v.form.website.url">{{validationText.url}}</p>
+									<p class="validation-error" v-show="!$v.form.website.required">{{validationText.req}}</p>
 							</b-form-group>
 							
 							<b-form-group label="Telefono"
@@ -187,7 +186,7 @@
 												placeholder="Ingresa el telefono de contacto"
 												v-model="form.tel">
 									</b-form-input>
-									<p class="validation-error" v-if="!$v.form.tel.required">{{validationText.req}}</p>
+									<p class="validation-error" v-show="!$v.form.tel.required">{{validationText.req}}</p>
 							</b-form-group>
 
 							<b-form-group label="Direccion"
@@ -201,9 +200,11 @@
 									placeholder="Ingresa la direccion de contacto"
 									v-model="form.dir">
 								</b-form-input>
-								<p class="validation-error" v-if="!$v.form.dir.required">{{validationText.req}}</p>			
-								<p class="validation-error" v-if="!$v.form.dir.minLength">{{validationText.dir.min}}</p>
-          						<p class="validation-error" v-if="!$v.form.dir.maxLength">{{validationText.dir.max}}</p>
+								<div>
+									<p class="validation-error" v-show="!$v.form.dir.required">{{validationText.req}}</p>			
+									<p class="validation-error" v-show="!$v.form.dir.minLength">{{validationText.dir.min}}</p>
+									<p class="validation-error" v-show="!$v.form.dir.maxLength">{{validationText.dir.max}}</p>
+								</div>
 							</b-form-group>
 						<b-button class="submitbtn" type="submit" variant="success" :disabled="$v.form.$invalid">
 							<span v-if="!loading"> Crear nuevo servicio </span>
@@ -285,7 +286,7 @@ export default {
 				email: "Ingrese un email de contacto válido",
 				url: "Ingrese una web de contacto válida"
 			},
-			invalidForm: false;
+			invalidForm: false,
 		}
 	},
 	validations:{
@@ -311,7 +312,7 @@ export default {
 				minLength: minLength(10),
 				maxLength: maxLength(100),
 			},
-			website: {required, url},
+			website: {required},
 			description: {
 				minLength: minLength(10),
       			maxLength: maxLength(300),
