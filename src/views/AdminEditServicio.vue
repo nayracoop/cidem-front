@@ -6,7 +6,7 @@
 					<div slot="header">
 						<strong>Ver / Editar Servicio </strong>
 					</div>
-					<b-form @submit="submitEditedService($event)" @enter="$event.preventDefault()">
+					<b-form @submit="validateEditedService($event)" @enter="$event.preventDefault()">
 						<b-form-group label="Nombre del servicio"
 								description=""
 								label-for="sName"
@@ -29,11 +29,14 @@
 										class='badge-pill badge-danger badge-action float-right m-1'>
 									<i class="fa fa-close"></i>
 								</b-badge>
-								<b-badge @click="editServiceName = false; editedService.name = form.name"  
+								<b-badge @click="editServiceName = false; editedService.name = form.name;"  
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>
 							</div>
+							<p class="validation-error" v-if="!$v.editedService.name.minLength">{{validationText.name.min}}</p>
+							<p class="validation-error" v-if="!$v.editedService.name.maxLength">{{validationText.name.max}}</p>
+							<p class="validation-error" v-if="!$v.editedService.name.required">{{validationText.req}}</p>
 						</b-form-group>
 
 						<b-form-group label="Unidad"
@@ -66,6 +69,7 @@
 									<i class="fa fa-check"></i>
 								</b-badge>
 							</div>
+							<p class="validation-error" v-if="!$v.editedService.unidad.required">{{validationText.req}}</p>
 						</b-form-group>
 
 						<b-form-group label="Subunidad"
@@ -126,6 +130,7 @@
 									<i class="fa fa-check"></i>
 								</b-badge>
 							</div>
+							<p class="validation-error" v-if="!$v.editedService.tipo.required">{{validationText.req}}</p>
 						</b-form-group>
 
 						<b-form-group
@@ -158,6 +163,7 @@
 									<i class="fa fa-check"></i>
 								</b-badge>
 							</div>
+							<p class="validation-error" v-if="!$v.editedService.sector.required">{{validationText.req}}</p>
 						</b-form-group>
 
 						<b-form-group
@@ -189,6 +195,7 @@
 									<i class="fa fa-check"></i>
 								</b-badge>
 							</div>
+							<p class="validation-error" v-if="!$v.editedService.destinatario.required">{{validationText.req}}</p>
 						</b-form-group>
 
 						<b-form-group
@@ -216,6 +223,7 @@
 									<i class="fa fa-check"></i>
 								</b-badge>
 							</div>
+							<p class="validation-error" v-if="!$v.editedService.description.required">{{validationText.req}}</p>
 						</b-form-group>
 					
 						<b-form-group
@@ -243,8 +251,10 @@
 										class='badge-pill badge-success badge-action float-right m-1'>
 									<i class="fa fa-check"></i>
 								</b-badge>
-							
 							</div>
+							<p class="validation-error" v-if="!$v.editedService.contacto.required">{{validationText.req}}</p>
+							<p class="validation-error" v-if="!$v.editedService.contacto.minLength">{{validationText.contacto.min}}</p>
+							<p class="validation-error" v-if="!$v.editedService.contacto.maxLength">{{validationText.contacto.max}}</p>
 						</b-form-group>
 
 						<b-form-group
@@ -269,8 +279,34 @@
 									<i class="fa fa-check"></i>
 								</b-badge>
 							</div>
+							<p class="validation-error" v-if="!$v.editedService.email.required">{{validationText.req}}</p>
+							<p class="validation-error" v-if="!$v.editedService.email.email">{{validationText.email}}</p>
 						</b-form-group>
 				
+							<b-form-group
+									description=""
+									label="Web de contacto"
+									label-for="sWeb"
+									:label-cols="3"
+									:horizontal="true">
+								<div v-if="editServiceWeb === false" class="mt-2">
+									<p  class="d-inline">{{editedService.web}} </p> 
+									<b-badge @click="editServiceWeb = true"  class='badge-pill badge-warning badge-action  d-inline'>
+										<i class="fa fa-pencil"></i>
+									</b-badge>
+								</div>
+								<div v-show="editServiceWeb === true">
+									<b-form-input id="sWeb"  placeholder="Ingrese web de contacto" v-model="form.web"></b-form-input>
+									<b-badge @click="editServiceWeb = false; form.web=''"  class='badge-pill badge-danger badge-action float-right m-1'>
+										<i class="fa fa-close"></i>
+									</b-badge>
+									<b-badge @click="editServiceWeb = false; editedService.web = form.web"  
+											class='badge-pill badge-success badge-action float-right m-1'>
+										<i class="fa fa-check"></i>
+									</b-badge>
+								</div>
+								<p class="validation-error" v-if="!$v.editedService.web.required">{{validationText.req}}</p>
+							</b-form-group>
 					
 							<b-form-group label="Telefono de contacto"
 									description=""
@@ -293,6 +329,7 @@
 											<i class="fa fa-check"></i>
 									</b-badge>
 								</div>
+								<p class="validation-error" v-if="!$v.editedService.tel.required">{{validationText.req}}</p>
 							</b-form-group>
 
 							<b-form-group label="Direccion de contacto"
@@ -317,18 +354,21 @@
 										<i class="fa fa-check"></i>
 									</b-badge>
 								</div>
+								<p class="validation-error" v-if="!$v.editedService.dir.required">{{validationText.req}}</p>
+								<p class="validation-error" v-if="!$v.editedService.dir.minLength">{{validationText.dir.min}}</p>
+								<p class="validation-error" v-if="!$v.editedService.dir.maxLength">{{validationText.dir.max}}</p>
+
 							</b-form-group>
+							<p v-if="invalidForm" class="alert-danger">No pueden guardarse los cambios </p>
 							<p v-if="loaded" class="alert-success">El servicio se ha editado exitosamente </p>
 							<div class="clearfix">
-								
-								<b-button type="submit" variant="success" class="float-right m-1">
-									<span v-if="!loading"> Guardar cambios </span>
-									<i v-if="loading" class="fa fa-spinner fa-spin fa-fw"></i>
-								</b-button>
-								<b-button type="cancel" class="float-right m-1" @click="cancel()">Cancelar </b-button>
+							<b-button type="submit" variant="success" class="float-right m-1"  :disabled="$v.editedService.$invalid">
+								<span v-if="!loading"> Guardar cambios </span>
+								<i v-if="loading" class="fa fa-spinner fa-spin fa-fw"></i>
+							</b-button>
+							<b-button type="cancel" class="float-right m-1" @click="cancel()">Cancelar </b-button>
 							</div>
 						</b-form>
-
 	        	</b-card>
 	      	</b-col>
 	    </b-row>
@@ -383,12 +423,35 @@ export default {
 			editServiceDestinatario: false,
 			editServiceDescripcion: false,
 			editServiceContacto: false,
+			editServiceWeb: false,
 			editServiceEmail: false,
 			editServiceTelefono: false,
 			editServiceDireccion: false,
 			editedFields: [],
 			loading: false,
-			loaded: false
+			loaded: false,
+			validationText:{
+				req: "Este campo no puede quedar vacío",
+				name: {
+					min: "El nombre del servicio debe tener por lo menos 5 caracteres",
+					max: "El nombre del servicio debe tener como máximo 150 caracteres", 
+				},
+				contacto: {
+					min: "El nombre de contacto debe tener por lo menos 4 caracteres",
+					max: "El nombre de contacto debe tener como máximo 60 caracteres", 
+				},
+				dir: {
+					min: "La dirección debe tener por lo menos 10 caracteres",
+					max: "La dirección debe tener como máximo 100 caracteres", 
+				},
+				description: {
+					min: "La descripción debe tener por lo menos 10 caracteres",
+					max: "La descripción debe tener como máximo 300 caracteres", 
+				},
+				email: "Ingrese un email de contacto válido",
+				url: "Ingrese una web de contacto válida"
+			},
+			invalidForm: false,
 		}
 	},
 	beforeRouteEnter (to, from, next) {
@@ -401,7 +464,36 @@ export default {
 			next();
 		});
 	},
-	mounted(){
+	validations:{
+		editedService: {
+			name: {
+				minLength: minLength(5),
+       			maxLength: maxLength(150),
+				required
+			},
+			unidad: {required},
+			tipo: {required},
+			sector: {required},
+			destinatario: {required},
+			contacto: {
+				required,
+				minLength: minLength(4),
+       			maxLength: maxLength(60),
+			},
+			email: { required , email },
+			tel: {required},
+			dir: {
+				required,  
+				minLength: minLength(10),
+				maxLength: maxLength(100),
+			},
+			web: {required},
+			description: {
+				minLength: minLength(10),
+      			maxLength: maxLength(300),
+				required
+			},
+		},
 	},
 	computed:{
 		filterTypes(){
@@ -467,19 +559,34 @@ export default {
 		}
 	}, 
 	methods: {
+		validateEditedService(evt){
+			evt.preventDefault();
+			this.$v.editedService.$touch();
+			if (this.$v.editedService.$invalid) {
+				console.log('ERROR');
+				this.invalidForm = true;
+				setTimeout(() => {
+					this.invalidForm = false;
+				}, 2500);			
+			} else {
+				this.invalidForm = false;
+				this.loading = true;
+				this.submitEditedService(evt);
+			}
+
+		},
 		submitEditedService(evt){
 			evt.preventDefault();
-			this.loading = true;
 			var newFilters = this.form.tipo.concat(this.form.sector).concat(this.form.destinatario);
 			newFilters.push(this.form.unidad);
 			newFilters.push(this.form.subunidad);
 			this.editedService.newFilters = newFilters;
-
 			var oldFilters = this.$store.getters.serviceFilters[2].concat(this.$store.getters.serviceFilters[3])
 						.concat(this.$store.getters.serviceFilters[4])
 						.concat(this.$store.getters.serviceFilters[0])
 						.concat(this.$store.getters.serviceFilters[1]);
 			this.editedService.oldFilters = oldFilters;
+
 			this.$store.dispatch('editService',this.editedService).then(response => {
 				this.loaded = true;
 				this.loading = false;

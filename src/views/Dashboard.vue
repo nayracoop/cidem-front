@@ -75,9 +75,25 @@ export default{
 						data: []
 					}
 		}
-		
 	},
-
+	beforeRouteEnter(to, from, next){
+			store.dispatch('changeQuerySearch', null);
+      store.dispatch('changeQueryFilters', []);
+			store.dispatch('fetchFullServices').then(()=>{
+				store.dispatch('fetchFilters').then(()=>{
+					next();
+				});
+			});
+		},
+		beforeRouteUpdate(to, from, next){
+			store.dispatch('changeQuerySearch', null);
+      store.dispatch('changeQueryFilters', []);
+			store.dispatch('fetchFullServices').then(()=>{
+				store.dispatch('fetchFilters').then(()=>{
+					next();
+				});
+		});
+		},
 	computed: {
 	 services () {
       return this.$store.state.fullServices.data

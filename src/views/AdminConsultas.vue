@@ -66,6 +66,16 @@ export default {
 			]
 		}
 	},
+	beforeRouteEnter(to,from,next){
+		store.dispatch('fetchMessages').then(() => {
+          next();
+        }); 
+	},
+	beforeRouteUpdate(to,from,next){
+		store.dispatch('fetchMessages').then(() => {
+          next();
+        }); 
+	},
 	computed: {
 		messages() {
 			return this.$store.state.messages;
