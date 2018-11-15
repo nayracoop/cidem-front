@@ -7,7 +7,7 @@ export default {
     {
       name: 'Administrar Servicios',
       url: '/admin/servicios',
-      icon: 'icon-layers',
+      icon: 'icon-layers'
     },
     {
       name: 'Crear Servicio',

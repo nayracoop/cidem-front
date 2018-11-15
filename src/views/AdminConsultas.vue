@@ -24,7 +24,7 @@
 					</template>
 					<template slot="row-details" slot-scope="row">
 						<b-card class="mx-5">
-							<p>  {{row.item.fecha}} - &lt; {{row.item.email}} &gt; </p> 
+							<p> {{row.item.display_time}} {{row.item.display_date}} - &lt; {{row.item.email}} &gt; </p> 
 							<p> {{row.item.message}} </p>	
 						</b-card>
 					</template>
@@ -95,14 +95,16 @@ export default {
 			if (this.messages.length > 0){
          		 for (var i = (this.messages.length - 1); i > 0 ; i--){
 					  var message = {
-						  id: this.messages[i].id,
-						  name: this.messages[i].name,
-						  institucion: this.messages[i].institution,
-						  email: this.messages[i].email,
-						  message: this.messages[i].description,
-						  status: this.messages[i].status,
-						  _showDetails: false,
-							fecha: today,
+						id: this.messages[i].id,
+						name: this.messages[i].name,
+						institucion: this.messages[i].institution,
+						email: this.messages[i].email,
+						message: this.messages[i].description,
+						status: this.messages[i].status,
+						_showDetails: false,
+						display_date: this.messages[i].display_date,
+						display_time: this.messages[i].display_time,
+						fecha:  this.messages[i].display_date + ' ' +  this.messages[i].display_time
 					  }
 					  rowsArray.push(message);
 
