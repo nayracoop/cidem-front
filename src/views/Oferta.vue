@@ -1,10 +1,10 @@
 <template>
 	<main role="main">
 		<div class="row">
-			<div class="col-11 mainback">
+			<div class="col-6 mainback">
 				<button @click="goBack"><i class="fas fa-caret-left"></i> volver </button>
 			</div>
-			<div class="col-1">	
+			<div class="col-6">	
 				<span class="printbtn d-none d-md-block"><button @click="print()"><i class="fas fa-print"></i></button></span>
 			</div>	
 		</div>
@@ -74,8 +74,18 @@ a:hover{
 }
 
 .printbtn{
-	margin:auto;
-	float:right
+	text-align:right;
+}
+
+.printbtn button{
+	cursor:pointer;
+	background:#fff;
+	border:none;
+	border-bottom:solid #17aae4;
+}
+
+.mainback{
+	padding-bottom:20px;
 }
 
 .mainback button{

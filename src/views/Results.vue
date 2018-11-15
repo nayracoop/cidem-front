@@ -2,7 +2,7 @@
 	<main role="main">
 		<div class="d-inline">
 			<filters-mobile></filters-mobile>
-			<filters-selected class="col-12 m-2"></filters-selected>
+			<filters-selected class="col-12"></filters-selected>
 		</div>
 		<div class="row listado">
 			<the-sidebar class="d-print-none" id="the-sidebar"></the-sidebar>
@@ -164,14 +164,15 @@ export default {
 <style scoped>
 
 main{
-    margin:0;
+    margin:20px auto;
 }
 
-#the-sidebar {
-	padding: 20px;
+.listado{
+	padding-top:20px;
 }
- .btnnobtn button {
-    border: none;
+
+.btnnobtn button {
+  	border: none;
     background: none;    
     cursor: pointer;
     text-transform: uppercase;
@@ -181,8 +182,20 @@ main{
 	text-align:center;
 }
 
+#the-sidebar{
+	padding-left:30px;
+}
+
 .printbtn{
 	float:right;
+}
+
+.printbtn button{
+	cursor:pointer;
+	background:#fff;
+	border:none;
+	border-bottom:solid #17aae4;
+
 }
 
 .navfile a,
@@ -249,15 +262,17 @@ main{
     margin-bottom: 30px;
 }
 
-.
 
-@media screen and (max-width: 576px){
+
+@media screen and (max-width: 767px){
 
 	.box dl dd,
 	.box dl dt{
 		display:inline-block
 	}
-
+	.listado{
+		padding-top:0px;
+	}
 }
 @media print {
 	#list {

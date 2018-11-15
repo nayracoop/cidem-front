@@ -29,7 +29,7 @@
 
 		<div class="input-group-append" v-if="this.$route.name !== 'Lander'">
 			<button class="btn searcherbtn rounded-0" type="button"  @click="submitSearch">
-			<i class="d-block d-lg-none fa fa-search lupa"></i><span class="d-none d-lg-block">Buscar</span></button>
+			<i class="d-none d-sm-block d-lg-none fa fa-search lupa"></i><span class="d-block d-sm-none d-lg-block">Buscar</span></button>
 		</div>
 		<div class="d-none d-md-block input-group-append" v-if="this.$route.name == 'Lander'">
 			<button class="btn searcherbtn rounded-0" type="button"  @click="submitSearch">
@@ -193,9 +193,7 @@
 
 
 @media screen and (max-width:576px){
-	.form-control{
-		font-size:0.9em;
-	}
+
 }
 
 

@@ -216,6 +216,10 @@ main {
 	margin:20px auto;
 }
 
+.mainback{
+	padding-bottom:20px;
+}
+
 .mainback button{
     border:none;
     background-color:#ffffff;
@@ -232,10 +236,10 @@ main {
 
 .OFp{
     margin-top: 20px;
-    padding-bottom:20px;
+    padding-bottom:60px;
     font-size: 1.25em;
     color: #4a4a4a;
-    text-align: justify;
+    
 }
 
 .references h3{
@@ -243,7 +247,7 @@ main {
 }
 
 .references p{
-    text-align: justify;
+    color:#4a4a4a;
 }
 
 .servicesRow{
@@ -281,9 +285,6 @@ main {
  	.OFicons i {
  		font-size: 1.5em;
  	}
-    .servicesRow{
-        margin-bottom: 10px;
-    }
 
     .OFtipos{
         margin-top: 20px;
@@ -296,22 +297,31 @@ main {
 
 @media screen and (max-width: 576px) {
 	
-	.OFtipos h3,
-	.OFsub h2,
 	.OFtitle h1{
-		font-size: 1.25em;
+		font-size: 1.625em;
+	}
+
+	.OFsub h2{
+		font-size:1.5em;
+	}
+
+	.OFtipos h3{
+		font-size:1.25em;
 	}
 
 	.mainback button,
 	.OFtipos p,
 	.OFp{
-		font-size: 0.9em;
+		font-size: 1em;
+	}
+
+	.OFtipos p{
+		text-align:center;
 	}
 
 	.mainback{
-		margin-bottom:20px;
+		margin-bottom:10px;
 	}
-
 }
 
 </style>

@@ -238,15 +238,23 @@ $(function () {
 
 @media screen and (max-width:576px){
   .titleLander h1{
-      margin-top: 0.5em;
-      font-size: 1.25em;
+      margin-bottom: 1em;
+      font-size: 1.625em;
+      text-align:left;
   }
   .subLander p{
-      margin:5px auto;
-      text-align:justify;
-      font-size: 0.9em;
+      margin-bottom:1em;
+      text-align:left;
+      font-size: 1em;
       font-family:'DistefanoSlab-Regular','DistefanoSlab';
+      margin-top:0px;
   }
+
+
+  .dest{
+      margin-top:70px;
+ 	  margin-bottom:20px;
+	}
 
   .dest h5{
       font-size: 1.125em;
@@ -265,5 +273,6 @@ $(function () {
       top:0;
       border-bottom:solid white;
   }
+
 }
 </style>

@@ -105,6 +105,10 @@ main {
 	margin:20px auto;
 }
 
+.mainback{
+	padding-bottom:20px;
+}
+
 .mainback button{
     border:none;
     background-color:#ffffff;
@@ -175,20 +179,23 @@ margin-right: 10px;
 @media screen and (max-width: 576px) {
 	
 	
-	.titleconsult h1,	
+	.titleconsult h1{
+		font-size: 1.625em;
+	}
+
 	.alert h3{
-		font-size: 1.25em;
+		font-size:1.5em;
 	}
 
 	.mainback{
-		margin-bottom:20px;
+		margin-bottom:10px;
 	}
 
 	.contactdata p,
 	.contactdata label,
 	.titleconsult h2,
 	.mainback button{
-		font-size:0.9em;
+		font-size:1em;
 	}
 
 	.contactdata textarea{
