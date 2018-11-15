@@ -92,9 +92,16 @@
 		},
 		methods: {
 		    submitSearch: function () {
-		      	this.$store.dispatch('changeQuerySearch', this.searchInput);
-		      	this.$store.dispatch('fetchServices');
-		  	 	router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});   
+				var searchChar = this.searchInput.split("");
+				var validation = searchChar.find(function(element) {
+					return element != " ";
+				});
+				if (validation != undefined) {
+					this.$store.dispatch('changeQuerySearch', this.searchInput);
+					this.$store.dispatch('fetchServices');
+					router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});   
+				}
+		      
 		    },
 		    filterclick: function(filter, e){
 		    	var selected = this.searchQueryFilters;
