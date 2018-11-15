@@ -9,7 +9,6 @@ import LogIn from '@/views/LogIn'
 import Oferta from '@/views/Oferta'
 import Contact from '@/views/Contact'
 import Referencias from '@/views/Referencias'
-import Dashboard from '@/views/Dashboard'
 import DefaultContainer from '@/containers/DefaultContainer'
 import DefaultAdminContainer from '@/containers/DefaultAdminContainer'
 import AdminServicios from '@/views/AdminServicios'
@@ -55,7 +54,7 @@ export default new Router({
     {
       path: '/admin',
       name: 'Admin',
-      redirect: '/admin/dashboard',
+      redirect: '/admin/servicios',
       component: DefaultAdminContainer,
       meta: {
         requiresAuth: true,
@@ -70,11 +69,6 @@ export default new Router({
         }
       },
       children: [
-        {
-          path: '/admin/dashboard',
-          name: 'Dashboard' ,
-          component: Dashboard
-        },
         {
           path: '/admin/servicios',
           name: 'Servicios' ,
