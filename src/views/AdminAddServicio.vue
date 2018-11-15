@@ -266,7 +266,7 @@ export default {
 			createdService: {},
 			filters: [],
 			validationText:{
-				req: "Este campo no puede quedar vacío",
+				req: "Este campo es obligatorio",
 				name: {
 					min: "El nombre del servicio debe tener por lo menos 5 caracteres",
 					max: "El nombre del servicio debe tener como máximo 150 caracteres", 

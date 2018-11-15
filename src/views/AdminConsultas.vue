@@ -35,13 +35,10 @@
 						</b-badge>
 					</template>
 					<template slot="accion" slot-scope="row">
-						
+						<b-button variant="primary" class="toggle-button p-1 mb-1" v-if="row.item.status !== 'archivado'" @click="row.toggleDetails"> {{ row.detailsShowing ? 'Esconder' : 'Ver consulta'}} </b-button>
 						<b-button  class='toggle-button p-1 mb-1' v-if="row.item.status === 'unread'" @click="markRead(row.item.id)"><i class="fa fa-archive"  ></i> Marcar como leída</b-button>
 						<b-button   class='toggle-button p-1 mb-1' v-if="row.item.status !== 'unread'"   @click="markUnread(row.item.id)"><i class="fa fa-eye-slash"  ></i> Marcar como no leída</b-button>
-
-						<b-button variant="primary" class="toggle-button p-1 mb-1'" v-if="row.item.status !== 'archivado'" @click="row.toggleDetails"> {{ row.detailsShowing ? 'Esconder' : 'Ver consulta'}} </b-button>
-
- 					</template>					
+					</template>					
 				</b-table>			
 			</b-card-body>
 		</b-card>
@@ -50,7 +47,7 @@
 </template>
 
 <script>
-
+import store from '../store'
 
 export default {
 	name: 'AdminConsultas',
