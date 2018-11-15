@@ -1,6 +1,6 @@
 <template>			
 	<div class="col-12 d-block d-md-none">
-		<button type="button" class="btn rounded-0 filterbtn mx-auto" @click="show = true"><i class="fas fa-sliders-h"></i> Filtros</button>
+		<button type="button" class="btn rounded-0 filterbtn" @click="show = true"><i class="fas fa-sliders-h"></i> Filtros</button>
 		<div class="hiddenfilters" :class='{showFilters:show}'>
 			<div class="Zbuttons align-items-center">	
 				<h2 class="mt-2">Filtros</h2>
@@ -96,7 +96,8 @@
 	background-color:#fff;
 	font-weight: 700;
 	font-size:1.25em;
-	margin:auto;
+	margin:20px auto;
+	padding:0;
 }
 
 .hiddenfilters{
@@ -157,7 +158,7 @@
 }
 
 .filters{
-	margin-left:60px;
+	margin-left:70px;
 }
 
 .filters .filter-type:after{
@@ -176,14 +177,14 @@
 #filtersid {
 	padding: 20px;
 	margin: auto;
+	margin-left:70px;
 }
 #filtersid dt{
 	width: 100%;
-	text-align: center;
 	margin: auto;
 	margin-bottom: 10px;
 }
 #filtersid dd{
-	margin: 5px 20px;
+	padding:0;
 }
 </style>					

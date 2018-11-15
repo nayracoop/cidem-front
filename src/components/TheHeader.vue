@@ -1,10 +1,10 @@
 <template>
 
   <div class="row align-items-center header justify-content-between" :class="{divide:this.$route.name !== 'Lander'}">
-    <div class="col-3 col-sm-2">  
+    <div class="col-6 col-sm-3 col-md-2 order-0">  
          <img @click="goHome" src="../assets/img/logountref.svg" alt="logo-untref">
     </div>   
-    <div class="d-none col-md-6 col-lg-6" v-if="this.$route.name !== 'Lander'">
+    <div class="d-none col-md-6" v-if="this.$route.name !== 'Lander'">
       <div class="input-group">
         <input 
           type="text" 
@@ -19,9 +19,9 @@
         </div>
       </div>                  
     </div>
-    <search-bar class="col-6 col-sm-8" v-if="this.$route.name !== 'Lander'"></search-bar>
+    <search-bar class="col-12 col-sm-7 col-md-8 order-sm-1 order-2 sb" v-if="this.$route.name !== 'Lander'"></search-bar>
     <!------ HAMBURGUESA (SE VE SIEMPRE) -------->
-    <hamburguer></hamburguer>
+    <hamburguer class="col-5 col-sm-1 order-sm-2 order-1 hamb"></hamburguer>
   </div>          
 </template>
 <!-- -------------- FIN HEADER PRINCIPAL -----------------> -->
@@ -86,6 +86,20 @@ export default {
     width: auto; 
     max-width: 150px; 
     max-height: 150px;
+}
+
+.hamb{
+  padding:0;
+}
+
+@media screen and (max-width:575px){
+  .sb{
+    margin-top:16px;
+  }
+
+  .hamb{
+    margin-right:11px;
+  }
 }
 
 </style>

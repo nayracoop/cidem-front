@@ -29,33 +29,33 @@
 								<h2>Unidad</h2>
 							</div>
 							<div class="col-sm-9 categresult">
-								<p><span v-for="filters in serviceFilters[0]" :key="filters">{{filters}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
+								<p><span v-for="service in serviceFilters[0]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
 							</div>
 							<div v-if="serviceFilters[1].length > 0" class="col-sm-3 categ">
 								<h2>Subunidad</h2>
 							</div>
 							<div v-if="serviceFilters[1].length > 0" class="col-sm-9 categresult">
-								<p><span v-for="filters in serviceFilters[1]" :key="filters">{{filters}} <span v-if="serviceFilters[1].length > 1">, </span> </span></p>
+								<p><span v-for="service in serviceFilters[1]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
 
 							</div>
 							<div class="col-sm-3 categ">
 								<h2>Tipo de servicio</h2>
 							</div>
 							<div class="col-sm-9 categresult">
-								<p><span v-for="filters in serviceFilters[2]" :key="filters">{{filters}} <span v-if="serviceFilters[2].length > 1">, </span> </span></p>
+								<p><span v-for="service in serviceFilters[2]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
 							</div>
 							<div class="col-sm-3 categ">
 								<h2>Sector al que está destinado el servicio</h2>
 							</div>
 							<div class="col-sm-9 categresult">
-								<p><span v-for="filters in serviceFilters[3]" :key="filters">{{filters}} <span v-if="serviceFilters[3].length > 1">, </span> </span></p>
+								<p><span v-for="service in serviceFilters[3]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
 
 							</div>
 							<div class="col-sm-3 categ">
 								<h2>Destinatario</h2>
 							</div>
 							<div class="col-sm-9 categresult">
-								<p><span v-for="filters in serviceFilters[4]" :key="filters">{{filters}} <span v-if="serviceFilters[4].length > 1">, </span> </span></p>
+								<p><span v-for="service in serviceFilters[4]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
 							</div>
 							<div class="col-sm-3 categ">
 								<h2>Descripción</h2>
@@ -94,13 +94,24 @@ import store from '../store'
 		name:"Service",
 		data:function(){
 			return{
+				fileTitle:"Asistencia técnica al fortalecimiento institucional",
 				C_Uni:"Unidad",
+				Uni_results:"Centro de Innovación y Desarrollo de Empresas y Organizaciones - CIDEM",
 				C_Sub:"Subunidad",
+				Sub_results:"Coordinación de Proyectos Institucionales",
 				C_Tipo:"Tipo de Servicio",
+				Tipo_Results:"Asistencia técnica",
 				C_Sec:"Sector al que está destinado el Servicio",
+				Sec_results:"Organismos públicos",
 				C_Dest:"Destinatario",
+				Dest_results:"Universidad",
 				C_Desc:"Descripción",
-				
+				Desc_results:"Dessarrollo y ejecución de proyectos de fortalecimiento institucional de organismos públicos (Gobierno Nacional, Subnacional y Local). Se provee asistencia y asesoramiento en proceso de fortalecimiento institucional, orientados a la incorporación de capacidades, como por ejemplo mejora de procesos de gestión, realización de estudios y diagnósticos sectoriales, reorganizaciones y mejoras organizativas, gestión por resultados, diseño y puesta en funcionamiento de agencias y áreas de promoción económica, implementación de estándares de calidad y servicios al vecino.",
+				contact_name:"Diego Federico",
+				contact_email:"dfederico@untref.edu.ar",
+				contact_number:"01147599810",
+				contact_adress:"Av. San Martín 2921, Caseros (1678), Provincia de Buenos Aires",
+				contact_web: 'www.hola.com'
 
 			}
 		},
@@ -128,6 +139,8 @@ import store from '../store'
 				return this.$store.getters.serviceFiltersNames;
 			},
 			service() {
+								console.log(this.$store.state.service.data);
+
 				return this.$store.state.service.data;
 			},
 			services(){
@@ -177,7 +190,7 @@ import store from '../store'
 	}
 </script>
 
-<style scope>
+<style>
 main {
 	margin:20px auto;
 }
@@ -221,6 +234,14 @@ main {
 
 .printbtn{
 	text-align:right;
+}
+
+.printbtn button{
+	cursor:pointer;
+	background:#fff;
+	border:none;
+	border-bottom:solid #17aae4;
+	margin-right:4px;
 }
 
 .categresultlast p,
@@ -275,29 +296,33 @@ aside .ph{
 
     .mainback{
         margin-bottom: 10px; 
-        font-size: 0.9em;
+    }
+
+    .mainback button{
+    	font-size: 1em;
     }
 
     .titlefile h1{
-    	font-size:1.25em;
+    	font-size:1.625em;
     	text-align:center;
     }
 
     .contact h3,
     .categ h2{
-		font-size:0.9em;
+		font-size:1em;
 		margin-bottom:15px;
 	}
 
 	.navfile p{
-		font-size:0.9em;
+		font-size:1em;
+		padding-bottom:20px;
 	}
 
 	.vcard p,	
 	.navfile p,
 	.categresultlast,
 	.categresult p{
-		font-size:0.9em;
+		font-size:1em;
 	}
 }
 </style>

@@ -1,8 +1,8 @@
 	<template>	
 	<div>	
-        <div class="hidebutton col-2">
+    <div class="hidebutton">
 			<button class="Fbtn" type="button" @click="openSide = true"><i class="fas fa-bars"></i></button>
-        </div>    
+    </div>    
 		<div class="headermenu" role="menu" :class='{headermenushow: openSide}'>
 			<span class="close" @click="openSide = false"><i class="fas fa-times"></i></span>
          	<ul>	
