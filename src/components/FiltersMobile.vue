@@ -1,6 +1,9 @@
 <template>			
 	<div class="col-12 d-block d-md-none">
-		<button type="button" class="btn rounded-0 filterbtn" @click="show = true"><i class="fas fa-sliders-h"></i> Filtros</button>
+		<b-row>
+			<p class="mobileresults col-6">Se encontraron {{metadata.total}} resultados<span v-if="searchQuery"> para "{{searchQuery}}" </span></p>
+			<button type="button" class="col-5 btn mt-1 float-right rounded-0 filterbtn" @click="show = true"><i class="fas fa-sliders-h"></i> Filtros</button>
+		</b-roW>
 		<div class="hiddenfilters" :class='{showFilters:show}'>
 			<div class="Zbuttons align-items-center">	
 				<h2 class="mt-2">Filtros</h2>
@@ -54,7 +57,13 @@
 		    },
 		    selected(){
 		    	return this.$store.getters.filterArray; 
-		    }
+			},
+			services: function(){
+				return this.$store.state.services.data;
+			},    	
+			metadata:  function(){
+				return this.$store.state.services.meta;
+			},
 
 		},
 		methods: {
@@ -186,5 +195,8 @@
 }
 #filtersid dd{
 	padding:0;
+}
+.mobileresults{
+	font-size: 0.8em;
 }
 </style>					

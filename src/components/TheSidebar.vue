@@ -1,6 +1,6 @@
 <template>
 	<div class="col-12 col-md-4">
-		<aside>				    
+		<aside>			    
 			<div class="d-none d-md-block filters" id='filters'>
 				<dl v-for="type in filterTypes" :key="type.id">
 					<dt class="filter-type collapsed" data-toggle="collapse" :data-target="'#'+type.id" >{{type.name}}</dt>

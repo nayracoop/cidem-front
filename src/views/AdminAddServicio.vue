@@ -395,4 +395,25 @@ export default {
 	padding: 0.8em ;
 	font: 1.3em;
 }
+
+  .pagination-nav {
+    display: inline-block;
+}
+p.validation-error{
+  font-size: 0.75em;
+  padding: 1px 6px;
+  margin-bottom: 3px;
+  font-style: italic;
+  color:red;
+  opacity: 1 ;
+  transition: all ease-out 400;
+}
+.hide {
+  opacity: 0;
+   font-size: 0.75em;
+  padding: 1px 6px;
+  margin-top: 6px;
+  transition: all ease-out 400;
+
+}
 </style>

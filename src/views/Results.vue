@@ -9,7 +9,7 @@
 			<div class="col-sm-12 col-md-7 offset-md-1" id="list">
 				<section>
 					<div v-if="services" class="results">
-						<div class="row">
+						<div class="row" v-if="services.length > 0">
 							<div class="col-12 navfile">
 								<a @click="changePage(previousPage)"><i class="fas fa-angle-double-left"></i><span class="d-none  d-md-inline">Anterior</span></a>
 								<p>Pagina {{metadata.current_page}} / {{metadata.last_page}}</p>
@@ -18,23 +18,23 @@
 							</div>
 						</div>
 
-						<aside class="alertresults">Se encontraron {{metadata.total}} resultados<span v-if="searchQuery"> para "{{searchQuery}}" </span></aside>
+						<aside class="alertresults  d-none d-md-block">Se encontraron {{metadata.total}} resultados<span v-if="searchQuery"> para "{{searchQuery}}" </span></aside>
 
 							<article v-if="printing === false" v-for="service in services" :key="service.id" class="card art">
 								<div class="box" >
 									<h2 @click="viewService(service.id)"> {{ service.name }}</h2>
 									<dl>
 										<dt>Destinatarios:</dt>
-										<dd><span v-for="filter in service.filters" v-if="filter.filterType.id === 5" >{{filter.name}} <span v-if="service.filters.length > 1">, </span> </span></dd>
+										<dd><span v-for="filter in service.filters" v-if="filter.filterType.id === 5" :key="filter.id" >{{filter.name}} <span v-if="service.filters.length > 1">, </span> </span></dd>
 
 									</dl>
 									<dl>
 										<dt>Tipo:</dt>
-										<dd><span v-for="filter in service.filters" v-if="filter.filterType.id === 3" >{{filter.name}} <span v-if="service.filters.length > 1">, </span> </span></dd>
+										<dd><span v-for="filter in service.filters" v-if="filter.filterType.id === 3" :key="filter.id" >{{filter.name}} <span v-if="service.filters.length > 1">, </span> </span></dd>
 									</dl>
 									<dl>
 										<dt>Sector:</dt>
-										<dd><span v-for="filter in service.filters" v-if="filter.filterType.id === 4" >{{filter.name}} <span v-if="service.filters.length > 1">, </span> </span></dd>
+										<dd><span v-for="filter in service.filters" v-if="filter.filterType.id === 4" :key="filter.id">{{filter.name}} <span v-if="service.filters.length > 1">, </span> </span></dd>
 									</dl>
 								</div>
 							</article>

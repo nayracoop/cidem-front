@@ -156,11 +156,9 @@
                     class='badge-pill badge-action float-right m-1' :class="{'badge-secondary': $v.editedFilter.tag.$invalid ,'badge-success': !$v.editedFilter.tag.$invalid}">
                   <i class="fa fa-check"></i>
                 </b-badge>
-                <p>
-                  <span class="validation-error" v-if="!$v.editedFilter.tag.minLength">{{validationText.tag.min}}</span>
-                  <span class="validation-error" v-if="!$v.editedFilter.tag.maxLength">{{validationText.tag.max}}</span>
-                  <span class="validation-error" v-if="!$v.editedFilter.tag.required">{{validationText.req}}</span>
-                </p>
+                  <p class="validation-error" v-if="!$v.editedFilter.tag.minLength">{{validationText.tag.min}}</p>
+                  <p class="validation-error" v-if="!$v.editedFilter.tag.maxLength">{{validationText.tag.max}}</p>
+                  <p class="validation-error" v-if="!$v.editedFilter.tag.required">{{validationText.req}}</p>
               </div>
             </b-form-group>
             <b-form-group
@@ -523,6 +521,27 @@ export default {
 
 #admin-filters .card-body {
   text-align: center;
+}
+
+  .pagination-nav {
+    display: inline-block;
+}
+p.validation-error{
+  font-size: 0.75em;
+  padding: 1px 6px;
+  margin-bottom: 3px;
+  font-style: italic;
+  color:red;
+  opacity: 1 ;
+  transition: all ease-out 400;
+}
+.hide {
+  opacity: 0;
+   font-size: 0.75em;
+  padding: 1px 6px;
+  margin-top: 6px;
+  transition: all ease-out 400;
+
 }
 
 </style>
