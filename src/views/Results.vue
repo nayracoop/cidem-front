@@ -10,10 +10,10 @@
 				<section>
 					<div v-if="services" class="results">
 						<div class="row">
-							<div class="col-12 navfile">
-								<a @click="changePage(previousPage)"><i class="fas fa-angle-double-left"></i><span class="d-none  d-md-inline">Anterior</span></a>
+							<div class="col-12 navfile" v-if="metadata.total>1">
+								<a @click="changePage(previousPage)"><i class="arrow fas fa-angle-double-left"></i><span class="d-none  d-md-inline">Anterior</span></a>
 								<p>Pagina {{metadata.current_page}} / {{metadata.last_page}}</p>
-								<a @click="changePage(nextPage)"><span class="d-none d-md-inline">Siguiente</span><i class="fas fa-angle-double-right"></i></a>
+								<a @click="changePage(nextPage)"><span class="d-none d-md-inline">Siguiente</span><i class="arrow fas fa-angle-double-right"></i></a>
 								<span class="printbtn d-none d-md-block"><button @click="print"><i class="fas fa-print"></i></button></span>	
 							</div>
 						</div>
@@ -205,6 +205,11 @@ main{
 
 .navfile p{
 	margin:0 40px;
+
+}
+
+.navfile .arrow{
+	margin:0 5px;
 }
 
 .alertresults{
@@ -273,6 +278,20 @@ main{
 	.listado{
 		padding-top:0px;
 	}
+
+	.navfile{
+		margin-top:20px;
+	}
+
+	.card{
+		margin-bottom:50px;
+	}
+
+	.navfile .arrow{
+		font-size:1.25em;
+		vertical-align:text-bottom;
+		
+	}
 }
 @media print {
 	#list {
@@ -294,12 +313,8 @@ main{
 		right: 0;
 	}
 
-	#list .results .card .box .dt{
-		display: inline;
-	}
 	#list .results .card .box .dd{
 		display: inline;
 	}
-
 }
 </style>

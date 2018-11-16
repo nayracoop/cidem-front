@@ -7,7 +7,7 @@
 		</div>
 		<div class="row">
 			<div class="col-10 offset-1 sub">
-				<p>La página a la cual está intentando acceder no existe. Puede visitar nuestra página principal haciendo click <span><a @click="goTo('Lander')">aquí</a></span>.</p>
+				<p>{{description}} <span><a @click="goTo('Lander')">aquí</a></span>.</p>
 			</div>
 		</div>	
 			<h2></h2>
@@ -20,6 +20,12 @@ import router from '../router'
 
 export default {
 	name: "NotFound404",
+	data(){
+		return{
+			description:"La página a la cual está intentando acceder no existe. Puede visitar nuestra página principal haciendo click"
+		}
+	},
+
 	created() {
 	
 	},
@@ -44,7 +50,7 @@ h1{
 }
 
 .sub p{
-	font-size:1.25em;
+	font-size:1.5em;
 	color:#4a4a4a;
 	margin-bottom:240px;
 }
@@ -58,5 +64,15 @@ h1{
 .sub a{
 	color:#0645ad;
 	text-decoration:underline;
+}
+
+@media screen and (max-width: 576px) {
+	h1{
+		font-size:1.625em;
+	}
+
+	.sub p{
+		font-size:1.25em;
+	}
 }
 </style>

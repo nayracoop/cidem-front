@@ -119,6 +119,7 @@ export default {
 
 	.item{
 		text-align:center;
+    font-size:1.25em;
 	}
 	
 	.headermenu ul li a:hover{

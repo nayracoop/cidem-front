@@ -95,7 +95,7 @@
 .filterbtn{
 	background-color:#fff;
 	font-weight: 700;
-	font-size:1.25em;
+	font-size:1.5em;
 	margin:20px auto;
 	padding:0;
 }
@@ -146,15 +146,15 @@
 }
 
 .filter-type{
-	font-size:1.125em;
+	font-size:1.25em;
 	font-weight:500;
 }
 
 .filter-item {
 	font-weight: 200;
-	font-size: 0.9em;
+	font-size: 1em;
 	padding: 3px 10px;
-	margin: 10px auto;
+	margin: 20px auto;
 }
 
 .filters{
@@ -177,7 +177,7 @@
 #filtersid {
 	padding: 20px;
 	margin: auto;
-	margin-left:70px;
+	margin-left:60px;
 }
 #filtersid dt{
 	width: 100%;
