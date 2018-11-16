@@ -180,6 +180,10 @@ main {
 margin-right: 10px;    
 }
 
+.form-group{
+	margin-bottom:2em;
+}
+
 .sendbtn{
     margin-top: 20px;
     margin-bottom:20px;
@@ -196,7 +200,6 @@ margin-right: 10px;
 }
 
 @media screen and (max-width: 576px) {
-	
 	
 	.titleconsult h1{
 		font-size: 1.625em;
@@ -215,6 +218,10 @@ margin-right: 10px;
 	.titleconsult h2,
 	.mainback button{
 		font-size:1em;
+	}
+
+	.form-group{
+		margin-bottom:3em;
 	}
 
 	.contactdata textarea{

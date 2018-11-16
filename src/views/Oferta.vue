@@ -104,5 +104,22 @@ main{
 table{
 	margin-top:20px;
 }
-	
+
+.table thead th{
+	vertical-align:middle;
+}
+
+@media screen and (max-width: 576px) {
+
+	.mainback button{
+		font-size:1em;
+	}
+
+	h1{
+		font-size: 1.625em;
+		margin-bottom:20px;
+	}
+
+
+}	
 </style>

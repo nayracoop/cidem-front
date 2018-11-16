@@ -295,7 +295,7 @@ aside .ph{
   
 
     .mainback{
-        margin-bottom: 10px; 
+        margin-bottom: 20px; 
     }
 
     .mainback button{
@@ -323,6 +323,11 @@ aside .ph{
 	.categresultlast,
 	.categresult p{
 		font-size:1em;
+	}
+
+	.navfile i{
+		font-size:1.25em;
+		vertical-align:text-bottom;
 	}
 }
 </style>
