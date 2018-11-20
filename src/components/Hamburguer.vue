@@ -108,6 +108,17 @@ export default {
 	width:183px;
 }
 
+.headermenushow::before {
+    /*content: "";*/
+    display:block;
+    position: fixed;
+    top:0;
+    right: 0;
+    bottom: 0;
+    left:0;
+    background-color: rgba(255,255,255,.75);
+}
+
 .headercollapse ul{
     padding:0;
 }	

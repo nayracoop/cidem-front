@@ -52,7 +52,9 @@ import router from '../router'
 			this.selected.splice(end);
 			this.$store.dispatch('changeQueryFilters', this.selected);
 			this.$store.dispatch('fetchServices');
-			if (this.$router.name !== 'Lander'){
+			
+			if (this.$router.history.current.name !== 'Lander'){
+				console.log(this.$router.history.current.name);
 				this.$router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
 			};
 	  	},
@@ -60,7 +62,7 @@ import router from '../router'
 	  		this.searchQuery= " ";
 	  		this.$store.dispatch('changeQuerySearch', null);
 			this.$store.dispatch('fetchServices');
-			if (this.$router.name !== 'Lander'){
+			if (this.$router.history.current.name !== 'Lander'){
 				this.$router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
 			}
 	  	}

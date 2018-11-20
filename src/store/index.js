@@ -3,6 +3,9 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 
+const token = localStorage.getItem('token')
+
+
 const SERVER_PATH = process.env.SERVER_PATH;
 
 Vue.use(Vuex);
@@ -16,7 +19,8 @@ const store = new Vuex.Store({
 		services:{},
 		fullServices:{},
 		service:{},
-		messages:[]
+		messages:[],
+		access_token: token,
 	},
 	mutations: {
 		FETCH_FILTER_TYPES(state, filterTypes) {
@@ -274,13 +278,15 @@ const store = new Vuex.Store({
 			});
 		},
 		postMessage(context, mess){
-			return axios.post(`${SERVER_PATH}/messages`, {
-				name: mess.name,
-				institution: mess.institution, 
-				email: mess.email,
-				description: mess.description,
-				status: 'unread'
-			})
+			return axios.post(`${SERVER_PATH}/messages`, { 
+				data: {
+					name: mess.name,
+					institution: mess.institution, 
+					email: mess.email,
+					description: mess.description,
+					status: 'unread'
+				}
+			})	
 			.then(response => {
 				console.log(response.data);
 			})
