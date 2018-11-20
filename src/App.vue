@@ -54,12 +54,19 @@ export default {
     },
     queryFilters() {
         var filtros = [];
-        for (var i=0; i < this.$route.query.filters.length; i++){
+        this.$route.query.filters.forEach(function(element){
+           var filtri = this.$store.state.filterList.find(function(e){
+              return e.id == that .$route.query.filters[i];
+            })
+            filtros.push(filtri);
+        });
+        /* for (var i=0; i < this.$route.query.filters.length; i++){
             var filtri = this.$store.state.filterList.find(function(e){
               return e.id == that .$route.query.filters[i];
             })
             filtros.push(filtri);
-        }
+        } */
+        console.log(`filtros desde queryfilters : ${filtros}`);
         return filtros
     },
     services() {
@@ -73,23 +80,35 @@ export default {
           this.$store.dispatch('changeQuerySearch', this.$route.query.services);
         };
         this.$store.dispatch('fetchFilters').then(() =>{ 
-         
+
           if (this.$route.query.filters) {
               if(this. filterList){
-                var that = this;
                 var filtros = [];
-                for (var i=0; i < this.$route.query.filters.length; i++){
+                 console.log(Array.isArray(this.$route.query.filters));
+                if (Array.isArray(this.$route.query.filters)) {
+                  this.$route.query.filters.forEach(function(element){
+                    var filtri = that.$store.state.filterList.find(function(e){
+                        return e.id == element;
+                      })
+                      filtros.push(filtri);
+                  });
+                  console.log(`filtros desde queryfilters : ${filtros}`);
+                   this.$store.dispatch('changeQueryFilters', filtros).then(() => {
+                         this.$store.dispatch('fetchServices', this.$route.query.filters);
+                  });;
+
+                } else {
                     var filtri = this.$store.state.filterList.find(function(e){
-                      return e.id == that.$route.query.filters[i];
-                    })
-                    filtros.push(filtri);
-                }
-                if (filtros[0]){
-                  console.log(filtros);
+                        return e.id == that .$route.query.filters;
+                      })
+                      filtros.push(filtri);                  
+                      console.log(`filtro desde queryfilters : ${filtros}`);
+
                   this.$store.dispatch('changeQueryFilters', filtros).then(() => {
                          this.$store.dispatch('fetchServices', this.$route.query.filters);
-                  });
+                  });;
                 }
+
               }
           } else {
               this.$store.dispatch('fetchServices', this.$route.query.filters);
