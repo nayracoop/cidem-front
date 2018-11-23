@@ -204,8 +204,7 @@ main{
 }
 
 .navfile p{
-	margin:0 40px;
-
+	margin:0 70px;
 }
 
 .navfile .arrow{
@@ -286,6 +285,7 @@ article.card.art{
 
 	.navfile{
 		margin-top:20px;
+
 	}
 
 	.card{
