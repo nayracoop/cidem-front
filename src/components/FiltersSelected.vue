@@ -77,6 +77,8 @@ import router from '../router'
 	flex-wrap: wrap;
 	justify-content: flex-start;
 	align-content: flex-start;
+	min-height:3em;
+	margin-top:0.25em;
 }
 .selectedfilters dl{
 	margin: 2px 2px;
@@ -91,10 +93,12 @@ import router from '../router'
 }*/
 .selectedfilters dl dd{
     margin: 2.5px;
-    padding: 0.1em 0.3em;
-  	background-color:#a0b0a0;
+    padding: 0.25em 10px;
+    border-radius:16px;
+  	background-color:#17aae4;
     font-weight: 400;
     font-size:0.95em;
+    color:#fff;
 }
 
 .selectedfilters i{
@@ -102,7 +106,6 @@ import router from '../router'
     vertical-align:middle;
     font-size:0.7em;
 }
-
 
 
 </style>

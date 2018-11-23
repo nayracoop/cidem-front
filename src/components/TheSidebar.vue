@@ -1,5 +1,5 @@
 <template>
-	<div class="col-12 col-md-4">
+	<div class="col-12 col-md-3">
 		<aside>			    
 			<div class="d-none d-md-block filters" id='filters'>
 				<dl v-for="type in filterTypes" :key="type.id">
@@ -11,7 +11,13 @@
 							:key="filter.id"
 							@click="filterclick(filter)"
 							class="filter-item"
-							:class="{highlight:selected.includes(filter.id)}">{{filter.name}}</dd>
+							:class="{highlight:selected.includes(filter.id)}">
+								<span>
+									<i class="far fa-check-square" v-if="selected.includes(filter.id)"></i>
+									<i class="far fa-square" v-if="!selected.includes(filter.id)"></i>									
+								</span>
+						{{filter.name}}
+						</dd>
 					</div>
 				</dl>
 			</div>	
@@ -97,16 +103,23 @@
 	font-weight: bold !important;
 }
 
+.filter-item i{
+	font-size:12px;
+}
+
 .filter-type{
 	font-size:1.125em;
 	font-weight:500;
+	cursor:pointer;
 }
 
 .filter-item {
 	font-weight: 200;
 	font-size: 0.95em;
-	padding: 3px 10px;
-	margin: auto ;
+	padding: 3px 0;
+	margin: auto;
+	cursor:pointer;
+	line-height:1.25;
 }
 
 .filters .filter-type:after{

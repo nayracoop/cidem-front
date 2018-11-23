@@ -6,7 +6,7 @@
 		</div>
 		<div class="row listado">
 			<the-sidebar class="d-print-none" id="the-sidebar"></the-sidebar>
-			<div class="col-sm-12 col-md-7 offset-md-1" id="list">
+			<div class="col-sm-12 col-md-9" id="list">
 				<section>
 					<div v-if="services" class="results">
 						<div class="row">

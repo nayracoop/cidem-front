@@ -1,4 +1,4 @@
-<template>
+	<template>
 	<div>
 		<div v-for="type in filterTypes" 
 			v-if="filterCondition(type.id)" 
@@ -6,7 +6,7 @@
 			:key="type.id">
 			<div class="col-sm-12 col-md-10 offset-md-1">
 				<label for="tipo"></label>
-				<button class="btn rounded btn-outline-secondary btn-block" 
+				<button class="btn rounded-0 btn-outline-secondary btn-block" 
 						type="button" 
 						data-toggle="dropdown">{{type.name}}
 						<span class="Filterarrow">
@@ -91,6 +91,11 @@
 }
 </script>
 <style>
+
+.landerHiddenF:firstchild{
+	margin-top:1em;
+}
+
 .searcherbtn{
     background-color: #000;
     color:#fff;
@@ -111,12 +116,23 @@
 .landerHiddenF button{
     display:flex;
     justify-content: space-between;
+    border-color:#ced4da;
+}
+
+label{
+	display:inline;
 }
 
 .scrollable-menu{
     max-height: 200px;
     overflow-x: hidden;
     max-width: 93%;
+}
+
+.scrollable-menu li{
+    line-height:1em;
+    padding:1em 15px;
+    border-bottom:solid 1px #eaeaea;
 }
 
 .scrollable-menu li:hover{

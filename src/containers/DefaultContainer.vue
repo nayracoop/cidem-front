@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <the-header class="d-print-none"></the-header>
+    <the-header></the-header>
     <div class="view">
       <router-view/>
     </div>

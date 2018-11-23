@@ -1,5 +1,5 @@
 <template>
-	<div class="d-lg-flex input-group"> <!-- buscador principal -->
+	<div class="input-group"> <!-- buscador principal -->
 		<div 
 		class="input-group-prepend d-none d-md-block"
 		 v-for="type in filterTypes"
@@ -36,7 +36,7 @@
 			<i class="d-block d-md-none fa fa-search lupa"></i><span class="d-none d-md-block">Buscar</span></button>
 		</div>
 		<div class="d-block d-md-none input-group btnalone" v-if="this.$route.name == 'Lander'">
-			<button class="btn d-lg-block searcherbtn rounded-0" type="button"  @click="submitSearch">
+			<button class="btn d-lg-block searcherbtn rounded-0 btn-block" type="button"  @click="submitSearch">
 			Buscar</button>
 		</div>	 		 	
 	</div>	
@@ -157,6 +157,12 @@
 
 .input-group input {
 	background: #f4f4f4;
+	font-weight:300;
+}
+
+.input-group-prepend button{
+	font-weight:300;
+	border-color:#ced4da;
 }
 
 .searcherbtn{
@@ -169,7 +175,6 @@
 
 .btnalone{
 	text-align: center;
-	margin-top: 30px;
 }
 
 .searcherbtn:hover{
@@ -193,15 +198,27 @@
     max-width: 50%;
 }
 
+.scrollable-menu li{
+    line-height:1em;
+    padding:0.5em 15px;
+    border-bottom:solid 1px #eaeaea;
+}
+
 .scrollable-menu li:hover{
     background-color:#f4f4f4;
 }
 
+@media screen and (max-width: 767px){
+  
+  .searcherbox{
+    font-size:1rem;
+    font-weight:500;
+    height:auto;
+    padding:0.375rem 0.75rem;
+   }
 
-
-@media screen and (max-width:576px){
-
+	.input-group input {
+		font-weight:500;
+	}
 }
-
-
 </style>
