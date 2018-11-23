@@ -2,7 +2,6 @@
 	<main role="main">
 		<div class="d-inline">
 			<filters-mobile></filters-mobile>
-			<filters-selected class="col-12"></filters-selected>
 		</div>
 		<div class="row listado">
 			<the-sidebar class="d-print-none" id="the-sidebar"></the-sidebar>
@@ -19,6 +18,7 @@
 						</div>
 
 						<aside class="alertresults  d-none d-md-block">Se encontraron {{metadata.total}} resultados<span v-if="searchQuery"> para "{{searchQuery}}" </span></aside>
+						<filters-selected class="selectedfilters col-12"></filters-selected>
 
 							<article v-if="printing === false" v-for="service in services" :key="service.id" class="card art">
 								<div class="box" >
@@ -224,7 +224,7 @@ main{
     font-size: 1.25em;
     color:#111111;
     transition: 0.1s;
-    margin-bottom:30px;
+    margin-bottom:40px;
 }
 
 .results h2:hover{
@@ -232,11 +232,16 @@ main{
 	cursor: pointer;
 }
 
-.box {
-	padding:1.5em 1em;
+article.card.art{
+	background-color:#fafafa;
+	border:none;
+	border-bottom:solid 2px #ddd;
+	overflow:hidden;
+	padding:2em 25px;
 }
+
 .box dl{
-	margin-bottom:5px;
+	margin-bottom:3px;
 }
 
 .box dl:last-child{
@@ -246,10 +251,7 @@ main{
 .box dl dt, 
 .box dl dd{   
     font-size: 0.875em;
-}
-
-.box dl dt{
-	font-weight:400;
+    display:inline-block;
 }
 
 .box dl dd{
@@ -267,6 +269,9 @@ main{
     margin-bottom: 30px;
 }
 
+.selectedfilters{
+	padding:0;
+}
 
 
 @media screen and (max-width: 767px){

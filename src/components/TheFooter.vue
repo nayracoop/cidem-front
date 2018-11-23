@@ -1,13 +1,13 @@
 <template>
   <div class="footer">	
     <div class="row justify-content-between rowfooter">
-      <div class="offset-3 col-6 offset-sm-0 col-sm-6 col-md-3 cidem text-center text-md-left order-1 order-md-0"> 
+      <div class="offset-3 col-6 offset-sm-0 col-sm-4 col-md-3 cidem text-center text-sm-left order-1 order-md-0"> 
           <a target="_blank" href="http://untref.edu.ar/sitios/cidem"><img src="../assets/img/CIDEM.jpg" alt="CIDEM (Centro de Innovación y Desarrollo de Empresas y Organizaciones)"></a>       
       </div>  
-      <div class="col-12 col col-md-6 SIDcontact order-0 order-md-1">
+      <div class="col-12 col-md-6 SIDcontact order-0 order-md-1">
         <p>{{SID}} <span class="address">{{SIDaddress}}</span></p>
       </div>  
-      <div class="offset-3 col-6 offset-sm-0 col-sm-6 col-md-3 text-center text-md-right cidem order-2">  
+      <div class="offset-3 col-6 offset-sm-0 col-sm-4 col-md-3 text-center text-sm-right cidem order-2">  
           <a target="_blank" href="http://www.untref.edu.ar/investigacion-y-desarrollo"><img src="../assets/img/logoSID.png" alt="SID (Secretaria de Investigación y Desarrollo)"></a>              
       </div>
     </div>

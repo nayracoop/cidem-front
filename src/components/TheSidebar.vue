@@ -133,7 +133,7 @@
 }
 
 .filters dl dd{
-	margin:5px auto;
+	margin:0.5em auto;
 }
 
 </style>

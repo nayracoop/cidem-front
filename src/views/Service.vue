@@ -57,7 +57,7 @@
 							<div class="col-sm-9 categresult">
 								<p><span v-for="service in serviceFilters[4]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
 							</div>
-							<div class="col-sm-3 categ">
+							<div class="col-sm-3 categ des">
 								<h2>Descripción</h2>
 							</div>
 							<div class="col-md-12 categresultlast">
@@ -199,6 +199,9 @@ main {
 	cursor: pointer;
 }
 
+.vcard .name:hover{
+	cursor:default;
+}
 .navficha{
     padding-bottom: 20px;
 }
@@ -268,6 +271,11 @@ main {
 	margin-bottom:30px;
 }
 
+.categ{
+	margin-bottom:0.5em;	
+}
+
+
 aside .vcard{
     color:#17aae4;
 }
@@ -305,6 +313,7 @@ aside .ph{
     .titlefile h1{
     	font-size:1.625em;
     	text-align:center;
+    	margin-bottom:1em;
     }
 
     .contact h3,
