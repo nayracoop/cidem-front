@@ -38,7 +38,7 @@ export default {
 
 .item{
     text-align: left;       
-    padding:10px 10px;
+    padding:10px 15px;
     display: block;
 }
 
@@ -48,7 +48,7 @@ export default {
 
 .headermenu .close{
     text-align: right;
-    margin-right: 30px;
+    margin-right: 20px;
 }
 
 .headermenu .close:hover{
@@ -65,7 +65,7 @@ export default {
 
 .headermenu ul{
     padding:0;
-    margin:60px auto;
+    margin:80px auto;
 }
 
 .headermenu i{
@@ -75,7 +75,7 @@ export default {
 
 .headermenu ul li{
     list-style: none;
-    margin-bottom:20px;
+    text-transform:uppercase;
 }
 
 .headermenu ul li a{
@@ -84,8 +84,7 @@ export default {
 
 .headermenu ul li a:hover{
     transition:0.3s;
-    border-right:solid 8px #17aae4;
-    background-color:#2f2f2f;
+    background-color: #17aae4;
 }
 
 .headermenu {
@@ -94,29 +93,40 @@ export default {
     background: #0d0d0d;
     position: fixed;
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: 0.3s;
     width: 0;
     height: 200px;
     right: -1px;
     height:100%;
     z-index:4;
     top:-1px;
-    padding-top:50px;
+    padding-top:40px;
 }
 
+.headermenu::before {
+  content:"";
+  background-color:rgba(255,255,255,0);
+  margin-right:0;
+}
+
+
 .headermenushow{
-	width:183px;
+	width:240px;
+
 }
 
 .headermenushow::before {
-    /*content: "";*/
+    content: "";
     display:block;
     position: fixed;
     top:0;
     right: 0;
     bottom: 0;
     left:0;
-    background-color: rgba(255,255,255,.75);
+    background-color: rgba(0,0,0,.5);
+    transition: background-color 0.4s, margin-right 0.35s;   
+    margin-right:239px;
+      
 }
 
 .headercollapse ul{

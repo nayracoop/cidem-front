@@ -1,11 +1,11 @@
 <template>
 	<main role="main">
 		<div class="row">
-			<div class="col-6 mainback">
+			<div class="col-6 mainback d-print-none">
 				<button @click="goBack"><i class="fas fa-caret-left"></i> volver </button>
 			</div>
 			<div class="col-6">	
-				<span class="printbtn d-none d-md-block"><button @click="print()"><i class="fas fa-print"></i></button></span>
+				<span class="printbtn d-none d-md-block d-print-none"><button @click="print()"><i class="fas fa-print"></i></button></span>
 			</div>	
 		</div>
 		<div class="row">

@@ -3,8 +3,8 @@
 <section class="Lander col-12 animated fadeIn">
 		<!------- TITULO-------->
 		
-		<div class="row titleLander"> <!-- primer oracion --> 
-	        <div class="col-12">            
+		  <div class="row titleLander"> <!-- primer oracion --> 
+	      <div class="col-12">            
 	          <h1>{{title}}</h1>          
 	     	</div>            
 	    </div>
@@ -14,38 +14,38 @@
 	          	<p>{{subtitle}}</p>        
 	      	</div>
 	    </div>
-        <!------ TAGS FILTROS -------->
-		<filters-selected class="col-12 p-0 col-lg-10 offset-lg-1"></filters-selected>
+        
+		
 	    <!------- BUSCADOR DEL LANDER -------->
       <dropdown class="d-block d-md-none"></dropdown>   
 	    <div class="row searcher">
-	    	<SearchBar class="col-12 col-lg-10 offset-lg-1"></SearchBar>
-        </div>	  
-
-
-
-
-	    <!------ LINK A VISTA DE TODOS LOS FILTROS ------>
+	    	<SearchBar class="input-group-lg col-12 col-lg-10 offset-lg-1"></SearchBar>  
+      </div>
+        <!------ LINK A VISTA DE TODOS LOS FILTROS ------>
+      <div class="row">
+        <div class="offset-lg-1 col-11 all">
+          <a @click="verTodos()">>ver todos los servicios</a>
+        </div>
+      </div>
+        <!------ TAGS FILTROS -------->
+      <filters-selected class="col-12 p-0 col-lg-10 offset-lg-1"></filters-selected>	  
 
 		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->	 
-	<div class="row dest">  
-        <h5 class="col-lg-1 col-12 text-center">Destinatarios:</h5>
-        <div class="icons offset-md-2 col-md-8 offset-lg-0 col-lg-10 col-12">
-                <i  v-for="destinatario in destinatarios" 
-                    :key="destinatario.id" 
-                    :class="destinatario.icon" 
-                    class="fa-xs"
-                    v-b-tooltip.hover  
-                    :title="destinatario.name"
-                    @click="searchDestinatario(destinatario.filterId)"></i>
-        </div>  
-    </div> 
-        <div class="row">
-      <div class="all_icons">
-          <a @click="verTodos()">Ver Todos</a>
-      </div>
-    </div> 
-	</section>
+  	 <div class="row dest">  
+        <h5 class="col-12 text-center">Destinatarios</h5>
+     </div>        
+     <div class="row">
+        <div class="icons offset-md-1 col-md-10 col-12">
+                  <i  v-for="destinatario in destinatarios" 
+                        :key="destinatario.id" 
+                        :class="destinatario.icon" 
+                        class="fa-xs"
+                        v-b-tooltip.hover  
+                        :title="destinatario.name"
+                        @click="searchDestinatario(destinatario.filterId)"></i>
+        </div>
+      </div>      
+  	</section>
 </template>
 
 <script>
@@ -123,10 +123,11 @@ $(function () {
     font-size: 1.2em;
     color: #4a4a4a;
     font-family:'DistefanoSlab-Regular','DistefanoSlab';
+    line-height:1.25em;
 }
 
 .searcher{
-    margin-top: 20px;
+  margin-top:1em;
 }
 
 .searcherbtn{
@@ -197,15 +198,22 @@ $(function () {
 }
 
 .dest{
-  margin-top:70px;
-  margin-bottom:40px;
+  margin-top:1.5em;
+  margin-bottom:1.5em;
 }
 
-.all_icons{
-    margin: 0 auto;
-    padding-bottom:20px;
-    text-align: center;
-    text-decoration:underline;
+.all{
+    font-size:0.875em;
+}
+
+.all a{
+  color:#999;
+  margin-left:0.5em;
+}
+
+.all a:hover{
+  text-decoration:underline;
+  color:#aeaeae;  
 }
 
 .icons{
@@ -213,9 +221,8 @@ $(function () {
 }
 
 .icons i{
-    padding:5px 5px;
+    padding:0.5em 25px;
     font-size: 30px;
-    margin:10px 15px;
     color:#000;
     position:relative;
     transition:0.2s;
@@ -236,6 +243,12 @@ $(function () {
     margin:3px auto;
 }
 
+@media screen and (max-width:767px){
+  .searcher{
+    margin-top:0;
+  }
+}
+
 @media screen and (max-width:576px){
   .titleLander h1{
       margin-bottom: 1em;
@@ -250,29 +263,27 @@ $(function () {
       margin-top:0px;
   }
 
-
   .dest{
-      margin-top:70px;
- 	  margin-bottom:20px;
+      margin-top:20px;
+ 	    margin-bottom:20px;   
 	}
 
   .dest h5{
       font-size: 1.125em;
   }
 
-  .all_icons{
-      margin:30px auto;
-  }
+  .icons{
+
+  }  
 
   .icons i{
       font-size: 30px;
-      margin:15px;
       color:#000;
       position:relative;
       transition:0.2s;
       top:0;
       border-bottom:solid white;
   }
-
 }
+
 </style>

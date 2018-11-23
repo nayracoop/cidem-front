@@ -2,7 +2,7 @@
 
   <div class="row align-items-center header justify-content-between" :class="{divide:this.$route.name !== 'Lander'}">
     <div class="col-6 col-sm-3 col-md-2 order-0">  
-         <img @click="goHome" src="../assets/img/logountref.svg" alt="logo-untref">
+         <img @click="goHome" src="../assets/img/logountref.svg" alt="UNTREF(Universidad Nacional de Tres de Febrero)">
     </div>   
     <div class="d-none col-md-6" v-if="this.$route.name !== 'Lander'">
       <div class="input-group">
@@ -19,9 +19,9 @@
         </div>
       </div>                  
     </div>
-    <search-bar class="col-12 col-sm-7 col-md-8 order-sm-1 order-2 sb" v-if="this.$route.name !== 'Lander'"></search-bar>
+    <search-bar class="col-12 col-sm-7 col-md-8 order-sm-1 order-2 sb d-print-none" v-if="this.$route.name !== 'Lander'"></search-bar>
     <!------ HAMBURGUESA (SE VE SIEMPRE) -------->
-    <hamburguer class="col-5 col-sm-1 order-sm-2 order-1 hamb"></hamburguer>
+    <hamburguer class="col-5 col-sm-1 order-sm-2 order-1 hamb d-print-none"></hamburguer>
   </div>          
 </template>
 <!-- -------------- FIN HEADER PRINCIPAL -----------------> -->
