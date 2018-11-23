@@ -226,7 +226,7 @@ const store = new Vuex.Store({
 						for(var i = 0; i < (service.filters.length - 1); i++){
 		
 							var link = `${SERVER_PATH}/services/${response.data.data.id}/filters/${service.filters[i]}`
-							axios.post(link, {
+							axios.post(link, {}, {
 								headers: {'x-api-key': state.access_token}})
 							.then(response => {
 							}).catch(e => this.errors.push(e));
@@ -291,9 +291,9 @@ const store = new Vuex.Store({
 				}
 			})
 		      .then(response => {
-				for(var i = 0; i < (editedService.newFilters.length - 2); i++){
+				for(var i = 0; i < (editedService.newFilters.length); i++){
+					console.log(editedService.newFilters[i]);
 					var link = `${SERVER_PATH}/services/${editedService.id}/filters/${editedService.newFilters[i]}`
-					console.log(state.access_token);
 					axios.post(link,{},{
 						headers: {
 							'x-api-key': state.access_token,
@@ -384,7 +384,7 @@ const store = new Vuex.Store({
 
 		},
 		getAdminStatus({commit,state}){
-			return axios.get(`${SERVER_PATH}/admin-status`, {}, {
+			return axios.get(`${SERVER_PATH}/admin-status`, {
 				headers: {
 					'x-api-key': state.access_token,
 				}

@@ -36,7 +36,7 @@
 import nav from '@/_nav'
 import store from '@/store'
 
-import { Header as AppHeader, SidebarToggler, Sidebar as AppSidebar, SidebarFooter, SidebarForm, SidebarHeader, SidebarMinimizer, SidebarNav, Aside as AppAside, AsideToggler, Breadcrumb } from '@coreui/vue'
+import { Header as AppHeader, SidebarToggler, Sidebar as AppSidebar, SidebarFooter, SidebarForm, SidebarHeader, SidebarNav, Aside as AppAside, AsideToggler, Breadcrumb } from '@coreui/vue'
 
 
 export default {
@@ -52,7 +52,6 @@ export default {
     SidebarToggler,
     SidebarHeader,
     SidebarNav,
-    SidebarMinimizer
   },
   data () {
     return {
@@ -74,10 +73,7 @@ export default {
   methods: {
     submitLogout(){
       store.dispatch('logout').then(response => {
-        console.log(response);
-        if (response.data.status === 'logged out'){
-          this.$router.push({name: 'Admin'});
-        }
+          this.$router.push({path:'/'});
       });
     },
   }

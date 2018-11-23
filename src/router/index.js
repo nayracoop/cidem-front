@@ -22,28 +22,6 @@ import store from '@/store';
 
 Vue.use(Router);
 
-function requireAuth (to, from, next) {
-  function proceed () {
-  /*
-    If the user has been loaded determine where we should
-    send the user.
-  */
-  if ( store.getters.getUserLoadStatus() == 2 ) {
-    /*
-      If the user is not empty, that means there's a user
-      authenticated we allow them to continue. Otherwise, we
-      send the user back to the home page.
-    */
-    if( store.getters.getUser != '' ){
-      next();
-    }else{
-      next('/lander');
-    }
-  }
-}
-
-}
-
 
 export default new Router({
   //mode: 'history', //hay que hacer el catch-all en el server para que ande
@@ -52,20 +30,7 @@ export default new Router({
       path: '/admin',
       name: 'Admin',
       redirect: '/admin/servicios',
-      component: DefaultAdminContainer,
-      meta: {
-        requiresAuth: true,
-      },
-      beforeEnter(to, from, next) {
-        store.dispatch('getAdminStatus').then(response => {
-          console.log(`router: ${response}`);
-          if (response =="Authorized"){
-            next();
-          } else if (response == "Not authorized."){
-            next('/admin/login');
-          }
-        });
-      },
+      component: DefaultAdminContainer,      
       children: [
         {
           path: '/admin/servicios',
