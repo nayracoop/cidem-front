@@ -84,7 +84,6 @@ export default {
           if (this.$route.query.filters) {
               if(this. filterList){
                 var filtros = [];
-                 console.log(Array.isArray(this.$route.query.filters));
                 if (Array.isArray(this.$route.query.filters)) {
                   this.$route.query.filters.forEach(function(element){
                     var filtri = that.$store.state.filterList.find(function(e){
@@ -92,8 +91,7 @@ export default {
                       })
                       filtros.push(filtri);
                   });
-                  console.log(`filtros desde queryfilters : ${filtros}`);
-                   this.$store.dispatch('changeQueryFilters', filtros).then(() => {
+                  this.$store.dispatch('changeQueryFilters', filtros).then(() => {
                          this.$store.dispatch('fetchServices', this.$route.query.filters);
                   });;
 
@@ -102,7 +100,6 @@ export default {
                         return e.id == that .$route.query.filters;
                       })
                       filtros.push(filtri);                  
-                      console.log(`filtro desde queryfilters : ${filtros}`);
 
                   this.$store.dispatch('changeQueryFilters', filtros).then(() => {
                          this.$store.dispatch('fetchServices', this.$route.query.filters);
@@ -113,7 +110,7 @@ export default {
           } else {
               this.$store.dispatch('fetchServices', this.$route.query.filters);
           }
-          this.$store.dispatch('fetchMessages');
+          
 
       });
       

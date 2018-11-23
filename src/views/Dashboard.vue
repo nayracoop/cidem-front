@@ -71,13 +71,13 @@ export default{
 	data() {
 		return {
 			selected: [], // Must be an array reference!
-					show: true,
-					chU: {
-						labels: [],
-						data: []
-					},
-					dataLoaded : false,
-					loadingData: false,
+				show: true,
+				chU: {
+					labels: [],
+					data: []
+				},
+				dataLoaded : false,
+				loadingData: false,
 		}
 	},
 	computed: {

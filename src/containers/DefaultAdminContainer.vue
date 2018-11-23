@@ -8,7 +8,7 @@
       </b-link>
       <SidebarToggler class="d-md-down-none mr-auto" display="lg" />
       <b-navbar-nav class="d-md-down-none float-right">
-        <b-nav-item class="px-3" @click="logout()">Cerrar sesión</b-nav-item>
+        <b-nav-item class="px-3" @click="submitLogout()">Cerrar sesión</b-nav-item>
       </b-navbar-nav>
 
     </AppHeader>
@@ -72,9 +72,14 @@ export default {
 
   },
   methods: {
-    logout(){
-      console.log('logout');
-    }
+    submitLogout(){
+      store.dispatch('logout').then(response => {
+        console.log(response);
+        if (response.data.status === 'logged out'){
+          this.$router.push({name: 'Admin'});
+        }
+      });
+    },
   }
 }
 </script>
