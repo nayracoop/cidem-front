@@ -399,9 +399,9 @@ export default {
       switch (id) {
         case 1: return 'Unidad';
         case 2: return 'Subunidad';
-        case 3: return 'Tipo de servicio'
-        case 4: return 'Sector al que esta destinado'
-        case 5: return 'Destinatario'
+        case 3: return 'Tipo de servicio';
+        case 4: return 'Sector al que esta destinado';
+        case 5: return 'Destinatario';
       }
     },
     editFilter(filter){
@@ -445,7 +445,7 @@ export default {
           this.creationDenied = true;
           setTimeout(() => {
            this.creationDenied = false;
-        }, 2500);
+          }, 2500);
       } else {
         this.loading = true;
         this.submitCreatedFilter();

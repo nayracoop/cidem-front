@@ -8,7 +8,7 @@
       </b-link>
       <SidebarToggler class="d-md-down-none mr-auto" display="lg" />
       <b-navbar-nav class="d-md-down-none float-right">
-        <b-nav-item class="px-3" @click="logout()">Cerrar sesión</b-nav-item>
+        <b-nav-item class="px-3" @click="submitLogout()">Cerrar sesión</b-nav-item>
       </b-navbar-nav>
 
     </AppHeader>
@@ -36,7 +36,7 @@
 import nav from '@/_nav'
 import store from '@/store'
 
-import { Header as AppHeader, SidebarToggler, Sidebar as AppSidebar, SidebarFooter, SidebarForm, SidebarHeader, SidebarMinimizer, SidebarNav, Aside as AppAside, AsideToggler, Breadcrumb } from '@coreui/vue'
+import { Header as AppHeader, SidebarToggler, Sidebar as AppSidebar, SidebarFooter, SidebarForm, SidebarHeader, SidebarNav, Aside as AppAside, AsideToggler, Breadcrumb } from '@coreui/vue'
 
 
 export default {
@@ -52,7 +52,6 @@ export default {
     SidebarToggler,
     SidebarHeader,
     SidebarNav,
-    SidebarMinimizer
   },
   data () {
     return {
@@ -72,9 +71,11 @@ export default {
 
   },
   methods: {
-    logout(){
-      console.log('logout');
-    }
+    submitLogout(){
+      store.dispatch('logout').then(response => {
+          this.$router.push({path:'/'});
+      });
+    },
   }
 }
 </script>

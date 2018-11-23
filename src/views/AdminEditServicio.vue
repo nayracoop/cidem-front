@@ -563,7 +563,6 @@ export default {
 			evt.preventDefault();
 			this.$v.editedService.$touch();
 			if (this.$v.editedService.$invalid) {
-				console.log('ERROR');
 				this.invalidForm = true;
 				setTimeout(() => {
 					this.invalidForm = false;
@@ -579,7 +578,7 @@ export default {
 			evt.preventDefault();
 			var newFilters = this.form.tipo.concat(this.form.sector).concat(this.form.destinatario);
 			newFilters.push(this.form.unidad);
-			newFilters.push(this.form.subunidad);
+			if(this.form.subunidad){newFilters.push(this.form.subunidad)};
 			this.editedService.newFilters = newFilters;
 			var oldFilters = this.$store.getters.serviceFilters[2].concat(this.$store.getters.serviceFilters[3])
 						.concat(this.$store.getters.serviceFilters[4])

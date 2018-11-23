@@ -20,7 +20,8 @@ const store = new Vuex.Store({
 		fullServices:{},
 		service:{},
 		messages:[],
-		access_token: token,
+		access_token: null,
+		errors: []
 	},
 	mutations: {
 		FETCH_FILTER_TYPES(state, filterTypes) {
@@ -47,31 +48,31 @@ const store = new Vuex.Store({
 		FETCH_MESSAGES(state, messages){
 			state.messages = messages;
 		}, 
-
+		STORE_ACCESS_TOKEN(state, access_token){
+			state.access_token = access_token;
+		},
+		DELETE_ACCESS_TOKEN(state){
+			state.access_token = null;
+		}
 
 	},
 	actions: {
+		//client actions
 		fetchFilters(context){
 			var getFilters = axios.get(`${SERVER_PATH}/filters`)
-		      .then(response => {
-		        //commit filterlist
-		      	context.commit('FETCH_FILTER_LIST', response.data.data);
-						//return response.data.data;
-					})
-		      .catch(e => {
-		        this.errors.push(e)
-					}) 
+		      	.then(response => {
+		      		context.commit('FETCH_FILTER_LIST', response.data.data);
+				})
+		      	.catch(e => {
+		        	this.errors.push(e)
+				}) 
 			var getFilterTypes = axios.get(`${SERVER_PATH}/filter-types`)
-		      .then(response => {
-		        //commit filtertypes
+				.then(response => {
 						context.commit('FETCH_FILTER_TYPES', response.data.data);
-						//return response.data.data;
-
-		      })
-		      .catch(e => {
-		        this.errors.push(e)
-					}) 
-	
+				})
+				.catch(e => {
+					this.errors.push(e)
+				}) 
 			return Promise.all([getFilters, getFilterTypes]);
 		},
 		fetchServices({commit, state}){
@@ -154,7 +155,47 @@ const store = new Vuex.Store({
 		changeQueryFilters(context, searchQueryFilters){
 			return context.commit('CHANGE_QUERY_FILTERS', searchQueryFilters);
 		},
-		postNewService(context, newService){
+		getAssociatedServices(context, filterId){
+			return axios.get(`${SERVER_PATH}/filters/${filterId}/services`)
+			.then(response => {
+				return response.data.data;
+			})
+			.catch(e => {
+				this.errors.push(e);
+			});
+
+		},
+		postMessage(context, mess){
+			return axios.post(`${SERVER_PATH}/messages`, { 
+				data: {
+					name: mess.name,
+					institution: mess.institution, 
+					email: mess.email,
+					description: mess.description,
+					status: 'unread'
+				}
+			})	
+			.then(response => {
+			})
+			.catch(e => {
+				this.errors.push(e);
+			});
+		},
+		login(context, user){
+			return axios.post(`${SERVER_PATH}/login`,  {
+				email: user.email,
+				password: user.password, 
+			})
+			.then(response => {
+				context.commit('STORE_ACCESS_TOKEN', response.data.access_token);
+				return response.data.status;
+			})
+			.catch(e => {
+				return "error";
+			});
+		},
+		//admin
+		postNewService({commit,state}, newService){
 			var service = newService;
 				//dos acciones encadenadas
 				// 1 post / service con todos sus campos => devuelve el servicio nuevo con el id
@@ -172,14 +213,21 @@ const store = new Vuex.Store({
 					created_at: Date.now(),
 					updated_at: Date.now()
 		        
-		      })
+				},
+				{
+					headers: {
+						'x-api-key': state.access_token,
+					}
+				}
+			  )
 		      .then(response => {
 						// 2 post / filters , a partir del servicio nuevo sacar el id, y asociar id de servicio e id de filtros, ciclo for. 
-						for(var i = 0; i < (service.filters.length - 1); i++){
+						for(var i = 0; i < (service.filters.length); i++){
 		
 							var link = `${SERVER_PATH}/services/${response.data.data.id}/filters/${service.filters[i]}`
-							axios.post(link).then(response => {
-							
+							axios.post(link, {}, {
+								headers: {'x-api-key': state.access_token}})
+							.then(response => {
 							}).catch(e => this.errors.push(e));
 							if (i === (newService.filters.length-2)) {
 								return response.data.data;
@@ -192,11 +240,16 @@ const store = new Vuex.Store({
 			  });
 			  
 		},
-		postNewFilter(context, newFilter){
+		postNewFilter({commit,state}, newFilter){
 			return axios.post(`${SERVER_PATH}/filters`,  {
 				name: newFilter.name,
 				tag: newFilter.tag, 
 				filter_type_id: newFilter.type,
+			},
+			{
+				headers: {
+					'x-api-key': state.access_token,
+				}
 			})
 			.then(response => {
 				return response.data.data;
@@ -207,13 +260,14 @@ const store = new Vuex.Store({
 			 
 		
 		},
-		editService(context, editedService){
-			console.log(editedService);
-			// desasociar old filters
+		editService({commit,state}, editedService){
 			for(var i = 0; i < (editedService.oldFilters.length - 1); i++){
 				var link = `${SERVER_PATH}/services/${editedService.id}/filters/${editedService.oldFilters[i]}`
-				axios.delete(link).then(response => {
-					console.log(`desasociando servicio ${editedService.id} de filtro ${editedService.oldFilters[i]}`)
+				axios.delete(link,{
+					headers: {
+						'x-api-key': state.access_token,
+					}
+				}).then(response => {
 				}).catch(e => this.errors.push(e));
 			}
 		
@@ -229,13 +283,20 @@ const store = new Vuex.Store({
 					contact_name: editedService.contacto,
 					website: editedService.web,
 					updated_at: Date.now(),
-		    })
+			},
+			{
+				headers: {
+					'x-api-key': state.access_token,
+				}
+			})
 		      .then(response => {
-				  	//asociar new filters
-				for(var i = 0; i < (editedService.newFilters.length - 2); i++){
+				for(var i = 0; i < (editedService.newFilters.length); i++){
 					var link = `${SERVER_PATH}/services/${editedService.id}/filters/${editedService.newFilters[i]}`
-					axios.post(link).then(response => {
-						console.log(`asociando servicio ${editedService.id} a filtro ${editedService.newFilters[i]}`)
+					axios.post(link,{},{
+						headers: {
+							'x-api-key': state.access_token,
+						}
+					}).then(response => {
 					}).catch(e => this.errors.push(e));
 				}
 				return response.data.data;
@@ -244,13 +305,15 @@ const store = new Vuex.Store({
 				this.errors.push(e)
 			  });
 		},
-		editFilter(context, editedFilter){
-			console.log()
-			
+		editFilter({commit,state}, editedFilter){
 			return axios.put(`${SERVER_PATH}/filters/${editedFilter.id}`,  {
 				name: editedFilter.name,
 				tag: editedFilter.tag, 
 				filter_type_id: editedFilter.type,
+			},{
+				headers: {
+					'x-api-key': state.access_token,
+				}
 			})
 			.then(response => {
 				return response.data.data;
@@ -260,16 +323,24 @@ const store = new Vuex.Store({
 			});
 		
 		},
-		deleteFilter(context, deletedFilter){
-			return axios.delete(`${SERVER_PATH}/filters/${deletedFilter}`)
+		deleteFilter({commit, state}, deletedFilter){
+			return axios.delete(`${SERVER_PATH}/filters/${deletedFilter}`,{
+				headers: {
+					'x-api-key': state.access_token,
+				}
+			})
 			.then(response => {
 			})
 			.catch(e => {
 				this.errors.push(e);
 			});
 		},
-		deleteService(context, deletedServiceId){
-			return axios.delete(`${SERVER_PATH}/services/${deletedServiceId}`)
+		deleteService({commit, state}, deletedServiceId){
+			return axios.delete(`${SERVER_PATH}/services/${deletedServiceId}`,{
+				headers: {
+					'x-api-key': state.access_token,
+				}
+			})
 			.then(response => {
 				return response.data.data;
 			})
@@ -277,38 +348,30 @@ const store = new Vuex.Store({
 				this.errors.push(e);
 			});
 		},
-		postMessage(context, mess){
-			return axios.post(`${SERVER_PATH}/messages`, { 
-				data: {
-					name: mess.name,
-					institution: mess.institution, 
-					email: mess.email,
-					description: mess.description,
-					status: 'unread'
+		
+		fetchMessages({commit, state}){
+			return axios.get(`${SERVER_PATH}/messages`, {}, {
+				headers: {
+					'x-api-key': state.access_token,
 				}
-			})	
+			})
 			.then(response => {
-				console.log(response.data);
+				return commit('FETCH_MESSAGES', response.data.data);
 			})
 			.catch(e => {
 				this.errors.push(e);
 			});
 
 		},
-		fetchMessages(context){
-			return axios.get(`${SERVER_PATH}/messages`)
-			.then(response => {
-				return context.commit('FETCH_MESSAGES', response.data.data);
-			})
-			.catch(e => {
-				this.errors.push(e);
-			});
-
-		},
-		changeMessageStatus({commit, dispatch}, newStatus){
-			console.log(`mess ${newStatus.id} status ${newStatus.status}`);
-			return axios.put(`${SERVER_PATH}/messages/${newStatus.id}`, {
-				status: newStatus.status
+		changeMessageStatus({commit, dispatch,state}, newStatus){
+			return axios.put(`${SERVER_PATH}/messages/${newStatus.id}`, 
+				{
+					status: newStatus.status
+				}, 
+				{
+					headers: {
+						'x-api-key': state.access_token,
+				}
 			})
 			.then(response => {
 				dispatch('fetchMessages');
@@ -318,16 +381,34 @@ const store = new Vuex.Store({
 			});
 
 		},
-		getAssociatedServices(context, filterId){
-			return axios.get(`${SERVER_PATH}/filters/${filterId}/services`)
-			.then(response => {
-				return response.data.data;
+		getAdminStatus({commit,state}){
+			return axios.get(`${SERVER_PATH}/admin-status`, {
+				headers: {
+					'x-api-key': state.access_token,
+				}
+			})
+			.then((response, error )=> {
+				return response.data.status;
 			})
 			.catch(e => {
-				this.errors.push(e);
+				state.errors.push(e);
+				return e.response.data.error;
 			});
-
-		}
+		},
+		logout({commit,state}, user){
+			return axios.post(`${SERVER_PATH}/logout`, { } , {
+				headers: {
+					'x-api-key': state.access_token,
+				}
+			})
+			.then(response => {
+				commit('STORE_ACCESS_TOKEN', null);
+				return response;
+			}).catch(e=>{
+				state.errors.push(e);
+			});
+			
+		},
 		
 	},
 	getters:{

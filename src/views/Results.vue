@@ -4,7 +4,7 @@
 			<filters-mobile></filters-mobile>
 		</div>
 		<div class="row listado">
-			<the-sidebar class="d-print-none" id="the-sidebar"></the-sidebar>
+			<the-sidebar class="d-print-none" id="sidebar"></the-sidebar>
 			<div class="col-sm-12 col-md-9" id="list">
 				<section>
 					<div v-if="services" class="results">
@@ -182,7 +182,7 @@ main{
 	text-align:center;
 }
 
-#the-sidebar{
+#sidebar{
 	padding-left:30px;
 }
 

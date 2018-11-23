@@ -8,9 +8,6 @@
 				</header>
 			</template>
 			<b-card-body>	
-				<template slot="table-header">
-					<h1> holi </h1>
-				</template>
 				<b-table class="mb-0 col-12" 
 						responsive="md" hover
 						:items="tableItems" outlined
