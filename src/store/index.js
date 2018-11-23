@@ -176,7 +176,6 @@ const store = new Vuex.Store({
 				}
 			})	
 			.then(response => {
-				console.log(response.data);
 			})
 			.catch(e => {
 				this.errors.push(e);
@@ -223,7 +222,7 @@ const store = new Vuex.Store({
 			  )
 		      .then(response => {
 						// 2 post / filters , a partir del servicio nuevo sacar el id, y asociar id de servicio e id de filtros, ciclo for. 
-						for(var i = 0; i < (service.filters.length - 1); i++){
+						for(var i = 0; i < (service.filters.length); i++){
 		
 							var link = `${SERVER_PATH}/services/${response.data.data.id}/filters/${service.filters[i]}`
 							axios.post(link, {}, {
@@ -292,7 +291,6 @@ const store = new Vuex.Store({
 			})
 		      .then(response => {
 				for(var i = 0; i < (editedService.newFilters.length); i++){
-					console.log(editedService.newFilters[i]);
 					var link = `${SERVER_PATH}/services/${editedService.id}/filters/${editedService.newFilters[i]}`
 					axios.post(link,{},{
 						headers: {

@@ -343,7 +343,6 @@ export default {
 			evt.preventDefault();
 			this.$v.form.$touch();
 			if (this.$v.form.$invalid) {
-				console.log('ERROR');
 				this.invalidForm = true;
 				setTimeout(() => {
 					this.invalidForm = false;
@@ -358,7 +357,7 @@ export default {
 			evt.preventDefault();	
 			var filters = this.form.tipo.concat(this.form.sector).concat(this.form.destinatario);
 			filters.push(this.form.unidad);
-			filters.push(this.form.subunidad);
+			if(this.form.subunidad){filters.push(this.form.subunidad)};
 			this.form.filters = filters;
 			store.dispatch('postNewService', this.form).then(response => {
 				this.createdService = response;

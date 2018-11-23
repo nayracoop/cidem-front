@@ -579,7 +579,6 @@ export default {
 			var newFilters = this.form.tipo.concat(this.form.sector).concat(this.form.destinatario);
 			newFilters.push(this.form.unidad);
 			if(this.form.subunidad){newFilters.push(this.form.subunidad)};
-			console.log(newFilters);
 			this.editedService.newFilters = newFilters;
 			var oldFilters = this.$store.getters.serviceFilters[2].concat(this.$store.getters.serviceFilters[3])
 						.concat(this.$store.getters.serviceFilters[4])
