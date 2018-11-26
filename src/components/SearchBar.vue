@@ -104,7 +104,7 @@
 					this.$store.dispatch('changeQuerySearch', null);
 					this.$store.dispatch('fetchServices');
 					router.push({ name: 'Results', query:{filters: this.$store.getters.filterArray}});  
-				} 
+				}  
 		      
 		    },
 		    filterclick: function(filter, e){

@@ -6,7 +6,7 @@
         <img class="navbar-brand-full" src="../assets/img/logountref.svg" width="55" height="" alt="Courier Admin Logo">
         <img class="navbar-brand-minimized ml-5" src="../assets/img/logountref.svg" width="55" alt="Courier Admin Logo">
       </b-link>
-      <SidebarToggler class="d-md-down-none mr-auto" display="lg" />
+      <SidebarToggler class="d-md-none mr-auto" display="lg" />
       <b-navbar-nav class="d-md-down-none float-right">
         <b-nav-item class="px-3" @click="submitLogout()">Cerrar sesión</b-nav-item>
       </b-navbar-nav>
@@ -24,7 +24,7 @@
           <router-view ></router-view>
         </div>
       </main>
-      <AppAside >
+      <AppAside>
       </AppAside>
     </div>
 
@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style lang="scss">
-#admin{
+
   // CoreUI Icons Set
   @import '../../node_modules/@coreui/icons/css/coreui-icons.min.css';
   /* Import Font Awesome Icons Set */
@@ -95,8 +95,8 @@ export default {
   @import '../../node_modules/bootstrap-vue/dist/bootstrap-vue.css';
   // Import Main styles for this application
   @import '@/assets/scss/style.scss';
-  position: relative;
-}
+
+
 
 .pagination-nav {
     display: inline-block;

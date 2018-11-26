@@ -139,7 +139,6 @@
 											placeholder="Ingresa el nombre de la persona de contacto"
 											v-model="form.contacto">
 								</b-form-input>
-								<p class="validation-error" v-show="!$v.form.contacto.required">{{validationText.req}}</p>
 								<p class="validation-error" v-show="!$v.form.contacto.minLength">{{validationText.contacto.min}}</p>
           						<p class="validation-error" v-show="!$v.form.contacto.maxLength">{{validationText.contacto.max}}</p>
 							</b-form-group>
@@ -156,7 +155,6 @@
 											autocomplete="email"
 											v-model="form.email">
 								</b-form-input>
-								<p class="validation-error" v-show="!$v.form.email.required">{{validationText.req}}</p>
 								<p class="validation-error" v-show="!$v.form.email.email">{{validationText.email}}</p>
 							</b-form-group>
 
@@ -172,7 +170,6 @@
 												autocomplete="website"
 												v-model="form.website">
 									</b-form-input>
-									<p class="validation-error" v-show="!$v.form.website.required">{{validationText.req}}</p>
 							</b-form-group>
 							
 							<b-form-group label="Telefono"
@@ -301,18 +298,16 @@ export default {
 			sector: {required},
 			destinatario: {required},
 			contacto: {
-				required,
 				minLength: minLength(4),
        			maxLength: maxLength(60),
 			},
-			email: { required , email },
+			email: { email },
 			tel: {required},
 			dir: {
 				required,  
 				minLength: minLength(10),
 				maxLength: maxLength(100),
 			},
-			website: {required},
 			description: {
 				minLength: minLength(10),
       			maxLength: maxLength(300),
