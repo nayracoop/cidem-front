@@ -1,10 +1,12 @@
 <template>
+  <div id="client-body">
   <div class="container" id="client">
     <the-header></the-header>
     <div class="view">
       <router-view/>
     </div>
     <the-footer></the-footer>
+  </div>
   </div>
 </template>
 
@@ -67,6 +69,7 @@ export default {
       font-weight: 400;
       src: url('../assets/fonts/tipo_-_distefanoslab-regular-webfont.woff') format('woff');
   }
+
 
  #client {
     font: normal 100%/1.5 'Distefano-Sans', sans-serif;

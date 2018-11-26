@@ -128,13 +128,13 @@ export default {
   @import '../node_modules/bootstrap-vue/dist/bootstrap-vue.css';
   @import '../node_modules/bootstrap/scss/bootstrap.scss';
  
-  body {
-   
+  body.body-front {
     background: #fff;
     margin: auto;
     cursor: default;
-
   }
+
+
 
 
 a{
