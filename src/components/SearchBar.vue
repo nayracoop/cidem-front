@@ -100,7 +100,11 @@
 					this.$store.dispatch('changeQuerySearch', this.searchInput);
 					this.$store.dispatch('fetchServices');
 					router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});   
-				}
+				} else {
+					this.$store.dispatch('changeQuerySearch', null);
+					this.$store.dispatch('fetchServices');
+					router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});  
+				} 
 		      
 		    },
 		    filterclick: function(filter, e){
