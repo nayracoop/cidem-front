@@ -350,7 +350,7 @@ const store = new Vuex.Store({
 		},
 		
 		fetchMessages({commit, state}){
-			return axios.get(`${SERVER_PATH}/messages`, {}, {
+			return axios.get(`${SERVER_PATH}/messages`, {
 				headers: {
 					'x-api-key': state.access_token,
 				}
