@@ -229,17 +229,18 @@ main {
     cursor:pointer;
 }
 
-.OFtitle{
+.OFtitle h1{
     text-align:center;
     text-transform: uppercase;
+    font-weight:700;
 }
 
 .OFp{
     margin-top: 20px;
-    padding-bottom:60px;
+    padding-bottom:2em;
     font-size: 1.25em;
     color: #4a4a4a;
-    
+    line-height:1.25;
 }
 
 .references h3{
@@ -251,11 +252,12 @@ main {
 }
 
 .servicesRow{
-    margin-bottom:60px;
+    margin-bottom:7em;
 }
 
 .OFsub h2{
-    padding-bottom:40px;
+    padding-bottom:2em;
+    text-decoration:underline;
 }
 
 .OFicons{
@@ -270,25 +272,41 @@ main {
     height: 100px;
 }
 
-
 .OFicons i{
     font-size:50px;
     color: #ffffff;
 }
 
+.OFtipos{
+	border-bottom:solid 3px #ccc;
+}
+
 @media screen and (max-width: 768px) {
     .OFicons{
         margin:0 auto; 
-        width: 3em;
+        width: 48px;
         height: 3em;
     }
+
  	.OFicons i {
  		font-size: 1.5em;
  	}
 
     .OFtipos{
-        margin-top: 20px;
+        margin-top: 1.5em;
     }
+
+    .OFtipos p{
+    	margin-bottom:4em;
+    }
+
+    .servicesRow{
+    margin-bottom:3em;
+	}
+
+	.OFtipos p{
+		line-height:1.25;
+	}
 
     .OFsub h2{
         text-align: center;

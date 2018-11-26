@@ -140,11 +140,13 @@ main {
 .titleconsult h1{
     text-transform: uppercase;
     text-align: center;
+    font-weight:700;
 }
 
 .titleconsult h2{
     padding-bottom:20px;
     font-size: 1.25em;
+    line-height:1.25;
     color: #4a4a4a;
     text-align: justify;
     margin-top:20px;

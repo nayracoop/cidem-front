@@ -120,7 +120,7 @@ $(function () {
 .subLander p{
     margin-top:20px;
     text-align:center;
-    font-size: 1.2em;
+    font-size: 1.25em;
     color: #4a4a4a;
     font-family:'DistefanoSlab-Regular','DistefanoSlab';
     line-height:1.25em;

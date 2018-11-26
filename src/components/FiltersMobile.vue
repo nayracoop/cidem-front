@@ -1,9 +1,8 @@
 <template>			
 	<div class="col-12 d-block d-md-none">
 		<b-row>
-			<p class="mobileresults col-6">Se encontraron {{metadata.total}} resultados<span v-if="searchQuery"> para "{{searchQuery}}" </span></p>
-			<button type="button" class="col-5 btn mt-1 float-right rounded-0 filterbtn" @click="show = true"><i class="fas fa-sliders-h"></i> Filtros</button>
-		</b-roW>
+			<button type="button" class="col-12 text-left btn rounded-0 filterbtn" @click="show = true"><i class="fas fa-sliders-h"></i> Filtros</button>
+		</b-row>
 		<div class="hiddenfilters" :class='{showFilters:show}'>
 			<div class="Zbuttons align-items-center">	
 				<h2 class="mt-2">Filtros</h2>
@@ -139,6 +138,10 @@
 	padding:20px 0;
 }
 
+.Zbuttons h2{
+	
+}
+
 .applybtn{
 	background-color: #000;
     color:#fff;
@@ -167,7 +170,7 @@
 }
 
 .filters{
-	margin-left:70px;
+	
 }
 
 .filters .filter-type:after{
@@ -180,13 +183,10 @@
 
 .filters .collapsed:after{
     content: "\f0da";
-
 }
 
 #filtersid {
-	padding: 20px;
-	margin: auto;
-	margin-left:60px;
+	padding:0 40px;
 }
 #filtersid dt{
 	width: 100%;

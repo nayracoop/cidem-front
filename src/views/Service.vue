@@ -206,6 +206,7 @@ main {
 
 .vcard .name:hover{
 	cursor:default;
+	text-decoration:none;
 }
 .navficha{
     padding-bottom: 20px;
