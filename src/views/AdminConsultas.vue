@@ -3,8 +3,8 @@
 		<b-card >
 			<template class="row " slot="header">
 				<header class="d-flex justify-space-around">
-				<h1 class="col-4"> Consultas </h1>
-				<p class="mt-2 float-right" > {{newMessages.length}} consulta<span v-if="newMessages.length != 1">s</span> no leída<span v-if="newMessages.length != 1">s</span> </p>
+					<h4 class="col-5 p-1 m-0"><i class="far fa-envelope fa-xs mr-1"></i> Consultas </h4>
+				<p class="m-0 mt-2 p-0 float-right" > {{newMessages.length}} consulta<span v-if="newMessages.length != 1">s</span> no leída<span v-if="newMessages.length != 1">s</span> </p>
 				</header>
 			</template>
 			<b-card-body>	

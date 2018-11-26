@@ -52,7 +52,6 @@ export default new Router({
           component: AdminAddServicio,
           beforeEnter(to, from, next) {
             store.dispatch('getAdminStatus').then(response => {
-              console.log(`router: ${response}`);
               if (response =="Authorized"){
                 next();
               } else if (response == "Not authorized."){
@@ -67,7 +66,6 @@ export default new Router({
           component: AdminEditServicio,
           beforeEnter(to, from, next) {
             store.dispatch('getAdminStatus').then(response => {
-              console.log(`router: ${response}`);
               if (response =="Authorized"){
                 next();
               } else if (response == "Not authorized."){
@@ -82,7 +80,6 @@ export default new Router({
           component: AdminFiltros,
           beforeEnter(to, from, next) {
             store.dispatch('getAdminStatus').then(response => {
-              console.log(`router: ${response}`);
               if (response =="Authorized"){
                 next();
               } else if (response == "Not authorized."){
@@ -97,7 +94,6 @@ export default new Router({
           component: AdminConsultas,
           beforeEnter(to, from, next) {
             store.dispatch('getAdminStatus').then(response => {
-              console.log(`router: ${response}`);
               if (response =="Authorized"){
                 next();
               } else if (response == "Not authorized."){
