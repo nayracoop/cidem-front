@@ -81,7 +81,6 @@ export default {
 
 <style lang="scss">
 #admin{
-
   // CoreUI Icons Set
   @import '../../node_modules/@coreui/icons/css/coreui-icons.min.css';
   /* Import Font Awesome Icons Set */

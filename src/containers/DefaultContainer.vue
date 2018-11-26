@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="client">
     <the-header></the-header>
     <div class="view">
       <router-view/>
@@ -35,43 +35,20 @@ export default {
       font-weight: 400;
       src: url('../assets/fonts/tipo_-_distefanosans_regular-webfont.woff') format('woff');
   }
-/*
-  @font-face {
-      font-family: 'Distefano-Sans';
-      font-style: italic;
-      font-weight: 400;
-      src: url('../assets/fonts/tipo_-_distefanosans-italic-webfont.woff') format('woff');
-  }
-*/
+
   @font-face {
       font-family: 'Distefano-Sans';
       font-style: normal;
       font-weight: 200;
       src: url('../assets/fonts/tipo_-_distefanosans_light-webfont.woff') format('woff');
   }
-/*
-  @font-face {
-      font-family: 'Distefano-Sans';
-      font-style: italic;
-      font-weight: 200;
-      src: url('../assets/fonts/tipo_-_distefanosanslightitalic-webfont.woff') format('woff');
-  }
-*/
+
   @font-face {
       font-family: 'Distefano-Sans';
       font-style: normal;
       font-weight: 900;
       src: url('../assets/fonts/tipo_-_distefanosans-black-webfont.woff') format('woff');
   }
-
-/*
-  @font-face {
-      font-family: 'Distefano-Sans';
-      font-style: italic;
-      font-weight: 900;
-      src: url('../assets/fonts/tipo_-_distefanosans-blackitalic-webfont.woff') format('woff');
-  }
-  */
 
   @font-face {
       font-family: 'Distefano-Sans';
@@ -91,7 +68,7 @@ export default {
       src: url('../assets/fonts/tipo_-_distefanoslab-regular-webfont.woff') format('woff');
   }
 
-  body {
+ #client {
     font: normal 100%/1.5 'Distefano-Sans', sans-serif;
     background: #fff;
     color:#000;
