@@ -103,7 +103,7 @@
 				} else {
 					this.$store.dispatch('changeQuerySearch', null);
 					this.$store.dispatch('fetchServices');
-					router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}});  
+					router.push({ name: 'Results', query:{filters: this.$store.getters.filterArray}});  
 				} 
 		      
 		    },
