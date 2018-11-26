@@ -99,7 +99,7 @@ export default {
     right: -1px;
     height:100%;
     z-index:4;
-    top:-1px;
+    top:0;
     padding-top:40px;
 }
 
@@ -112,7 +112,6 @@ export default {
 
 .headermenushow{
 	width:240px;
-
 }
 
 .headermenushow::before {
@@ -125,8 +124,7 @@ export default {
     left:0;
     background-color: rgba(0,0,0,.5);
     transition: background-color 0.4s, margin-right 0.35s;   
-    margin-right:239px;
-      
+    margin-right:239px;      
 }
 
 .headercollapse ul{
@@ -137,6 +135,10 @@ export default {
 	.headermenushow{
 		width:100%;
 	}
+
+  .headermenushow::before {
+    content: none;      
+}
 
 	.item{
 		text-align:center;

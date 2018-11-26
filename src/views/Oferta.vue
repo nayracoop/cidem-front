@@ -8,7 +8,7 @@
 				<span class="printbtn d-none d-md-block d-print-none"><button @click="print()"><i class="fas fa-print"></i></button></span>
 			</div>	
 		</div>
-		<div class="row">
+		<div class="row title">
 			<h1 class="col-12 text-center">Oferta de soluciones y servicios tecnológicos</h1>
 		</div>
 		<div class="row">
@@ -99,6 +99,12 @@ a:hover{
 
 main{
 	margin: 20px auto;
+}
+
+.title h1{
+    text-transform: uppercase;
+    font-weight:700;
+    font-size:2.25em;
 }
 
 table{
