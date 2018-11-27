@@ -133,6 +133,7 @@ label{
     line-height:1em;
     padding:1em 15px;
     border-bottom:solid 1px #eaeaea;
+    cursor:pointer;
 }
 
 .scrollable-menu li:hover{

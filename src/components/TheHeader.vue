@@ -86,6 +86,7 @@ export default {
     width: auto; 
     max-width: 150px; 
     max-height: 150px;
+    cursor:pointer;
 }
 
 .hamb{

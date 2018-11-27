@@ -20,7 +20,7 @@ export default {
   data () {
     return {
       SID:"Secretaria de Investigación y Desarrollo-SID",
-      SIDaddress:"Av. San Martín 2508, Caseros, Buenos Aires|4716-0004|desarrollo@untref.edu.ar"
+      SIDaddress:"Av. San Martín 2508, Caseros, Buenos Aires | 4716-0004 | desarrollo@untref.edu.ar"
     }
   }
 }

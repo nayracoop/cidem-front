@@ -85,12 +85,6 @@ import router from '../router'
 	transition: all 300ms;
 }
 
-/*
-.selectedfilters dl dt{
-	display: inline;
-	font-weight: 200;
-	font-size:1.125em;
-}*/
 .selectedfilters dl dd{
     margin: 2.5px;
     padding: 0.25em 10px;
@@ -105,6 +99,7 @@ import router from '../router'
     margin-left:10px;
     vertical-align:middle;
     font-size:0.7em;
+    cursor:pointer;
 }
 
 
