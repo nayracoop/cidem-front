@@ -9,7 +9,7 @@
 				</div>
 			</div>
 		</div>	
-		<div class="row navficha flex justify-content-between"> <!-- FIRST LINE -->
+		<div class="row navficha flex justify-content-between d-none"> <!-- FIRST LINE -->
 			<!--- BUGEADO NO FUNCIONA BIEN -->			
 			<div v-if="!(total===0)" class="col-12 text-center navfile">
 				<a v-if="prev" @click="getServiceById(prev)"><i class="fas fa-angle-double-left"></i><span class="d-none  d-md-inline">Anterior</span></a>
@@ -29,33 +29,33 @@
 								<h2>Unidad</h2>
 							</div>
 							<div class="col-sm-9 categresult">
-								<p><span v-for="service in serviceFilters[0]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
+								<p><span v-for="filter in serviceFilters[0]">{{filter}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
 							</div>
 							<div v-if="serviceFilters[1].length > 0" class="col-sm-3 categ">
 								<h2>Subunidad</h2>
 							</div>
 							<div v-if="serviceFilters[1].length > 0" class="col-sm-9 categresult">
-								<p><span v-for="service in serviceFilters[1]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
+								<p><span v-for="filter in serviceFilters[1]">{{filter}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
 
 							</div>
 							<div class="col-sm-3 categ">
 								<h2>Tipo de servicio</h2>
 							</div>
 							<div class="col-sm-9 categresult">
-								<p><span v-for="service in serviceFilters[2]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
+								<p><span v-for="filter in serviceFilters[2]">{{filter}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
 							</div>
 							<div class="col-sm-3 categ">
 								<h2>Sector al que está destinado el servicio</h2>
 							</div>
 							<div class="col-sm-9 categresult">
-								<p><span v-for="service in serviceFilters[3]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
+								<p><span v-for="filter in serviceFilters[3]">{{filter}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
 
 							</div>
 							<div class="col-sm-3 categ">
 								<h2>Destinatario</h2>
 							</div>
 							<div class="col-sm-9 categresult">
-								<p><span v-for="service in serviceFilters[4]">{{service}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
+								<p><span v-for="filter in serviceFilters[4]">{{filter}} <span v-if="serviceFilters[0].length > 1">, </span> </span></p>
 							</div>
 							<div class="col-sm-3 categlast">
 								<h2>Descripción</h2>
@@ -70,11 +70,11 @@
 							<h3>Información de contacto</h3>
 							<div class="vcard"> 
 								<p>
-									<span class="name"><i class="fas fa-user"></i>{{contact_name}}</span>
-									<span class="email"><i class="fas fa-envelope"></i>{{contact_email}}</span> 
-									<span class="number"><i class="fas fa-phone ph"></i>{{contact_number}}</span>
-									<span v-if="contact_web" class="region"><i class="fas fa-globe"></i>{{contact_web}}</span>
-									<span class="region"><i class="fas fa-map-marker-alt"></i>{{contact_adress}}</span>
+									<span v-if="service.contact_name" class="name"><i class="fas fa-user"></i>{{service.contact_name}}</span>
+									<span v-if="service.email" class="email"><i class="fas fa-envelope"></i>{{service.email}}</span> 
+									<span v-if="service.phone" class="number"><i class="fas fa-phone ph"></i>{{service.phone}}</span>
+									<span v-if="service.website" class="region"><i class="fas fa-globe"></i>{{service.website}}</span>
+									<span v-if="service.address" class="region"><i class="fas fa-map-marker-alt"></i>{{service.address}}</span>
 
 								</p>
 							</div>
@@ -94,24 +94,13 @@ import store from '../store'
 		name:"Service",
 		data:function(){
 			return{
-				fileTitle:"Asistencia técnica al fortalecimiento institucional",
 				C_Uni:"Unidad",
-				Uni_results:"Centro de Innovación y Desarrollo de Empresas y Organizaciones - CIDEM",
 				C_Sub:"Subunidad",
-				Sub_results:"Coordinación de Proyectos Institucionales",
 				C_Tipo:"Tipo de Servicio",
-				Tipo_Results:"Asistencia técnica",
 				C_Sec:"Sector al que está destinado el Servicio",
-				Sec_results:"Organismos públicos",
 				C_Dest:"Destinatario",
 				Dest_results:"Universidad",
 				C_Desc:"Descripción",
-				Desc_results:"Dessarrollo y ejecución de proyectos de fortalecimiento institucional de organismos públicos (Gobierno Nacional, Subnacional y Local). Se provee asistencia y asesoramiento en proceso de fortalecimiento institucional, orientados a la incorporación de capacidades, como por ejemplo mejora de procesos de gestión, realización de estudios y diagnósticos sectoriales, reorganizaciones y mejoras organizativas, gestión por resultados, diseño y puesta en funcionamiento de agencias y áreas de promoción económica, implementación de estándares de calidad y servicios al vecino.",
-				contact_name:"Diego Federico",
-				contact_email:"dfederico@untref.edu.ar",
-				contact_number:"01147599810",
-				contact_adress:"Av. San Martín 2921, Caseros (1678), Provincia de Buenos Aires",
-				contact_web: 'www.hola.com'
 
 			}
 		},
@@ -126,7 +115,6 @@ import store from '../store'
 			});
 		},
 		created() {
-			//this.$store.dispatch('fetchService', this.$route.query.id);	
 		},
 		computed: {
 			searchQuery: function(){
@@ -139,8 +127,6 @@ import store from '../store'
 				return this.$store.getters.serviceFiltersNames;
 			},
 			service() {
-								console.log(this.$store.state.service.data);
-
 				return this.$store.state.service.data;
 			},
 			services(){
