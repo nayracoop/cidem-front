@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
 import VuexPersist from 'vuex-persist';
-
+import data from '@/data'
 
 const token = localStorage.getItem('token')
 
@@ -95,19 +95,34 @@ const store = new Vuex.Store({
 		        for (var i = 0; i < (state.searchQueryFilters.length); i++){
 		          filters.push(state.searchQueryFilters[i].id);
 		        } 
-		    };
-			axios.get(`${SERVER_PATH}/services`,  {
-		        params: {
-		          service: state.searchQuery,
-		          filters: filters,
-		        }
-		      })
-		      .then(response => {
-		      	commit('FETCH_SERVICES', response.data);
-		      })
-		      .catch(e => {
-		            this.errors.push(e)
-		      })
+			};
+			if (state.searchQuery === null) {
+				axios.get(`${SERVER_PATH}/services`,  {
+					params: {
+					  filters: filters,
+					}
+				  })
+				  .then(response => {
+					  commit('FETCH_SERVICES', response.data);
+				  })
+				  .catch(e => {
+						this.errors.push(e)
+				  })
+			} else {
+				axios.get(`${SERVER_PATH}/services`,  {
+					params: {
+					  service: state.searchQuery,
+					  filters: filters,
+					}
+				  })
+				  .then(response => {
+					  commit('FETCH_SERVICES', response.data);
+				  })
+				  .catch(e => {
+						this.errors.push(e)
+				  })
+			}
+			
 		},
 		fetchFullServices({commit, state}, total){
 			var filters = [];
@@ -423,6 +438,83 @@ const store = new Vuex.Store({
 			});
 			
 		},
+		populateFilters({commit, state}){
+			data.filters.forEach(function(element){
+				axios.post(`${SERVER_PATH}/filters`,  {
+					name: element.name,
+					tag: element.tag, 
+					filter_type_id: element.filter_type,
+				},
+				{
+					headers: {
+						'x-api-key': state.access_token,
+					}
+				})
+				.then(response => {
+					console.log(response);
+				})
+				.catch(e => {
+					this.errors.push(e);
+				});
+			});
+		},
+		populateServices({commit, state}){
+			var s = 0;
+			var createServices = function(){
+				var element = data.services[s];
+				var filtersText = element.unidad + ', ' + element.tipo + ', ' + element.sector + ', ' + element.destinatarios;
+				if (element.subunidad){
+					filtersText += ', ' + element.subunidad;
+				}
+				var filterNames = filtersText.split(', ');
+				var elementFilters = [];
+				filterNames.forEach(function(name){
+					var filter = state.filterList.find(function(e){
+						return e.name === name;
+					});
+					if(filter){
+						elementFilters.push(filter.id);
+					}
+				});	
+				
+				axios.post(`${SERVER_PATH}/services`,  {
+						name: element.service_name,
+						description: element.description,
+						contact_name: element.contact_name,
+						email: element.email,
+						phone: element.phone,
+						address: element.address,
+						created_at: Date.now(),
+						updated_at: Date.now()
+					},
+					{
+						headers: {
+							'x-api-key': state.access_token,
+						}
+					}
+				)
+				.then(response => {
+							for(var i = 0; i < (elementFilters.length); i++){
+								var link = `${SERVER_PATH}/services/${response.data.data.id}/filters/${elementFilters[i]}`
+								axios.post(link, {}, {
+									headers: {'x-api-key': state.access_token}})
+								.then(response => {
+								}).catch(e => this.errors.push(e));
+							}
+							s = s+1
+							console.log(s);
+						
+				})
+				.catch(e => {
+						this.errors.push(e)
+				});
+			}; 
+
+			setInterval(createServices, 10000);
+
+
+		}
+		
 		
 	},
 	getters:{

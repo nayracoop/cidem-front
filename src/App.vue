@@ -17,6 +17,7 @@ import Service from '@/views/Service'
 import DefaultContainer from '@/containers/DefaultContainer'
 import DefaultAdminContainer from '@/containers/DefaultAdminContainer'
 
+const SERVER_PATH = process.env.SERVER_PATH;
 
 
 export default {
@@ -37,11 +38,10 @@ export default {
     DefaultAdminContainer
   }, 
   created() {
-    			
     this.load();
   },
   mounted: function mounted(){
-   },
+  },
   computed: {
     filterList(){
       return this.$store.state.filterList;
@@ -74,6 +74,7 @@ export default {
     }
   },
   methods: {
+
       load: function(){
         var that = this;
         if (this.$route.query.services) {
@@ -133,9 +134,6 @@ export default {
     margin: auto;
     cursor: default;
   }
-
-
-
 
 a{
   cursor: pointer;
