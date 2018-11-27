@@ -273,7 +273,8 @@ $(function () {
   }
 
   .icons{
-
+      white-space:nowrap;
+      overflow-x:auto;
   }  
 
   .icons i{

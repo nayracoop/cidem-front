@@ -6,9 +6,8 @@
 		<div class="hiddenfilters" :class='{showFilters:show}'>
 			<div class="Zbuttons align-items-center">	
 				<h2 class="mt-2">Filtros</h2>
-				<button type="button" class="applybtn btn rounded-0" @click="show =	false">Aplicar</button>
 			</div>
-			<filters-selected class="offset-1 mb-2"></filters-selected>
+			<filters-selected class="filters-select mb-2"></filters-selected>
 			<div class="filters" id='filtersid'>
 				<dl v-for="type in filterTypes" :key="type.id">
 					<dt class="filter-type collapsed" data-toggle="collapse" :data-target="'#'+type.id+'H'" >{{type.name}}</dt>
@@ -19,10 +18,19 @@
 							:key="filter.id"
 							@click="filterclick(filter)"
 							class="filter-item"
-							:class="{highlight:selected.includes(filter.id)}">{{filter.name}}</dd>
+							:class="{highlight:selected.includes(filter.id)}">
+							<span>
+								<i class="far fa-check-square" v-if="selected.includes(filter.id)"></i>
+								<i class="far fa-square" v-if="!selected.includes(filter.id)"></i>		
+							</span>
+							{{filter.name}}
+						</dd>
 					</div>
 				</dl>
-			</div>
+			</div>	
+		</div>
+		<div class="hiddenbtn" :class='{showbtn:show}'>
+			<button type="button" class="applybtn btn rounded-0" @click="show =	false">Aplicar</button>
 		</div>
 	</div>	
 </template>
@@ -104,8 +112,7 @@
 	background-color:#fff;
 	font-weight: 700;
 	font-size:1.5em;
-	margin:20px auto;
-	padding:0;
+	margin:0.5em auto;
 }
 
 .hiddenfilters{
@@ -116,7 +123,7 @@
     z-index:1;
     top:0;
     left:0;
-    transform:translatex(-2000px);
+    transform:translateX(-2000px);
     transition:1s;
     overflow-y:scroll;
 }
@@ -126,20 +133,31 @@
 }
 
 .showFilters{
-	margin-left:0px;
 	transition:0.5s;
 	transform:translateX(0);
 }
 
-.Zbuttons{
-	display:flex;
-	justify-content:space-between;
-	margin:0 40px;
-	padding:20px 0;
+.filters-select{
+	margin:0 33px;
 }
 
-.Zbuttons h2{
-	
+.Zbuttons{
+	padding:1em 0;
+}
+
+.hiddenbtn{
+	position: fixed;
+    z-index:1;
+	left:0;   
+    bottom:0;
+    transform:translatex(-2000px);
+    transition:1s;
+}
+
+.showbtn{
+	transform:translatex(0px);
+	transition:0.5s;
+	width:100%;
 }
 
 .applybtn{
@@ -147,10 +165,11 @@
     color:#fff;
     text-transform: uppercase;
     font-weight: 700;
-    border:none;
+    border:none; 
+    width:100%;
 }
 
-.selected {
+.selected{
 	font-weight: 600;
 }
 .highlight{
@@ -169,16 +188,18 @@
 	margin: 20px auto;
 }
 
-.filters{
-	
+.filter-item:first-child{
+	margin:0 auto;
+}
+
+.filter-item i{
+	font-size:12px;
 }
 
 .filters .filter-type:after{
     font-family: 'FontAwesome';
     content: "\f0d7";
     float:right;
-    width:30%;
-
 }
 
 .filters .collapsed:after{
@@ -188,15 +209,15 @@
 #filtersid {
 	padding:0 40px;
 }
+
 #filtersid dt{
 	width: 100%;
 	margin: auto;
-	margin-bottom: 10px;
+	padding-bottom:1.25em;
 }
+
 #filtersid dd{
 	padding:0;
-}
-.mobileresults{
-	font-size: 0.8em;
+	line-height:1.25;
 }
 </style>					

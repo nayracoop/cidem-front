@@ -121,7 +121,7 @@ table{
 		font-size:1em;
 	}
 
-	h1{
+	.title h1{
 		font-size: 1.625em;
 		margin-bottom:20px;
 	}
