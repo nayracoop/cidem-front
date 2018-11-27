@@ -252,7 +252,6 @@
 									<i class="fa fa-check"></i>
 								</b-badge>
 							</div>
-							<p class="validation-error" v-if="!$v.editedService.contacto.required">{{validationText.req}}</p>
 							<p class="validation-error" v-if="!$v.editedService.contacto.minLength">{{validationText.contacto.min}}</p>
 							<p class="validation-error" v-if="!$v.editedService.contacto.maxLength">{{validationText.contacto.max}}</p>
 						</b-form-group>
@@ -279,7 +278,6 @@
 									<i class="fa fa-check"></i>
 								</b-badge>
 							</div>
-							<p class="validation-error" v-if="!$v.editedService.email.required">{{validationText.req}}</p>
 							<p class="validation-error" v-if="!$v.editedService.email.email">{{validationText.email}}</p>
 						</b-form-group>
 				
@@ -305,7 +303,6 @@
 										<i class="fa fa-check"></i>
 									</b-badge>
 								</div>
-								<p class="validation-error" v-if="!$v.editedService.web.required">{{validationText.req}}</p>
 							</b-form-group>
 					
 							<b-form-group label="Telefono de contacto"
@@ -476,18 +473,16 @@ export default {
 			sector: {required},
 			destinatario: {required},
 			contacto: {
-				required,
 				minLength: minLength(4),
        			maxLength: maxLength(60),
 			},
-			email: { required , email },
+			email: { email },
 			tel: {required},
 			dir: {
 				required,  
 				minLength: minLength(10),
 				maxLength: maxLength(100),
 			},
-			web: {required},
 			description: {
 				minLength: minLength(10),
       			maxLength: maxLength(300),
