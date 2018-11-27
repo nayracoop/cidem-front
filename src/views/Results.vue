@@ -223,7 +223,7 @@ main{
     font-size: 1.25em;
     color:#111111;
     transition: 0.1s;
-    margin-bottom:40px;
+    padding-bottom:2em;
 }
 
 .results h2:hover{

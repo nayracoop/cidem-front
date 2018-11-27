@@ -244,9 +244,6 @@ main {
     line-height:1.25;
 }
 
-.references h3{
-    text-align: center;
-}
 
 .references p{
     color:#4a4a4a;
@@ -279,7 +276,9 @@ main {
 }
 
 .OFtipos{
-	border-bottom:solid 3px #ccc;
+	box-shadow:10px 3px 5px #ccc;
+	background-color:#fafafa;
+	padding:1.5em;
 }
 
 @media screen and (max-width: 768px) {
@@ -297,13 +296,10 @@ main {
         margin-top: 1.5em;
     }
 
-    .OFtipos p{
+    .OFtipos{
     	margin-bottom:4em;
     }
 
-    .servicesRow{
-    margin-bottom:3em;
-	}
 
 	.OFtipos p{
 		line-height:1.25;
@@ -328,14 +324,15 @@ main {
 		font-size:1.25em;
 	}
 
+	.servicesRow{
+    margin-bottom:5em;
+	}
+
+
 	.mainback button,
 	.OFtipos p,
 	.OFp{
 		font-size: 1em;
-	}
-
-	.OFtipos p{
-		text-align:center;
 	}
 
 	.mainback{
