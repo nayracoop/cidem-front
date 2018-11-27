@@ -40,9 +40,12 @@
                         :key="destinatario.id" 
                         :class="destinatario.icon" 
                         class="fa-xs"
-                        v-b-tooltip.hover  
+                        v-b-tooltip.hover
                         :title="destinatario.name"
-                        @click="searchDestinatario(destinatario.filterId)"></i>
+                        @click="searchDestinatario(destinatario.filterId)">
+                         <span class="destname"><p> {{destinatario.name}}</p></span> 
+                  </i>              
+        
         </div>
       </div>      
   	</section>
@@ -104,6 +107,7 @@ export default {
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -238,9 +242,12 @@ $(function () {
     border-bottom:solid #17aae4;
 }
 
-
 .lupa{
     margin:3px auto;
+}
+
+.destname p{
+  display:none;
 }
 
 @media screen and (max-width:767px){
@@ -255,6 +262,21 @@ $(function () {
       font-size: 1.625em;
       text-align:left;
   }
+
+  .destname p{
+      display:block;
+      font-size:0.875rem;
+      max-width:87.5px;
+      white-space:initial;
+      color:#4a4a4a;
+      font-weight:300;
+      text-overflow:ellipsis;
+      width:100%;
+      overflow:hidden;
+      margin-bottom:0;
+      font-family:'DistefanoSlab-Regular','DistefanoSlab';
+  }
+
   .subLander p{
       margin-bottom:1em;
       text-align:left;
@@ -275,15 +297,20 @@ $(function () {
   .icons{
       white-space:nowrap;
       overflow-x:auto;
+      display:flex;
   }  
 
   .icons i{
-      font-size: 30px;
-      color:#000;
-      position:relative;
-      transition:0.2s;
-      top:0;
-      border-bottom:solid white;
+      padding:0.5em 15px;
+      font-size:40px;
+      border:none;
+  }
+
+  .icons i:hover{
+    transition:0.3s;
+    position:relative;
+    cursor:pointer;
+    border:none;
   }
 }
 

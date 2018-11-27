@@ -233,6 +233,7 @@ main {
     text-align:center;
     text-transform: uppercase;
     font-weight:700;
+    font-size:2.25em;
 }
 
 .OFp{

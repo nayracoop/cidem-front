@@ -141,6 +141,7 @@ main {
     text-transform: uppercase;
     text-align: center;
     font-weight:700;
+    font-size:2.25em;
 }
 
 .titleconsult h2{

@@ -130,6 +130,8 @@
 
 .hiddenfilters h2{
 	text-align:center;
+	text-decoration:underline;
+	font-weight:700;
 }
 
 .showFilters{
