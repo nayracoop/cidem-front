@@ -8,6 +8,7 @@
 
 <script>
 	import FiltersTable from '@/components/FiltersTable'
+	import data from '@/data'
 
 	export default{
 		name: 'AdminFiltros',
@@ -16,7 +17,8 @@
 			
 		},
 		methods: {
-    },
+
+    	},
 	}
 
 </script>

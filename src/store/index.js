@@ -437,7 +437,8 @@ const store = new Vuex.Store({
 				state.errors.push(e);
 			});
 			
-		}			
+		},
+		
 	},
 	getters:{
 		filterArray(state) {
