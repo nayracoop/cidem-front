@@ -73,6 +73,11 @@ a:hover{
 	cursor: pointer;
 }
 
+td:hover{
+	color:#17aae4;
+	cursor: pointer;
+}
+
 .printbtn{
 	text-align:right;
 }
@@ -113,6 +118,10 @@ table{
 
 .table thead th{
 	vertical-align:middle;
+}
+
+td:hover{
+
 }
 
 @media screen and (max-width: 576px) {

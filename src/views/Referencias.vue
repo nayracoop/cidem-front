@@ -328,6 +328,9 @@ main {
     margin-bottom:5em;
 	}
 
+	.OFtipos{
+		text-align:center;
+	}
 
 	.mainback button,
 	.OFtipos p,

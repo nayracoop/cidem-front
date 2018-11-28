@@ -100,6 +100,7 @@ export default {
     height:100%;
     z-index:4;
     top:0;
+    left:-1;
     padding-top:40px;
 }
 
@@ -112,6 +113,7 @@ export default {
 
 .headermenushow{
 	width:240px;
+
 }
 
 .headermenushow::before {
@@ -121,7 +123,6 @@ export default {
     top:0;
     right: 0;
     bottom: 0;
-    left:0;
     background-color: rgba(0,0,0,.5);
     transition: background-color 0.4s, margin-right 0.35s;   
     margin-right:239px;      
@@ -134,10 +135,12 @@ export default {
 @media screen and (max-width:576px){
 	.headermenushow{
 		width:100%;
+    left:0;
 	}
 
   .headermenushow::before {
-    content: none;      
+    content: none;   
+    margin-right:0;     
 }
 
 	.item{

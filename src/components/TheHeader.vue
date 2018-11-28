@@ -96,6 +96,7 @@ export default {
 @media screen and (max-width:575px){
   .sb{
     margin-top:16px;
+    z-index:0;
   }
 
   .hamb{
