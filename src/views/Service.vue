@@ -9,7 +9,7 @@
 				</div>
 			</div>
 		</div>	
-		<div class="row navficha flex justify-content-between d-none"> <!-- FIRST LINE -->
+		<div class="row navficha flex justify-content-between"> <!-- FIRST LINE -->
 			<!--- BUGEADO NO FUNCIONA BIEN -->			
 			<div v-if="!(total===0)" class="col-12 text-center navfile">
 				<a v-if="prev" @click="getServiceById(prev)"><i class="fas fa-angle-double-left"></i><span class="d-none  d-md-inline">Anterior</span></a>

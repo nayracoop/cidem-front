@@ -196,10 +196,7 @@ export default {
       this.deleteModal = true;
     },
     deleteService(serviceID){
-      console.log('solicitud de eliminacion');
-      console.log(serviceID);
       this.$store.dispatch('deleteService', serviceID).then(()=>{
-            console.log('eliminado');
             this.$store.dispatch('fetchServices');
             this.IDtoDelete = false;
       });

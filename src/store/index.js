@@ -24,7 +24,7 @@ const vuexLocalStorage = new VuexPersist({
   
 
 const store = new Vuex.Store({
-	plugins: [vuexLocalStorage.plugin],
+	//plugins: [vuexLocalStorage.plugin],
 	state: {
 		filterTypes: [],
 		filterList: [],
