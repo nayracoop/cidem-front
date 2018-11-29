@@ -415,11 +415,9 @@ export default {
     deleteFilter(filter){
         this.deleteModal = true;
         this.currentFilter = filter;
-        //get services associados with filter
         this.$store.dispatch('getAssociatedServices', filter.id).then(response => {
           this.associatedServices = response;
         });
-        //
     },
     closeModal(modal){
         this.filterCreated = false;

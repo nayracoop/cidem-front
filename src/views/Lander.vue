@@ -31,7 +31,7 @@
                     class="fa-xs"
                     v-b-tooltip.hover
                     :title="destinatario.name"
-                    @click="searchDestinatario(destinatario.filterId)">
+                    @click="searchDestinatario(destinatario.id)">
                         <span class="destname"><p> {{destinatario.name}}</p></span> 
                 </i>              
             
@@ -41,7 +41,6 @@
 </template>
 
 <script>
-import destinatarios from '@/_destinatarios'
 import store from '../store'
 import router from '../router'
 import SearchBar from '@/components/SearchBar'
@@ -54,7 +53,6 @@ export default {
  data () {
     return {
       searchInput: '',
-      destinatarios: destinatarios.items,
       title:'Portal de soluciones y servicios tecnológicos',
       subtitle:'En este portal se podrá acceder al catálogo de servicios tecnológicos que ofrece la Universidad Nacional de Tres de Febrero.',
     }
@@ -73,7 +71,11 @@ export default {
 	},
 	filterTypes(){
 		      	return this.$store.state.filterTypes;
-	},
+    },
+    destinatarios(){
+        var dest = this.$store.state.filterList.filter(element => element.filterType.id === 5);
+        return dest;
+    }
   },
   methods: {
     verTodos: function () {
