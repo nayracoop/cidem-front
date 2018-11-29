@@ -259,7 +259,6 @@ article.card.art{
 
 .results p{
     font-weight: 200;
-    font-size: 0.875em;
 }
 
 .art{
