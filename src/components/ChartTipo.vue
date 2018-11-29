@@ -61,7 +61,6 @@ export default {
                     store.dispatch('getAssociatedServices', this.$store.state.filterList[i].id).then(response => {
                         data.push(response.length);
                         if ( data.length === ( this.chartLabels.length)){
-                            console.log(data);
                             return data;
                         }
                     });

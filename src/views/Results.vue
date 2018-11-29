@@ -79,7 +79,6 @@ import TheSidebar from '@/components/TheSidebar'
 
 export default {
 	beforeRouteEnter (to, from, next) {
-		console.log(store.state.searchQueryFilters);
 		next();
 	},
 	name: 'Results',

@@ -1,12 +1,11 @@
 <template>
   <div class="admin">
     <AppHeader class="m-0">
-      <SidebarToggler class="d-lg-none" display="md" mobile />
+      <SidebarToggler />
       <b-link class="navbar-brand" to="/">
         <img class="navbar-brand-full" src="../assets/img/logountref.svg" width="55" height="" alt="Courier Admin Logo">
         <img class="navbar-brand-minimized ml-5" src="../assets/img/logountref.svg" width="55" alt="Courier Admin Logo">
       </b-link>
-      <SidebarToggler class="d-md-none mr-auto" display="lg" />
       <b-navbar-nav class="d-md-down-none float-right">
         <b-nav-item class="px-3" @click="submitLogout()">Cerrar sesión</b-nav-item>
       </b-navbar-nav>

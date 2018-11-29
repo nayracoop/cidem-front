@@ -66,7 +66,6 @@ export default {
             })
             filtros.push(filtri);
         } */
-        console.log(`filtros desde queryfilters : ${filtros}`);
         return filtros
     },
     services() {

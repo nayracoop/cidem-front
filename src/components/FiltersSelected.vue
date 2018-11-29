@@ -54,7 +54,6 @@ import router from '../router'
 			this.$store.dispatch('fetchServices');
 			
 			if (this.$router.history.current.name !== 'Lander'){
-				console.log(this.$router.history.current.name);
 				this.$router.push({ name: 'Results', query:{services: this.$store.state.searchQuery, filters: this.$store.getters.filterArray}}); 
 			};
 	  	},

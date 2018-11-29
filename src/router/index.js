@@ -24,8 +24,8 @@ Vue.use(Router);
 
 
 export default new Router({
-  //mode: 'history', //hay que hacer el catch-all en el server para que ande
-  routes: [
+  mode: 'history', //hay que hacer el catch-all en el server para que ande
+  routes: [    
     {
       path: '/admin',
       name: 'Admin',

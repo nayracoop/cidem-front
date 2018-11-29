@@ -15,7 +15,10 @@
 					v-for="filter in filterList"
 					v-if="filter.filterType.id == type.id" 
 					:class="{highlight:selected.includes(filter.id)}"
-					@click="filterclick(filter, $event)">{{filter.name}}</li>
+					@click="filterclick(filter, $event)">
+					<i class="fa fa-check" v-if="selected.includes(filter.id)"></i>
+					{{filter.name}}
+				</li>
 			</ul>
 		</div>
 		

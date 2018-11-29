@@ -1,58 +1,46 @@
 <template>
-<!---------------- INICIO LANDER ----------------------->
-<section class="Lander col-12 animated fadeIn">
-		<!------- TITULO-------->
-		
-		  <div class="row titleLander"> <!-- primer oracion --> 
-	      <div class="col-12">            
-	          <h1>{{title}}</h1>          
-	     	</div>            
-	    </div>
-	    <!------- DESCRIPCION -------->
-	    <div class="row subLander"> <!-- segunda oracion -->
+    <section class="Lander col-12 animated fadeIn">
+        <div class="row titleLander"> 
+            <div class="col-12">            
+                <h1>{{title}}</h1>          
+            </div>            
+        </div>
+	    <div class="row subLander"> 
 	        <div class="col-12 col-md-8 offset-md-2">            
 	          	<p>{{subtitle}}</p>        
 	      	</div>
 	    </div>
-        
-		
-	    <!------- BUSCADOR DEL LANDER -------->
-      <dropdown class="d-block d-md-none"></dropdown>   
+        <dropdown class="d-block d-md-none"></dropdown>   
 	    <div class="row searcher">
 	    	<SearchBar class="input-group-lg col-12 col-lg-10 offset-lg-1"></SearchBar>  
-      </div>
-        <!------ LINK A VISTA DE TODOS LOS FILTROS ------>
-      <div class="row">
-        <div class="offset-lg-1 col-11 all">
-          <a @click="verTodos()">>ver todos los servicios</a>
         </div>
-      </div>
-        <!------ TAGS FILTROS -------->
-      <filters-selected class="col-12 p-0 col-lg-10 offset-lg-1"></filters-selected>	  
-
-		<!--------- LISTA DESTINATARIOS // FUNCIONALIDAD? ---------->	 
-  	 <div class="row dest">  
-        <h5 class="col-12 text-center">Destinatarios</h5>
-     </div>        
-     <div class="row">
-        <div class="icons offset-md-1 col-md-10 col-12">
-                  <i  v-for="destinatario in destinatarios" 
-                        :key="destinatario.id" 
-                        :class="destinatario.icon" 
-                        class="fa-xs"
-                        v-b-tooltip.hover
-                        :title="destinatario.name"
-                        @click="searchDestinatario(destinatario.filterId)">
-                         <span class="destname"><p> {{destinatario.name}}</p></span> 
-                  </i>              
-        
-        </div>
-      </div>      
-  	</section>
+        <div class="row">
+            <div class="offset-lg-1 col-11 all">
+                <a @click="verTodos()">> ver todos los servicios</a>
+            </div>
+         </div>
+         <filters-selected class="col-12 p-0 col-lg-10 offset-lg-1"></filters-selected>	  
+        <div class="row dest">  
+            <h5 class="col-12 text-center">Destinatarios</h5>
+        </div>        
+        <div class="row">
+            <div class="icons offset-md-1 col-md-10 col-12">
+                <i  v-for="destinatario in destinatarios" 
+                    :key="destinatario.id" 
+                    :class="destinatario.icon" 
+                    class="fa-xs"
+                    v-b-tooltip.hover
+                    :title="destinatario.name"
+                    @click="searchDestinatario(destinatario.id)">
+                        <span class="destname"><p> {{destinatario.name}}</p></span> 
+                </i>              
+            
+            </div>
+        </div>      
+    </section>
 </template>
 
 <script>
-import destinatarios from '@/_destinatarios'
 import store from '../store'
 import router from '../router'
 import SearchBar from '@/components/SearchBar'
@@ -65,7 +53,6 @@ export default {
  data () {
     return {
       searchInput: '',
-      destinatarios: destinatarios.items,
       title:'Portal de soluciones y servicios tecnológicos',
       subtitle:'En este portal se podrá acceder al catálogo de servicios tecnológicos que ofrece la Universidad Nacional de Tres de Febrero.',
     }
@@ -84,7 +71,11 @@ export default {
 	},
 	filterTypes(){
 		      	return this.$store.state.filterTypes;
-	},
+    },
+    destinatarios(){
+        var dest = this.$store.state.filterList.filter(element => element.filterType.id === 5);
+        return dest;
+    }
   },
   methods: {
     verTodos: function () {
