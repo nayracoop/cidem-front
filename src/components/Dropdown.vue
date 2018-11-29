@@ -4,9 +4,9 @@
 			v-if="filterCondition(type.id)" 
 			class="row landerHiddenF"
 			:key="type.id">
-			<div class="col-sm-12 col-md-10 offset-md-1">
+			<div class="col-sm-12 col-md-10 offset-md-1 drop">
 				<label for="tipo"></label>
-				<button class="btn rounded-0 btn-outline-secondary btn-block" 
+				<button class="btn btn-lg rounded-0 btn-outline-secondary btn-block" 
 						type="button" 
 						data-toggle="dropdown">{{type.name}}
 						<span class="Filterarrow">
@@ -122,8 +122,8 @@
     border-color:#ced4da;
 }
 
-label{
-	display:inline;
+.drop label{
+	position:absolute;
 }
 
 .scrollable-menu{

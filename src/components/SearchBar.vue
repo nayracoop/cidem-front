@@ -215,15 +215,13 @@
     background-color:#f4f4f4;
 }
 
-@media screen and (max-width: 767px){
-  
-  .searcherbox{
-    font-size:1rem;
-    font-weight:500;
-    height:auto;
-    padding:0.375rem 0.75rem;
-   }
 
+.searcherbox{
+border-color:#ced4da;
+}
+
+@media screen and (max-width: 767px){
+	
 	.input-group input {
 		font-weight:500;
 	}

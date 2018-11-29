@@ -199,6 +199,7 @@ $(function () {
 
 .all{
     font-size:0.875em;
+    margin-top:1em;
 }
 
 .all a{

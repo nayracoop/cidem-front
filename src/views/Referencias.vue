@@ -18,7 +18,7 @@
 		</div>
 		<div class="references">
 			<div class="row servicesRow">
-				<div class="offset-1 offset-lg-2 OFicons">
+				<div class="offset-md-1 offset-lg-2 OFicons">
 					<i class="fas fa-search"></i>
 				</div>	
 				<div class="col-12 col-md-7 col-lg-6 offset-md-1 OFtipos">
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="row servicesRow">
-				<div class="offset-1 offset-lg-2 OFicons">
+				<div class="offset-md-1 offset-lg-2 OFicons">
 					<i class="fas fa-microscope"></i>
 				</div>	
 				<div class="col-12 col-md-7 col-lg-6 offset-md-1 OFtipos">
@@ -54,7 +54,7 @@
 				</div>
 			</div>
 			<div class="row servicesRow">	
-				<div class="offset-1 offset-lg-2 OFicons">
+				<div class="offset-md-1 offset-lg-2 OFicons">
 					<i class="fas fa-clipboard-check"></i>
 				</div>
 				<div class="col-12 col-md-7 col-lg-6 offset-md-1 OFtipos">
@@ -72,7 +72,7 @@
 				</div>
 			</div>
 			<div class="row servicesRow">	
-				<div class="offset-1 offset-lg-2 OFicons">
+				<div class="offset-md-1 offset-lg-2 OFicons">
 					<i class="fas fa-tasks "></i>
 				</div>
 				<div class="col-12 col-md-7 col-lg-6 offset-md-1 OFtipos">
@@ -90,7 +90,7 @@
 				</div>
 			</div>
 			<div class="row servicesRow">	
-				<div class="offset-1 offset-lg-2 OFicons">	
+				<div class="offset-md-1 offset-lg-2 OFicons">	
 					<i class="fas fa-chart-line "></i>
 				</div>
 				<div class="col-12 col-md-7 col-lg-6 offset-md-1 OFtipos">
@@ -108,7 +108,7 @@
 				</div>
 			</div>						
 			<div class="row servicesRow">	
-				<div class="offset-1 offset-lg-2 OFicons">
+				<div class="offset-md-1 offset-lg-2 OFicons">
 					<i class="fas fa-graduation-cap "></i>
 				</div>
 				<div class="col-12 col-md-7 col-lg-6 offset-md-1 OFtipos">
@@ -126,7 +126,7 @@
 				</div>
 			</div>
 			<div class="row servicesRow">	
-				<div class="offset-1 offset-lg-2 OFicons">
+				<div class="offset-md-1 offset-lg-2 OFicons">
 					<i class="fas fa-balance-scale"></i>
 				</div>
 				<div class="col-12 col-md-7 col-lg-6 offset-md-1 OFtipos">
@@ -144,7 +144,7 @@
 				</div>
 			</div>
 			<div class="row servicesRow">	
-				<div class="offset-1 offset-lg-2 OFicons">
+				<div class="offset-md-1 offset-lg-2 OFicons">
 					<i class="fas fa-chart-bar"></i>
 				</div>
 				<div class="col-12 col-md-7 col-lg-6 offset-md-1 OFtipos">
@@ -281,11 +281,11 @@ main {
 	padding:1.5em;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .OFicons{
         margin:0 auto; 
-        width: 48px;
-        height: 3em;
+        width: 50px;
+        height: 50px;
     }
 
  	.OFicons i {
