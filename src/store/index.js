@@ -274,6 +274,8 @@ const store = new Vuex.Store({
 				name: newFilter.name,
 				tag: newFilter.tag, 
 				filter_type_id: newFilter.type,
+				icon: newFilter.icon,
+
 			},
 			{
 				headers: {
@@ -339,6 +341,8 @@ const store = new Vuex.Store({
 				name: editedFilter.name,
 				tag: editedFilter.tag, 
 				filter_type_id: editedFilter.type,
+				icon: editedFilter.icon,
+
 			},{
 				headers: {
 					'x-api-key': state.access_token,

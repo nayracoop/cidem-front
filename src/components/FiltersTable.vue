@@ -76,7 +76,15 @@
             <p class="validation-error" v-if="!$v.newFilter.type.required">{{validationText.req}}</p>
           </div>
         </b-form-group>
-              <p :class="{'alert-danger':creationDenied, 'validation-error':creationDenied, hide:!creationDenied}"> No se puede crear el filtro sin validar </p>
+        <b-form-group
+            description=""
+            label="Ícono (opcional)"
+            label-for="filterTag"
+            :label-cols="3"
+            :horizontal="true">
+          <b-form-input class="mt-2" id="filterIcon" type="text" placeholder="Ícono del filtro (opcional)" v-model="newFilter.icon"></b-form-input>
+        </b-form-group>
+        <p :class="{'alert-danger':creationDenied, 'validation-error':creationDenied, hide:!creationDenied}"> No se puede crear el filtro sin validar </p>
         <input type="submit" id="submit-create-form" hidden/>
     </b-form>
     <div v-if="filterCreated === true">
@@ -135,12 +143,12 @@
                 </div>
               </div>
             </b-form-group>
-              <b-form-group
-              description=""
-              label="Etiqueta del Filtro"
-              label-for="filterTag"
-              :label-cols="3"
-              :horizontal="true">
+            <b-form-group
+                description=""
+                label="Etiqueta del Filtro"
+                label-for="filterTag"
+                :label-cols="3"
+                :horizontal="true">
               <div v-if="editFilterTag === false" class="m-1 mt-2">
                 <p class="d-inline">{{editedFilter.tag}}</p> 
                 <b-badge @click="editFilterTag = true"  class='badge-pill badge-warning badge-action d-inline m-1'>
@@ -197,6 +205,29 @@
                   <div>
                     <p class="validation-error" v-if="!$v.editedFilter.type.required">{{validationText.req}}</p>
                   </div>
+              </div>
+            </b-form-group>
+             <b-form-group
+                description=""
+                label="Ícono (opcional)"
+                label-for="filterIcon"
+                :label-cols="3"
+                :horizontal="true">
+              <div v-if="editFilterIcon === false" class="m-1 mt-2">
+                <p class="d-inline">{{editedFilter.icon}}</p> 
+                <b-badge @click="editFilterIcon = true"  class='badge-pill badge-warning badge-action d-inline m-1'>
+                  <i class="fa fa-pencil"></i>
+                </b-badge>
+              </div>
+                <div v-if="editFilterIcon === true" class="d-inline">
+                <b-form-input id="filterIcon" type="text" :placeholder="currentFilter.icon" v-model="editedFilter.icon"></b-form-input>
+                <b-badge @click="editFilterIcon = false; editedFilter.icon = currentFilter.icon" class='badge-pill badge-danger badge-action float-right m-1'>
+                  <i class="fa fa-close"></i>
+                </b-badge>
+                <b-badge @click="editFilterIcon = false; changesWereMade = true"  
+                    class='badge-pill badge-action float-right m-1 badge-success'>
+                  <i class="fa fa-check"></i>
+                </b-badge>
               </div>
             </b-form-group>
             <input type="submit" id="submit-edit-form" hidden/>
@@ -284,13 +315,15 @@ export default {
       newFilter: {
         name: '',
         type: '',
-        tag: ''
+        tag: '',
+        icon: ''
       },
       editedFilter:{
         id: '',
         name: '',
         type: '',
-        tag: ''
+        tag: '',
+        icon: ''
       },
       currentFilter: {},
       filterCreated: false,
@@ -300,6 +333,7 @@ export default {
       editFilterName: false,
       editFilterTag: false,
       editFilterType: false,
+      editFilterIcon: false,
       changesWereMade: false,
       noChangesWereMade: false,
       editionDenied: false,
@@ -377,8 +411,8 @@ export default {
               tipo: this.filterList[i].filterType.name,
               filtro: this.filterList[i].name,
               etiqueta: this.filterList[i].tag,
-              tipoId: this.filterList[i].filterType.id
-              
+              tipoId: this.filterList[i].filterType.id,
+              icon: this.filterList[i].icon,              
           };
           rowsArray.push(holi);    
       }
@@ -411,6 +445,8 @@ export default {
         this.editedFilter.name = this.currentFilter.filtro;
         this.editedFilter.tag = this.currentFilter.etiqueta;
         this.editedFilter.type = this.currentFilter.tipoId;
+        this.editedFilter.icon = this.currentFilter.icon;
+
     },
     deleteFilter(filter){
         this.deleteModal = true;
@@ -431,6 +467,7 @@ export default {
         this.editedFilter.name = '';
         this.editedFilter.tag = '';
         this.editedFilter.type = '';
+        this.editedFilter.icon = '';
         this.filterDeleted = false;
         this.validate = false;
         this.loading = false;
@@ -477,7 +514,8 @@ export default {
         this.noChangesWereMade = false;
         this.editFilterType = false;
         this.editFilterName = false;
-        this.editFilterTag = false;       
+        this.editFilterTag = false;
+        this.editFilterIcon = false;              
       });
     },
     submitDeletedFilter(){
