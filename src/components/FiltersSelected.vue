@@ -1,7 +1,7 @@
 <template>
 	<div class="selectedfilters">
 		<dl v-show="searchQuery" id="search"  v-if="searchQuery !== ' '">
-     		<dd>{{searchQuery}} <i @click="removeQuery" class="fas fa-times-circle"></i></dd>
+     		<dd>{{'"'+searchQuery+'"'}} <i @click="removeQuery" class="fas fa-times-circle"></i></dd>
      	</dl>
 		<dl v-for="filter in selected" :key="filter.id">
 	        <dd alt="filter.name"> {{filter.tag}} <i @click="remove(filter.id)" class="fas fa-times-circle"></i></dd>
