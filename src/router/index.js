@@ -18,13 +18,11 @@ import AdminConsultas from '@/views/AdminConsultas'
 import AdminLogin from '@/views/AdminLogin'
 import store from '@/store';
 
-
-
 Vue.use(Router);
 
-
 export default new Router({
-  mode: 'history', //hay que hacer el catch-all en el server para que ande
+  mode: 'history',
+  base: process.env.BASE_URL,
   routes: [    
     {
       path: '/admin',
@@ -150,8 +148,6 @@ export default new Router({
           component: NotFound404
         }
       ]
-    }, 
-
-
+    },
   ]
 })
