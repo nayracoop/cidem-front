@@ -22,7 +22,7 @@ Vue.use(Router);
 
 export default new Router({
   mode: 'history',
-  // base: process.env.BASE_URL,
+  base: process.env.BASE_URL,
   routes: [    
     {
       path: '/admin',
@@ -141,13 +141,13 @@ export default new Router({
           path: '/contacto',
           name: 'Contact',
           component: Contact
-        },
-        {
-          path: '/*',
-          name: '404' ,
-          component: NotFound404
         }
       ]
     },
+    {
+      path: '/*',
+      name: '404' ,
+      component: NotFound404
+    }
   ]
 })
